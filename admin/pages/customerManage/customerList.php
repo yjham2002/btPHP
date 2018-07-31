@@ -15,6 +15,10 @@
             $("[name=page]").val($(this).attr("page"));
             form.submit();
         });
+
+        $(".jView").click(function(){
+            location.href = "/admin/pages/customerManage/customerDetail.php";
+        })
     });
 </script>
 
@@ -56,7 +60,7 @@
 
 
 
-        <table class="table table-bordered">
+        <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -68,7 +72,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="jView">
                 <td>John</td>
                 <td>Doe</td>
                 <td>john@example.com</td>
@@ -76,7 +80,7 @@
                 <td>john@example.com</td>
                 <td>john@example.com</td>
             </tr>
-            <tr>
+            <tr class="jView">
                 <td>Mary</td>
                 <td>Moe</td>
                 <td>mary@example.com</td>
@@ -84,7 +88,7 @@
                 <td>mary@example.com</td>
                 <td>mary@example.com</td>
             </tr>
-            <tr>
+            <tr class="jView">
                 <td>July</td>
                 <td>Dooley</td>
                 <td>july@example.com</td>

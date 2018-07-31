@@ -172,7 +172,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>홈페이지관</span>
+                <span>홈페이지관리</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="login.html">메인</a>
