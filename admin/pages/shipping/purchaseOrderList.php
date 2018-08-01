@@ -16,6 +16,10 @@
             $("[name=page]").val($(this).attr("page"));
             form.submit();
         });
+
+        $(".jDetail").click(function(){
+            location.href = "/admin/pages/shipping/purchaseOrderDetail.php"
+        });
     });
 </script>
 
@@ -47,7 +51,7 @@
                 </select>
             </div>
         </form>
-        
+
         <table class="table">
             <thead>
             <tr>
@@ -70,7 +74,7 @@
                 <td>610-82-78048</td>
                 <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
                 <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">상세</button></td>
+                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
             </tr>
             <tr>
                 <td>1</td>
@@ -80,7 +84,7 @@
                 <td>610-82-78048</td>
                 <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
                 <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">상세</button></td>
+                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
             </tr>
             <tr>
                 <td>1</td>
@@ -90,7 +94,7 @@
                 <td>610-82-78048</td>
                 <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
                 <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">상세</button></td>
+                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
             </tr>
             </tbody>
         </table>
