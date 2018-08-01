@@ -16,6 +16,10 @@
             $("[name=page]").val($(this).attr("page"));
             form.submit();
         });
+
+        $(".jHistory").click(function(){
+            location.href = "/admin/pages/customerManage/foreignHistory.php";
+        });
     });
 </script>
 
@@ -105,35 +109,35 @@
                 <td>ㅁㄴㅇㅁㄴㅇ</td>
                 <td style="padding-left: 0; padding-right: 0;">
                     <div class="dotWrap">
-                        <h3>6-7월 <i class="fas fa-fw fa-list"></i></h3>
+                        <h3>6-7월 <i class="fas fa-fw fa-list jHistory"></i></h3>
                         <div class="dot"><pickle>데이터</pickle></div>
                         <div class="dot text"><pickle>데이터</pickle></div>
                         <div class="dot"><pickle>배송</pickle></div>
                         <div class="dot disabled"><pickle>데이터</pickle></div>
                     </div>
                     <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list"></i></h3>
+                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
                         <div class="dot"><pickle>데이터</pickle></div>
                         <div class="dot text"><pickle>데이터</pickle></div>
                         <div class="dot"><pickle>배송</pickle></div>
                         <div class="dot disabled"><pickle>데이터</pickle></div>
                     </div>
                     <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list"></i></h3>
+                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
                         <div class="dot"><pickle>데이터</pickle></div>
                         <div class="dot text"><pickle>데이터</pickle></div>
                         <div class="dot"><pickle>배송</pickle></div>
                         <div class="dot disabled"><pickle>데이터</pickle></div>
                     </div>
                     <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list"></i></h3>
+                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
                         <div class="dot"><pickle>데이터</pickle></div>
                         <div class="dot text"><pickle>데이터</pickle></div>
                         <div class="dot"><pickle>배송</pickle></div>
                         <div class="dot disabled"><pickle>데이터</pickle></div>
                     </div>
                     <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list"></i></h3>
+                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
                         <div class="dot"><pickle>데이터</pickle></div>
                         <div class="dot text"><pickle>데이터</pickle></div>
                         <div class="dot"><pickle>배송</pickle></div>
