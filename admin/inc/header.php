@@ -143,7 +143,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">발주서:</h6>
-                <a class="dropdown-item" href="login.html">발주서 조회</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderList.php">발주서 조회</a>
                 <a class="dropdown-item" href="register.html">발주입력</a>
                 <a class="dropdown-item" href="register.html">발주보고서</a>
                 <div class="dropdown-divider"></div>
