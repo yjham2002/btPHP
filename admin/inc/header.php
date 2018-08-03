@@ -175,10 +175,10 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <span>홈페이지관리</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="login.html">메인</a>
-                <a class="dropdown-item" href="register.html">후원</a>
-                <a class="dropdown-item" href="register.html">구독</a>
-                <a class="dropdown-item" href="register.html">관리자</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/mainPage.php">메인</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/subscriptionPage.php">구독</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>
             </div>
         </li>
 
