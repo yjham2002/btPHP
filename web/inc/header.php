@@ -43,7 +43,7 @@
             <a class="langBtn" href="#"><img src="/web/images/lang_es.png" />ES | </a>
             <a class="langBtn" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
 
-            <a class="link" href="#">마이페이지</a>
+            <a class="link" href="/web/pages/mypage.php">마이페이지</a>
         </div>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>
