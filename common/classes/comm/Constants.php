@@ -30,7 +30,7 @@ if(! class_exists("Constants") )
 //		var $fileSaveUrl_480		= "/480/" ;
 
  		var $dbHost					= "picklecode.co.kr";
- 		var $dbName					= "bibleTime" ;
+ 		var $dbName					= "bibleTime_db" ;
  		var $dbUser					= "root" ;
  		var $dbPass					= "pickle!@#$" ;
  		var $charset				= "utf8" ;

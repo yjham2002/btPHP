@@ -148,7 +148,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderReport.php">발주보고서</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">입/출고 관리:</h6>
-                <a class="dropdown-item" href="404.html">재고현황/조회</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/stockList.php">재고현황/조회</a>
                 <a class="dropdown-item" href="blank.html">입고 입력</a>
                 <a class="dropdown-item" href="blank.html">출고 입력</a>
                 <div class="dropdown-divider"></div>
