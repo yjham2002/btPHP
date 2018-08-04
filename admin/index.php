@@ -53,7 +53,7 @@
             var params = new sehoMap();
             params.put("account", $("#account").val());
             params.put("password", $("#password").val());
-            var ajax = new AjaxSender("/action_front.php?cmd=AdminMain.login", false, "json", params);
+            var ajax = new AjaxSender("/route.php?cmd=AdminMain.login", false, "json", params);
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     location.href = "/admin/pages/index.php";

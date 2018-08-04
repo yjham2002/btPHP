@@ -57,7 +57,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
 <script>
     $(document).ready(function(){
         $(".jLogout").click(function(){
-            var ajax = new AjaxSender("/action_front.php?cmd=AdminMain.logout", false, "json", new sehoMap());
+            var ajax = new AjaxSender("/route.php?cmd=AdminMain.logout", false, "json", new sehoMap());
             ajax.send(function(data){
                 if(data.returnCode === 1) location.href = "/admin";
             });
@@ -179,6 +179,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/subscriptionPage.php">구독</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어</a>
             </div>
         </li>
 
