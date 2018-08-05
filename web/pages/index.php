@@ -8,7 +8,6 @@
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
-
 <!-- Banner -->
 <section id="banner" style="background-image: url('/web/images/banner.jpg');">
     <h1>BIBLETIME</h1>

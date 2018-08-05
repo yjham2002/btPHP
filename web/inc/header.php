@@ -7,6 +7,29 @@
  */
 ?>
 
+<? include $_SERVER["DOCUMENT_ROOT"] . "/web/inc/geoip.inc.php";?>
+
+<?
+    // open the geoip database
+    $gi = geoip_open("GeoIP.dat",GEOIP_STANDARD);
+    
+    //$ipAddress = '165.69.10.27'; // news.com.au
+    //$ipAddress = '202.21.128.102'; // stuff.co.nz
+    //$ipAddress = '212.58.251.195'; // bbc.co.uk
+    $ipAddress = $_SERVER['REMOTE_ADDR']; // user IP address
+
+    // to get country code
+    $country_code = geoip_country_code_by_addr($gi, $ipAddress);
+    echo "Your country code is: $country_code <br/>";
+
+    // to get country name
+    $country_name = geoip_country_name_by_addr($gi, $ipAddress);
+    echo "Your country name is: $country_name <br/>";
+
+    // close the database
+    geoip_close($gi);
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>

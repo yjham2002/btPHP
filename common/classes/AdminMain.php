@@ -91,9 +91,13 @@ if(!class_exists("AdminMain")){
 //        }
 
 
+        function _upsertLangJson(){
+            $this->upsertLangJson($_REQUEST["code"], $_REQUEST["json"]);
+        }
 
         function upsertLangJson($code, $jsonArray){
-            $json = json_encode($jsonArray);
+            $json = $jsonArray;
+
             $sql = "
             INSERT INTO tblLangJson(`code`, `json`, `regDate`)
             VALUES ('{$code}', '{$json}', NOW())
@@ -103,10 +107,15 @@ if(!class_exists("AdminMain")){
             $this->update($sql);
         }
 
+        function _getLangJson(){
+            return json_encode($this->getLangJson($_REQUEST["code"]));
+        }
+
         function getLangJson($code){
             $sql = "SELECT * FROM tblLangJson WHERE `code` = '{$code}'";
             return $this->getRow($sql);
         }
+
     }
 
 
