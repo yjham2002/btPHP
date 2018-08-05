@@ -62,7 +62,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 if(data.returnCode === 1) location.href = "/admin";
             });
         });
-    })
+    });
 </script>
 
 <body id="page-top">

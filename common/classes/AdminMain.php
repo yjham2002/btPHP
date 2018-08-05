@@ -58,52 +58,18 @@ if(!class_exists("AdminMain")){
             $this->update($sql);
         }
 
-//        function adminList(){
-//            $sql = "
-//                SELECT * FROM tblAdmin
-//                WHERE status = 1
-//                ORDER BY regDate DESC
-//            ";
-//
-//            return $this->getArray($sql);
-//        }
-//
-//        function adminInfo(){
-//            $id = $_REQUEST["id"];
-//            $sql = "SELECT * FROM tblAdmin WHERE adminNo = '{$id}' AND status = 1";
-//            return $this->getRow($sql);
-//        }
-//
-//
-//        function deleteAdmin(){
-//            $noArr = $this->req["no"];
-//
-//            $noStr = implode(',', $noArr);
-//
-//            $sql = "
-//				UPDATE tblAdmin
-//				SET status = 0
-//				WHERE `adminNo` IN({$noStr})
-//			";
-//            $this->update($sql);
-//
-//            return $this->makeResultJson(1, "succ");
-//        }
-
-
         function _upsertLangJson(){
             $this->upsertLangJson($_REQUEST["code"], $_REQUEST["json"]);
         }
 
         function upsertLangJson($code, $jsonArray){
-            $json = $jsonArray;
+            $json = mysql_escape_string($jsonArray);
 
             $sql = "
             INSERT INTO tblLangJson(`code`, `json`, `regDate`)
             VALUES ('{$code}', '{$json}', NOW())
             ON DUPLICATE KEY UPDATE `json`='{$json}'
             ";
-
             $this->update($sql);
         }
 

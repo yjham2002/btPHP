@@ -32,7 +32,7 @@
                 if(data == null) return;
 
                 var map = JSON.parse(data.json);
-                console.log(map);
+                // console.log(map);
 
                 $.each(map, function(key, value){
                     $('input[key='+key+']').val(value);
@@ -151,7 +151,14 @@
                     <td class="bg-secondary text-light langKey" key="home_topSubTitle">홈[상단 하위 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="home_topSubTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
-
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_midTitle">홈[중단 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="home_midTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_midSubTitle">홈[중단 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="home_midSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
 
                 <tr class="h-auto">
                     <td class="bg-secondary text-light">메뉴[나눔]</td>
