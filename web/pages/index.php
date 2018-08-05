@@ -141,8 +141,8 @@
 
 <!-- Three -->
 <section class="wrapper special sectionCover" style="background-image: url('/web/images/section_cover.jpg');">
-    <h1>사람이 빵으로만 살것이 아니라,<br/>하나님의 입에서 나오는 모든 말씀으로 살것이다</h1>
-    <p>- 마태복음 4장 4절 -</p>
+    <h1><?=$HOME_ELEMENTS["midBottom"]["title"]?></h1>
+    <p><?=$HOME_ELEMENTS["midBottom"]["subTitle"]?></p>
 </section>
 
 <section id="three" class="wrapper special darkSection">
@@ -154,10 +154,10 @@
         <div class="flex flex-2 darkness">
             <article>
                 <div class="empLine"></div>
-                <h2>어둠 속에 있는 아이들에게 성경을 보내주세요!</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <h2><?=$HOME_ELEMENTS["bottom"]["title"]?></h2>
+                <p><?=$HOME_ELEMENTS["bottom"]["text"]?></p>
                 <footer>
-                    <a href="#" class="bottomLink">후원하기 >></a>
+                    <a href="#" class="bottomLink"><?=$HEADER_ELEMENTS["headerMenu_support"]?> >></a>
                 </footer>
             </article>
             <article>

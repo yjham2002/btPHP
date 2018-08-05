@@ -56,7 +56,43 @@
         "mid" => Array(
             "title" => $langJson->home_midTitle,
             "subTitle" => $langJson->home_midSubTitle
+        ),
+        "midBottom" => Array(
+            "title" => $langJson->home_midBottomTitle,
+            "subTitle" => $langJson->home_midBottomSubTitle
+        ),
+        "bottom" => Array(
+            "title" => $langJson->home_bottomTitle,
+            "text" => $langJson->home_bottomText
         )
+    );
+
+    $INTRODUCTION_ELEMENTS = Array(
+        
+    );
+
+    $SUBSCRIBE_ELEMENTS = Array(
+
+    );
+
+    $SUPPORT_ELEMENTS = Array(
+
+    );
+
+    $SHARE_ELEMENTS = Array(
+
+    );
+
+    $FAQ_ELEMENTS = Array(
+
+    );
+
+    $LOGIN_ELEMENTS = Array(
+
+    );
+
+    $MYPAGE_ELEMENTS = Array(
+
     );
 
 //    echo json_encode($HEADER_ELEMENTS);

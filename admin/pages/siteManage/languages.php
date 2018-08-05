@@ -106,7 +106,7 @@
 
             <br/>
 
-            <table class="table table-sm table-bordered w-auto text-center">
+            <table class="table table-sm table-bordered text-center">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -127,7 +127,7 @@
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="headerMenu_subscribe">메뉴[구독]</td>
-                    <td><input type="text" class="form-control langValue" key="headerMenu_introduce" value="" placeholder="내용을 입력하세요" /></td>
+                    <td><input type="text" class="form-control langValue" key="headerMenu_subscribe" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="headerMenu_support">메뉴[후원]</td>
@@ -158,6 +158,24 @@
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="home_midSubTitle">홈[중단 하위 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="home_midSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_midBottomTitle">홈[중하단 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="home_midBottomTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_midBottomSubTitle">홈[중하단 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="home_midBottomSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_bottomTitle">홈[하단 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="home_bottomTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="home_bottomText">홈[하단 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="home_bottomText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
                 <tr class="h-auto">
