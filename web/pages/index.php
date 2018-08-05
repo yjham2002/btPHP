@@ -25,11 +25,9 @@
 <section class="wrapper special books">
     <div class="inner">
         <header>
-            <h2>"날마다 새로운 말씀을 먹어봐요."</h2>
+            <h2><?=$HOME_ELEMENTS["mid"]["title"]?></h2>
             <p>
-                BibleTime선교회는 전세계 모든 사람이<br/>
-                하나님 말씀을 읽게 하기 위해<br/>
-                '성경읽기운동'을 하는 비영리선교단체입니다.
+                <?=$HOME_ELEMENTS["mid"]["subTitle"]?>
             </p>
         </header>
         <div class="flex flex-4">
