@@ -13,6 +13,8 @@
 <?
     $obj = new WebUser($_REQUEST);
 
+    $country_code = $_COOKIE["btLocale"];
+    
     if (!isset($_COOKIE["btLocale"])) {
         $gi = geoip_open($obj->geoipPath . "GeoIP.dat",GEOIP_STANDARD);
         if (!empty($_SERVER["HTTP_CLIENT_IP"]))             //공용 IP 확인
@@ -33,8 +35,6 @@
 
         setcookie("btLocale", $country_code, time()+60*60*24*100, "/");
     }
-
-    $country_code = $_COOKIE["btLocale"];
 
     $sql = "
         SELECT * FROM tblLangJson WHERE `code` = '{$country_code}'
