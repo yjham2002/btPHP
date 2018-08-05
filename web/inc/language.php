@@ -13,24 +13,28 @@
 <?
     $obj = new WebUser($_REQUEST);
 
-    $gi = geoip_open($obj->geoipPath . "GeoIP.dat",GEOIP_STANDARD);
-    if (!empty($_SERVER["HTTP_CLIENT_IP"]))             //공용 IP 확인
-        $ip = $_SERVER["HTTP_CLIENT_IP"];
-    elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))   // 프록시 사용하는지 확인
-        $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-    else
-        $ip = $_SERVER["REMOTE_ADDR"];
+    if (!isset($_COOKIE["btLocale"])) {
+        $gi = geoip_open($obj->geoipPath . "GeoIP.dat",GEOIP_STANDARD);
+        if (!empty($_SERVER["HTTP_CLIENT_IP"]))             //공용 IP 확인
+            $ip = $_SERVER["HTTP_CLIENT_IP"];
+        elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))   // 프록시 사용하는지 확인
+            $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        else
+            $ip = $_SERVER["REMOTE_ADDR"];
 
-    $country_code = geoip_country_code_by_addr($gi, $ip);
-//    echo "Your country code is: $country_code";
+        $country_code = geoip_country_code_by_addr($gi, $ip);
+        $country_name = geoip_country_name_by_addr($gi, $ip);
 
-    $country_name = geoip_country_name_by_addr($gi, $ip);
-//    echo "Your country name is: $country_name <br/>";
+        $country_code = strtolower($country_code);
+        geoip_close($gi);
 
-    $country_code = strtolower($country_code);
-    geoip_close($gi);
+        //test
+        $country_code = "kr";
 
-    $country_code = "kr";
+        setcookie("btLocale", $country_code, time()+60*60*24*100, "/");
+    }
+
+    $country_code = $_COOKIE["btLocale"];
 
     $sql = "
         SELECT * FROM tblLangJson WHERE `code` = '{$country_code}'
@@ -68,7 +72,7 @@
     );
 
     $INTRODUCTION_ELEMENTS = Array(
-        
+
     );
 
     $SUBSCRIBE_ELEMENTS = Array(

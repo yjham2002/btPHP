@@ -33,6 +33,8 @@
 
 <script>
     $(document).ready(function(){
+        console.log(getCookie("btLocale"));
+
         var url = window.location.pathname;
         $(".headerMenu").each(function(){
             $(this).removeClass("selected");
@@ -41,6 +43,36 @@
         });
 
         if(url === "/web/pages/") $(".headerMenu").eq(0).addClass("selected");
+
+        // 쿠키 생성
+        function setCookie(cName, cValue, cDay){
+            var expire = new Date();
+            expire.setDate(expire.getDate() + cDay);
+            cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
+            if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
+            document.cookie = cookies;
+        }
+
+        // 쿠키 가져오기
+        function getCookie(cName){
+            cName = cName + '=';
+            var cookieData = document.cookie;
+            var start = cookieData.indexOf(cName);
+            var cValue = '';
+            if(start != -1){
+                start += cName.length;
+                var end = cookieData.indexOf(';', start);
+                if(end == -1)end = cookieData.length;
+                cValue = cookieData.substring(start, end);
+            }
+            return unescape(cValue);
+        }
+
+        $(".langBtn").click(function(){
+            var val = $(this).attr("loc");
+            setCookie('btLocale', val, 1);
+            location.reload();
+        });
     });
 </script>
 
@@ -57,10 +89,10 @@
             <a class="headerMenu" match="/web/pages/faq.php" href="/web/pages/faq.php"><?=$HEADER_ELEMENTS["headerMenu_faq"]?></a>
         </nav>
         <div class="rightBox">
-            <a class="langBtn" href="#"><img src="/web/images/lang_ko.png" />KO | </a>
-            <a class="langBtn" href="#"><img src="/web/images/lang_en.png" />EN | </a>
-            <a class="langBtn" href="#"><img src="/web/images/lang_es.png" />ES | </a>
-            <a class="langBtn" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
+            <a class="langBtn" loc="kr" href="#"><img src="/web/images/lang_ko.png" />KO | </a>
+            <a class="langBtn" loc="en" href="#"><img src="/web/images/lang_en.png" />EN | </a>
+            <a class="langBtn" loc="es" href="#"><img src="/web/images/lang_es.png" />ES | </a>
+            <a class="langBtn" loc="zh" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
 
             <a class="link" href="/web/pages/mypage.php">마이페이지</a>
         </div>
