@@ -25,6 +25,8 @@ if(! class_exists("Constants") )
         var $fileShowPath           = "/uploadFiles/";
 
         var $serverRoot				= "http://huneps.com:10040/";
+
+        var $geoipPath              = "/usr/local/var/BibleTime/web/inc/";
 				
 //		var $fileSaveUrl			= "/upload_img/" ;
 //		var $fileSaveUrl_480		= "/480/" ;

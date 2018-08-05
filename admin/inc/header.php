@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Dashboard</title>
+    <title>BibleTime Admin</title>
 
     <!-- Bootstrap core CSS-->
     <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

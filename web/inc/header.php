@@ -7,27 +7,10 @@
  */
 ?>
 
-<? include $_SERVER["DOCUMENT_ROOT"] . "/web/inc/geoip.inc.php";?>
-
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/web/inc/language.php";?>
 <?
-    // open the geoip database
-    $gi = geoip_open("GeoIP.dat",GEOIP_STANDARD);
-    
-    //$ipAddress = '165.69.10.27'; // news.com.au
-    //$ipAddress = '202.21.128.102'; // stuff.co.nz
-    //$ipAddress = '212.58.251.195'; // bbc.co.uk
-    $ipAddress = $_SERVER['REMOTE_ADDR']; // user IP address
-
-    // to get country code
-    $country_code = geoip_country_code_by_addr($gi, $ipAddress);
-    echo "Your country code is: $country_code <br/>";
-
-    // to get country name
-    $country_name = geoip_country_name_by_addr($gi, $ipAddress);
-    echo "Your country name is: $country_name <br/>";
-
-    // close the database
-    geoip_close($gi);
+    $url = $_SERVER['REQUEST_URI'];
 ?>
 
 <!DOCTYPE HTML>
@@ -48,17 +31,30 @@
 </head>
 <body class="subpage">
 
+<script>
+    $(document).ready(function(){
+        var url = window.location.pathname;
+        $(".headerMenu").each(function(){
+            $(this).removeClass("selected");
+            var match = $(this).attr("match");
+            if(url.includes(match)) $(this).addClass("selected");
+        });
+
+        if(url === "/web/pages/") $(".headerMenu").eq(0).addClass("selected");
+    });
+</script>
+
 <!-- Header -->
 <header id="header">
     <div class="inner">
-        <a href="/web" class="logo">BIBLETIME</a>
+        <a href="/web" class="logo"><?=$HEADER_ELEMENTS["webTitle"]?></a>
         <nav id="nav">
-            <a class="selected" href="/web">Home</a>
-            <a href="/web/pages/introduction.php">소개</a>
-            <a href="/web/pages/subscription.php">구독하기</a>
-            <a href="/web/pages/contribution.php">후원하기</a>
-            <a href="/web/pages/donation.php">나눔</a>
-            <a href="/web/pages/faq.php">FAQ</a>
+            <a class="selected headerMenu" href="/web"><?=$HEADER_ELEMENTS["headerMenu_home"]?></a>
+            <a class="headerMenu" match="/web/pages/introduction.php" href="/web/pages/introduction.php"><?=$HEADER_ELEMENTS["headerMenu_introduce"]?></a>
+            <a class="headerMenu" match="/web/pages/subscription.php" href="/web/pages/subscription.php"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
+            <a class="headerMenu" match="/web/pages/contribution.php" href="/web/pages/contribution.php"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
+            <a class="headerMenu" match="/web/pages/donation.php" href="/web/pages/donation.php"><?=$HEADER_ELEMENTS["headerMenu_share"]?></a>
+            <a class="headerMenu" match="/web/pages/faq.php" href="/web/pages/faq.php"><?=$HEADER_ELEMENTS["headerMenu_faq"]?></a>
         </nav>
         <div class="rightBox">
             <a class="langBtn" href="#"><img src="/web/images/lang_ko.png" />KO | </a>

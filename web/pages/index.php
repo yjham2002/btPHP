@@ -8,13 +8,13 @@
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+
 <!-- Banner -->
 <section id="banner" style="background-image: url('/web/images/banner.jpg');">
-    <h1>BIBLETIME</h1>
-    <p>BibleTime Experiencing Era</p>
-    <a href="#" class="bannerLink">구독하기</a>
-    <a href="#" class="bannerLink">후원하기</a>
-
+    <h1><?=$HOME_ELEMENTS["top"]["title"]?></h1>
+    <p><?=$HOME_ELEMENTS["top"]["subTitle"]?></p>
+    <a href="#" class="bannerLink"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
+    <a href="#" class="bannerLink"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
     <!--<div class="bannerScreen">
         <img src="images/bb_banner_cut.png" class="bannerImg" />
     </div>-->
