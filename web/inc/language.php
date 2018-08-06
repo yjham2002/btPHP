@@ -14,7 +14,7 @@
     $obj = new WebUser($_REQUEST);
 
     $country_code = $_COOKIE["btLocale"];
-    
+
     if (!isset($_COOKIE["btLocale"])) {
         $gi = geoip_open($obj->geoipPath . "GeoIP.dat",GEOIP_STANDARD);
         if (!empty($_SERVER["HTTP_CLIENT_IP"]))             //공용 IP 확인
@@ -72,7 +72,38 @@
     );
 
     $INTRODUCTION_ELEMENTS = Array(
-
+        "title" => $langJson->intro_title,
+        "start" => Array(
+            "title" => $langJson->intro_startTitle,
+            "subTitle" => $langJson->intro_startSubTitle,
+            "text" => $langJson->intro_startText
+        ),
+        "phrase" => Array(
+            "text" => $langJson->intro_phraseText,
+            "loc" => $langJson->intro_phraseLoc
+        ),
+        "box" => Array(
+            "title" => $langJson->intro_boxTitle,
+            "text" => $langJson->intro_boxText
+        ),
+        "article" => Array(
+            "title" => $langJson->intro_articleTitle,
+            "phrase" => $langJson->intro_articlePhrase,
+            "subTitle" => $langJson->intro_articleSubTitle,
+            "text" => $langJson->intro_articleText
+        ),
+        "secondPhrase" => Array(
+            "text" => $langJson->intro_secondPhraseText,
+            "loc" => $langJson->intro_secondPhraseLoc
+        ),
+        "prologue" => Array(
+            "title" => $langJson->intro_prologueTitle,
+            "text" => $langJson->intro_prologueText
+        ),
+        "secondArticle" => Array(
+            "title" => $langJson->intro_secondArticleTitle,
+            "text" => $langJson->intro_secondArticleText
+        )
     );
 
     $SUBSCRIBE_ELEMENTS = Array(

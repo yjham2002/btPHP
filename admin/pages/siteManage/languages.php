@@ -67,7 +67,7 @@
                 $.ajax({
                     url : "/route.php?cmd=AdminMain._upsertLangJson",
                     async : true,
-                    type : 'get',
+                    type : 'post',
                     data : {
                         code : $(".jLang").val(),
                         json : JSON.stringify(jsonArr.map)
@@ -142,7 +142,7 @@
                     <td><input type="text" class="form-control langValue" key="headerMenu_faq" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
-
+<!--                HOME ELEMENTS-->
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="home_topTitle">홈[상단 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="home_topTitle" value="" placeholder="내용을 입력하세요" /></td>
@@ -178,14 +178,95 @@
                     <td><input type="text" class="form-control langValue" key="home_bottomText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
+<!--                INTRODUCTION ELEMENTS-->
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light">메뉴[나눔]</td>
-                    <td>나눔</td>
+                    <td class="bg-secondary text-light langKey" key="intro_title">소개[타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_title" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light">메뉴[FAQ]</td>
-                    <td>FAQ</td>
+                    <td class="bg-secondary text-light langKey" key="intro_startTitle">소개[시작 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_startTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_startSubTitle">소개[시작 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_startSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_startText">소개[시작 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_startText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_phraseText">소개[성경구절]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_phraseText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_phraseLoc">소개[구절 위치(장/절)]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_phraseLoc" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_boxTitle">소개[역사 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_boxTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_boxText">소개[역사 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_boxText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_articleTitle">소개[아티클 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_articleTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_articlePhrase">소개[아티클 문구]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_articlePhrase" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_articleSubTitle">소개[아티클 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_articleSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_articleText">소개[아티클 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_articleText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_secondPhraseText">소개[두번째 성경구절]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondPhraseText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_secondPhraseLoc">소개[두번째 구절 위치(장/절)]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondPhraseLoc" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_prologueTitle">소개[인사말 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_prologueTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_prologueText">소개[인사말 내용]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_prologueText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_secondArticleTitle">소개[두번째 아티클 제목]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondArticleTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="intro_secondArticleText">소개[두번째 아티클 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondArticleText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+
+<!--                <tr class="h-auto">-->
+<!--                    <td class="bg-secondary text-light">메뉴[나눔]</td>-->
+<!--                    <td>나눔</td>-->
+<!--                </tr>-->
+<!--                <tr class="h-auto">-->
+<!--                    <td class="bg-secondary text-light">메뉴[FAQ]</td>-->
+<!--                    <td>FAQ</td>-->
+<!--                </tr>-->
             </table>
 
             <hr>
