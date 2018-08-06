@@ -21,7 +21,7 @@ $obj = new webUser($_REQUEST);
 <section class="wrapper special books">
     <div class="inner">
         <header>
-            <h2 class="pageTitle">구독하기</h2>
+            <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
             <div class="empLineT"></div>
             <div class="image fit thin" style="background-image: url('/web/images/sub_main.jpg');">
             </div>

@@ -250,7 +250,7 @@
                 </tr>
 
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_secondArticleTitle">소개[두번째 아티클 제목]</td>
+                    <td class="bg-secondary text-light langKey" key="intro_secondArticleTitle">소개[두번째 아티클 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="intro_secondArticleTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
@@ -258,6 +258,100 @@
                     <td><input type="text" class="form-control langValue" key="intro_secondArticleText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
+<!--                SUBSCRIBE ELEMENTS-->
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="subscribe_title">구독[타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="subscribe_title" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+<!--                SUPPORT ELEMENTS-->
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="support_articleTitle">후원[아티클 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="support_articleTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="support_articleText">후원[아티클 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="support_articleText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="support_phrase">후원[문구]</td>
+                    <td><input type="text" class="form-control langValue" key="support_phrase" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+<!--                SHARE ELEMENTS-->
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_title">나눔[타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_title" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_subTitle">나눔[하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_subTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_viewText">나눔[조회 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="share_viewText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_articleText">나눔[게시물 텍스트]</td>
+                    <td><input type="text" class="form-control langValue" key="share_articleText" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_noticeTitle">나눔[공지사항 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_noticeTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_noticeSubTitle">나눔[공지사항 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_noticeSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_imgTitle">나눔[이미지 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_imgTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_imgSubTitle">나눔[이미지 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_imgSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_videoTitle">나눔[영상 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_videoTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_videoSubTitle">나눔[영상 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_videoSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_quizTitle">나눔[퀴즈 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_quizTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_quizSubTitle">나눔[퀴즈 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_quizSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_audioTitle">나눔[오디오북 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_audioTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="share_audioSubTitle">나눔[오디오북 하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="share_audioSubTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+
+<!--                FAQ ELEMENTS-->
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="faq_title">faq[타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="faq_title" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light langKey" key="faq_subTitle">faq[하위 타이틀]</td>
+                    <td><input type="text" class="form-control langValue" key="faq_subTitle" value="" placeholder="내용을 입력하세요" /></td>
+                </tr>
 
 <!--                <tr class="h-auto">-->
 <!--                    <td class="bg-secondary text-light">메뉴[나눔]</td>-->

@@ -10,7 +10,40 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
+
 $obj = new webUser($_REQUEST);
+
+$boardTitle = "게시판명";
+$boardDesc = "게시판 부가설명";
+
+if($_REQUEST["order"] == ""){
+    echo "<script>location.href('articleList.php?order=0');</script>";
+}
+
+switch ($_REQUEST["order"]){
+    case 0:
+        $boardTitle = $SHARE_ELEMENTS["notice"]["title"];
+        $boardDesc = $SHARE_ELEMENTS["notice"]["subTitle"];
+        break;
+    case 1:
+        $boardTitle = $SHARE_ELEMENTS["img"]["title"];
+        $boardDesc = $SHARE_ELEMENTS["img"]["subTitle"];
+    break;
+    case 2:
+        $boardTitle = $SHARE_ELEMENTS["video"]["title"];
+        $boardDesc = $SHARE_ELEMENTS["video"]["subTitle"];
+        break;
+    case 3:
+        $boardTitle = $SHARE_ELEMENTS["quiz"]["title"];
+        $boardDesc = $SHARE_ELEMENTS["quiz"]["subTitle"];
+        break;
+    case 4:
+        $boardTitle = $SHARE_ELEMENTS["audio"]["title"];
+        $boardDesc = $SHARE_ELEMENTS["audio"]["subTitle"];
+        break;
+    default : break;
+}
+
 ?>
 <script>
     $(document).ready(function(){
@@ -20,14 +53,14 @@ $obj = new webUser($_REQUEST);
 
 <section class="wrapper special books" style="padding : 1.5em 0;">
     <div class="inner">
-        <h5 class="dirHelper">BibleTime 나눔 > 게시판명</h5>
+        <h5 class="dirHelper">BibleTime 나눔 > <?=$boardTitle?></h5>
     </div>
 </section>
 
 <section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_bottom.jpg');">
-    <h1 style="color:white; font-size:2.8em; margin:0; line-height:1.3em;">게시판명</h1>
+    <h1 style="color:white; font-size:2.8em; margin:0; line-height:1.3em;"><?=$boardTitle?></h1>
     <div class="empLineT white"></div>
-    <h3 class="nanumGothic" style="color:white; font-size:1.3em">게시판 부가 설명이 삽입됩니다.</h3>
+    <h3 class="nanumGothic" style="color:white; font-size:1.3em"><?=$boardDesc?></h3>
 
 </section>
 

@@ -107,19 +107,49 @@
     );
 
     $SUBSCRIBE_ELEMENTS = Array(
-
+        "title" => $langJson->subscribe_title
     );
 
     $SUPPORT_ELEMENTS = Array(
-
+        "article" => Array(
+            "title" => $langJson->support_articleTitle,
+            "text" => $langJson->support_articleText
+        ),
+        "phrase" => $langJson->support_phrase
     );
 
     $SHARE_ELEMENTS = Array(
-
+        "title" => $langJson->share_title,
+        "subTitle" => $langJson->share_subTitle,
+        "common" => Array(
+          "viewText" => $langJson->share_viewText,
+          "articleText" => $langJson->share_articleText
+        ),
+        "notice" => Array(
+            "title" => $langJson->share_noticeTitle,
+            "subTitle" => $langJson->share_noticeSubTitle
+        ),
+        "img" => Array(
+            "title" => $langJson->share_imgTitle,
+            "subTitle" => $langJson->share_imgSubTitle
+        ),
+        "video" => Array(
+            "title" => $langJson->share_videoTitle,
+            "subTitle" => $langJson->share_videoSubTitle
+        ),
+        "quiz" => Array(
+            "title" => $langJson->share_quizTitle,
+            "subTitle" => $langJson->share_quizSubTitle
+        ),
+        "audio" => Array(
+            "title" => $langJson->share_audioTitle,
+            "subTitle" => $langJson->share_audioSubTitle
+        )
     );
 
     $FAQ_ELEMENTS = Array(
-
+        "title" => $langJson->faq_title,
+        "subTitle" => $langJson->faq_subTitle
     );
 
     $LOGIN_ELEMENTS = Array(
