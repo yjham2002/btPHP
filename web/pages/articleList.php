@@ -8,60 +8,32 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBoard.php";?>
 <?
 
-$obj = new webUser($_REQUEST);
-
-$boardTitle = "게시판명";
-$boardDesc = "게시판 부가설명";
-
-if($_REQUEST["order"] == ""){
-    echo "<script>location.href('articleList.php?order=0');</script>";
-}
-
-switch ($_REQUEST["order"]){
-    case 0:
-        $boardTitle = $SHARE_ELEMENTS["notice"]["title"];
-        $boardDesc = $SHARE_ELEMENTS["notice"]["subTitle"];
-        break;
-    case 1:
-        $boardTitle = $SHARE_ELEMENTS["img"]["title"];
-        $boardDesc = $SHARE_ELEMENTS["img"]["subTitle"];
-    break;
-    case 2:
-        $boardTitle = $SHARE_ELEMENTS["video"]["title"];
-        $boardDesc = $SHARE_ELEMENTS["video"]["subTitle"];
-        break;
-    case 3:
-        $boardTitle = $SHARE_ELEMENTS["quiz"]["title"];
-        $boardDesc = $SHARE_ELEMENTS["quiz"]["subTitle"];
-        break;
-    case 4:
-        $boardTitle = $SHARE_ELEMENTS["audio"]["title"];
-        $boardDesc = $SHARE_ELEMENTS["audio"]["subTitle"];
-        break;
-    default : break;
-}
-
+    $obj = new webBoard($_REQUEST);
+    $categoryInfo = $obj->getCategoryInfo();
+    $list = $obj->getArticleList();
 ?>
 <script>
     $(document).ready(function(){
-
+        $(".jView").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/web/pages/articleDetail.php?categoryId=<?=$_REQUEST["categoryId"]?>&articleId=" + id;
+        });
     });
 </script>
 
 <section class="wrapper special books" style="padding : 1.5em 0;">
     <div class="inner">
-        <h5 class="dirHelper">BibleTime 나눔 > <?=$boardTitle?></h5>
+        <h5 class="dirHelper">BibleTime 나눔 > <?=$categoryInfo["name"]?></h5>
     </div>
 </section>
 
 <section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_bottom.jpg');">
-    <h1 style="color:white; font-size:2.8em; margin:0; line-height:1.3em;"><?=$boardTitle?></h1>
+    <h1 style="color:white; font-size:2.8em; margin:0; line-height:1.3em;"><?=$categoryInfo["name"]?></h1>
     <div class="empLineT white"></div>
-    <h3 class="nanumGothic" style="color:white; font-size:1.3em"><?=$boardDesc?></h3>
-
+    <h3 class="nanumGothic" style="color:white; font-size:1.3em"><?=$categoryInfo["subTitle"]?></h3>
 </section>
 
 <!-- Two -->
@@ -81,69 +53,25 @@ switch ($_REQUEST["order"]){
                     <td class="smallIconTD"><a><img src="/web/images/icon_comment.png" width="20px"/></a></td>
                     <td class="smallIconTD"><a><img src="/web/images/icon_like.png" width="20px"/></a></td>
                     <td class="smallIconTD"><a><img src="/web/images/icon_view.png" width="20px"/></a></td>
-                    <td class="smallWordTD">최근 활동</td>
-                    <td style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <a href="/web/pages/articleDetail.php">
-                            <p>글 제목이 삽입됩니다.</p>
-                            길동 홍 <text style="color:#888888;">7일 전</text>
-                        </a>
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>7일 전</td>
-                    <td style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <a href="/web/pages/articleDetail.php">
-                            <p>글 제목이 삽입됩니다.</p>
-                            길동 홍 <text style="color:#888888;">7일 전</text>
-                        </a>
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>7일 전</td>
-                    <td style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>
-                        <a href="/web/pages/articleDetail.php">
-                            <p>글 제목이 삽입됩니다.</p>
-                            길동 홍 <text style="color:#888888;">7일 전</text>
-                        </a>
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>7일 전</td>
-                    <td style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
+                <?foreach($list as $item){?>
+                    <tr class="jView" id="<?=$item["id"]?>">
+                        <td>1</td>
+                        <td>
+                            <a>
+                                <p><?=$item["title"]?></p>
+                                <?=$item["userName"]?>
+                            </a>
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                <?}?>
                 </tbody>
             </table>
         </div>
     </div>
 </section>
 
-<div class="footerRibbon">
-    <ul class="icons">
-        <li><a href="#" class="iconT"><img src="/web/images/icon_facebook.png" alt="Pic 02" /></a></li>
-        <li><a href="#" class="iconT"><img src="/web/images/icon_instagram.png" alt="Pic 02" /></a></li>
-    </ul>
-</div>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

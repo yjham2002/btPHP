@@ -10,12 +10,64 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
-$obj = new webUser($_REQUEST);
+    $obj = new webUser($_REQUEST);
 ?>
 <script>
     $(document).ready(function(){
+        var code = "<?=$CODE?>";
+        var path = "<?=$obj->fileShowPath?>";
+        var ajax = new AjaxSender("/route.php?cmd=WebBoard.getBoardCategory", true, "json", new sehoMap().put("code", code));
+        ajax.send(function(data){
+            if(data.returnCode === 1){
+                console.log(data.entity);
+                for(var i=0; i<data.entity.length; i++){
+                    var row = data.entity[i];
+                    var template = $("#template").html();
+                    template= template.replace("#{id}", row.id);
+                    if(row.imgPath != null) template = template.replace("#{path}", path + row.imgPath);
+                    else template = template.replace("#{path}", "");
+                    template = template.replace("#{name}", row.name);
+                    if(row.subTitle == null) template = template.replace("#{subTitle}", "");
+                    else template = template.replace("#{subTitle}", row.subTitle);
+                    template = template.replace("#{viewCnt}", row.viewCnt);
+                    template = template.replace("#{articleCnt}", row.articleCnt);
+
+                    template = template.replace("<tbody>", "");
+                    template = template.replace("</tbody>", "");
+                    $(".target").append(template);
+                }
+            }
+        });
+
+        $(document).on("click", ".jView", function(){
+            var id = $(this).attr("id");
+            location.href = "/web/pages/articleList.php?categoryId=" + id;
+        });
+
     });
 </script>
+
+<table id="template" style="display: none">
+    <tr class="jView" id="#{id}">
+        <td width="10%">
+            <img src="#{path}"/>
+        </td>
+        <td width="50%">
+            <a>
+                <p>#{name}</p>
+                #{subTitle}
+            </a>
+        </td>
+        <td width="15%">#{viewCnt}<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
+        <td width="15%">#{articleCnt}<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
+<!--        <td width="10%" style="text-align:center;">-->
+<!--            <a><img src="/web/images/img_context.png" width="20px"/></a>-->
+<!--        </td>-->
+    </tr>
+</table>
+
+
+
 <section class="wrapper special books">
     <div class="inner">
         <h5 class="dirHelper"><?=$SHARE_ELEMENTS["title"]?></h5>
@@ -26,84 +78,8 @@ $obj = new webUser($_REQUEST);
         </header>
         <div class="table-wrapper white">
             <table class="alt white">
-                <tbody>
-                <tr>
-                    <td colspan="2">
-                        <a href="/web/pages/articleList.php?order=0">
-                            <p><?=$SHARE_ELEMENTS["notice"]["title"]?></p>
-                            <?=$SHARE_ELEMENTS["notice"]["subTitle"]?>
-                        </a>
-                    </td>
-                    <td>0<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
-                    <td>5<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
-                    <td style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="10%">
-                        <img src="/web/images/donate_img_01.png"/>
-                    </td>
-                    <td width="50%">
-                        <a href="/web/pages/articleList.php?order=1">
-                            <p><?=$SHARE_ELEMENTS["img"]["title"]?></p>
-                            <?=$SHARE_ELEMENTS["img"]["subTitle"]?>
-                        </a>
-                    </td>
-                    <td width="15%">0<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
-                    <td width="15%">5<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
-                    <td width="10%" style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="10%">
-                        <img src="/web/images/donate_img_02.png"/>
-                    </td>
-                    <td width="50%">
-                        <a href="/web/pages/articleList.php?order=2">
-                            <p><?=$SHARE_ELEMENTS["video"]["title"]?></p>
-                            <?=$SHARE_ELEMENTS["video"]["subTitle"]?>
-                        </a>
-                    </td>
-                    <td width="15%">0<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
-                    <td width="15%">5<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
-                    <td width="10%" style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="10%">
-                        <img src="/web/images/donate_img_03.png"/>
-                    </td>
-                    <td width="50%">
-                        <a href="/web/pages/articleList.php?order=3">
-                            <p><?=$SHARE_ELEMENTS["quiz"]["title"]?></p>
-                            <?=$SHARE_ELEMENTS["quiz"]["subTitle"]?>
-                        </a>
-                    </td>
-                    <td width="15%">0<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
-                    <td width="15%">5<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
-                    <td width="10%" style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="10%">
-                        <img src="/web/images/donate_img_04.png"/>
-                    </td>
-                    <td width="50%">
-                        <a href="/web/pages/articleList.php?order=4">
-                            <p><?=$SHARE_ELEMENTS["audio"]["title"]?></p>
-                            <?=$SHARE_ELEMENTS["audio"]["subTitle"]?>
-                        </a>
-                    </td>
-                    <td width="15%">0<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
-                    <td width="15%">5<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
-                    <td width="10%" style="text-align:center;">
-                        <a><img src="/web/images/img_context.png" width="20px"/></a>
-                    </td>
-                </tr>
+                <tbody class="target">
+
                 </tbody>
             </table>
         </div>

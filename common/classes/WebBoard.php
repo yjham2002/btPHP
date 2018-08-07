@@ -12,46 +12,38 @@ if(!class_exists("WebBoard")){
 			parent::__construct($req);
 		}
 
-		//log list
-		function searchLog(){
-		    $page = $this->req["page"];
-		    $limit = $this->rowPerPage;
-		    $search = $this->req["searchText"];
-
-            $request = array("page" => $page, "limit" => $limit, "search" => $search);
-            $actionUrl = "{$this->serverRoot}/web/logs";
-            $retVal = $this->getData($actionUrl, $request);
-            $list = json_decode($retVal)->data;
-
-            return $list;
+		function getBoardCategory(){
+            $code = $_REQUEST["code"];
+            $sql = "SELECT * FROM tblBoardType WHERE `lang` = '{$code}'";
+            return $this->makeResultJson(1, "succ", $this->getArray($sql));
         }
 
-        //chatBot response
-        function instantResponse(){
-		    $msg = $this->req["msg"];
-
-		    $request = array("msg" => $msg);
-		    $actionUrl = "{$this->serverRoot}/web/instant";
-		    $retVal = $this->getData($actionUrl, $request);
-
-		    return json_decode($retVal)->data;
+        function getCategoryInfo(){
+		    $id = $_REQUEST["categoryId"];
+		    $sql = "SELECT * FROM tblBoardType WHERE `id` = '{$id}' LIMIT 1";
+		    return $this->getRow($sql);
         }
 
-        function deleteLog(){
-            $no = $this->req["no"];
-
-            $actionUrl = "{$this->serverRoot}/web/delete/".$no;
-            $retVal = $this->getData($actionUrl, Array());
-
-            return $retVal;
+        function getArticleList(){
+		    $categoryId = $_REQUEST["categoryId"];
+		    $sql = "
+              SELECT *, (SELECT `name` FROM tblCustomer C WHERE C.id = customerId) AS userName 
+              FROM tblBoard 
+              WHERE `boardTypeId` = '{$categoryId}' 
+              ORDER BY regDate DESC
+            ";
+		    return $this->getArray($sql);
         }
 
-        function getDashBoardData(){
-            $actionUrl = "{$this->serverRoot}/web/dashboard";
-            $retVal = $this->getData($actionUrl, Array());
-
-            return $retVal;
+        function getArticleInfo(){
+		    $id = $_REQUEST["articleId"];
+		    $sql = "
+		        SELECT *, (SELECT `name` FROM tblCustomer C WHERE C.id = customerId) AS userName
+		        FROM tblBoard
+		        WHERE `id` = '{$id}'
+		        LIMIT 1
+		    ";
+		    return $this->getRow($sql);
         }
-		
 	}
 }

@@ -32,7 +32,7 @@
         }
 
         $(".jSave").click(function(){
-            var ajax = new AjaxSubmit("/action_front.php?cmd=AdminMain.upsertCategory", "post", true, "json", "#form");
+            var ajax = new AjaxSubmit("/route.php?cmd=AdminMain.upsertCategory", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1) location.href = "/admin/pages/siteManage/shareList.php";
                 else alert("이미지 저장 실패");

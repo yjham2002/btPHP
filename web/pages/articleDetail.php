@@ -8,9 +8,11 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBoard.php";?>
 <?
-    $obj = new webUser($_REQUEST);
+    $obj = new webBoard($_REQUEST);
+    $categoryInfo = $obj->getCategoryInfo();
+    $info = $obj->getArticleInfo();
 ?>
 <script>
     $(document).ready(function(){

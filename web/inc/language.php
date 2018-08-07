@@ -42,6 +42,8 @@
 
     $langJson = json_decode($obj->getRow($sql)["json"]);
 
+    $CODE = $country_code;
+
     $HEADER_ELEMENTS = Array(
         "webTitle" => $langJson->webTitle,
         "headerMenu_home" => $langJson->headerMenu_home,
