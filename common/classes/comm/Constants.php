@@ -20,7 +20,7 @@ if(! class_exists("Constants") )
 //		var $con_domain				= "http://localhost:9880" ;	// 메일에서 사용되는 도메인
 //
         //MAC Local path
-        var $filePath               = "/usr/local/var/CrossMedia_hc/wapp/uploadFiles/";
+        var $filePath               = "/usr/local/var/BibleTime/uploadFiles/";
 
         var $fileShowPath           = "/uploadFiles/";
 

@@ -14,7 +14,29 @@ $obj = new webUser($_REQUEST);
 ?>
 <script>
     $(document).ready(function(){
-
+        Kakao.cleanup();
+        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+        Kakao.init('4dc7da3cb02d7e90c6e870c9902e7205');
+        // 카카오 로그인 버튼을 생성합니다.
+        Kakao.Auth.createLoginButton({
+            container: '#kakao-login-btn',
+            success: function(authObj) {
+                // 로그인 성공시, API를 호출합니다.
+                Kakao.API.request({
+                    url: '/v1/user/me',
+                    success: function(res){
+                        console.log("email :::: " + res.kaccount_email);
+                        console.log(JSON.stringify(res));
+                    },
+                    fail: function(error){
+                        alert(JSON.stringify(error));
+                    }
+                });
+            },
+            fail: function(err) {
+                alert(JSON.stringify(err));
+            }
+        });
     });
 </script>
 
@@ -51,6 +73,8 @@ $obj = new webUser($_REQUEST);
                             </td>
 
                         </tr>
+
+                        <a id="kakao-login-btn"></a>
                         <tr class="noBorder">
                             <td colspan="2" style="text-align:left; color:white;">
                                 <a href="#" class="optionLink">처음 로그인</a> |
