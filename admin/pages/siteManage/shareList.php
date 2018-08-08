@@ -38,9 +38,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a>Dashboard</a>
+                    <a>홈페이지 관리</a>
                 </li>
-                <li class="breadcrumb-item active">Blank Page</li>
+                <li class="breadcrumb-item active">나눔 게시판 카테고리</li>
             </ol>
 
             <form id="form">

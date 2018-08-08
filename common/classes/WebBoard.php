@@ -14,7 +14,13 @@ if(!class_exists("WebBoard")){
 
 		function getBoardCategory(){
             $code = $_REQUEST["code"];
-            $sql = "SELECT * FROM tblBoardType WHERE `lang` = '{$code}'";
+            $sql = "
+                SELECT BT.*, 
+                (SELECT IFNULL(COUNT(*), 0) FROM tblBoard WHERE boardTypeId = BT.id) AS articleCnt,
+                (SELECT IFNULL(SUM(viewCnt), 0) FROM tblBoard WHERE boardTypeId = BT.id) AS viewCnt
+                FROM tblBoardType BT WHERE BT.`lang` = '{$code}'             
+            ";
+
             return $this->makeResultJson(1, "succ", $this->getArray($sql));
         }
 

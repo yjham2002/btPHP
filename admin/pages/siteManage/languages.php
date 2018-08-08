@@ -87,7 +87,7 @@
         <div class="container-fluid">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">홈페이지관리</li>
-                <li class="breadcrumb-item active">언어</li>
+                <li class="breadcrumb-item active">언어 및 문구</li>
             </ol>
 
             <div class="btn-group float-right mb-2" role="group">
@@ -102,21 +102,26 @@
             </div>
 
 
-            <h2>언어 설정</h2>
+            <h2>언어 및 문구 설정</h2>
 
             <br/>
 
+            <!-- HEADER ELEMENTS -->
+            <h4>웹사이트 헤더 영역</h4>
             <table class="table table-sm table-bordered text-center">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/header_elem.png" />
+                    </td>
+                </tr>
+                <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="webTitle">웹 페이지 타이틀</td>
                     <td><input type="text" class="form-control langValue" key="webTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
-
-<!--                HEADER ELEMENTS-->
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="headerMenu_home">헤더 메뉴[home]</td>
                     <td><input type="text" class="form-control langValue" key="headerMenu_home" value="" placeholder="내용을 입력하세요" /></td>
@@ -141,8 +146,22 @@
                     <td class="bg-secondary text-light langKey" key="headerMenu_faq">메뉴[FAQ]</td>
                     <td><input type="text" class="form-control langValue" key="headerMenu_faq" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
-<!--                HOME ELEMENTS-->
+            <hr/>
+
+            <h4>웹사이트 HOME 영역</h4>
+            <!-- HOME ELEMENTS-->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/home_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="home_topTitle">홈[상단 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="home_topTitle" value="" placeholder="내용을 입력하세요" /></td>
@@ -177,8 +196,22 @@
                     <td class="bg-secondary text-light langKey" key="home_bottomText">홈[하단 텍스트]</td>
                     <td><input type="text" class="form-control langValue" key="home_bottomText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
-<!--                INTRODUCTION ELEMENTS-->
+            <hr/>
+
+            <h4>웹사이트 소개 영역</h4>
+            <!-- INTRODUCTION ELEMENTS-->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/introduction_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="intro_title">소개[타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="intro_title" value="" placeholder="내용을 입력하세요" /></td>
@@ -257,14 +290,40 @@
                     <td class="bg-secondary text-light langKey" key="intro_secondArticleText">소개[두번째 아티클 텍스트]</td>
                     <td><input type="text" class="form-control langValue" key="intro_secondArticleText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
-<!--                SUBSCRIBE ELEMENTS-->
+            <hr/>
+
+            <h4>웹사이트 구독하기 영역</h4>
+            <!-- SUBSCRIBE ELEMENTS -->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/subscribe_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="subscribe_title">구독[타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="subscribe_title" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
-<!--                SUPPORT ELEMENTS-->
+            <h4>웹사이트 후원하기 영역</h4>
+            <!-- SUPPORT ELEMENTS -->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/support_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="support_articleTitle">후원[아티클 타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="support_articleTitle" value="" placeholder="내용을 입력하세요" /></td>
@@ -278,8 +337,22 @@
                     <td class="bg-secondary text-light langKey" key="support_phrase">후원[문구]</td>
                     <td><input type="text" class="form-control langValue" key="support_phrase" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
-<!--                SHARE ELEMENTS-->
+            <hr/>
+
+            <h4>웹사이트 나눔 영역</h4>
+            <!-- SHARE ELEMENTS -->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/share_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="share_title">나눔[타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="share_title" value="" placeholder="내용을 입력하세요" /></td>
@@ -297,9 +370,22 @@
                     <td class="bg-secondary text-light langKey" key="share_articleText">나눔[게시물 텍스트]</td>
                     <td><input type="text" class="form-control langValue" key="share_articleText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
+            </table>
 
+            <hr/>
 
-<!--                FAQ ELEMENTS-->
+            <h4>웹사이트 FAQ 영역</h4>
+            <!-- FAQ ELEMENTS -->
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td colspan="2">
+                        <img src="./attr/faq_elem.png" />
+                    </td>
+                </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="faq_title">faq[타이틀]</td>
                     <td><input type="text" class="form-control langValue" key="faq_title" value="" placeholder="내용을 입력하세요" /></td>

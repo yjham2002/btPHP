@@ -17,11 +17,11 @@ $obj = new webUser($_REQUEST);
 
     });
 </script>
-<div class="image fit">
+<div class="image fit" exposureSet="SECTION_SUPPORT_BANNER">
     <img src="/web/images/contribution_main.jpg" />
 </div>
 
-<section class="wrapper special">
+<section class="wrapper special" exposureSet="SECTION_SUPPORT_CONTENT">
     <div class="inner">
         <div class="row">
             <!-- Break -->
@@ -50,7 +50,7 @@ $obj = new webUser($_REQUEST);
 </section>
 
 <!-- Three -->
-<section class="wrapper special slim">
+<section class="wrapper special slim" exposureSet="SECTION_SUPPORT_BOTTOM_IMG">
     <h2><?=$SUPPORT_ELEMENTS["phrase"]?></h2>
     <div class="image fit slim">
         <img src="/web/images/contribution_bot.jpg" />

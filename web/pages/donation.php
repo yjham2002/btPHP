@@ -22,6 +22,7 @@
                 console.log(data.entity);
                 for(var i=0; i<data.entity.length; i++){
                     var row = data.entity[i];
+                    console.log(row);
                     var template = $("#template").html();
                     template= template.replace("#{id}", row.id);
                     if(row.imgPath != null) template = template.replace("#{path}", path + row.imgPath);
@@ -72,9 +73,9 @@
     <div class="inner">
         <h5 class="dirHelper"><?=$SHARE_ELEMENTS["title"]?></h5>
         <header>
-            <h2 class="pageTitle"><?=$SHARE_ELEMENTS["title"]?></h2>
-            <div class="empLineT"></div>
-            <h3 class="pageSubTitle"><?=$SHARE_ELEMENTS["subTitle"]?></h3>
+            <h2 class="pageTitle" exposureSet="SECTION_DONATE_BANNER"><?=$SHARE_ELEMENTS["title"]?></h2>
+            <div class="empLineT" exposureSet="SECTION_DONATE_BANNER"></div>
+            <h3 class="pageSubTitle" exposureSet="SECTION_DONATE_BANNER"><?=$SHARE_ELEMENTS["subTitle"]?></h3>
         </header>
         <div class="table-wrapper white">
             <table class="alt white">

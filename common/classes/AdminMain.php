@@ -107,6 +107,25 @@ if(!class_exists("AdminMain")){
             return $this->getRow($sql);
         }
 
+        function getExposures(){
+            $sql = "SELECT * FROM tblLayoutExposure ORDER BY `desc` ASC";
+            $arr = $this->getArray($sql);
+//            $retVal = Array();
+//            for($e = 0; $e < sizeof($arr); $e++){
+//                $retVal[$arr[$e]["code"]] = $arr[$e]["exposure"];
+//            }
+
+            return $arr;
+        }
+
+        function saveExposure(){
+            $value = $_REQUEST["checked"];
+            $code = $_REQUEST["code"];
+            $sql = "UPDATE tblLayoutExposure SET `exposure` = '{$value}' WHERE `code`='{$code}'";
+
+            $this->update($sql);
+        }
+
         function upsertCategory(){
             $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
 

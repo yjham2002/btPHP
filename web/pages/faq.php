@@ -53,9 +53,9 @@ $obj = new webUser($_REQUEST);
 <section class="wrapper special books">
     <div class="inner">
         <header>
-            <h2 class="pageTitle"><?=$FAQ_ELEMENTS["title"]?></h2>
-            <div class="empLineT"></div>
-            <p><?=$FAQ_ELEMENTS["subTitle"]?></p>
+            <h2 class="pageTitle" exposureSet="SECTION_FAQ_BANNER"><?=$FAQ_ELEMENTS["title"]?></h2>
+            <div class="empLineT" exposureSet="SECTION_FAQ_BANNER"></div>
+            <p exposureSet="SECTION_FAQ_BANNER"><?=$FAQ_ELEMENTS["subTitle"]?></p>
         </header>
 
         <input type="text" class="fancy" id="searchBox" placeholder="Looking for something?" />

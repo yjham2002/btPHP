@@ -14,20 +14,22 @@ $obj = new webUser($_REQUEST);
 ?>
 <script>
     $(document).ready(function(){
-
+        $(".jView").click(function(){
+            location.href = "/web/pages/product.php?id=";
+        });
     });
 </script>
 
 <section class="wrapper special books">
     <div class="inner">
-        <header>
+        <header exposureSet="SECTION_SUBSCRIBE_BANNER">
             <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
             <div class="empLineT"></div>
             <div class="image fit thin" style="background-image: url('/web/images/sub_main.jpg');">
             </div>
         </header>
-        <div class="flex flex-4">
-            <div class="box person">
+        <div class="flex flex-4" exposureSet="SECTION_SUBSCRIBE_BOOKS">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -40,7 +42,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -53,7 +55,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -66,7 +68,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -79,7 +81,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -92,7 +94,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -105,7 +107,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">
@@ -118,7 +120,7 @@ $obj = new webUser($_REQUEST);
 
                 </div>
             </div>
-            <div class="box person">
+            <div class="box person jView">
                 <div class="image fader">
                     <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
                     <div class="overlayT">

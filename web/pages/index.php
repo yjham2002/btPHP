@@ -9,12 +9,19 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 
+<script>
+    $(document).ready(function(){
+        $(".toSubscription").click(function(){location.href = "/web/pages/subscription.php";});
+        $(".toSupport").click(function(){location.href = "/web/pages/contribution.php";});
+    });
+</script>
+
 <!-- Banner -->
-<section id="banner" style="background-image: url('/web/images/banner.jpg');">
+<section id="banner" style="background-image: url('/web/images/banner.jpg');" exposureSet="SECTION_HOME_BANNER">
     <h1><?=$HOME_ELEMENTS["top"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["top"]["subTitle"]?></p>
-    <a href="#" class="bannerLink"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
-    <a href="#" class="bannerLink"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
+    <a href="#" class="bannerLink toSubscription"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
+    <a href="#" class="bannerLink toSupport"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
     <!--<div class="bannerScreen">
         <img src="images/bb_banner_cut.png" class="bannerImg" />
     </div>-->
@@ -22,7 +29,7 @@
 </section>
 
 <!-- Two -->
-<section class="wrapper special books">
+<section class="wrapper special books" exposureSet="SECTION_HOME_BOOKS">
     <div class="inner">
         <header>
             <h2><?=$HOME_ELEMENTS["mid"]["title"]?></h2>
@@ -140,12 +147,12 @@
 </section>
 
 <!-- Three -->
-<section class="wrapper special sectionCover" style="background-image: url('/web/images/section_cover.jpg');">
+<section exposureSet="SECTION_HOME_PHRASE" class="wrapper special sectionCover" style="background-image: url('/web/images/section_cover.jpg');">
     <h1><?=$HOME_ELEMENTS["midBottom"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["midBottom"]["subTitle"]?></p>
 </section>
 
-<section id="three" class="wrapper special darkSection">
+<section id="three" class="wrapper special darkSection" exposureSet="SECTION_HOME_SUPPORT">
     <div class="inner">
         <!--<header class="align-center">
             <h2>Nunc Dignissim</h2>

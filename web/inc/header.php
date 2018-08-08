@@ -7,10 +7,12 @@
  */
 ?>
 
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/web/inc/language.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/web/inc/language.php";?>
 <?
     $url = $_SERVER['REQUEST_URI'];
+    $expObj = new WebUser($_REQUEST);
+    $EXPOSURE_SET = $expObj->getExposures();
 ?>
 
 <!DOCTYPE HTML>
@@ -35,6 +37,14 @@
 
 <script>
     $(document).ready(function(){
+        var exposureJson = <?=json_encode($EXPOSURE_SET)?>;
+        for(var it = 0; it < exposureJson.length; it++){
+            var toApply = $("[exposureSet='" + exposureJson[it].code + "']");
+            if(toApply != null && exposureJson[it].exposure == 0){
+                toApply.hide();
+            }
+        }
+
         console.log(getCookie("btLocale"));
 
         var url = window.location.pathname;

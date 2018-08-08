@@ -178,9 +178,10 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/siteManage/mainPage.php">메인</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/subscriptionPage.php">구독</a>
-                <a class="dropdown-item" href="/admin/pages/siteManage/shareList.php">나눔 게시판 타입</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/shareList.php">나눔 게시판 카테고리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>
-                <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어 및 문구</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/layoutSetting.php">레이아웃</a>
             </div>
         </li>
 

@@ -7,6 +7,16 @@ if(! class_exists("WebUser") ){
             parent::__construct($req);
         }
 
+        function getExposures(){
+            $sql = "SELECT `code`, `exposure` FROM tblLayoutExposure ORDER BY `code`";
+            $arr = $this->getArray($sql);
+//            $retVal = Array();
+//            for($e = 0; $e < sizeof($arr); $e++){
+//                $retVal[$arr[$e]["code"]] = $arr[$e]["exposure"];
+//            }
+
+            return $arr;
+        }
 
         function login(){
             $account = $_REQUEST["account"];

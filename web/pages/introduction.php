@@ -44,14 +44,14 @@ $obj = new webUser($_REQUEST);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floating" style="background-image: url('/web/images/intro_main.jpg');">
+<section class="wrapper special sectionCover floating" style="background-image: url('/web/images/intro_main.jpg');" exposureSet="SECTION_INTRO_BANNER">
     <a href="#toGo" class="jSmoothScroll baseAlign">
         <img class="small circleBtn" src="/web/images/btn_down.png" />
     </a>
 </section>
 
 <!-- Two -->
-<section id="toGo" class="wrapper special books">
+<section id="toGo" class="wrapper special books" exposureSet="SECTION_INTRO_START">
     <div class="inner">
         <header>
             <h2><?=$INTRODUCTION_ELEMENTS["start"]["title"]?></h2>
@@ -75,8 +75,8 @@ $obj = new webUser($_REQUEST);
         </div>
 
         <hr />
-        <img src="/web/images/cross_logo.png" />
-        <div class="4u 12u$(medium) autoMargin">
+        <img src="/web/images/cross_logo.png" exposureSet="SECTION_INTRO_PHRASE_1" />
+        <div class="4u 12u$(medium) autoMargin" exposureSet="SECTION_INTRO_PHRASE_1">
             <p class="nanumGothic" style="color:black;"><br />
                 <?=$INTRODUCTION_ELEMENTS["phrase"]["text"]?>
             <p class="nanumGothic"><?=$INTRODUCTION_ELEMENTS["phrase"]["loc"]?></p>
@@ -85,14 +85,14 @@ $obj = new webUser($_REQUEST);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_middle.jpg');">
+<section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_middle.jpg');" exposureSet="SECTION_INTRO_HISTORY" >
     <h1 style="color:white; font-size:3.0em; margin:0; line-height:1.3em;"><?=$INTRODUCTION_ELEMENTS["box"]["title"]?></h1>
     <div class="empLine vertical"></div>
     <h3 class="nanumGothic" style="color:white; font-size:1.7em"><?=$INTRODUCTION_ELEMENTS["box"]["text"]?></h3>
 </section>
 
 <!-- Three -->
-<section id="toGo" class="wrapper special books">
+<section id="toGo" class="wrapper special books" exposureSet="SECTION_INTRO_HISTORY_CONTENT">
     <div class="inner">
         <header>
             <br/>
@@ -120,7 +120,7 @@ $obj = new webUser($_REQUEST);
 
 
 
-<section class="wrapper special books" style="padding : 1em 0;">
+<section class="wrapper special books" style="padding : 1em 0;" exposureSet="SECTION_INTRO_VISUAL_HISTORY">
     <div class="inner">
         <hr style="margin:0;" />
         <header style="margin:0;">
@@ -205,8 +205,8 @@ $obj = new webUser($_REQUEST);
         </header>
 
         <hr style="margin-top:0;" />
-        <img src="/web/images/cross_logo.png" />
-        <div class="4u 12u$(medium) autoMargin">
+        <img src="/web/images/cross_logo.png" exposureSet="SECTION_INTRO_PHRASE_2" />
+        <div class="4u 12u$(medium) autoMargin" exposureSet="SECTION_INTRO_PHRASE_2">
             <p class="nanumGothic" style="color:black;"><br />
                 <?=$INTRODUCTION_ELEMENTS["secondPhrase"]["text"]?>
             <p class="nanumGothic"><?=$INTRODUCTION_ELEMENTS["secondPhrase"]["loc"]?></p>
@@ -216,14 +216,14 @@ $obj = new webUser($_REQUEST);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_bottom.jpg');">
+<section exposureSet="SECTION_INTRO_GREETING_BANNER" class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_bottom.jpg');">
     <h1 style="color:white; font-size:2.5em; margin:0; line-height:1.3em;"><?=$INTRODUCTION_ELEMENTS["prologue"]["title"]?></h1>
     <div class="empLineT white"></div>
     <h3 class="nanumGothic" style="color:white; font-size:1.3em"><?=$INTRODUCTION_ELEMENTS["prologue"]["text"]?></h3>
 
 </section>
 
-<section class="wrapper speical books">
+<section class="wrapper speical books" exposureSet="SECTION_INTRO_GREETING_CONTENT">
     <div class="inner">
         <div class="row">
             <!-- Break -->

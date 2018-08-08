@@ -7,8 +7,8 @@
  */
 ?>
 
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/web/inc/geoip.inc";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/web/inc/geoip.inc";?>
 
 <?
     $obj = new WebUser($_REQUEST);
@@ -16,7 +16,7 @@
     $country_code = $_COOKIE["btLocale"];
 
     if (!isset($_COOKIE["btLocale"])) {
-        $gi = geoip_open($obj->geoipPath . "GeoIP.dat",GEOIP_STANDARD);
+        $gi = geoip_open($_SERVER["DOCUMENT_ROOT"] . "/web/inc/" . "GeoIP.dat",GEOIP_STANDARD);
         if (!empty($_SERVER["HTTP_CLIENT_IP"]))             //공용 IP 확인
             $ip = $_SERVER["HTTP_CLIENT_IP"];
         elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))   // 프록시 사용하는지 확인
