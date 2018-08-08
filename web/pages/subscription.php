@@ -8,14 +8,17 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
 <?
-$obj = new webUser($_REQUEST);
+    $obj = new WebSubscription($_REQUEST);
+    $publicationList = $obj->publicationList();
 ?>
+
 <script>
     $(document).ready(function(){
         $(".jView").click(function(){
-            location.href = "/web/pages/product.php?id=";
+            var id = $(this).attr("id");
+            location.href = "/web/pages/product.php?id=" + id;
         });
     });
 </script>
@@ -29,110 +32,20 @@ $obj = new webUser($_REQUEST);
             </div>
         </header>
         <div class="flex flex-4" exposureSet="SECTION_SUBSCRIBE_BOOKS">
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
+            <?foreach($publicationList as $item){?>
+                <div class="box person jView" id="<?=$item["publicationId"]?>">
+                    <div class="image fader">
+                        <img class="scalable" src="<?=$item["imgPath"] != "" ? $obj->fileShowPath . $item["imgPath"] : ""?>" alt="Person 1" />
+                        <div class="overlayT">
+                            <div class="text">제품보기</div>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <h3><?=$item["name"]?></h3>
+                        <p><s><?=$item["price"]?></s> <?=$item["discounted"]?></p>
                     </div>
                 </div>
-                <div class="desc">
-                    <h3>Note</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_맥체인 / 새번역 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_연대기 / 새번역 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_클래식 / 개역개정 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X2 / 개역개정 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X3_OT / 새번역 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X3_NT / 새번역 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person jView">
-                <div class="image fader">
-                    <img class="scalable" src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>NT / 개역개정 (+NT)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
+            <?}?>
         </div>
     </div>
 </section>

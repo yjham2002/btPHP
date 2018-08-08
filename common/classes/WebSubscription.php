@@ -17,7 +17,7 @@ if(!class_exists("WebSubscription")){
             parent::__construct($req);
         }
 
-        function getPublicationList(){
+        function publicationList(){
             $langCode = $_COOKIE["btLocale"];
 
             $sql = "
@@ -27,6 +27,19 @@ if(!class_exists("WebSubscription")){
                 ORDER BY regDate DESC;
             ";
             return $this->getArray($sql);
+        }
+
+        function publicationDetail(){
+            $id = $_REQUEST["id"];
+            $langCode = $_COOKIE["btLocale"];
+
+            $sql = "
+                SELECT *
+                FROM tblPublicationLang
+                WHERE `publicationId` = '{$id}' AND `langCode` = '{$langCode}'
+                LIMIT 1
+            ";
+            return $this->getRow($sql);
         }
     }
 }

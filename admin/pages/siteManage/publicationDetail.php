@@ -16,20 +16,27 @@
 ?>
 <script>
     $(document).ready(function(){
+        $("[name=description]").text($("[name=description]").text().replace(/<br\s?\/?>/g,""));
+
         $(".jLang").change(function(){
             form.submit();
         });
 
         $("[name=imgFile]").change(function(){
-            readURL(this);
+            readURL(this, ".jImg");
             $("#imgPath").val("");
         });
 
-        function readURL(input){
+        $("[name=imgFileIntro]").change(function(){
+            readURL(this, ".jImgIntro");
+            $("#imgPathInro").val("");
+        });
+
+        function readURL(input, selector){
             if (input.files && input.files[0]){
                 var reader = new FileReader();
                 reader.onload = function(e){
-                    $(".jImg").attr("src", e.target.result);
+                    $(selector).attr("src", e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -100,6 +107,35 @@
                 <div class="custom-file">
                     <input type="hidden" name="imgPath" value="<?=$item["imgPath"]?>"/>
                     <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">안내 문구</span>
+                </div>
+                <input type="text" class="form-control" name="subTitle" value="<?=$item["subTitle"]?>">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">소개글</span>
+                </div>
+                <textarea type="text" class="form-control" name="description"><?=$item["description"]?></textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <img class="jImgIntro" src="<?=$item["imgPathIntro"] != "" ? $obj->fileShowPath . $item["imgPathIntro"] : ""?>" width="100px;"/>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">썸네일 이미지</span>
+                </div>
+                <div class="custom-file">
+                    <input type="hidden" name="imgPathIntro" value="<?=$item["imgPathIntro"]?>"/>
+                    <input type="file" class="custom-file-input" name="imgFileIntro" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 </div>
             </div>

@@ -202,15 +202,21 @@ if(!class_exists("AdminMain")){
 
         function upsertPublication(){
             $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
+            $check2 = getimagesize($_FILES["imgFileIntro"]["tmp_name"]);
 
             $id = $_REQUEST["id"];
             $langCode = $_REQUEST["langCode"];
             $name = $_REQUEST["name"];
             $price = $_REQUEST["price"];
             $discounted = $_REQUEST["discounted"];
+
+            $subTitle = $_REQUEST["subTitle"];
+            $description = nl2br($_REQUEST["description"]);
+
             $exposure = $_REQUEST["exposure"] == "" ? "0" : "1";
 
             $imgPath = NULL;
+            $imgPathIntro = NULL;
 
             if($check !== false){
                 $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile"]["name"]),PATHINFO_EXTENSION);
@@ -220,8 +226,16 @@ if(!class_exists("AdminMain")){
             }
             else $imgPath = $_REQUEST["imgPath"];
 
+            if($check2 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFileIntro"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFileIntro"]["tmp_name"], $targetDir)) $imgPathIntro = $fName;
+                else return $this->makeResultJson(-2, "fail");
+            }
+            else $imgPathIntro = $_REQUEST["imgPathIntro"];
+
             $sql = "
-                INSERT INTO tblPublicationLang(`publicationId`, `langCode`, `name`, `price`, `discounted`, `imgPath`, `exposure`, `regDate`)
+                INSERT INTO tblPublicationLang(`publicationId`, `langCode`, `name`, `price`, `discounted`, `imgPath`, `subTitle`, `description`, `imgPathIntro`, `exposure`, `regDate`)
                 VALUES(
                   '{$id}',
                   '{$langCode}',
@@ -229,6 +243,9 @@ if(!class_exists("AdminMain")){
                   '{$price}',
                   '{$discounted}',
                   '{$imgPath}',
+                  '{$subTitle}',
+                  '{$description}',
+                  '{$imgPathIntro}',
                   '{$exposure}',
                   NOW()
                 )
@@ -236,7 +253,10 @@ if(!class_exists("AdminMain")){
                 `name` = '{$name}',
                 `price` = '{$price}',
                 `discounted` = '{$discounted}',
-                `imgPath` = '{$imgPath}',        
+                `imgPath` = '{$imgPath}',
+                `subTitle` = '{$subTitle}',
+                `description` = '{$description}',
+                `imgPathIntro` = '{$imgPathIntro}',        
                 `exposure` = '{$exposure}'
             ";
             $this->update($sql);

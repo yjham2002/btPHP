@@ -8,47 +8,70 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
 <?
-$obj = new webUser($_REQUEST);
+    $obj = new WebSubscription($_REQUEST);
+    $item = $obj->publicationDetail();
 ?>
+
 <script>
     $(document).ready(function(){
 
+        $(document).on("click", ".jToggleOn", function(){
+            $(".jCollapse").fadeIn();
+            $(this).removeClass("jToggleOn").addClass("jToggleOff");
+            $(this).text("접기");
+        });
+
+        $(document).on("click", ".jToggleOff", function(){
+            $(".jCollapse").fadeOut();
+            $(this).removeClass("jToggleOff").addClass("jToggleOn");
+            $(this).text("자세히 보기");
+        });
+
+        $(".jSubscribe").click(function(){
+            var cnt = $("#quantity").val();
+            location.href = "/web/subscriptionDetail.php?id=<?=$_REQUEST["id"]?>&cnt=" + cnt;
+        });
     });
 </script>
 
 <section class="wrapper special books">
     <div class="inner">
-        <h5 class="dirHelper">메인 / 상품명</h5>
+        <h5 class="dirHelper">메인 / <?=$item["name"]?></h5>
         <table>
             <tr class="noBorder whiteBG">
                 <td width="50%" class="productArea">
                     <div class="image fit">
-                        <img src="/web/images/testProduct.png" />
+                        <img src="<?=$item["imgPath"] != "" ? $obj->fileShowPath . $item["imgPath"] : ""?>" />
                     </div>
                 </td>
                 <td width="50%" style="vertical-align:top; text-align:left;">
-                    <h2 class="nanumGothic" style="color:black; font-size:1.8em;">상품명</h2>
+                    <h2 class="nanumGothic" style="color:black; font-size:1.8em;"><?=$item["name"]?></h2>
                     <h3 class="nanumGothic" style="color:black;">
-                        <s style="color:#AAAAAA;">₩2,500</s>
-                        &nbsp;&nbsp; ₩1,500
+                        <s style="color:#AAAAAA;"><?=$item["price"]?></s>
+                        &nbsp;&nbsp; <?=$item["discounted"]?>
                     </h3>
-                    <p class="nanumGothic" style="color:black;">* 단체 주문시 할인가로 적용됩니다.(10권이상, 배송료 3000원)</p>
-                    <a href="#" class="nanumGothic viewDetail">자세히 보기</a>
+                    <p class="nanumGothic" style="color:black;"><?=$item["subTitle"]?></p>
+                    <br/>
+                    <p class="nanumGothic jCollapse" style="color:black; display: none;">
+                        <?=$item["description"]?>
+                    </p>
+                    <a href="#" class="nanumGothic viewDetail jToggleOn">자세히 보기</a>
                     <br/><br/>
                     <p class="nanumGothic">수량</p>
                     <p>
                         <input type="number" class="nanumGothic quantity" name="quantity" id="quantity" value="1" />
                     </p>
-                    <a href="#" class="roundButton detailSubscribe nanumGothic" >구독하기</a>
+                    <a href="#" class="roundButton detailSubscribe nanumGothic jSubscribe" >구독하기</a>
                 </td>
             </tr>
         </table>
-        <h5 class="dirHelper">상품명 / 상품설명</h5>
+        <h5 class="dirHelper"><?=$item["name"]?> / 상품설명</h5>
         <div class="detailWrapper">
             <div class="image fit">
-                <img src="/web/images/product_info.png" />
+<!--                <img src="/web/images/product_info.png" />-->
+                <img src="<?=$item["imgPathIntro"] != "" ? $obj->fileShowPath . $item["imgPathIntro"] : ""?>" />
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
 <?
     $obj = new WebSubscription($_REQUEST);
-    $publicationList = $obj->getPublicationList();
+    $publicationList = $obj->publicationList();
 ?>
 <script>
     $(document).ready(function(){
@@ -24,19 +24,13 @@
     });
 </script>
 
-<!-- Banner -->
 <section id="banner" style="background-image: url('/web/images/banner.jpg');" exposureSet="SECTION_HOME_BANNER">
     <h1><?=$HOME_ELEMENTS["top"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["top"]["subTitle"]?></p>
     <a href="#" class="bannerLink toSubscription"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
     <a href="#" class="bannerLink toSupport"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
-    <!--<div class="bannerScreen">
-        <img src="images/bb_banner_cut.png" class="bannerImg" />
-    </div>-->
-
 </section>
 
-<!-- Two -->
 <section class="wrapper special books" exposureSet="SECTION_HOME_BOOKS">
     <div class="inner">
         <header>
@@ -47,7 +41,7 @@
         </header>
         <div class="flex flex-4">
             <?foreach($publicationList as $publicationItem){?>
-                <div class="box person jViewPublication" id="<?=$publicationItem["id"]?>">
+                <div class="box person jViewPublication" id="<?=$publicationItem["publicationId"]?>">
                     <div class="image fader">
                         <img src="<?=$publicationItem["imgPath"] != "" ? $obj->fileShowPath . $publicationItem["imgPath"] : ""?>" alt="Person 1" />
                         <div class="overlayT">
@@ -77,7 +71,6 @@
     </div>
 </section>
 
-<!-- Three -->
 <section exposureSet="SECTION_HOME_PHRASE" class="wrapper special sectionCover" style="background-image: url('/web/images/section_cover.jpg');">
     <h1><?=$HOME_ELEMENTS["midBottom"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["midBottom"]["subTitle"]?></p>
@@ -85,10 +78,6 @@
 
 <section id="three" class="wrapper special darkSection" exposureSet="SECTION_HOME_SUPPORT">
     <div class="inner">
-        <!--<header class="align-center">
-            <h2>Nunc Dignissim</h2>
-            <p>Aliquam erat volutpat nam dui </p>
-        </header>-->
         <div class="flex flex-2 darkness">
             <article>
                 <div class="empLine"></div>
