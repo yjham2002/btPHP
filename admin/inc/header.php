@@ -177,7 +177,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="/admin/pages/siteManage/mainPage.php">메인</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
-                <a class="dropdown-item" href="/admin/pages/siteManage/subscriptionPage.php">구독</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/publicationList.php">간행물 관리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/shareList.php">나눔 게시판 카테고리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어 및 문구</a>

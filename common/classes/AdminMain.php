@@ -168,6 +168,74 @@ if(!class_exists("AdminMain")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function publicationList(){
+            $sql = "
+                SELECT 
+                  *, 
+                  (SELECT `name` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `name`,
+                  (SELECT `price` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `price`,
+                  (SELECT `discounted` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `discounted`
+                FROM tblPublication 
+                ORDER BY regDate DESC
+            ";
+            return $this->getArray($sql);
+        }
+
+        function publicationDetail(){
+            $id = $_REQUEST["id"];
+            $langCode = $_REQUEST["langCode"];
+
+            $sql = "
+                SELECT * FROM tblPublicationLang WHERE publicationId = '{$id}' AND `langCode` = '{$langCode}' LIMIT 1
+            ";
+            return $this->getRow($sql);
+        }
+
+        function upsertPublication(){
+            $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
+
+            $id = $_REQUEST["id"];
+            $langCode = $_REQUEST["langCode"];
+            $name = $_REQUEST["name"];
+            $price = $_REQUEST["price"];
+            $discounted = $_REQUEST["discounted"];
+
+            $imgPath = NULL;
+
+            if($check !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile"]["tmp_name"], $targetDir)) $imgPath = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+
+            if($id == ""){
+                $sql = "INSERT INTO tblPublication(`regDate`) VALUES(NOW())";
+                $this->update($sql);
+                $id = $this->mysql_insert_id();
+            }
+
+            $sql = "
+                INSERT INTO tblPublicationLang(`publicationId`, `langCode`, `name`, `price`, `discounted`, `imgPath`, `regDate`)
+                VALUES(
+                  '{$id}',
+                  '{$langCode}',
+                  '{$name}',
+                  '{$price}',
+                  '{$discounted}',
+                  '{$imgPath}',
+                  NOW()
+                )
+                ON DUPLICATE KEY UPDATE
+                `name` = '{$name}',
+                `price` = '{$price}',
+                `discounted` = '{$discounted}',
+                `imgPath` = '{$imgPath}'        
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $id);
+        }
+
     }
 
 
