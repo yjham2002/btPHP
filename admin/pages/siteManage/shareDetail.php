@@ -111,6 +111,7 @@
                     <span class="input-group-text" id="basic-addon3">썸네일 이미지</span>
                 </div>
                 <div class="custom-file">
+                    <input type="hidden" name="imgPath" value="<?=$item["imgPath"]?>"/>
                     <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 </div>

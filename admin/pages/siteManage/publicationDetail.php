@@ -98,10 +98,27 @@
                     <span class="input-group-text" id="basic-addon3">썸네일 이미지</span>
                 </div>
                 <div class="custom-file">
+                    <input type="hidden" name="imgPath" value="<?=$item["imgPath"]?>"/>
                     <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 </div>
             </div>
+
+            <table class="table table-sm text-center">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light">
+                        노출여부
+                    </td>
+                    <td>
+                        <input class="mr-2 form-control" id="exposure" type="checkbox" name="exposure" <?="1" == $item["exposure"] ? "checked" : ""?>>
+                    </td>
+                </tr>
+            </table>
+
         </form>
 
     </div>

@@ -144,6 +144,8 @@ if(!class_exists("AdminMain")){
                 if(move_uploaded_file($_FILES["imgFile"]["tmp_name"], $targetDir)) $imgPath = $fName;
                 else return $this->makeResultJson(-1, "fail");
             }
+            else
+                $imgPath = $_REQUEST["imgPath"];
 
             $sql = "
                 INSERT INTO tblBoardType(`lang`, `name`, `subTitle`, `writePermission`, `readPermission`, `imgPath`, `regDate`)
@@ -191,6 +193,13 @@ if(!class_exists("AdminMain")){
             return $this->getRow($sql);
         }
 
+        function initPublication(){
+            $desc = $_REQUEST["desc"];
+            $sql = "INSERT INTO tblPublication(regDate, `desc`) VALUES(NOW(), '{$desc}')";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
+        }
+
         function upsertPublication(){
             $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
 
@@ -199,6 +208,7 @@ if(!class_exists("AdminMain")){
             $name = $_REQUEST["name"];
             $price = $_REQUEST["price"];
             $discounted = $_REQUEST["discounted"];
+            $exposure = $_REQUEST["exposure"] == "" ? "0" : "1";
 
             $imgPath = NULL;
 
@@ -208,15 +218,10 @@ if(!class_exists("AdminMain")){
                 if(move_uploaded_file($_FILES["imgFile"]["tmp_name"], $targetDir)) $imgPath = $fName;
                 else return $this->makeResultJson(-1, "fail");
             }
-
-            if($id == ""){
-                $sql = "INSERT INTO tblPublication(`regDate`) VALUES(NOW())";
-                $this->update($sql);
-                $id = $this->mysql_insert_id();
-            }
+            else $imgPath = $_REQUEST["imgPath"];
 
             $sql = "
-                INSERT INTO tblPublicationLang(`publicationId`, `langCode`, `name`, `price`, `discounted`, `imgPath`, `regDate`)
+                INSERT INTO tblPublicationLang(`publicationId`, `langCode`, `name`, `price`, `discounted`, `imgPath`, `exposure`, `regDate`)
                 VALUES(
                   '{$id}',
                   '{$langCode}',
@@ -224,13 +229,15 @@ if(!class_exists("AdminMain")){
                   '{$price}',
                   '{$discounted}',
                   '{$imgPath}',
+                  '{$exposure}',
                   NOW()
                 )
                 ON DUPLICATE KEY UPDATE
                 `name` = '{$name}',
                 `price` = '{$price}',
                 `discounted` = '{$discounted}',
-                `imgPath` = '{$imgPath}'        
+                `imgPath` = '{$imgPath}',        
+                `exposure` = '{$exposure}'
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ", $id);

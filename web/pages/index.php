@@ -7,12 +7,20 @@
  */
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
-
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
+<?
+    $obj = new WebSubscription($_REQUEST);
+    $publicationList = $obj->getPublicationList();
+?>
 <script>
     $(document).ready(function(){
         $(".toSubscription").click(function(){location.href = "/web/pages/subscription.php";});
         $(".toSupport").click(function(){location.href = "/web/pages/contribution.php";});
+
+        $(".jViewPublication").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/web/pages/product.php?id=" + id;
+        });
     });
 </script>
 
@@ -38,110 +46,33 @@
             </p>
         </header>
         <div class="flex flex-4">
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
+            <?foreach($publicationList as $publicationItem){?>
+                <div class="box person jViewPublication" id="<?=$publicationItem["id"]?>">
+                    <div class="image fader">
+                        <img src="<?=$publicationItem["imgPath"] != "" ? $obj->fileShowPath . $publicationItem["imgPath"] : ""?>" alt="Person 1" />
+                        <div class="overlayT">
+                            <div class="text">제품보기</div>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <h3><?=$publicationItem["name"]?></h3>
+                        <p><s><?=$publicationItem["price"]?></s> <?=$publicationItem["discounted"]?></p>
                     </div>
                 </div>
-                <div class="desc">
-                    <h3>Note</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 2" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_맥체인 / 새번역 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 3" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_연대기 / 새번역 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 4" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>OYB_클래식 / 개역개정 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 1" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X2 / 개역개정 (+NIV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 2" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X3_OT / 새번역 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 3" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>X3_NT / 새번역 (+ESV)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
-            <div class="box person">
-                <div class="image fader">
-                    <img src="/web/images/testBook.png" alt="Person 4" />
-                    <div class="overlayT">
-                        <div class="text">제품보기</div>
-                    </div>
-                </div>
-                <div class="desc">
-                    <h3>NT / 개역개정 (+NT)</h3>
-                    <p><s>₩2,500</s> ₩1,500</p>
-
-                </div>
-            </div>
+            <?}?>
+<!--            <div class="box person">-->
+<!--                <div class="image fader">-->
+<!--                    <img src="/web/images/testBook.png" alt="Person 2" />-->
+<!--                    <div class="overlayT">-->
+<!--                        <div class="text">제품보기</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="desc">-->
+<!--                    <h3>OYB_맥체인 / 새번역 (+NIV)</h3>-->
+<!--                    <p><s>₩2,500</s> ₩1,500</p>-->
+<!---->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </section>

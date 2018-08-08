@@ -1,13 +1,9 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBase.php" ;?>
 <?
-/*
- * Web process
- * add by cho
- * */
 if(!class_exists("WebBoard")){
 	class WebBoard extends  WebBase {
 		
-		function __construct($req) 
+		function __construct($req)
 		{
 			parent::__construct($req);
 		}
