@@ -12,6 +12,11 @@
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
+		
+	}
+
+	div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, summary, time, mark, audio, video{
+		cursor : pointer !important;
 	}
 
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -218,9 +223,25 @@
 	background:#999999;
 }
 
+.grayButton.selected{
+	background:#555555;
+}
+
+.orgButton{
+	padding : 0.6em 1.7em;
+	background:#F39C12 !important;
+}
+
 .blueButton{
 	padding : 0.6em 1.7em;
 	background:#3498DB !important;
+}
+
+.captionBtn{
+	border-radius: 30px !important;
+	font-size:0.8em !important;
+	padding : 0.3em 1.5em;
+	background:#F39C12 !important;
 }
 
 .smallTextBox{
@@ -243,6 +264,10 @@
 .mypage h3{
 	font-size : 1.2em;
 	color:black;
+}
+
+.lineButton{
+	line-height: 2.5em;
 }
 
 .mypage h5{
@@ -333,6 +358,10 @@
 	vertical-align: middle;
 }
 
+.applyPage{
+	margin : 0 5em !important;
+}
+
 .formWrap{
 	text-align:center;
 	padding : 3em 3em;
@@ -348,6 +377,10 @@
 
 @media screen and (min-width:980px){
 	.formWrap{
+		margin : 0 15em;
+	}
+
+	.applyPage{
 		margin : 0 15em;
 	}
 
@@ -2332,7 +2365,7 @@
 		@media screen and (max-width: 480px) {
 
 			.inner {
-				
+				max-width : 90%;	
 			}
 
 		}
@@ -2348,6 +2381,13 @@
 		margin : 0 12.0em;
 	}
 }
+
+@media screen and (max-width:720px){
+	.row.small{
+		margin : 0 0em;
+	}
+}
+
 
 .adjacent{
 	padding : 0;
@@ -3331,6 +3371,10 @@
 				background-color: white;
 			}
 
+		table.alt.white.all tr, table.alt.white.all td{
+			border : none !important;
+		}
+
 		table.alt {
 			border-collapse: separate;
 		}
@@ -3764,9 +3808,12 @@
 
 			@media screen and (max-width:430px){
 				#header .rightBox .link{
-					margin-left: 10px;
-					font-size:0.7em;
+					margin-left: 8px;
+					font-size:0.6em;
 				}	
+				#header .rightBox .langBtn{
+					padding : 0 !important;
+				}
 			}
 
 			#header .rightBox .langBtn{
@@ -3812,6 +3859,12 @@
 		width:100vw;
 		top : 67px;
 		background: #FFAB3E;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.subpage {
+		padding-top: 115px;
 	}
 }
 

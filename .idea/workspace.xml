@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/admin/pages/siteManage/faqDetail.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/web/pages/subscribeDetail.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/web/pages/supportDetail.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/faqList.php" afterPath="$PROJECT_DIR$/admin/pages/siteManage/faqList.php" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" afterPath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/AdminMain.php" afterPath="$PROJECT_DIR$/common/classes/AdminMain.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebBoard.php" afterPath="$PROJECT_DIR$/common/classes/WebBoard.php" />
+      <change beforePath="$PROJECT_DIR$/web/assets/css/main.css" afterPath="$PROJECT_DIR$/web/assets/css/main.css" />
       <change beforePath="$PROJECT_DIR$/web/pages/faq.php" afterPath="$PROJECT_DIR$/web/pages/faq.php" />
+      <change beforePath="$PROJECT_DIR$/web/pages/product.php" afterPath="$PROJECT_DIR$/web/pages/product.php" />
+      <change beforePath="$PROJECT_DIR$/web/pages/subscribeDetail.html" afterPath="$PROJECT_DIR$/web/published/subscribeDetail.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/common/classes/AdminMain.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="627">
-              <caret line="301" column="42" lean-forward="true" selection-start-line="301" selection-start-column="42" selection-end-line="301" selection-end-column="42" />
+              <caret line="301" column="42" lean-forward="false" selection-start-line="301" selection-start-column="42" selection-end-line="301" selection-end-column="42" />
               <folding>
                 <marker date="1533718147424" expanded="true" signature="650:789" ph="SELECT * FRO... tblAdmin" />
                 <marker date="1533718147424" expanded="true" signature="1250:1292" ph="SELECT * FRO... tblLang" />
@@ -71,9 +71,11 @@
       <file leaf-file-name="faq.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/pages/faq.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="21" column="57" lean-forward="true" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
-              <folding />
+            <state relative-caret-position="866">
+              <caret line="71" column="114" lean-forward="false" selection-start-line="71" selection-start-column="114" selection-end-line="71" selection-end-column="114" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,8 +83,8 @@
       <file leaf-file-name="WebSubscription.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/classes/WebSubscription.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="44" column="1" lean-forward="false" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+            <state relative-caret-position="420">
+              <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
               <folding>
                 <marker date="1533711782385" expanded="true" signature="470:569" ph="SELECT * FRO... tblPublicationLang" />
                 <marker date="1533711782385" expanded="true" signature="470:627" ph="SELECT * FRO... tblPublicationLang" />
@@ -115,22 +117,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="faqDetail.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/faqDetail.php">
+      <file leaf-file-name="subscription.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/subscription.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
+            <state relative-caret-position="480">
+              <caret line="37" column="59" lean-forward="false" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="languages.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/languages.php">
+      <file leaf-file-name="product.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/product.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3831">
-              <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="836">
+              <caret line="62" column="48" lean-forward="false" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+                <element signature="e#2274#2280#0#HTML" expanded="true" />
+                <element signature="n#style#0;n#h5#0;n#section#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="subscribeDetail.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/pages/subscribeDetail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="417">
+              <caret line="54" column="32" lean-forward="false" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
+              <folding>
+                <element signature="e#5043#5065#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,7 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dash</find>
       <find>Dash</find>
       <find>login</find>
       <find>lass\=\&quot;form\-group\&quot;\&gt;\-\-\&gt;\n\&lt;\!\-\-                    \&lt;div class\=\&quot;checkbox\&quot;\&gt;\-\-\&gt;\n\&lt;\!\-\-                        \&lt;label\&gt;\-\-\&gt;\n\&lt;\!\-\-                            \&lt;input type\=\&quot;checkbox\&quot; value\=\&quot;remember\-me\&quot;\&gt;\-\-\&gt;\n\&lt;\!\-\-                            Remember Password\-\-\&gt;\n\&lt;\!\-\-                        \&lt;\/label\&gt;\-\-\&gt;\n\&lt;\!\-\-                    \&lt;\/div\&gt;\-\-\&gt;\n\&lt;\!\-\-                \&lt;\/div\&gt;</find>
@@ -169,6 +186,7 @@
       <find>hidden</find>
       <find>upsertPublication</find>
       <find>hr</find>
+      <find>images</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -181,8 +199,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/inc/footer.php" />
-        <option value="$PROJECT_DIR$/admin/inc/pageNavigator.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/failedPurchase.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/kakaoList.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/paymentStatus.php" />
@@ -224,14 +240,16 @@
         <option value="$PROJECT_DIR$/common/classes/WebSubscription.php" />
         <option value="$PROJECT_DIR$/web/pages/subscription.php" />
         <option value="$PROJECT_DIR$/admin/pages/siteManage/publicationDetail.php" />
-        <option value="$PROJECT_DIR$/web/pages/product.php" />
         <option value="$PROJECT_DIR$/admin/inc/header.php" />
         <option value="$PROJECT_DIR$/admin/pages/siteManage/faqList.php" />
         <option value="$PROJECT_DIR$/common/classes/WebBoard.php" />
         <option value="$PROJECT_DIR$/admin/pages/siteManage/faqDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/AdminMain.php" />
-        <option value="$PROJECT_DIR$/web/pages/faq.php" />
         <option value="$PROJECT_DIR$/admin/pages/siteManage/languages.php" />
+        <option value="$PROJECT_DIR$/web/pages/faq.php" />
+        <option value="$PROJECT_DIR$/web/pages/supportDetail.php" />
+        <option value="$PROJECT_DIR$/web/pages/product.php" />
+        <option value="$PROJECT_DIR$/web/pages/subscribeDetail.php" />
       </list>
     </option>
   </component>
@@ -242,7 +260,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -311,6 +329,12 @@
               <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="BibleTime" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BibleTime" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="published" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -322,17 +346,17 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="langua&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/languages.php&#10;faqD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/faqDetail.php&#10;web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;faq&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/faq.php&#10;public&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;publi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;publicationL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationList.php&#10;shareL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareList.php&#10;f&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/faqList.php&#10;adminMain&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;adminm&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;produc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/product.php&#10;sub&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscription.php&#10;WebS&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;index.php&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;shareD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareDetail.php&#10;publicationDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;lang&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/language.php&#10;Web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebBoard.php&#10;webB&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebBoard.php&#10;index&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;subsc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscription.php&#10;articleL&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleList.php&#10;webUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;cus&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;login&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/login.php&#10;index.&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;donati&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/donation.php&#10;contri&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/contribution.php&#10;supp&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/supportPage.php&#10;introduction&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/introduction.php&#10;Const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;AdminMai&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;cu&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;mainPage&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/mainPage.php&#10;Cons&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;kakao&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/kakaoList.php&#10;footer&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/footer.php&#10;AdminMa&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="sub&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscription.php&#10;faq&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/faq.php&#10;langua&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/languages.php&#10;faqD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/faqDetail.php&#10;web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;public&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;publi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;publicationL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationList.php&#10;shareL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareList.php&#10;f&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/faqList.php&#10;adminMain&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;adminm&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;produc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/product.php&#10;WebS&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;index.php&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;shareD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareDetail.php&#10;publicationDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;lang&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/language.php&#10;Web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebBoard.php&#10;webB&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebBoard.php&#10;index&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;subsc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscription.php&#10;articleL&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleList.php&#10;webUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;cus&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;login&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/login.php&#10;index.&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/index.php&#10;donati&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/donation.php&#10;contri&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/contribution.php&#10;supp&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/supportPage.php&#10;introduction&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/introduction.php&#10;Const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;AdminMai&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;cu&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;mainPage&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/mainPage.php&#10;Cons&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;kakao&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/kakaoList.php&#10;footer&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/footer.php&#10;AdminMa&#9;null&#9;null" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin/inc" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/web/published" />
       <recent name="$PROJECT_DIR$/web" />
       <recent name="$PROJECT_DIR$/admin/pages" />
       <recent name="$PROJECT_DIR$/admin" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/admin/inc" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -379,18 +403,18 @@
       <workItem from="1533359014545" duration="13924000" />
       <workItem from="1533476205176" duration="2598000" />
       <workItem from="1533531255991" duration="7839000" />
-      <workItem from="1533623852289" duration="29453000" />
+      <workItem from="1533623852289" duration="34218000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92527000" />
+    <option name="totallyTimeSpent" value="97292000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12708333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -422,27 +446,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/published/articleList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="132" column="18" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="132" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/published/contribution.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="83" column="22" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="83" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/published/donation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="127" column="22" lean-forward="true" selection-start-line="39" selection-start-column="12" selection-end-line="127" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/pages/elements.php" />
     <entry file="file://$PROJECT_DIR$/web/published/elements.html" />
     <entry file="file://$PROJECT_DIR$/web/published/faq.html">
@@ -711,25 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/subscription.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="33" column="55" lean-forward="false" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#section#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#p#1;n#td#1;n#tr#0;n#table#0;n#div#0;n#section#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/inc/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -762,20 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/WebSubscription.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="44" column="1" lean-forward="false" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
-          <folding>
-            <marker date="1533711782385" expanded="true" signature="470:569" ph="SELECT * FRO... tblPublicationLang" />
-            <marker date="1533711782385" expanded="true" signature="470:627" ph="SELECT * FRO... tblPublicationLang" />
-            <marker date="1533711782385" expanded="true" signature="854:950" ph="SELECT * FRO... tblPublicationLang" />
-            <marker date="1533711782385" expanded="true" signature="854:981" ph="SELECT * FRO... tblPublicationLang" />
-            <marker date="1533711782385" expanded="true" signature="854:1005" ph="SELECT * FRO... tblPublicationLang" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/publicationDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="407">
@@ -784,18 +754,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/faqDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/AdminMain.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
-          <caret line="301" column="42" lean-forward="true" selection-start-line="301" selection-start-column="42" selection-end-line="301" selection-end-column="42" />
+          <caret line="301" column="42" lean-forward="false" selection-start-line="301" selection-start-column="42" selection-end-line="301" selection-end-column="42" />
           <folding>
             <marker date="1533718147424" expanded="true" signature="650:789" ph="SELECT * FRO... tblAdmin" />
             <marker date="1533718147424" expanded="true" signature="1250:1292" ph="SELECT * FRO... tblLang" />
@@ -839,6 +801,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/faqDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/languages.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3831">
+          <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/WebBoard.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="728">
@@ -858,19 +836,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/faq.php">
+    <entry file="file://$PROJECT_DIR$/web/published/subscribeDetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="21" column="57" lean-forward="true" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
+        <state relative-caret-position="233">
+          <caret line="193" column="22" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="193" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/languages.php">
+    <entry file="file://$PROJECT_DIR$/web/pages/subscription.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3831">
-          <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
+        <state relative-caret-position="480">
+          <caret line="37" column="59" lean-forward="false" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/classes/WebSubscription.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+          <folding>
+            <marker date="1533711782385" expanded="true" signature="470:569" ph="SELECT * FRO... tblPublicationLang" />
+            <marker date="1533711782385" expanded="true" signature="470:627" ph="SELECT * FRO... tblPublicationLang" />
+            <marker date="1533711782385" expanded="true" signature="854:950" ph="SELECT * FRO... tblPublicationLang" />
+            <marker date="1533711782385" expanded="true" signature="854:981" ph="SELECT * FRO... tblPublicationLang" />
+            <marker date="1533711782385" expanded="true" signature="854:1005" ph="SELECT * FRO... tblPublicationLang" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/faq.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="866">
+          <caret line="71" column="114" lean-forward="false" selection-start-line="71" selection-start-column="114" selection-end-line="71" selection-end-column="114" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/supportDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+          <folding>
+            <element signature="e#350#386#0#HTML" expanded="false" />
+            <element signature="e#672#705#0#HTML" expanded="false" />
+            <element signature="e#774#800#0#HTML" expanded="false" />
+            <element signature="e#852#875#0#HTML" expanded="false" />
+            <element signature="e#1012#1052#0#HTML" expanded="false" />
+            <element signature="e#1303#1340#0#HTML" expanded="false" />
+            <element signature="e#1410#1428#0#HTML" expanded="false" />
+            <element signature="e#1954#1974#0#HTML" expanded="false" />
+            <element signature="e#2046#2066#0#HTML" expanded="false" />
+            <element signature="e#2217#2237#0#HTML" expanded="false" />
+            <element signature="e#2309#2331#0#HTML" expanded="false" />
+            <element signature="e#2499#2524#0#HTML" expanded="false" />
+            <element signature="e#3001#3026#0#HTML" expanded="false" />
+            <element signature="e#3138#3163#0#HTML" expanded="false" />
+            <element signature="e#3285#3310#0#HTML" expanded="false" />
+            <element signature="e#3803#3840#0#HTML" expanded="false" />
+            <element signature="e#4289#4307#0#HTML" expanded="false" />
+            <element signature="e#5006#5024#0#HTML" expanded="false" />
+            <element signature="e#5966#5989#0#HTML" expanded="false" />
+            <element signature="e#6006#6043#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="62" column="48" lean-forward="false" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+            <element signature="e#2274#2280#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/subscribeDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="54" column="32" lean-forward="false" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
+          <folding>
+            <element signature="e#5043#5065#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

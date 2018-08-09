@@ -69,7 +69,7 @@
             <p exposureSet="SECTION_FAQ_BANNER"><?=$FAQ_ELEMENTS["subTitle"]?></p>
         </header>
 
-        <input type="text" class="fancy" id="searchBox" placeholder="Looking for something?" />
+        <input type="text" class="fancy" id="searchBox" placeholder="Looking for something?" style="display: none;" />
 
         <br/>
 
