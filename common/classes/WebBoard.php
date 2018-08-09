@@ -47,5 +47,13 @@ if(!class_exists("WebBoard")){
 		    ";
 		    return $this->getRow($sql);
         }
+
+        function faqList(){
+		    $langCode = $_COOKIE["btLocale"];
+		    $sql = "
+		        SELECT * FROM tblFaqLang WHERE `langCode` = '{$langCode}' AND `exposure` = 1
+		    ";
+		    return $this->getArray($sql);
+        }
 	}
 }

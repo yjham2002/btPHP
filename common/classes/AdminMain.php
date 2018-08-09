@@ -173,10 +173,7 @@ if(!class_exists("AdminMain")){
         function publicationList(){
             $sql = "
                 SELECT 
-                  *, 
-                  (SELECT `name` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `name`,
-                  (SELECT `price` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `price`,
-                  (SELECT `discounted` FROM tblPublicationLang WHERE publicationId = `id` AND `langCode` = 'kr') `discounted`
+                  *
                 FROM tblPublication 
                 ORDER BY regDate DESC
             ";
@@ -209,10 +206,8 @@ if(!class_exists("AdminMain")){
             $name = $_REQUEST["name"];
             $price = $_REQUEST["price"];
             $discounted = $_REQUEST["discounted"];
-
             $subTitle = $_REQUEST["subTitle"];
             $description = nl2br($_REQUEST["description"]);
-
             $exposure = $_REQUEST["exposure"] == "" ? "0" : "1";
 
             $imgPath = NULL;
@@ -261,6 +256,54 @@ if(!class_exists("AdminMain")){
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ", $id);
+        }
+
+        function faqList(){
+            $sql = "SELECT * FROM tblFaq ORDER BY regDate DESC";
+            return $this->getArray($sql);
+        }
+
+        function faqDetail(){
+            $id = $_REQUEST["id"];
+            $langCode = $_REQUEST["langCode"];
+            $sql = "
+              SELECT * FROM tblFaqLang WHERE faqId = '{$id}' AND `langCode` = '{$langCode}' LIMIT 1
+            ";
+            return $this->getRow($sql);
+        }
+
+        function initFaq(){
+            $desc = $_REQUEST["desc"];
+            $sql = "INSERT INTO tblFaq(regDate, `desc`) VALUES(NOW(), '{$desc}')";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
+        }
+
+        function upsertFaq(){
+            $id = $_REQUEST["id"];
+            $langCode = $_REQUEST["langCode"];
+            $question = $_REQUEST["question"];
+            $content = nl2br($_REQUEST["content"]);
+            $exposure = $_REQUEST["exposure"] == "" ? "0" : "1";
+
+            $sql = "
+                INSERT INTO tblFaqLang(`faqId`, `langCode`, `question`, `content`, `exposure`, `regDate`)
+                VALUES(
+                  '{$id}',
+                  '{$langCode}',
+                  '{$question}',
+                  '{$content}',
+                  '{$exposure}',
+                  NOW()
+                )
+                ON DUPLICATE KEY UPDATE
+                `question` = '{$question}',
+                `content` = '{$content}',
+                `exposure` = '{$exposure}'
+            ";
+
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
         }
 
     }

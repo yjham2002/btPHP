@@ -13,7 +13,28 @@
     <script>
         $(document).ready(function(){
 
+            var lengthLimit = 10;
+
             bindLangPair();
+
+            function convert(){
+                var arr = $(".langValue");
+                for(var e = 0; e < arr.length; e++){
+                    var item = arr.eq(e);
+                    if(item.val().length > lengthLimit){
+                        var html = "<textarea class='form-control langValue' key="+ item.attr("key") +">" + item.val() + "</textarea>";
+                        item.parent().html(html);
+                    }
+                }
+                resizeTextArea();
+            }
+
+            function resizeTextArea(){
+                var arr = $("textarea");
+                for(var e = 0; e < arr.length; e++){
+                    arr.eq(e).height(arr.eq(e).prop('scrollHeight'));
+                }
+            }
 
             function getLangPair(){
                 var tds = $(".langKey");
@@ -35,8 +56,10 @@
                 // console.log(map);
 
                 $.each(map, function(key, value){
-                    $('input[key='+key+']').val(value);
+                    $('input[key='+key+'], textarea[key='+key+']').val(value);
                 });
+
+                convert();
             }
 
             function bindLangPair(){
@@ -73,7 +96,8 @@
                         json : JSON.stringify(jsonArr.map)
                     },
                     success : function(data){
-                        // alert(data);
+                        alert("저장되었습니다.");
+                        location.reload();
                     }
                 });
             });
@@ -91,8 +115,8 @@
             </ol>
 
             <div class="btn-group float-right mb-2" role="group">
-                <a href="#" class="jSave btn btn-secondary mr-2">저장</a>
-                <a href="/admin/pages/siteManage/languageSet.php" class="btn btn-secondary mr-2">언어셋 관리</a>
+                <a bref="#" class="jSave btn btn-secondary mr-2">저장</a>
+                <a bref="/admin/pages/siteManage/languageSet.php" class="btn btn-secondary mr-2">언어셋 관리</a>
                 <select class="custom-select mr-2 jLang col-5" id="inputGroupSelect01">
                     <option value="kr">한국어</option>
                     <option value="en">영어</option>
@@ -108,7 +132,7 @@
 
             <!-- HEADER ELEMENTS -->
             <h4>웹사이트 헤더 영역</h4>
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -148,11 +172,11 @@
                 </tr>
             </table>
 
-            <hr/>
+            <br/>
 
             <h4>웹사이트 HOME 영역</h4>
             <!-- HOME ELEMENTS-->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -198,11 +222,11 @@
                 </tr>
             </table>
 
-            <hr/>
+            <br/>
 
             <h4>웹사이트 소개 영역</h4>
             <!-- INTRODUCTION ELEMENTS-->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -230,12 +254,12 @@
                 </tr>
 
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_phraseText">소개[성경구절]</td>
-                    <td><input type="text" class="form-control langValue" key="intro_phraseText" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="intro_pbraseText">소개[성경구절]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_pbraseText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_phraseLoc">소개[구절 위치(장/절)]</td>
-                    <td><input type="text" class="form-control langValue" key="intro_phraseLoc" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="intro_pbraseLoc">소개[구절 위치(장/절)]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_pbraseLoc" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
                 <tr class="h-auto">
@@ -252,8 +276,8 @@
                     <td><input type="text" class="form-control langValue" key="intro_articleTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_articlePhrase">소개[아티클 문구]</td>
-                    <td><input type="text" class="form-control langValue" key="intro_articlePhrase" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="intro_articlePbrase">소개[아티클 문구]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_articlePbrase" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light langKey" key="intro_articleSubTitle">소개[아티클 하위 타이틀]</td>
@@ -265,12 +289,12 @@
                 </tr>
 
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_secondPhraseText">소개[두번째 성경구절]</td>
-                    <td><input type="text" class="form-control langValue" key="intro_secondPhraseText" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="intro_secondPbraseText">소개[두번째 성경구절]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondPbraseText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="intro_secondPhraseLoc">소개[두번째 구절 위치(장/절)]</td>
-                    <td><input type="text" class="form-control langValue" key="intro_secondPhraseLoc" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="intro_secondPbraseLoc">소개[두번째 구절 위치(장/절)]</td>
+                    <td><input type="text" class="form-control langValue" key="intro_secondPbraseLoc" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
                 <tr class="h-auto">
@@ -292,11 +316,11 @@
                 </tr>
             </table>
 
-            <hr/>
+            <br/>
 
             <h4>웹사이트 구독하기 영역</h4>
             <!-- SUBSCRIBE ELEMENTS -->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -314,7 +338,7 @@
 
             <h4>웹사이트 후원하기 영역</h4>
             <!-- SUPPORT ELEMENTS -->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -334,16 +358,16 @@
                 </tr>
 
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light langKey" key="support_phrase">후원[문구]</td>
-                    <td><input type="text" class="form-control langValue" key="support_phrase" value="" placeholder="내용을 입력하세요" /></td>
+                    <td class="bg-secondary text-light langKey" key="support_pbrase">후원[문구]</td>
+                    <td><input type="text" class="form-control langValue" key="support_pbrase" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
 
-            <hr/>
+            <br/>
 
             <h4>웹사이트 나눔 영역</h4>
             <!-- SHARE ELEMENTS -->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -372,11 +396,11 @@
                 </tr>
             </table>
 
-            <hr/>
+            <br/>
 
             <h4>웹사이트 FAQ 영역</h4>
             <!-- FAQ ELEMENTS -->
-            <table class="table table-sm table-bordered text-center">
+            <table class="table table-sm text-center table-responsive">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
@@ -405,7 +429,7 @@
 <!--                </tr>-->
             </table>
 
-            <hr>
+            <br>
 
         </div>
         <!-- /.container-fluid -->
