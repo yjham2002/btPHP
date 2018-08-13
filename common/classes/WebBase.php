@@ -203,6 +203,7 @@ if(! class_exists("WebBase") )	{
 		}
 
 
+
 	}//클래스 종료
 }
 ?>

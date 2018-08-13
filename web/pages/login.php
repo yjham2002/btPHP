@@ -10,32 +10,53 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
-$obj = new webUser($_REQUEST);
+    $obj = new WebUser($_REQUEST);
 ?>
 <script>
     $(document).ready(function(){
-        Kakao.cleanup();
-        // 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('4dc7da3cb02d7e90c6e870c9902e7205');
-        // 카카오 로그인 버튼을 생성합니다.
-        Kakao.Auth.createLoginButton({
-            container: '#kakao-login-btn',
-            success: function(authObj) {
-                // 로그인 성공시, API를 호출합니다.
-                Kakao.API.request({
-                    url: '/v1/user/me',
-                    success: function(res){
-                        console.log("email :::: " + res.kaccount_email);
-                        console.log(JSON.stringify(res));
-                    },
-                    fail: function(error){
-                        alert(JSON.stringify(error));
-                    }
-                });
-            },
-            fail: function(err) {
-                alert(JSON.stringify(err));
+        // Kakao.cleanup();
+        // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+        // Kakao.init('4dc7da3cb02d7e90c6e870c9902e7205');
+        // // 카카오 로그인 버튼을 생성합니다.
+        // Kakao.Auth.createLoginButton({
+        //     container: '#kakao-login-btn',
+        //     success: function(authObj) {
+        //         // 로그인 성공시, API를 호출합니다.
+        //         Kakao.API.request({
+        //             url: '/v1/user/me',
+        //             success: function(res){
+        //                 console.log("email :::: " + res.kaccount_email);
+        //                 console.log(JSON.stringify(res));
+        //             },
+        //             fail: function(error){
+        //                 alert(JSON.stringify(error));
+        //             }
+        //         });
+        //     },
+        //     fail: function(err) {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
+
+        $(".jLogin").click(function(){
+            var account = $("#userId").val();
+            var password = $("#userPW").val();
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.login", false, "json", new sehoMap().put("account", account).put("password", password));
+            ajax.send(function(data){
+                if(data.returnCode === 1) location.href = "/web";
+                else if(data.returnCode === -1) alert("처음 로그인을 클릭하여 비밀번호를 설정해주시기 바랍니다.");
+                else alert("일치하는 계정이 존재하지 않습니다");
+            });
+        });
+
+        $('input').on("keydown", function(event){
+            if (event.keyCode == 13) {
+                $(".jLogin").trigger("click");
             }
+        });
+
+        $(".jInit").click(function(){
+            location.href = "/web/pages/accountInit.php";
         });
     });
 </script>
@@ -43,13 +64,12 @@ $obj = new webUser($_REQUEST);
 <section class="wrapper special books">
     <div class="inner">
         <header>
-            <h2 class="pageTitle">마이페이지</h2>
+            <h2 class="pageTitle">로그인</h2>
             <div class="empLineT"></div>
-            <p>후원과 구독을 확인하는 공간입니다.</p>
+<!--            <p>후원과 구독을 확인하는 공간입니다.</p>-->
         </header>
 
         <div class="">
-
             <form method="post" action="#">
                 <div class="formWrap">
                     <table class="noBorder">
@@ -77,7 +97,7 @@ $obj = new webUser($_REQUEST);
                         <a id="kakao-login-btn"></a>
                         <tr class="noBorder">
                             <td colspan="2" style="text-align:left; color:white;">
-                                <a href="#" class="optionLink">처음 로그인</a> |
+                                <a href="#" class="optionLink jInit">처음 로그인</a> |
                                 <a href="#" class="optionLink">아이디 찾기</a> |
                                 <a href="#" class="optionLink">비밀번호 찾기</a>
                             </td>
@@ -91,8 +111,8 @@ $obj = new webUser($_REQUEST);
                     </table>
                 </div>
             </form>
-
         </div>
+
     </div>
 </section>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

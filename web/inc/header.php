@@ -13,6 +13,9 @@
     $url = $_SERVER['REQUEST_URI'];
     $expObj = new WebUser($_REQUEST);
     $EXPOSURE_SET = $expObj->getExposures();
+
+    $user= $expObj->webUser;
+//    echo json_encode($user);
 ?>
 
 <!DOCTYPE HTML>
@@ -32,7 +35,6 @@
     <script type="text/javascript" src="/modules/ajaxCall/ajaxClass.js"></script>
     <script type="text/javascript" src="/modules/sehoMap/sehoMap.js"></script>
 
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body class="subpage">
@@ -108,8 +110,11 @@
             <a class="langBtn" loc="es" href="#"><img src="/web/images/lang_es.png" />ES | </a>
             <a class="langBtn" loc="zh" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
 
-            <a class="link" href="/web/pages/login.php">로그인</a>
-<!--            <a class="link" href="/web/pages/mypage.php">마이페이지</a>-->
+            <?if($user != "" && $user != null){?>
+                <a class="link" href="/web/pages/mypage.php">마이페이지</a>
+            <?}else{?>
+                <a class="link" href="/web/pages/login.php">로그인</a>
+            <?}?>
         </div>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>

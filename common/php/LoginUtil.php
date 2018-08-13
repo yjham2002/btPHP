@@ -69,8 +69,6 @@ if (!class_exists("LoginUtil")) {
                     $row['storeTypeID'] . chr(30);
 
                 $cookieStr = bin2hex($cookieStr); // 16진수로 암호화
-
-                //setcookie("userMap",$cookieStr,-1,"/", '.richware.co.kr') ;
                 setcookie("userMap", $cookieStr, -1, "/", '');
 
                 return true;

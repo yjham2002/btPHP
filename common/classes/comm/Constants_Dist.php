@@ -28,7 +28,7 @@ if(! class_exists("Constants") )
 		var $dbHost					= "182.161.118.74" ;
 		var $dbName					= "kcSpecialVehicle" ;
 		var $dbUser					= "root" ;
-		var $dbPass					= "$#@!richware7" ;
+		var $dbPass					= "" ;
 		var $charset				= "utf8" ;
 		
 		

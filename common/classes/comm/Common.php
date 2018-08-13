@@ -581,6 +581,10 @@ if (! class_exists("Common"))
         function checkNullParam($paramName, $default){
             return $this->req[$paramName] == "" ? $default : $this->req["$paramName"];
         }
+
+        function sendGmail(){
+
+        }
 	}
 }
 ?>

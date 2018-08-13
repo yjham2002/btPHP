@@ -18,6 +18,8 @@
     }
     $list = $obj->publicationList();
 ?>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     $(document).ready(function(){
         setPrice($("#jCnt").val());
@@ -40,6 +42,7 @@
             if(cnt >= 10) value = cnt * discounted;
             else value = cnt * price;
             $(".jPriceTarget").text(value);
+            $("[name=totalPrice]").val(value);
         }
 
         $(".jPhone").change(function(){
@@ -93,7 +96,7 @@
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
             <input type="hidden" name="publicationId" value="<?=$_REQUEST["id"]?>" />
-            <input type="hidden" name="totalPrice"
+            <input type="hidden" name="totalPrice" value="" />
             <div class="row uniform" style="margin : 0 1em;">
                 <div class="6u 12u$(small)">
                     <div class="image fit">

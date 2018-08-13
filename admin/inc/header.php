@@ -42,6 +42,13 @@
 
     <script type="text/javascript" src="/modules/ajaxCall/ajaxClass.js"></script>
     <script type="text/javascript" src="/modules/sehoMap/sehoMap.js"></script>
+
+    <link href="/admin/vendor/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="/admin/vendor/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" />
+    <script src="/admin/vendor/fullcalendar/fc_picklecode.js"></script>
+    <script src="/admin/vendor/fullcalendar/lib/moment.min.js"></script>
+    <script src="/admin/vendor/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/admin/vendor/fullcalendar/locale/ko.js"></script>
 </head>
 
 <?

@@ -452,10 +452,8 @@ if(! class_exists("ApiBase") )	{
 
 		function smsTest()
 		{
-			$str = "투리 테스트입니다. 님의 선물을 받아주세요.퍼니룰렛 돌리고, 퍼니콘 직접 고르기!돌리러 가기 http://funnycon.richware.co.kr/appStart.php" ;
+			$str = "투리 테스트입니다." ;
 			$this->sendSMS($str, "010-4220-1597", $this->turiCSPhone) ;
-
-			// http://funnycon.richware.co.kr/action_front.php?cmd=ApiBase.smsTest
 		}
 		
 

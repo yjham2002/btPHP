@@ -80,16 +80,18 @@ if(!class_exists("WebSubscription")){
             $publicationCnt = $_REQUEST["publicationCnt"];
             $isGift = $_REQUEST["isGift"] ? "1" : "0";
             $rName = $_REQUEST["rName"];
+            $totalPrice = $_REQUEST["totalPrice"];
 
             //TODO paymethod/payment info insert
             $payMethodId = 0;
 
             $sql = "
-                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `isGift`, `rName`, `zipcode`, `addr`, `addrDetail`, `payMethodId`, `regDate`)
+                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `totalPrice`, `isGift`, `rName`, `zipcode`, `addr`, `addrDetail`, `payMethodId`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$publicationId}',
                   '{$publicationCnt}',
+                  '{$totalPrice}',
                   '{$isGift}',
                   '{$rName}',
                   '{$zipcode}',

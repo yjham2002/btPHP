@@ -1,19 +1,20 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/class.phpmailer.php" ; ?>
+<? require_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/module/email/class.phpmailer.php" ; ?>
 <?
 if(! class_exists("GEmail") )	{
 
 	class GEmail {
 
 		protected $gMail = null;
-		protected $userName = "FUNNYCON";
-		protected $userEmail = "hongjae.lee@richware.co.kr";
-		protected $password = "dlghdwo7";
+		protected $userName = "BibleTime";
+		protected $userEmail = "ellivga@gmail.com";
+		protected $password = "alclsekf12";
 		protected $host = "ssl://smtp.gmail.com";
 		protected $port = 465;
 		protected $mailer = "smtp";
 
 
-		function GEmail($req, $xmlKey)	//보내는 사람
+//		function GEmail($req, $xmlKey)	//보내는 사람
+        function GEmail()	//보내는 사람
 		{
 			$this->init();
 		}
@@ -44,7 +45,7 @@ if(! class_exists("GEmail") )	{
 		//이메일 받는계정 추가
 		function addReceiveEmail($email, $name)
 		{
-			$this->gMail->AddAddress($email,$name);
+			$this->gMail->addAddress($email,$name);
 		}
 
 
@@ -88,7 +89,7 @@ if(! class_exists("GEmail") )	{
 			$this->setMailBody("테스트 이메일");
 			$this->setSubject("테스트 이메일 제목");
 
-			$this->addReceiveEmail("oam729@hanmail.net", "정상씨");
+			$this->addReceiveEmail("fishcreek@naver.com", "전세호");
 
 			$this->sendMail();
 		}
@@ -98,7 +99,7 @@ if(! class_exists("GEmail") )	{
 		{	
 			$isSend = $this->gMail->Send();
 
-			/*			
+
 			if(!$isSend)
 			{
 				echo "Mailer Error: " . $this->gMail->ErrorInfo;
@@ -107,7 +108,7 @@ if(! class_exists("GEmail") )	{
 			{
 				echo "Message has been sent";
 			}
-			*/
+
 			return $isSend;
 		}
 

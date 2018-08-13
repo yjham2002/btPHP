@@ -6,6 +6,7 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . '/common/classes/util/Push.php'; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . '/common/classes/module/whoisSMS/class.http.php'; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . '/common/classes/module/whoisSMS/class.EmmaSMS.php'; ?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . '/common/classes/module/email/GEmail.php'; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/excel/reader.php" ?>
 <?php
 if(! class_exists("HomeFrm") )	{

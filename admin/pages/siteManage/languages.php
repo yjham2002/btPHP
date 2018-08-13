@@ -132,14 +132,16 @@
 
             <!-- HEADER ELEMENTS -->
             <h4>웹사이트 헤더 영역</h4>
-            <table class="table table-sm text-center table-responsive">
+
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/header_elem.png" />
+                        <img src="./attr/header_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -171,19 +173,21 @@
                     <td><input type="text" class="form-control langValue" key="headerMenu_faq" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <br/>
 
             <h4>웹사이트 HOME 영역</h4>
             <!-- HOME ELEMENTS-->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/home_elem.png" />
+                        <img src="./attr/home_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -221,19 +225,21 @@
                     <td><input type="text" class="form-control langValue" key="home_bottomText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <br/>
 
             <h4>웹사이트 소개 영역</h4>
             <!-- INTRODUCTION ELEMENTS-->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/introduction_elem.png" />
+                        <img src="./attr/introduction_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -315,19 +321,21 @@
                     <td><input type="text" class="form-control langValue" key="intro_secondArticleText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <br/>
 
             <h4>웹사이트 구독하기 영역</h4>
             <!-- SUBSCRIBE ELEMENTS -->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/subscribe_elem.png" />
+                        <img src="./attr/subscribe_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -335,17 +343,19 @@
                     <td><input type="text" class="form-control langValue" key="subscribe_title" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <h4>웹사이트 후원하기 영역</h4>
             <!-- SUPPORT ELEMENTS -->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/support_elem.png" />
+                        <img src="./attr/support_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -362,19 +372,21 @@
                     <td><input type="text" class="form-control langValue" key="support_pbrase" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <br/>
 
             <h4>웹사이트 나눔 영역</h4>
             <!-- SHARE ELEMENTS -->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/share_elem.png" />
+                        <img src="./attr/share_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -395,19 +407,21 @@
                     <td><input type="text" class="form-control langValue" key="share_articleText" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
             </table>
+            </div>
 
             <br/>
 
             <h4>웹사이트 FAQ 영역</h4>
             <!-- FAQ ELEMENTS -->
-            <table class="table table-sm text-center table-responsive">
+            <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                 <colgroup>
                     <col width="30%"/>
                     <col width="70%"/>
                 </colgroup>
                 <tr class="h-auto">
                     <td colspan="2">
-                        <img src="./attr/faq_elem.png" />
+                        <img src="./attr/faq_elem.png" width="100%" />
                     </td>
                 </tr>
                 <tr class="h-auto">
@@ -419,15 +433,16 @@
                     <td><input type="text" class="form-control langValue" key="faq_subTitle" value="" placeholder="내용을 입력하세요" /></td>
                 </tr>
 
-<!--                <tr class="h-auto">-->
-<!--                    <td class="bg-secondary text-light">메뉴[나눔]</td>-->
-<!--                    <td>나눔</td>-->
-<!--                </tr>-->
-<!--                <tr class="h-auto">-->
-<!--                    <td class="bg-secondary text-light">메뉴[FAQ]</td>-->
-<!--                    <td>FAQ</td>-->
-<!--                </tr>-->
+                <!--                <tr class="h-auto">-->
+                <!--                    <td class="bg-secondary text-light">메뉴[나눔]</td>-->
+                <!--                    <td>나눔</td>-->
+                <!--                </tr>-->
+                <!--                <tr class="h-auto">-->
+                <!--                    <td class="bg-secondary text-light">메뉴[FAQ]</td>-->
+                <!--                    <td>FAQ</td>-->
+                <!--                </tr>-->
             </table>
+            </div>
 
             <br>
 
