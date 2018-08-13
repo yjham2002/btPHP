@@ -115,8 +115,8 @@
             </ol>
 
             <div class="btn-group float-right mb-2" role="group">
-                <a bref="#" class="jSave btn btn-secondary mr-2">저장</a>
-                <a bref="/admin/pages/siteManage/languageSet.php" class="btn btn-secondary mr-2">언어셋 관리</a>
+                <a href="#" class="jSave btn btn-secondary mr-2">저장</a>
+                <a href="/admin/pages/siteManage/languageSet.php" class="btn btn-secondary mr-2">언어셋 관리</a>
                 <select class="custom-select mr-2 jLang col-5" id="inputGroupSelect01">
                     <option value="kr">한국어</option>
                     <option value="en">영어</option>

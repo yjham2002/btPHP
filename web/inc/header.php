@@ -28,9 +28,11 @@
     <script src="/web/assets/js/util.js"></script>
     <script src="/web/assets/js/main.js"></script>
 
+    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script type="text/javascript" src="/modules/ajaxCall/ajaxClass.js"></script>
     <script type="text/javascript" src="/modules/sehoMap/sehoMap.js"></script>
 
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body class="subpage">
