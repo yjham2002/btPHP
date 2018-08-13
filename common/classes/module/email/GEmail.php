@@ -100,14 +100,10 @@ if(! class_exists("GEmail") )	{
 			$isSend = $this->gMail->Send();
 
 
-			if(!$isSend)
-			{
-				echo "Mailer Error: " . $this->gMail->ErrorInfo;
-			}
-			else
-			{
-				echo "Message has been sent";
-			}
+//			if(!$isSend)
+//				echo "Mailer Error: " . $this->gMail->ErrorInfo;
+//			else
+//				echo "Message has been sent";
 
 			return $isSend;
 		}

@@ -2,55 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/web/pages/accountInit.php" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin/inc/header.php" afterPath="$PROJECT_DIR$/admin/inc/header.php" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/index.php" afterPath="$PROJECT_DIR$/admin/pages/index.php" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" afterPath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/ApiBase.php" afterPath="$PROJECT_DIR$/common/classes/ApiBase.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebBase.php" afterPath="$PROJECT_DIR$/common/classes/WebBase.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebSubscription.php" afterPath="$PROJECT_DIR$/common/classes/WebSubscription.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebUser.php" afterPath="$PROJECT_DIR$/common/classes/WebUser.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/comm/Common.php" afterPath="$PROJECT_DIR$/common/classes/comm/Common.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/comm/Constants_Dist.php" afterPath="$PROJECT_DIR$/common/classes/comm/Constants_Dist.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/comm/HomeFrm.php" afterPath="$PROJECT_DIR$/common/classes/comm/HomeFrm.php" />
       <change beforePath="$PROJECT_DIR$/common/classes/module/email/GEmail.php" afterPath="$PROJECT_DIR$/common/classes/module/email/GEmail.php" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHCheckBox.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHEventUtil-1.0.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHForm-1.0.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHRadio.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHSelect.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RHText.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RichBaseElementObject-1.0.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RichBaseExtends.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RichElement-1.0.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/RichFramework-1.0.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/WPUtil.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_closebox.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_left.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_progress.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_right.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_e.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_n.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_ne.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_nw.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_s.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_se.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_sw.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_shadow_w.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_title_left.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_title_main.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/fancy_title_right.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/jquery-1.3.2.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/jquery.fancybox-1.2.6.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/jquery.fancybox-1.2.6.pack.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/jquery.simpledialog.0.1.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/jquery/jquery.simpledialog.0.1.pack.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/js/jquery_rich/prototype/prototype-1.6.0.2.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/php/LoginUtil.php" afterPath="$PROJECT_DIR$/common/php/LoginUtil.php" />
-      <change beforePath="$PROJECT_DIR$/web/inc/header.php" afterPath="$PROJECT_DIR$/web/inc/header.php" />
-      <change beforePath="$PROJECT_DIR$/web/pages/login.php" afterPath="$PROJECT_DIR$/web/pages/login.php" />
-      <change beforePath="$PROJECT_DIR$/web/pages/subscribeDetail.php" afterPath="$PROJECT_DIR$/web/pages/subscribeDetail.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -88,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GEmail.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GEmail.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common/classes/module/email/GEmail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="518">
+              <caret line="102" column="16" lean-forward="true" selection-start-line="102" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -132,7 +84,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/inc/header.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="651">
@@ -237,8 +189,8 @@
         <option value="$PROJECT_DIR$/common/classes/comm/HomeFrm.php" />
         <option value="$PROJECT_DIR$/web/pages/accountInit.php" />
         <option value="$PROJECT_DIR$/common/classes/WebUser.php" />
-        <option value="$PROJECT_DIR$/common/classes/module/email/GEmail.php" />
         <option value="$PROJECT_DIR$/admin/inc/header.php" />
+        <option value="$PROJECT_DIR$/common/classes/module/email/GEmail.php" />
       </list>
     </option>
   </component>
@@ -421,12 +373,12 @@
       <workItem from="1533531255991" duration="7839000" />
       <workItem from="1533623852289" duration="34218000" />
       <workItem from="1534136946056" duration="170000" />
-      <workItem from="1534137655385" duration="15749000" />
+      <workItem from="1534137655385" duration="16141000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113211000" />
+    <option name="totallyTimeSpent" value="113603000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -899,14 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/module/email/GEmail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/inc/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -919,6 +863,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="62" column="16" lean-forward="true" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/classes/module/email/GEmail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="102" column="16" lean-forward="true" selection-start-line="102" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
           <folding />
         </state>
       </provider>
