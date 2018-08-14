@@ -123,6 +123,66 @@ if(! class_exists("WebUser") ){
             }
             else return $this->makeResultJson(-1, "auth fail");
         }
+
+        function sendAuthKakao(){
+            $params = Array(
+                "usercode" => "bibletime",
+                "deptcode" => "ZR-JL6-FB",
+                "yellowid_key" => "1234567890123456789012345678901234567890",
+            );
+
+            $message = Array(
+                "type" => "ft",
+                "message_id" => "100000",
+                "to" => "+821029484648",
+                "text" => "test message",
+                "from" => "+821029484648",
+                "reserved_time" => "",
+                "re_send" => "Y",
+                "re_text" => ""
+            );
+            $messagesData =array($message);
+            $params["messages"] = $messagesData;
+
+
+
+            $output =  json_encode($params);
+
+
+
+            $ch = curl_init("https://api.surem.com/alimtalk/v2/json");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json;charset=UTF-8',
+                    'Content-Length: ' . strlen($output))
+            );
+
+            $result = curl_exec($ch);
+
+            // 출력
+            //전송된 Json  데이터 확인
+            //echo  urldecode($output);
+            //  https://api.surem.com/alimtalk/v1/json 전송 후  받은 메시지
+            var_dump($result);
+
+
+
+
+
+
+
+//            $request = $this->lnFn_Common_CrPost($params);
+//
+//
+//            $actionUrl = "​https://api.surem.com/alimtalk/v1/json​";
+////            $retVal = $this->postData($actionUrl, $request);
+//            $retVal = $this->postData($actionUrl, json_encode($request));
+//
+//            echo json_encode($retVal);
+//            return $retVal;
+        }
     }
 }
 ?>

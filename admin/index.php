@@ -21,7 +21,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Login</title>
+    <title>BibleTime BackOffice</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,6 +45,10 @@
 
 <script>
     $(document).ready(function(){
+        $(".card-login").hide();
+        $(".card-login").fadeIn();
+        $(".jTime").html(new Date(Date.now()));
+
         $(".jLogin").click(function(){
             if($("[name=account]").val() == "" || $("[name=password]").val() == ""){
                 alert("계정 정보를 입력하세요.");
@@ -59,7 +63,7 @@
                     location.href = "/admin/pages/index.php";
                 }
                 else{
-                    alert("로그인 정보를 확인하세요");
+                    alert("로그인 정보를 확인하세요.");
                 }
             });
         });
@@ -73,23 +77,38 @@
 
 </script>
 
-<body class="bg-dark">
+<body style="background: repeating-linear-gradient(
+  0deg,
+  #222222,
+  #222222 20px,
+  #2a2a2a 20px,
+  #2a2a2a 50px
+);">
 
 <div class="container">
-    <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Admin Login</div>
+
+    <br/><br/>
+
+    <div class="container my-auto mt-5">
+        <div class="copyright text-center my-auto">
+            <h2 style="color:white;"><i class="fas fa-book-open fa-fw"></i> BibleTime 관리자</h2>
+        </div>
+    </div>
+
+    <div class="card card-login mx-auto mt-5" style="box-shadow: 0px 0px 15px 5px #888888;">
+        <div class="card-header"><i class="fas fa-user-circle fa-fw"></i> 관리자 로그인</div>
         <div class="card-body">
             <form>
                 <div class="form-group">
                     <div class="form-label-group">
                         <input type="text" id="account" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                        <label for="account">Account</label>
+                        <label for="account">아이디</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group">
                         <input type="password" id="password" class="form-control" placeholder="Password" required="required">
-                        <label for="password">Password</label>
+                        <label for="password">패스워드</label>
                     </div>
                 </div>
 <!--                <div class="form-group">-->
@@ -100,8 +119,12 @@
 <!--                        </label>-->
 <!--                    </div>-->
 <!--                </div>-->
-                <a class="btn btn-primary btn-block jLogin">Login</a>
+                <a href="#" class="btn btn-primary btn-block jLogin"><i class="fas fa-arrow-alt-circle-right fa-fw"></i>&nbsp;&nbsp;로그인</a>
             </form>
+        </div>
+        <div class="card-footer">
+            <p style="font-weight: bold;font-size:13px;"><i class="fas fa-clock fa-fw"></i> 접속시간</p>
+            <p class="jTime" style="font-size:13px;"></p>
         </div>
     </div>
 </div>
@@ -110,5 +133,13 @@
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
+
+<footer class="sticky-footer" style="width:100% !important; background : #2a2a2a !important;">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span style="color:white;">Copyright© PickleCode 2018 |  Powered By Picklecode | <a href="http://www.picklecode.co.kr">www.picklecode.co.kr</a></span>
+                </div>
+            </div>
+        </footer>
 
 </html>
