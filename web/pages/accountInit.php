@@ -115,21 +115,24 @@
 
         <div class="">
             <form method="post" action="#">
-                    <table class="noBorder jImg" width="50vw">
-                        <tr class="noBorder whiteBG">
-                            <td class="noBorder fcWrap" style="border-right: 1px solid black">
-                                <img class="jAuthEmail" src="../images/authEmail.png" style="width: 20vw; cursor: pointer"/>
-                            </td>
-                            <td class="noBorder fcWrap">
-                                <img class="jAuthPhone" src="../images/authPhone.png" style="width: 20vw; cursor: pointer"/>
-                            </td>
-                        </tr>
-                        <tr class="noBorder whiteBG">
-                            <td class="noBorder fcWrap">
-                                <img class="jAuthKakao" src="../images/authKakao.png" style="width: 20vw; cursor: pointer"/>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="row jImg" style="">
+                    <!-- Break -->
+                    <div class="4u 12u$(medium)">
+                        <div class="image fit">
+                            <img class="jAuthEmail" src="../images/authEmail.png" style="cursor: pointer; max-width:25em; margin : 0 auto;"/>
+                        </div>
+                    </div>
+                    <div class="4u 12u$(medium)">
+                        <div class="image fit">
+                            <img class="jAuthPhone" src="../images/authPhone.png" style="cursor: pointer; max-width:25em; margin : 0 auto;"/>
+                        </div>
+                    </div>
+                    <div class="4u 12u$(medium)">
+                        <div class="image fit">
+                            <img class="jAuthKakao" src="../images/authKakao.png" style="cursor: pointer; max-width:25em; margin : 0 auto;"/>
+                        </div>
+                    </div>
+                </div>
 
                     <table class="noBorder jType">
                         <tr class="noBorder jEmail" style="display: none;">

@@ -10,7 +10,14 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
-$obj = new webUser($_REQUEST);
+    $obj = new WebUser($_REQUEST);
+    $info = $obj->customerInfo();
+    echo json_encode($info);
+
+    $userInfo = $info["userInfo"];
+    $orgInfo = $info["orgInfo"];
+    $managerInfo = $info["managerInfo"];
+    $subscriptionInfo = $info["subscriptionInfo"];
 ?>
 <script>
     $(document).ready(function(){
@@ -37,7 +44,7 @@ $obj = new webUser($_REQUEST);
                 <h2 class="nanumGothic">ID/PW</h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
-                <h3 style="color:black;" class="nanumGothic" >example@example.com</h3>
+                <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["email"]?></h3>
                 <input class="smallTextBox" type="password" name="userPW" id="userPW" placeholder="현재 비밀번호" />
                 <input class="smallTextBox" type="password" name="newPW" id="newPW" placeholder="신규 비밀번호" />
                 <input class="smallTextBox" type="password" name="newPWC" id="newPWC" placeholder="신규 비밀번호 확인" />

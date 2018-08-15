@@ -184,20 +184,35 @@ if(! class_exists("WebUser") ){
         }
 
         function customerInfo(){
-            $id = $_REQUEST["id"];
+            $id = $this->webUser->id;
 
             $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $userInfo = $this->getRow($sql);
 
             //TODO 교회/단체 정보
+            $orgInfo = null;
 
             //TODO 담당자 정보
+            $managerInfo = null;
 
             //TODO 결제 정보
+            $paymentInfo = null;
 
-            //TODO 구독 정보
+            $sql = "
+                SELECT * FROM tblSubscription WHERE `customerId` = '{$id}' ORDER BY regDate DESC
+            ";
+            $subscriptionInfo = $this->getArray($sql);
 
             //TODO 후원내역
+
+            $retVal = Array(
+                "userInfo" => $userInfo,
+                "orgInfo" => $orgInfo,
+                "managerInfo" => $managerInfo,
+                "paymentInfo" =>$paymentInfo,
+                "subscriptionInfo" => $subscriptionInfo
+            );
+            return $retVal;
         }
     }
 }
