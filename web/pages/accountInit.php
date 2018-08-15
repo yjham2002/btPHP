@@ -80,6 +80,14 @@
                     $(".jAuthForm").fadeIn();
                     customerId = data.entity;
                 }
+                else if(data.returnCode === -1){
+                    alert("일치하는 회원정보가 없습니다.");
+                    location.reload();
+                }
+                else{
+                    alert("전송 실패");
+                    location.reload();
+                }
             });
         });
 
@@ -178,6 +186,7 @@
                     </table>
             </form>
         </div>
-
     </div>
 </section>
+
+<? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

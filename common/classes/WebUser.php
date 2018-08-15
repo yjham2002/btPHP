@@ -185,6 +185,7 @@ if(! class_exists("WebUser") ){
 
         function customerInfo(){
             $id = $this->webUser->id;
+            $locale = $_COOKIE["btLocale"];
 
             $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $userInfo = $this->getRow($sql);
@@ -199,7 +200,10 @@ if(! class_exists("WebUser") ){
             $paymentInfo = null;
 
             $sql = "
-                SELECT * FROM tblSubscription WHERE `customerId` = '{$id}' ORDER BY regDate DESC
+                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
+                FROM tblSubscription 
+                WHERE `customerId` = '{$id}' 
+                ORDER BY regDate DESC
             ";
             $subscriptionInfo = $this->getArray($sql);
 

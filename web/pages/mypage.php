@@ -95,27 +95,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>김**</td>
-                        <td>X3_NT</td>
-                        <td>1권</td>
-                        <td>배송중</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>이**</td>
-                        <td>NT</td>
-                        <td>5권</td>
-                        <td>배송완료</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <?for($i=0; $i<sizeof($subscriptionInfo); $i++){?>
+                        <tr>
+                            <td><?=$i+1?></td>
+                            <td>
+                                <?=$subscriptionInfo[$i]["rName"] == "" ? $user->name : $subscriptionInfo[$i]["rName"]?>
+                            </td>
+                            <td><?=$subscriptionInfo[$i]["publicationName"]?></td>
+                            <td><?=$subscriptionInfo[$i]["cnt"]?></td>
+                            <td>
+                                <?
+                                    switch($subscriptionInfo[$i]["deliveryStatus"]){
+                                        case 0:
+                                            echo "배송준비중";
+                                            break;
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                    <?}?>
                     </tbody>
                 </table>
             </div>

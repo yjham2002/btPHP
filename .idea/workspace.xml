@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/common/classes/WebUser.php" afterPath="$PROJECT_DIR$/common/classes/WebUser.php" />
-      <change beforePath="$PROJECT_DIR$/web/images/authKakao.png" afterPath="$PROJECT_DIR$/web/images/authKakao.png" />
       <change beforePath="$PROJECT_DIR$/web/pages/accountInit.php" afterPath="$PROJECT_DIR$/web/pages/accountInit.php" />
       <change beforePath="$PROJECT_DIR$/web/pages/mypage.php" afterPath="$PROJECT_DIR$/web/pages/mypage.php" />
     </list>
@@ -26,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="accountInit.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="accountInit.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/pages/accountInit.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="183" column="0" lean-forward="true" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+            <state relative-caret-position="1096">
+              <caret line="81" column="17" lean-forward="true" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
@@ -43,29 +42,31 @@
       <file leaf-file-name="WebUser.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/classes/WebUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="203" column="48" lean-forward="false" selection-start-line="203" selection-start-column="48" selection-end-line="203" selection-end-column="48" />
+            <state relative-caret-position="623">
+              <caret line="202" column="158" lean-forward="false" selection-start-line="202" selection-start-column="158" selection-end-line="202" selection-end-column="158" />
               <folding>
-                <marker date="1534341049664" expanded="true" signature="285:349" ph="SELECT `code... tblLayoutExposure" />
-                <marker date="1534341049664" expanded="true" signature="761:855" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="1623:1683" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="1939:1994" ph="DELETE FROM tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="2068:2249" ph="INSERT INTO tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="2863:2923" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="3179:3234" ph="DELETE FROM tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="3308:3489" ph="INSERT INTO tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="4228:4288" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="4544:4599" ph="DELETE FROM tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="4673:4854" ph="INSERT INTO tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="5411:5504" ph="SELECT `code... tblAuth" />
-                <marker date="1534341049664" expanded="true" signature="5646:5826" ph="UPDATE tblCustomer... " />
-                <marker date="1534341049664" expanded="true" signature="5908:5964" ph="DELETE FROM tblAuth... " />
-                <marker date="1534341049664" expanded="true" signature="6242:6288" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="6242:6296" ph="SELECT * FRO... tblCustomer" />
-                <marker date="1534341049664" expanded="true" signature="6559:6581" ph="SELECT * FRO... tblSubsc" />
-                <marker date="1534341049664" expanded="true" signature="6559:6607" ph="SELECT * FRO... tblSubscription" />
-                <marker date="1534341049664" expanded="true" signature="6559:6617" ph="SELECT * FRO... tblSubscription" />
-                <marker date="1534341049664" expanded="true" signature="6559:6639" ph="SELECT * FRO... tblSubscription" />
+                <marker date="1534342341449" expanded="true" signature="285:349" ph="SELECT `code... tblLayoutExposure" />
+                <marker date="1534342341449" expanded="true" signature="761:855" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="1623:1683" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="1939:1994" ph="DELETE FROM tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="2068:2249" ph="INSERT INTO tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="2863:2923" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="3179:3234" ph="DELETE FROM tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="3308:3489" ph="INSERT INTO tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="4228:4288" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="4544:4599" ph="DELETE FROM tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="4673:4854" ph="INSERT INTO tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="5411:5504" ph="SELECT `code... tblAuth" />
+                <marker date="1534342341449" expanded="true" signature="5646:5826" ph="UPDATE tblCustomer... " />
+                <marker date="1534342341449" expanded="true" signature="5908:5964" ph="DELETE FROM tblAuth... " />
+                <marker date="1534342341449" expanded="true" signature="6286:6332" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="6286:6340" ph="SELECT * FRO... tblCustomer" />
+                <marker date="1534342341449" expanded="true" signature="6603:6776" ph="SELECT * FRO... tblSubsc" />
+                <marker date="1534342341449" expanded="true" signature="6603:6819" ph="SELECT * FRO... tblSubscription" />
+                <marker date="1534342341449" expanded="true" signature="6603:6829" ph="SELECT * FRO... tblSubscription" />
+                <marker date="1534342341449" expanded="true" signature="6603:6868" ph="SELECT * FRO... tblSubscription" />
+                <marker date="1534342341449" expanded="true" signature="6614:6660" ph="SELECT `name... tblPublicationLang" />
+                <marker date="1534342341449" expanded="true" signature="6614:6720" ph="SELECT `name... tblPublicationLang" />
               </folding>
             </state>
           </provider>
@@ -81,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mypage.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mypage.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="38" column="14" lean-forward="true" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+            <state relative-caret-position="645">
+              <caret line="115" column="25" lean-forward="true" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -185,9 +186,9 @@
         <option value="$PROJECT_DIR$/common/classes/module/email/GEmail.php" />
         <option value="$PROJECT_DIR$/web/inc/header.php" />
         <option value="$PROJECT_DIR$/web/pages/login.php" />
+        <option value="$PROJECT_DIR$/web/pages/accountInit.php" />
         <option value="$PROJECT_DIR$/common/classes/WebUser.php" />
         <option value="$PROJECT_DIR$/web/pages/mypage.php" />
-        <option value="$PROJECT_DIR$/web/pages/accountInit.php" />
       </list>
     </option>
   </component>
@@ -366,12 +367,12 @@
       <workItem from="1533623852289" duration="34218000" />
       <workItem from="1534136946056" duration="170000" />
       <workItem from="1534137655385" duration="16221000" />
-      <workItem from="1534217553022" duration="14343000" />
+      <workItem from="1534217553022" duration="15468000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128026000" />
+    <option name="totallyTimeSpent" value="129151000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -748,14 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/inc/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -764,52 +757,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/WebUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="203" column="48" lean-forward="false" selection-start-line="203" selection-start-column="48" selection-end-line="203" selection-end-column="48" />
-          <folding>
-            <marker date="1534341049664" expanded="true" signature="285:349" ph="SELECT `code... tblLayoutExposure" />
-            <marker date="1534341049664" expanded="true" signature="761:855" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="1623:1683" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="1939:1994" ph="DELETE FROM tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="2068:2249" ph="INSERT INTO tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="2863:2923" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="3179:3234" ph="DELETE FROM tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="3308:3489" ph="INSERT INTO tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="4228:4288" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="4544:4599" ph="DELETE FROM tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="4673:4854" ph="INSERT INTO tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="5411:5504" ph="SELECT `code... tblAuth" />
-            <marker date="1534341049664" expanded="true" signature="5646:5826" ph="UPDATE tblCustomer... " />
-            <marker date="1534341049664" expanded="true" signature="5908:5964" ph="DELETE FROM tblAuth... " />
-            <marker date="1534341049664" expanded="true" signature="6242:6288" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="6242:6296" ph="SELECT * FRO... tblCustomer" />
-            <marker date="1534341049664" expanded="true" signature="6559:6581" ph="SELECT * FRO... tblSubsc" />
-            <marker date="1534341049664" expanded="true" signature="6559:6607" ph="SELECT * FRO... tblSubscription" />
-            <marker date="1534341049664" expanded="true" signature="6559:6617" ph="SELECT * FRO... tblSubscription" />
-            <marker date="1534341049664" expanded="true" signature="6559:6639" ph="SELECT * FRO... tblSubscription" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="38" column="14" lean-forward="true" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/pages/accountInit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="183" column="0" lean-forward="true" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+        <state relative-caret-position="1096">
+          <caret line="81" column="17" lean-forward="true" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
           <folding>
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#2;n#div#0;n#form#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/classes/WebUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="202" column="158" lean-forward="false" selection-start-line="202" selection-start-column="158" selection-end-line="202" selection-end-column="158" />
+          <folding>
+            <marker date="1534342341449" expanded="true" signature="285:349" ph="SELECT `code... tblLayoutExposure" />
+            <marker date="1534342341449" expanded="true" signature="761:855" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="1623:1683" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="1939:1994" ph="DELETE FROM tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="2068:2249" ph="INSERT INTO tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="2863:2923" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="3179:3234" ph="DELETE FROM tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="3308:3489" ph="INSERT INTO tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="4228:4288" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="4544:4599" ph="DELETE FROM tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="4673:4854" ph="INSERT INTO tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="5411:5504" ph="SELECT `code... tblAuth" />
+            <marker date="1534342341449" expanded="true" signature="5646:5826" ph="UPDATE tblCustomer... " />
+            <marker date="1534342341449" expanded="true" signature="5908:5964" ph="DELETE FROM tblAuth... " />
+            <marker date="1534342341449" expanded="true" signature="6286:6332" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="6286:6340" ph="SELECT * FRO... tblCustomer" />
+            <marker date="1534342341449" expanded="true" signature="6603:6776" ph="SELECT * FRO... tblSubsc" />
+            <marker date="1534342341449" expanded="true" signature="6603:6819" ph="SELECT * FRO... tblSubscription" />
+            <marker date="1534342341449" expanded="true" signature="6603:6829" ph="SELECT * FRO... tblSubscription" />
+            <marker date="1534342341449" expanded="true" signature="6603:6868" ph="SELECT * FRO... tblSubscription" />
+            <marker date="1534342341449" expanded="true" signature="6614:6660" ph="SELECT `name... tblPublicationLang" />
+            <marker date="1534342341449" expanded="true" signature="6614:6720" ph="SELECT `name... tblPublicationLang" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="115" column="25" lean-forward="true" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
