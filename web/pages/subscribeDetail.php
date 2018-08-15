@@ -157,6 +157,7 @@
                     <input type="checkbox" id="con_2" name="isPhone" class="jPhone">
                     <label class="nanumGothic" for="con_2">휴대폰이 없는 경우 체크</label>
                     <div class="jPhoneTarget">
+                        <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
                         <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" />
                     </div>
 

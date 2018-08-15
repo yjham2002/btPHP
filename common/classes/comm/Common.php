@@ -376,47 +376,115 @@ if (! class_exists("Common"))
 		 *
 		 * @param $phone - 전화번호
 		 * */
-		function sendSMS($sendStr, $resPhone, $reqPhone){
-				
-			$sms_id		= "groupby" ;
-			$sms_passwd	= "rtgvcdf$%" ;
-			$sms_type	= "L" ;
-			$sms_to		= $resPhone ;
-			$sms_from	= $reqPhone ;
-			$sms_date	= "0" ;
-			$sms_msg	= $sendStr ;
-		
-			if($resPhone == "" && $resPhone == "")
-			{
-				$logData = "Api : sendSMS // reqPhone : {$reqPhone} //resPhone : {$resPhone} // 발송실패";
-				LogUtil::writeFileLog($this->logPath, $logData);
-				return false;
-			}
-				
-			$sms = new EmmaSMS();
-		
-			$sms->login($sms_id, $sms_passwd);
-			
-			$ret = $sms->send($sms_to, $sms_from, $sms_msg, $sms_date, $sms_type);
-			
-			if($ret)
-			{
-				$smsInfo	= json_encode($ret);
-				$retunrVal	= true;
-				$returnMsg	= "Success";
-			}
-			else
-			{
-				$smsInfo	= "";
-				$retunrVal	= false;
-				$returnMsg	= $sms->errMsg;
-			}
-		
-			$logData = "Api : sendSMS // reqPhone : {$reqPhone} //resPhone : {$resPhone} // 메세지 : {$sendStr} // 발송여부 : {$returnMsg} // 잔여정보 : {$smsInfo}";
-			LogUtil::writeFileLog($this->logPath, $logData);
-		
-			return $retunrVal;
-		}
+//		function sendSMS($sendStr, $resPhone, $reqPhone){
+//
+//			$sms_id		= "groupby" ;
+//			$sms_passwd	= "rtgvcdf$%" ;
+//			$sms_type	= "L" ;
+//			$sms_to		= $resPhone ;
+//			$sms_from	= $reqPhone ;
+//			$sms_date	= "0" ;
+//			$sms_msg	= $sendStr ;
+//
+//			if($resPhone == "" && $resPhone == "")
+//			{
+//				$logData = "Api : sendSMS // reqPhone : {$reqPhone} //resPhone : {$resPhone} // 발송실패";
+//				LogUtil::writeFileLog($this->logPath, $logData);
+//				return false;
+//			}
+//
+//			$sms = new EmmaSMS();
+//
+//			$sms->login($sms_id, $sms_passwd);
+//
+//			$ret = $sms->send($sms_to, $sms_from, $sms_msg, $sms_date, $sms_type);
+//
+//			if($ret)
+//			{
+//				$smsInfo	= json_encode($ret);
+//				$retunrVal	= true;
+//				$returnMsg	= "Success";
+//			}
+//			else
+//			{
+//				$smsInfo	= "";
+//				$retunrVal	= false;
+//				$returnMsg	= $sms->errMsg;
+//			}
+//
+//			$logData = "Api : sendSMS // reqPhone : {$reqPhone} //resPhone : {$resPhone} // 메세지 : {$sendStr} // 발송여부 : {$returnMsg} // 잔여정보 : {$smsInfo}";
+//			LogUtil::writeFileLog($this->logPath, $logData);
+//
+//			return $retunrVal;
+//		}
+
+        /**
+         * 문자대표 sms 전송함수
+         */
+        function sendSmsBibleTime($url){
+            $result = file_get_contents($url);
+            $result = trim($result);
+            parse_str($result, $result_var);
+
+            return $result_var;
+        }
+        function sendSms($to, $msg){
+            $actionUrl = "http://link.smsceo.co.kr/sendsms_utf8.php";
+            $params = Array(
+                "userkey" => "BjsNPg08Dj4CMQYpAj4DP1dnBGNRaAVuVy9Vfg==",
+                "userid" => "onebody",
+                "msg" => $msg,
+                "phone" => $to,
+                "callback" => "07078740895",
+                "send_date" => ""
+            );
+            $url = $actionUrl . "?" . http_build_query($params, '', '&');
+            $result = $this->sendSmsBibleTime($url);
+
+//            if($result["result_code"] == "1"){    // 전송성공
+//                echo "결과코드 : " . $result["result_code"];
+//                echo "메세지 : " . $result["result_msg"];
+//                echo "총 접수건수 : " . $result["total_count"];
+//                echo "성공건수 : " . $result["succ_count"];
+//                echo "실패건수 : " . $result["fail_count"];
+//                echo "잔액 : " . $result["money"];
+//            }
+            return $result;
+        }
+
+        function sendKakao($to, $text, $templateCode){
+            $params = Array(
+                "usercode" => "bibletime",
+                "deptcode" => "ZR-JL6-FB",
+                "yellowid_key" => "c317b7234fd51330097e43141101bd91161cf58e",
+            );
+
+            $message = Array(
+                "message_id" => "",
+                "to" => $to,
+                "text" => $text,
+                "from" => "07078740896",
+                "template_code" => $templateCode,
+                "reserved_time" => "",
+                "re_send" => "Y",
+                "re_text" => ""
+            );
+            $messagesData =array($message);
+            $params["messages"] = $messagesData;
+            $output =  json_encode($params);
+
+            $ch = curl_init("https://api.surem.com/alimtalk/v2/json");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json;charset=UTF-8',
+                    'Content-Length: ' . strlen($output))
+            );
+
+            $result = curl_exec($ch);
+            return $result;
+        }
 		
 		function feedSimpleLog($logData)
 		{

@@ -6,8 +6,8 @@ if(! class_exists("GEmail") )	{
 
 		protected $gMail = null;
 		protected $userName = "BibleTime";
-		protected $userEmail = "ellivga@gmail.com";
-		protected $password = "alclsekf12";
+		protected $userEmail = "noreply@bibletime.org";
+		protected $password = "16449159";
 		protected $host = "ssl://smtp.gmail.com";
 		protected $port = 465;
 		protected $mailer = "smtp";

@@ -46,23 +46,6 @@ if(! class_exists("WebUser") ){
             return $this->makeResultJson(1, "succ");
         }
 
-        function updatePushKey(){
-            $retVal = $this->get("/web/user/update/pushKey/{$this->webUser->id}", Array("pushKey" => $_REQUEST["pushKey"]));
-            return $retVal;
-        }
-
-        function autoLogin(){
-            $retVal = $this->get("/web/user/basic/{$_REQUEST["userId"]}", null);
-            LoginUtil::doWebLogin(json_decode($retVal)->data);
-            return $retVal;
-        }
-
-        function userLogin(){
-            $retVal = $this->post("/web/user/login", Array("account" => $_REQUEST["account"], "password" => $_REQUEST["password"] ));
-            LoginUtil::doWebLogin(json_decode($retVal)->data);
-            return $retVal;
-        }
-
         function sendAuthEmail(){
             $email = $_REQUEST["email"];
             $sql = "
@@ -101,7 +84,80 @@ if(! class_exists("WebUser") ){
             else return $this->makeResultJson(-2, "send fail");
         }
 
-        function authEmail(){
+        function sendAuthKakao(){
+            $email = $_REQUEST["email"];
+            $sql = "
+                SELECT * FROM tblCustomer WHERE `email` = '{$email}' LIMIT 1
+            ";
+            $row = $this->getRow($sql);
+
+            if($row == ""){
+                return $this->makeResultJson(-1, "no data");
+            }
+
+            $code = substr(md5(date("Y-m-d H:i:s").$row["email"]), 0, 6);
+
+            $sql = "DELETE FROM tblAuth WHERE `customerId` = '{$row["id"]}'";
+            $this->update($sql);
+
+            $sql = "
+                INSERT INTO tblAuth(`customerId`, `code`, `regDate`)
+                VALUES(
+                  '{$row["id"]}',
+                  '{$code}',
+                  NOW()
+                )
+            ";
+            $this->update($sql);
+
+            $phone = "";
+            if(strpos($row["phone"], "+") !== false) $phone = $row["phone"];
+            else $phone = "82" . substr($row["phone"], 1, strlen($row["phone"]));
+
+
+            $templateCode = "BibleTIme_002";
+            $msg = "{$code}님! BibleTime 홈페이지 회원가입을 진심으로 축하드립니다. 감사합니다.";
+            $result = $this->sendKakao($phone, $msg, $templateCode);
+            $res = json_decode($result);
+
+            if($res->code == "200") return $this->makeResultJson(1, "succ", $row["id"]);
+            else return $this->makeResultJson(-2, "send fail");
+        }
+
+        function sendAuthSms(){
+            $phone = $_REQUEST["phone"];
+            $sql = "
+                SELECT * FROM tblCustomer WHERE `phone` = '{$phone}' LIMIT 1
+            ";
+            $row = $this->getRow($sql);
+
+            if($row == ""){
+                return $this->makeResultJson(-1, "no data");
+            }
+
+            $code = substr(md5(date("Y-m-d H:i:s").$row["email"]), 0, 6);
+
+            $sql = "DELETE FROM tblAuth WHERE `customerId` = '{$row["id"]}'";
+            $this->update($sql);
+
+            $sql = "
+                INSERT INTO tblAuth(`customerId`, `code`, `regDate`)
+                VALUES(
+                  '{$row["id"]}',
+                  '{$code}',
+                  NOW()
+                )
+            ";
+            $this->update($sql);
+
+            $msg = "BibleTime 인증 메세입니다. 인증번호 " . $code . " 를 입력하여 인증을 완료하세요";
+            $result = $this->sendSms($phone, $msg);
+
+            if($result["result_code"] == 1) return $this->makeResultJson(1, "succ", $row["id"]);
+            else return $this->makeResultJson(-1, "send fail");
+        }
+
+        function auth(){
             $customerId = $_REQUEST["customerId"];
             $code =$_REQUEST["code"];
             $password = md5($_REQUEST["password"]);
@@ -119,69 +175,29 @@ if(! class_exists("WebUser") ){
                     WHERE `id` = '{$customerId}'
                 ";
                 $this->update($sql);
+
+                $sql = "DELETE FROM tblAuth WHERE `customerId` = '{$customerId}'";
+                $this->update($sql);
                 return $this->makeResultJson(1, "succ");
             }
             else return $this->makeResultJson(-1, "auth fail");
         }
 
-        function sendAuthKakao(){
-            $params = Array(
-                "usercode" => "bibletime",
-                "deptcode" => "ZR-JL6-FB",
-                "yellowid_key" => "1234567890123456789012345678901234567890",
-            );
+        function customerInfo(){
+            $id = $_REQUEST["id"];
 
-            $message = Array(
-                "type" => "ft",
-                "message_id" => "100000",
-                "to" => "+821029484648",
-                "text" => "test message",
-                "from" => "+821029484648",
-                "reserved_time" => "",
-                "re_send" => "Y",
-                "re_text" => ""
-            );
-            $messagesData =array($message);
-            $params["messages"] = $messagesData;
+            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
+            $userInfo = $this->getRow($sql);
 
+            //TODO 교회/단체 정보
 
+            //TODO 담당자 정보
 
-            $output =  json_encode($params);
+            //TODO 결제 정보
 
+            //TODO 구독 정보
 
-
-            $ch = curl_init("https://api.surem.com/alimtalk/v2/json");
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json;charset=UTF-8',
-                    'Content-Length: ' . strlen($output))
-            );
-
-            $result = curl_exec($ch);
-
-            // 출력
-            //전송된 Json  데이터 확인
-            //echo  urldecode($output);
-            //  https://api.surem.com/alimtalk/v1/json 전송 후  받은 메시지
-            var_dump($result);
-
-
-
-
-
-
-
-//            $request = $this->lnFn_Common_CrPost($params);
-//
-//
-//            $actionUrl = "​https://api.surem.com/alimtalk/v1/json​";
-////            $retVal = $this->postData($actionUrl, $request);
-//            $retVal = $this->postData($actionUrl, json_encode($request));
-//
-//            echo json_encode($retVal);
-//            return $retVal;
+            //TODO 후원내역
         }
     }
 }

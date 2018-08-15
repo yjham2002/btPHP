@@ -14,19 +14,21 @@
 ?>
 <script>
     $(document).ready(function(){
-        var type = "";
         var customerId = -1;
 
         $(".jAuthEmail").click(function(){
             $(".jImg").hide();
             $(".jEmail").fadeIn();
-            type = "E";
         });
 
         $(".jAuthPhone").click(function(){
             $(".jImg").hide();
             $(".jPhone").fadeIn();
-            type = "P";
+        });
+
+        $(".jAuthKakao").click(function(){
+            $(".jImg").hide();
+            $(".jKakao").fadeIn();
         });
 
         $(".jSendEmail").click(function(){
@@ -38,32 +40,68 @@
                     $(".jAuthForm").fadeIn();
                     customerId = data.entity;
                 }
+                else if(data.returnCode === -1){
+                    alert("일치하는 회원정보가 없습니다.");
+                    location.reload();
+                }
+                else{
+                    alert("전송 실패");
+                    location.reload();
+                }
             });
         });
 
         $(".jSendPhone").click(function(){
+            $(".jPhone").hide();
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.sendAuthSms", false, "json", new sehoMap().put("phone", $("#phone").val()));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("인증번호가 전송되었습니다");
+                    $(".jAuthForm").fadeIn();
+                    customerId = data.entity;
+                }
+                else if(data.returnCode === -1){
+                    alert("일치하는 회원정보가 없습니다.");
+                    location.reload();
+                }
+                else{
+                    alert("전송 실패");
+                    location.reload();
+                }
+            });
+        });
 
+        $(".jSendKakao").click(function(){
+            $(".jKakao").hide();
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.sendAuthKakao", false, "json", new sehoMap().put("email", $("#kEmail").val()));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("인증번호가 전송되었습니다");
+                    $(".jAuthForm").fadeIn();
+                    customerId = data.entity;
+                }
+            });
         });
 
         $(".jAuth").click(function(){
-            if(type === "E"){
-                var params = new sehoMap()
-                    .put("customerId", customerId)
-                    .put("code", $("#authText").val()).put("password", $("#password").val());
-                var ajax = new AjaxSender("/route.php?cmd=WebUser.authEmail", false, "json", params);
-                ajax.send(function(data){
-                    if(data.returnCode === 1){
-                        alert("비밀번호가 변경되었습니다.");
-                        location.href = "/web/pages/login.php";
-                    }
-                });
-            }
-            else if(type === "P"){
-
-            }
-            else{
-
-            }
+            var params = new sehoMap()
+                .put("customerId", customerId)
+                .put("code", $("#authText").val()).put("password", $("#password").val());
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.auth", false, "json", params);
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("비밀번호가 변경되었습니다.");
+                    location.href = "/web/pages/login.php";
+                }
+                else if(data.returnCode === -1){
+                    alert("일치하는 회원정보가 없습니다.");
+                    location.reload();
+                }
+                else{
+                    alert("전송 실패");
+                    location.reload();
+                }
+            });
         });
     });
 </script>
@@ -86,6 +124,11 @@
                                 <img class="jAuthPhone" src="../images/authPhone.png" style="width: 20vw; cursor: pointer"/>
                             </td>
                         </tr>
+                        <tr class="noBorder whiteBG">
+                            <td class="noBorder fcWrap">
+                                <img class="jAuthKakao" src="../images/authKakao.png" style="width: 20vw; cursor: pointer"/>
+                            </td>
+                        </tr>
                     </table>
 
                     <table class="noBorder jType">
@@ -103,6 +146,14 @@
                             </td>
                             <td class="loginArea noBorder">
                                 <a href="#" class="jSendPhone confirmBtn roundButton">전송</a>
+                            </td>
+                        </tr>
+                        <tr class="noBorder jKakao" style="display: none;">
+                            <td class="noBorder">
+                                <input type="text" class="formCtrl" name="kEmail" id="kEmail" value="" placeholder="이메일 입력" />
+                            </td>
+                            <td class="loginArea noBorder">
+                                <a href="#" class="jSendKakao confirmBtn roundButton">전송</a>
                             </td>
                         </tr>
                     </table>
