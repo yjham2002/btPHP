@@ -51,11 +51,11 @@
 <!-- Two -->
 <section class="wrapper special books">
     <div class="inner">
-        <div class="row inner">
-            <input type="text" class="fancy" id="searchBox" placeholder="검색어를 입력하세요" style="width: 18em; font-size:0.9em;" />
-            <a href="#" style="margin-top:0.8em;"><img src="/web/images/img_search.png" width="20px"/></a>
-        </div>
-        <br/>
+<!--        <div class="row inner">-->
+<!--            <input type="text" class="fancy" id="searchBox" placeholder="검색어를 입력하세요" style="width: 18em; font-size:0.9em;" />-->
+<!--            <a href="#" style="margin-top:0.8em;"><img src="/web/images/img_search.png" width="20px"/></a>-->
+<!--        </div>-->
+<!--        <br/>-->
         <?if($categoryInfo["writePermission"] == "E" || $user->id != ""){?>
             <a href="#" class="roundButton detailSubscribe nanumGothic jAdd" style="float: right; text-align: center">글쓰기</a>
         <?}?>

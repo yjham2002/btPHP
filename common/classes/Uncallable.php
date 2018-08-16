@@ -27,6 +27,31 @@ if(!class_exists("Uncallable")){
             return $this->getArray($sql);
         }
 
+        function getContinents(){
+            $sql = "SELECT *, (SELECT COUNT(*) FROM tblNationGroup WHERE tblContinent.`id` = fContinent) AS ncnt FROM tblContinent ORDER BY `name` ASC";
+            return $this->getArray($sql);
+        }
+
+        function getContinent($id){
+            $sql = "SELECT * FROM tblContinent WHERE `id`='{$id}'";
+            return $this->getRow($sql);
+        }
+
+        function getNations($id){
+            $sql = "SELECT * FROM tblNationGroup WHERE `fContinent` = '{$id}' ORDER BY `desc` ASC";
+            return $this->getArray($sql);
+        }
+
+        function getNation($id){
+            $sql = "SELECT * FROM tblNationGroup WHERE `id`='{$id}'";
+            return $this->getRow($sql);
+        }
+
+        function getSupportParents($id){
+            $sql = "SELECT * FROM tblSupportParent WHERE `nationId` = '{$id}' ORDER BY regDate DESC";
+            return $this->getArray($sql);
+        }
+
     }
 
 }
