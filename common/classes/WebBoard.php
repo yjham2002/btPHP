@@ -55,5 +55,46 @@ if(!class_exists("WebBoard")){
 		    ";
 		    return $this->getArray($sql);
         }
+
+        function saveArticle(){
+            $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
+
+            $boardTypeId =$_REQUEST["boardTypeId"];
+            $customerId = $this->webUser->id;
+            $title = $_REQUEST["title"];
+            $content = $_REQUEST["content"];
+
+            $imgPath = NULL;
+
+            if($check !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile"]["tmp_name"], $targetDir)) $imgPath = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            else
+                $imgPath = $_REQUEST["imgPath"];
+
+            $sql = "
+                INSERT INTO tblBoard(`boardTypeId`, `customerId`, `title`, `content`, `imgPath`, `regDate`)
+                VALUES(
+                  '{$boardTypeId}',
+                  '{$customerId}',
+                  '{$title}',
+                  '{$content}',
+                  '{$imgPath}',
+                  NOW()
+                )
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function increaseArticleView(){
+		    $id = $_REQUEST["id"];
+		    $sql = "UPDATE tblBoard SET `viewCnt` = (`viewCnt` + 1) WHERE `id` = '{$id}'";
+		    $this->update($sql);
+		    return $this->makeResultJson(1, "succ");
+        }
 	}
 }

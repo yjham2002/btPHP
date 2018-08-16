@@ -17,9 +17,21 @@
 ?>
 <script>
     $(document).ready(function(){
+        var curr = "<?=$user->id?>";
+        var permission = "<?=$categoryInfo["readPermission"]?>";
+
         $(".jView").click(function(){
+            if(permission != "E" && curr <=0){
+                alert("로그인 하셔야 게시물을 조회하실 수 있습니다.")
+            }
+
+
             var id = $(this).attr("id");
             location.href = "/web/pages/articleDetail.php?categoryId=<?=$_REQUEST["categoryId"]?>&articleId=" + id;
+        });
+
+        $(".jAdd").click(function(){
+            location.href = "/web/pages/articleWrite.php?categoryId=<?=$_REQUEST["categoryId"]?>";
         });
     });
 </script>
@@ -44,14 +56,17 @@
             <a href="#" style="margin-top:0.8em;"><img src="/web/images/img_search.png" width="20px"/></a>
         </div>
         <br/>
+        <?if($categoryInfo["writePermission"] == "E" || $user->id != ""){?>
+            <a href="#" class="roundButton detailSubscribe nanumGothic jAdd" style="float: right; text-align: center">글쓰기</a>
+        <?}?>
+        <br/><br/><br/>
         <div class="table-wrapper white">
             <table class="alt white list">
                 <tbody>
                 <tr>
                     <td></td>
                     <td>제목</td>
-                    <td class="smallIconTD"><a><img src="/web/images/icon_comment.png" width="20px"/></a></td>
-                    <td class="smallIconTD"><a><img src="/web/images/icon_like.png" width="20px"/></a></td>
+<!--                    <td class="smallIconTD"><a><img src="/web/images/icon_comment.png" width="20px"/></a></td>-->
                     <td class="smallIconTD"><a><img src="/web/images/icon_view.png" width="20px"/></a></td>
                 </tr>
                 <?foreach($list as $item){?>
@@ -63,9 +78,8 @@
                                 <?=$item["userName"]?>
                             </a>
                         </td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td><?=$item["viewCnt"]?></td>
+<!--                        <td>0</td>-->
                     </tr>
                 <?}?>
                 </tbody>

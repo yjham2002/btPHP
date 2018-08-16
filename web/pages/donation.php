@@ -59,7 +59,7 @@
                 #{subTitle}
             </a>
         </td>
-        <td width="15%">#{viewCnt}<br/><?=$SHARE_ELEMENTS["common"]["viewText"]?></td>
+<!--        <td width="15%">#{viewCnt}<br/>--><?//=$SHARE_ELEMENTS["common"]["viewText"]?><!--</td>-->
         <td width="15%">#{articleCnt}<br/><?=$SHARE_ELEMENTS["common"]["articleText"]?></td>
 <!--        <td width="10%" style="text-align:center;">-->
 <!--            <a><img src="/web/images/img_context.png" width="20px"/></a>-->

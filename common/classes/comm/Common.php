@@ -485,6 +485,13 @@ if (! class_exists("Common"))
             $result = curl_exec($ch);
             return $result;
         }
+
+        function makeFileName(){
+            srand((double)microtime()*1000000) ;
+            $Rnd = rand(1000000,2000000) ;
+            $Temp = date("Ymdhis") ;
+            return $Temp.$Rnd;
+        }
 		
 		function feedSimpleLog($logData)
 		{

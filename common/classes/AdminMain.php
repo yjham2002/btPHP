@@ -11,14 +11,6 @@ if(!class_exists("AdminMain")){
             parent::__construct($req);
         }
 
-        function makeFileName(){
-            srand((double)microtime()*1000000) ;
-            $Rnd = rand(1000000,2000000) ;
-            $Temp = date("Ymdhis") ;
-            return $Temp.$Rnd;
-
-        }
-
         function login(){
             $account = $_REQUEST["account"];
             $password = md5($_REQUEST["password"]);
@@ -277,6 +269,63 @@ if(!class_exists("AdminMain")){
             $sql = "INSERT INTO tblFaq(regDate, `desc`) VALUES(NOW(), '{$desc}')";
             $this->update($sql);
             return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
+        }
+
+        function initNation(){
+            $cont = $_REQUEST["fContinent"];
+            $desc = $_REQUEST["desc"];
+            $sql = "INSERT INTO tblNationGroup(`fContinent`, `desc`) VALUES('{$cont}', '{$desc}')";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
+        }
+
+        function initSupport(){
+            $nationId = $_REQUEST["nationId"];
+            $desc = $_REQUEST["desc"];
+            $sql = "INSERT INTO tblSupportParent(`nationId`, `title`, `regDate`) VALUES('{$nationId}', '{$desc}', NOW())";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
+        }
+
+        function getNationName(){
+            $nid = $_REQUEST["nid"];
+            $loc = $_REQUEST["loc"];
+            $sql = "SELECT * FROM tblNationLang WHERE `nationId` = '{$nid}' AND `lang` = '{$loc}'";
+            return json_encode($this->getRow($sql));
+        }
+
+        function setNationName(){
+            $lang = $_REQUEST["lang"];
+            $nationId = $_REQUEST["nationId"];
+            $name = $_REQUEST["name"];
+            $sql = "INSERT INTO tblNationLang(`lang`, `nationId`, `name`) VALUES('{$lang}', '{$nationId}', '{$name}')
+                    ON DUPLICATE KEY UPDATE `name` = '{$name}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function deleteSupport(){
+            $id = $_REQUEST["id"];
+            $sql = "DELETE FROM tblSupportParent WHERE `id`='{$id}'";
+            $this->update($sql);
+            $sql = "DELETE FROM tblSupportArticle WHERE `parentId` ='{$id}'";
+            $this->update($sql);
+
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function deleteNation(){
+            $id = $_REQUEST["id"];
+            $sql = "DELETE FROM tblNationGroup WHERE `id`='{$id}'";
+            $this->update($sql);
+            $sql = "DELETE FROM tblNationLang WHERE `nationId` ='{$id}'";
+            $this->update($sql);
+            $sql = "DELETE FROM tblSupportArticle WHERE parentId IN (SELECT `id` FROM tblSupportParent WHERE nationId='{$id}')";
+            $this->update($sql);
+            $sql = "DELETE FROM tblSupportParent WHERE `nationId` ='{$id}'";
+            $this->update($sql);
+
+            return $this->makeResultJson(1, "succ");
         }
 
         function upsertFaq(){

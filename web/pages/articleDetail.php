@@ -16,7 +16,9 @@
 ?>
 <script>
     $(document).ready(function(){
-
+        var id = "<?=$_REQUEST["articleId"]?>";
+        var ajax = new AjaxSender("/route.php?cmd=WebBoard.increaseArticleView", true, "json", new sehoMap().put("id", id));
+        ajax.send(function(data){});
     });
 </script>
 
@@ -26,28 +28,19 @@
         <div class="articleWrapper align-left">
             <table class="alt white">
                 <tr>
-                    <td class="nanumGothic" style="width:3.2em;">
-                        <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>
-                    </td>
-                    <td>길동 홍</td>
-                    <td style="text-align:right">
-                        7일 전
-                    </td>
+<!--                    <td class="nanumGothic" style="width:3.2em;">-->
+<!--                        <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>-->
+<!--                    </td>-->
+                    <td><?=$info["userName"]?></td>
                     <td class="smallIconTD" style="text-align:right">
                         <a href="#"><img src="/web/images/img_context.png" width=20 /></a>
                     </td>
                 </tr>
             </table>
-            <h2 class="nanumGothic">게시글 명입니다.</h2>
-            <p class="nanumGothic">조회 3회 &nbsp; 댓글 0개</p>
-            <h4 class="nanumGothic" style="color:black;">
-                게시글 내용이 삽입됩니다.
-                게시글 내용이 삽입됩니다.
-                <div class="image fit"><img src="/web/images/testImage.png" /></div>
-                게시글의 내용입니다.
-                게시글의 내용입니다.
-                게시글의 내용입니다.
-            </h4>
+            <h2 class="nanumGothic"><?=$info["title"]?></h2>
+            <p class="nanumGothic">조회 <?=$info["viewCnt"]?>회</p>
+            <div class="image fit"><img src="<?=$info["imgPath"] != "" ? $obj->fileShowPath . $info["imgPath"] : ""?>"/></div>
+            <h4 class="nanumGothic" style="color:black;"><?=$info["content"]?></h4>
         </div>
     </div>
 </section>

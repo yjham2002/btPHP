@@ -9,7 +9,10 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
-
+<?
+    $objm = new AdminMain($_REQUEST);
+    $langList = $objm->getLangList();
+?>
     <script>
         $(document).ready(function(){
 
@@ -118,10 +121,9 @@
                 <a href="#" class="jSave btn btn-secondary mr-2">저장</a>
                 <a href="/admin/pages/siteManage/languageSet.php" class="btn btn-secondary mr-2">언어셋 관리</a>
                 <select class="custom-select mr-2 jLang col-5" id="inputGroupSelect01">
-                    <option value="kr">한국어</option>
-                    <option value="en">영어</option>
-                    <option value="es">스페인어</option>
-                    <option value="zh">중국어</option>
+                    <?foreach($langList as $item){?>
+                        <option value="<?=$item["code"]?>"><?=$item["desc"]?></option>
+                    <?}?>
                 </select>
             </div>
 
