@@ -218,6 +218,44 @@ if(! class_exists("WebUser") ){
             );
             return $retVal;
         }
+
+        function checkCustomerPassword(){
+            $id = $_REQUEST["id"];
+            $password = md5($_REQUEST["password"]);
+            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' AND `password` = '{$password}' LIMIT 1";
+            $row = $this->getRow($sql);
+            if($row != "") return $this->makeResultJson(1, "succ");
+            else return $this->makeResultJson(-1, "fail");
+        }
+
+        function updateCustomerInfo(){
+            $type = $_REQUEST["type"];
+            $id = $_REQUEST["id"];
+            $password = md5($_REQUEST["password"]);
+            $phone = $_REQUEST["phone"];
+            $zipcode = $_REQUEST["zipcode"];
+            $addr = $_REQUEST["addr"];
+            $addrDetail = $_REQUEST["addrDetail"];
+
+            if($type == "1"){
+                $sql = "
+                    UPDATE tblCustomer
+                    SET
+                      `password` = '{$password}',
+                      `phone` = '{$phone}',
+                      `zipcode` = '{$zipcode}',
+                      `addr` = '{$addr}',
+                      `addrDetail` = '{$addrDetail}'
+                    WHERE `id` = '{$id}'
+                ";
+                $this->update($sql);
+                return $this->makeResultJson(1, "succ");
+            } else if($type == "2"){
+                return $this->makeResultJson(1, "succ");
+            }
+
+            return $this->makeResultJson(-1, "type error");
+        }
     }
 }
 ?>

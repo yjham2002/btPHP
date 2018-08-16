@@ -12,16 +12,74 @@
 <?
     $obj = new WebUser($_REQUEST);
     $info = $obj->customerInfo();
-    echo json_encode($info);
+//    echo json_encode($info);
 
     $userInfo = $info["userInfo"];
     $orgInfo = $info["orgInfo"];
     $managerInfo = $info["managerInfo"];
     $subscriptionInfo = $info["subscriptionInfo"];
 ?>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     $(document).ready(function(){
+        var id = "<?=$userInfo["id"]?>";
 
+        $(".jAddress").click(function(){
+            new daum.Postcode({
+                oncomplete: function(data){
+                    console.log(data);
+                    $("[name=zipcode]").val(data.zonecode);
+                    $("[name=addr]").val(data.address);
+                }
+            }).open();
+        });
+
+        $(".jSave").click(function(){
+            var currentPass = $("#userPW").val();
+            var newPW = $("#newPW").val();
+            var newPWC = $("#newPWC").val();
+
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.checkCustomerPassword", true, "json", new sehoMap().put("id", id).put("password", currentPass));
+            ajax.send(function(data){
+                if(data.returnCode !== 1){
+                    alert("현재 비밀번호가 일치하지 않습니다.");
+                    return;
+                }
+                else{
+                    if(newPW !== newPWC){
+                        alert("새로운 비밀번호가 일치하지 않습니다.");
+                        return;
+                    } else saveOperation();
+                }
+            });
+        });
+
+        function saveOperation(){
+            var password = $("#newPW").val();
+            var phone = $("#phone").val();
+            var zipcode = $("#zipcode").val();
+            var addr = $("#add").val();
+            var addrDetail = $("#addrDetail").val();
+            var params = new sehoMap().put("id", id).put("password", password).put("phone", phone).put("zipcode", zipcode).put("addr", addr).put("addrDetail", addrDetail);
+            params.put("type", "1");
+
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.updateCustomerInfo", false, "json", params);
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("저장되었습니다");
+                    location.reload();
+                }
+                else{
+                    alert(data.returnMessage);
+                    location.reload();
+                }
+            });
+        }
+
+        $(".jCancel").click(function(){
+            history.back();
+        });
     });
 </script>
 
@@ -52,26 +110,39 @@
             </div>
 
             <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">교회/단체 정보</h2>
+                <h2 class="nanumGothic">기본정보</h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
-                <input class="smallTextBox" type="text" name="groupName" id="groupName" placeholder="교회 / 단체명" />
-                <input class="smallTextBox" type="text" name="CRN" id="CRN" placeholder="사업자 등록 번호" />
-                <a href="#" class="grayButton roundButton innerButton">변경</a>
-                <input class="smallTextBox" type="text" name="zipCode" id="zipCode" placeholder="우편번호" />
-                <a href="#" class="grayButton roundButton innerButton">주소찾기</a>
-                <input class="smallTextBox" type="text" name="zipDetail" id="zipDetail" placeholder="상세주소" />
-                <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="전화번호" />
+                <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["name"]?></h3>
+                <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
+
+                <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="우편번호" value="<?=$userInfo["zipcode"]?>" readonly/>
+                <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
+                <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
             </div>
 
-            <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">담당자 정보</h2>
-            </div>
-            <div class="8u$ 12u$(small) align-left">
-                <input class="smallTextBox" type="text" name="chargeName" id="chargeName" placeholder="교회 / 단체명" />
-                <input class="smallTextBox" type="text" name="chargeLevel" id="chargeLevel" placeholder="사업자 등록 번호" />
-                <input class="smallTextBox" type="text" name="chargePhone" id="chargePhone" placeholder="휴대폰 번호" />
-            </div>
+<!--            <div class="4u 12u$(small)">-->
+<!--                <h2 class="nanumGothic">교회/단체 정보</h2>-->
+<!--            </div>-->
+<!--            <div class="8u$ 12u$(small) align-left">-->
+<!--                <input class="smallTextBox" type="text" name="groupName" id="groupName" placeholder="교회 / 단체명" />-->
+<!--                <input class="smallTextBox" type="text" name="CRN" id="CRN" placeholder="사업자 등록 번호" />-->
+<!--                <a href="#" class="grayButton roundButton innerButton">변경</a>-->
+<!--                <input class="smallTextBox" type="text" name="zipCode" id="zipCode" placeholder="우편번호" />-->
+<!--                <a href="#" class="grayButton roundButton innerButton">주소찾기</a>-->
+<!--                <input class="smallTextBox" type="text" name="zipDetail" id="zipDetail" placeholder="상세주소" />-->
+<!--                <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="전화번호" />-->
+<!--            </div>-->
+<!---->
+<!--            <div class="4u 12u$(small)">-->
+<!--                <h2 class="nanumGothic">담당자 정보</h2>-->
+<!--            </div>-->
+<!--            <div class="8u$ 12u$(small) align-left">-->
+<!--                <input class="smallTextBox" type="text" name="chargeName" id="chargeName" placeholder="교회 / 단체명" />-->
+<!--                <input class="smallTextBox" type="text" name="chargeLevel" id="chargeLevel" placeholder="사업자 등록 번호" />-->
+<!--                <input class="smallTextBox" type="text" name="chargePhone" id="chargePhone" placeholder="휴대폰 번호" />-->
+<!--            </div>-->
 
             <div class="4u 12u$(small)">
                 <h2 class="nanumGothic">결제 정보</h2>
@@ -158,8 +229,8 @@
                 </table>
             </div>
         </div>
-        <a href="#" class="roundButton grayButton">취소</a>
-        <a href="#" class="roundButton blueButton">확인</a>
+        <a href="#" class="roundButton grayButton jCancel">취소</a>
+        <a href="#" class="roundButton blueButton jSave">확인</a>
     </div>
 </section>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>
