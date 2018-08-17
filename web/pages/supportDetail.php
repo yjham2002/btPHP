@@ -32,7 +32,7 @@
         <div class="row uniform" style="margin : 0 1em;">
             <div class="6u 12u$(small)">
                 <div class="image fit">
-                    <img src="images/testProduct.png" style="margin : 0 auto; max-width:10em;" />
+                    <img src="../images/testProduct.png" style="margin : 0 auto; max-width:10em;" />
                 </div>
             </div>
             <div class="6u 12u$(small) align-left">

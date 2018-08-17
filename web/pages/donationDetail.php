@@ -68,6 +68,11 @@
         simplemaps_continentmap_mapdata.state_specific[selected].color=map_const.active_color;
 
         showDivs(slideIndex);
+
+        $(".jSupport").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/web/pages/supportDetail.php?id=" + id;
+        });
     });
 </script>
 <!-- 분리 영역 종료 -->
@@ -111,7 +116,9 @@
                     <div class="image fit" style="padding : 1em;">
                         <img src="<?=$obj->fileShowPath.$article["titleImg"]?>" />
                     </div>
-                    <a class="align-right" href="#"><img class="circleBtn" src="../images/btn_support.png" /></a>
+                    <a class="align-right jSupport" href="#" id="<?=$article["parentId"]?>">
+                        <img class="circleBtn" src="../images/btn_support.png" />
+                    </a>
                 </div>
                 <div class="8u 12u$(medium)">
                     <p class="align-left nanumGothic">

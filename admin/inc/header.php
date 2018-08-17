@@ -182,32 +182,14 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <span>홈페이지관리</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="/admin/pages/siteManage/mainPage.php">메인</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/historyManage.php">연혁</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/publicationList.php">간행물 관리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/shareList.php">나눔 게시판 카테고리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/faqList.php">FAQ 관리</a>
-                <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>
+<!--                <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>-->
                 <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어 및 문구</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/layoutSetting.php">레이아웃</a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Login Screens:</h6>
-                <a class="dropdown-item" href="login.html">Login</a>
-                <a class="dropdown-item" href="register.html">Register</a>
-                <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-                <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Other Pages:</h6>
-                <a class="dropdown-item" href="404.html">404 Page</a>
-                <a class="dropdown-item" href="blank.html">Blank Page</a>
             </div>
         </li>
     </ul>
