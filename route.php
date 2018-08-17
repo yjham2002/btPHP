@@ -8,6 +8,7 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBoard.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebMain.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php" ; ?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/php/AnyGo.php" ;?>
 <?
 	$cmd	= $_REQUEST[cmd] ; 

@@ -9,8 +9,16 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
 $obj = new webUser($_REQUEST);
+$uc = new Uncallable($_REQUEST);
+
+$nationCode = $uc->getProperty("CONST_SUPPORT_NATION");
+$continent = $uc->getContinentCode($nationCode);
+$lastSupportNumber = $uc->getLastSupportNumber($nationCode);
+$article = $uc->getSupport($lastSupportNumber, $country_code);
+
 ?>
 <script>
     $(document).ready(function(){
@@ -21,27 +29,33 @@ $obj = new webUser($_REQUEST);
     <img src="/web/images/contribution_main.jpg" />
 </div>
 
-<section class="wrapper special" exposureSet="SECTION_SUPPORT_CONTENT">
+<section class="wrapper special books" exposureSet="SECTION_SUPPORT_CONTENT">
     <div class="inner">
         <div class="row">
             <!-- Break -->
             <div class="3u 12u$(medium)">
-                <h2><?=$SUPPORT_ELEMENTS["article"]["title"]?></h2>
+                <h2><?=$article["Title"]?></h2>
             </div>
             <div class="6u 12u$(medium)">
                 <p class="align-left">
-                    <?=$SUPPORT_ELEMENTS["article"]["text"]?>
+                    <?=$article["content"]?>
                 </p>
                 <div class="box alt">
                     <div class="row 50% uniform">
-                        <div class="4u"><span class="image fit"><img src="/web/images/con_01.png" alt="" /></span></div>
-                        <div class="4u"><span class="image fit"><img src="/web/images/con_02.png" alt="" /></span></div>
-                        <div class="4u"><span class="image fit"><img src="/web/images/con_03.png" alt="" /></span></div>
+                        <?if($article["imgPath1"] != ""){?>
+                            <div class="4u"><span class="image fit"><img src="<?=$obj->fileShowPath.$article["imgPath1"]?>" alt="" /></span></div>
+                        <?}?>
+                        <?if($article["imgPath2"] != ""){?>
+                            <div class="4u"><span class="image fit"><img src="<?=$obj->fileShowPath.$article["imgPath2"]?>" alt="" /></span></div>
+                        <?}?>
+                        <?if($article["imgPath3"] != ""){?>
+                            <div class="4u"><span class="image fit"><img src="<?=$obj->fileShowPath.$article["imgPath3"]?>" alt="" /></span></div>
+                        <?}?>
                     </div>
                 </div>
             </div>
             <div class="3u$ 12u$(medium)">
-                <a href="#"><img class="circleBtn" src="/web/images/btn_detail.png" /></a>
+                <a href="donationDetail.php?nid=<?=$nationCode?>&id=<?=$lastSupportNumber?>&state=<?=$continent?>"><img class="circleBtn" src="/web/images/btn_detail.png" /></a>
                 <a href="#"><img class="circleBtn" src="/web/images/btn_support.png" /></a>
             </div>
         </div>

@@ -84,14 +84,14 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">가격(통화 포함)</span>
+                    <span class="input-group-text" id="basic-addon3">가격</span>
                 </div>
                 <input type="text" class="form-control" name="price" value="<?=$item["price"]?>">
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">할인된 가격(통화 포함)</span>
+                    <span class="input-group-text" id="basic-addon3">단체 가격</span>
                 </div>
                 <input type="text" class="form-control" name="discounted" value="<?=$item["discounted"]?>">
             </div>

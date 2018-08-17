@@ -12,6 +12,15 @@
 <?
     $obj = new WebSubscription($_REQUEST);
     $item = $obj->publicationDetail();
+
+    if($_COOKIE["btLocale"] == "kr") {
+        $currency = "₩";
+        $decimal = 0;
+    }
+    else{
+        $currency = "$";
+        $decimal = 2;
+    }
 ?>
 
 <script>
@@ -31,7 +40,8 @@
 
         $(".jSubscribe").click(function(){
             var cnt = $("#quantity").val();
-            location.href = "/web/pages/subscribeDetail.php?id=<?=$_REQUEST["id"]?>&cnt=" + cnt;
+            var type = $(this).attr("type");
+            location.href = "/web/pages/subscribeDetail.php?id=<?=$_REQUEST["id"]?>&cnt=" + cnt + "&type=" + type;
         });
     });
 </script>
@@ -50,8 +60,9 @@
             <div class="6u 12u$(small) align-left" >
                 <h2 class="nanumGothic" style="color:black; font-size:1.8em;"><?=$item["name"]?></h2>
                 <h3 class="nanumGothic" style="color:black;">
-                    <s style="color:#AAAAAA;"><?=$item["price"]?></s>
-                    &nbsp;&nbsp; <?=$item["discounted"]?>
+                    개인: <?=$currency . number_format($item["price"], $decimal)?>(배송비 포함)
+                    <br/>
+                    단체: <?=$currency . number_format($item["discounted"], $decimal)?>(택배비 3,000원)
                 </h3>
                 <p class="nanumGothic" style="color:black;"><?=$item["subTitle"]?></p>
                 <br/>
@@ -62,7 +73,9 @@
                 <br/><br/>
                 <p class="nanumGothic">수량 &nbsp;<input type="number" class="nanumGothic quantity" name="quantity" id="quantity" value="1" /></p>
 
-                <a href="#" class="roundButton detailSubscribe nanumGothic jSubscribe" >구독하기</a>
+                <a href="#" class="roundButton detailSubscribe nanumGothic jSubscribe" type="1">개인구독 신청</a>
+                <br/><br/>
+                <a href="#" class="roundButton detailSubscribe nanumGothic jSubscribe" type="2">단체구독 신청</a>
             </div>
         </div>
 

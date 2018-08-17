@@ -12,12 +12,27 @@
 <?
 $obj = new Uncallable($_REQUEST);
 $list = $obj->getContinents();
+$nations = $obj->getAllNation();
+$selected = $obj->getProperty("CONST_SUPPORT_NATION");
+
 ?>
 <script>
     $(document).ready(function(){
 
         $(".jManage").click(function(){
             location.href="/admin/pages/siteManage/continentManage.php?id=" + $(this).attr("id");
+        });
+
+        $(".jSave").click(function(){
+            var ajax = new AjaxSender(
+                "/route.php?cmd=Uncallable.setPropertyAjax",
+                true, "json",
+                new sehoMap().put("name", "CONST_SUPPORT_NATION").put("value", $(".jNation").val()));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("저장되었습니다.");
+                }
+            });
         });
 
     });
@@ -33,6 +48,17 @@ $list = $obj->getContinents();
             <li class="breadcrumb-item active">후원 관리</li>
         </ol>
 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">후원 메인 페이지 표시 국가</span>
+            </div>
+            <select class="custom-select mr-2 jNation col-5" id="inputGroupSelect01">
+                <?foreach($nations as $item){?>
+                    <option value="<?=$item["id"]?>" <?=$selected == $item["id"] ? "SELECTED" : "" ?> ><?=$item["desc"]?></option>
+                <?}?>
+            </select>
+            <a href="#" class="jSave btn btn-secondary">저장</a>
+        </div>
 
         <table class="table table-hover table-bordered">
             <thead>

@@ -219,6 +219,14 @@ if(! class_exists("WebUser") ){
             return $retVal;
         }
 
+        function checkEmail(){
+            $email = $_REQUEST["email"];
+            $sql = "SELECT * FROM tblCustomer WHERE `email` = '{$email}' LIMIT 1";
+            $row = $this->getRow($sql);
+            if($row == "") return $this->makeResultJson(1, "succ");
+            else return $this->makeResultJson(-1, "fail");
+        }
+
         function checkCustomerPassword(){
             $id = $_REQUEST["id"];
             $password = md5($_REQUEST["password"]);

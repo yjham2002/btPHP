@@ -47,7 +47,7 @@ $list = $obj->getNations($cId);
                 new sehoMap().put("desc", desc).put("fContinent", continent));
             ajax.send(function(data){
                 if(data.returnCode === 1){
-                    location.href = "/admin/pages/siteManage/nationManage.php?id=" + data.entity;
+                    location.href = "/admin/pages/siteManage/nationManage.php?id=" + data.entity + "&fid=" + "<?=$_REQUEST["id"]?>";
                 }
             });
         });

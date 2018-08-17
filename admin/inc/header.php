@@ -183,6 +183,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="/admin/pages/siteManage/mainPage.php">메인</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/historyManage.php">연혁</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/publicationList.php">간행물 관리</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/shareList.php">나눔 게시판 카테고리</a>

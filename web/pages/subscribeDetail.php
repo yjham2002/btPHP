@@ -17,16 +17,30 @@
         echo "<script>history.back();</script>";
     }
     $list = $obj->publicationList();
+
+    if($_COOKIE["btLocale"] == "kr") {
+        $currency = "₩";
+        $decimal = 0;
+    }
+    else{
+        $currency = "$";
+        $decimal = 2;
+    }
 ?>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     $(document).ready(function(){
+        var type = "<?=$_REQUEST["type"]?>"
+        var currency = "<?=$currency?>";
+        var decimal = "<?=$decimal?>";
+        var emailCheck = -1;
+
         setPrice($("#jCnt").val());
 
         $("#jCategory").change(function(){
             var id = $(this).val();
-            location.href = "/web/pages/subscribeDetail.php?id=" + id;
+            location.href = "/web/pages/subscribeDetail.php?id=" + id + "&type=" + type;
         });
 
         $("#jCnt").change(function(){
@@ -38,22 +52,14 @@
             var discounted = "<?=$item["discounted"]?>";
             price = price.replace(/[^0-9\.]/g, '');
             discounted = discounted.replace(/[^0-9\.]/g, '');
+
             var value = 0;
-            if(cnt >= 10) value = cnt * discounted;
-            else value = cnt * price;
-            $(".jPriceTarget").text(value);
+            if(type == 1) value = cnt * price;
+            else value = cnt * discounted;
+
+            $(".jPriceTarget").text(currency + value.format());
             $("[name=totalPrice]").val(value);
         }
-
-        $(".jPhone").change(function(){
-            if($(this).prop("checked") == true) $(".jPhoneTarget").fadeOut();
-            else $(".jPhoneTarget").fadeIn();
-        });
-
-        $(".jGift").change(function(){
-            if($(this).prop("checked") == true) $(".jGiftTarget").fadeIn();
-            else $(".jGiftTarget").fadeOut();
-        });
 
         $(".jAddress").click(function(){
             new daum.Postcode({
@@ -65,14 +71,62 @@
             }).open();
         });
 
+        $(".jRAddress").click(function(){
+            new daum.Postcode({
+                oncomplete: function(data){
+                    console.log(data);
+                    $("[name=rZipcode]").val(data.zonecode);
+                    $("[name=rAddr]").val(data.address);
+                }
+            }).open();
+        });
+
+        $(".jDup").click(function(){
+            if($(this).prop("checked") == true){
+                var name = $("[name=name]").val();
+                var phone = $("[name=phone]").val();
+                var zipcode = $("[name=zipcode]").val();
+                var addr = $("[name=addr]").val();
+                var addrDetail = $("[name=addrDetail]").val();
+
+                $("[name=rName]").val(name);
+                $("[name=rPhone]").val(phone);
+                $("[name=rZipcode]").val(zipcode);
+                $("[name=rAddr]").val(addr);
+                $("[name=rAddrDetail]").val(addrDetail);
+            }
+        });
+
+        $(".jCheckEmail").click(function(){
+            var email = $("[name=email]").val();
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.checkEmail", false, "json", new sehoMap().put("email", email));
+            ajax.send(function(data){
+                if(data.returnCode !== 1){
+                    alert("이미 사용중인 이메일입니다. 로그인 후 구독신청해주세요\n" +
+                        "문의 1644-9159");
+                    location.href = "/web/pages/login.php";
+                }
+                else emailCheck = 1;
+            })
+        });
+
         $(".jOrder").click(function(){
+            if(emailCheck != 1){
+                alert("이메일 중복 체크를 해주시길 바랍니다.");
+                return;
+            }
+            if($("[name=phone]").val() == ""){
+                alert("휴대전화번호는 필수 입력 항목입니다.");
+            }
+
             var ajax = new AjaxSubmit("/route.php?cmd=WebSubscription.setSubscriptionInfo", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     console.log(data);
-                    //location.href = "/admin/pages/recommend.php?appId=<?//=$info["id"]?>//";
+                    alert("구독신청이 완료되었습니다.");
+                    location.href = "/web";
                 }
-                else alert("이미지 저장 실패");
+                else alert("저장 실패");
             });
 
         });
@@ -96,7 +150,9 @@
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
             <input type="hidden" name="publicationId" value="<?=$_REQUEST["id"]?>" />
+            <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
             <input type="hidden" name="totalPrice" value="" />
+
             <div class="row uniform" style="margin : 0 1em;">
                 <div class="6u 12u$(small)">
                     <div class="image fit">
@@ -131,7 +187,7 @@
                     <br/>
                     <div class="row">
                         <div style="color:black;" class="nanumGothic 3u 12u$(small)">결제금액</div>
-                        <div style="color:#3498DB;" class="nanumGothic 6u 12u$(small)"><text class="jPriceTarget"></text>원 / 월 (우편료 포함)</div>
+                        <div style="color:#3498DB;" class="nanumGothic 6u 12u$(small)"><text class="jPriceTarget"></text> / 월 (우편료 포함)</div>
                     </div>
                     <br/>
                     <div class="row">
@@ -143,31 +199,89 @@
 
 
             <div class="row" style="margin-top : 1em;">
-                <div class="6u 12u$(small)">
-                    <h2 class="nanumGothic">배송정보</h2>
-                </div>
-                <div class="6u$ 12u$(small) align-left">
-                    <input type="checkbox" id="con_1" name="isGift" class="jGift">
-                    <label class="nanumGothic" for="con_1">선물하기(로그인 시 나옴)</label>
-                    <div class="jGiftTarget" style="display: none;">
-                        <input class="smallTextBox" type="text" name="rName" placeholder="받는 분 성함" />
-                    </div>
-                    <input class="smallTextBox" type="text" name="name" placeholder="성함" />
-                    <input class="smallTextBox" type="text" name="email" placeholder="이메일" />
-                    <input type="checkbox" id="con_2" name="isPhone" class="jPhone">
-                    <label class="nanumGothic" for="con_2">휴대폰이 없는 경우 체크</label>
-                    <div class="jPhoneTarget">
-                        <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
-                        <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" />
+                <?if($_REQUEST["type"] == "1"){?>
+                    <div class="6u 12u$(small)">
+                        <h2 class="nanumGothic">구매정보</h2>
                     </div>
 
-                    <div>
-                        <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" readonly/>
-                        <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
-                        <input class="smallTextBox" type="text" name="addr" placeholder="주소" readonly/>
-                        <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" />
+                    <div class="6u$ 12u$(small) align-left">
+                        <input class="smallTextBox" type="text" name="name" placeholder="성함" />
+                        <input class="smallTextBox" type="text" name="email" placeholder="이메일" />
+                        <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                        <br/><br/>
+                        <div class="jPhoneTarget">
+                            <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
+                            <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" />
+                        </div>
+
+                        <div>
+                            <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" readonly/>
+                            <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                            <input class="smallTextBox" type="text" name="addr" placeholder="주소" readonly/>
+                            <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" />
+                        </div>
                     </div>
-                </div>
+
+                    <div class="6u 12u$(small)">
+                        <h2 class="nanumGothic">배송정보</h2>
+                    </div>
+                    <div class="6u$ 12u$(small) align-left">
+                        <input type="checkbox" id="con_2" class="jDup">
+                        <label class="nanumGothic" for="con_2">구매정보와 동일</label>
+
+                        <input class="smallTextBox" type="text" name="rName" placeholder="받는 분 성함" />
+                        <div class="jPhoneTarget">
+                            <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
+                            <input class="smallTextBox" name="rPhone" type="text" placeholder="받는분 휴대폰 번호 (-없이 입력)" />
+                        </div>
+
+                        <div>
+                            <input class="smallTextBox" type="text" name="rZipcode" placeholder="우편번호" readonly/>
+                            <a href="#" class="grayButton roundButton innerButton jRAddress">주소찾기</a>
+                            <input class="smallTextBox" type="text" name="rAddr" placeholder="주소" readonly/>
+                            <input class="smallTextBox" type="text" name="rAddrDetail" placeholder="상세주소" />
+                        </div>
+                    </div>
+                <?}else if($_REQUEST["type"] == "2"){?>
+                    <div class="6u 12u$(small)">
+                        <h2 class="nanumGothic">단체(교회) 정보</h2>
+                    </div>
+
+                    <div class="6u$ 12u$(small) align-left">
+                        <input class="smallTextBox" type="text" name="cName" placeholder="교회/단체명" />
+                        <input class="smallTextBox" type="text" name="cPhone" placeholder="교회/단체 전화번호" />
+                    </div>
+
+                    <div class="6u 12u$(small)">
+                        <h2 class="nanumGothic">담당자 정보</h2>
+                    </div>
+
+                    <div class="6u$ 12u$(small) align-left">
+                        <div>
+                            <input class="smallTextBox" type="text" name="name" placeholder="담당자 성함" />
+                            <input class="smallTextBox" type="text" name="rank" placeholder="담당자 직분" />
+                            <input class="smallTextBox" type="text" name="email" placeholder="담당자 이메일" />
+                            <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                            <br/><br/>
+                            <div class="jPhoneTarget">
+                                <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
+                                <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="6u 12u$(small)">
+                        <h2 class="nanumGothic">배송정보</h2>
+                    </div>
+                    <div class="6u$ 12u$(small) align-left">
+                        <div>
+                            <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" readonly/>
+                            <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                            <input class="smallTextBox" type="text" name="addr" placeholder="주소" readonly/>
+                            <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" />
+                        </div>
+                    </div>
+                <?}?>
 
                 <div class="6u 12u$(small)" style="margin-top : 1em;">
                     <h2 class="nanumGothic">결제정보</h2>

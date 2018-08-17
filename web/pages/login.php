@@ -49,12 +49,12 @@
             <form method="post" action="#">
                 <div class="formWrap">
                     <table class="noBorder">
-                        <tr class="noBorder whiteBG">
-                            <td colspan="2" style="text-align:left;">
-                                <a href="#" class="optionSelected privateBtn roundButton">개인</a>
-                                <a href="#" class="groundBtn roundButton">단체</a>
-                            </td>
-                        </tr>
+<!--                        <tr class="noBorder whiteBG">-->
+<!--                            <td colspan="2" style="text-align:left;">-->
+<!--                                <a href="#" class="optionSelected privateBtn roundButton">개인</a>-->
+<!--                                <a href="#" class="groundBtn roundButton">단체</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         <tr class="noBorder whiteBG">
                             <td class="noBorder fcWrap">
                                 <input type="email" class="formCtrl" name="userId" id="userId" value="" placeholder="이메일 입력" />

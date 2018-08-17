@@ -9,10 +9,16 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
     $objm = new AdminMain($_REQUEST);
     $langList = $objm->getLangList();
+
+    $uc = new Uncallable($_REQUEST);
+    $link_fb = $uc->getProperty("URL_FACEBOOK");
+    $link_ig = $uc->getProperty("URL_INSTAGRAM");
 ?>
+
     <script>
         $(document).ready(function(){
 
@@ -87,6 +93,32 @@
                 bindLangPair();
             });
 
+            $(".jSaveI").click(function(){
+                var val = $("#v_inst").val();
+                var ajax = new AjaxSender(
+                    "/route.php?cmd=Uncallable.setPropertyAjax",
+                    true, "json",
+                    new sehoMap().put("name", "URL_INSTAGRAM").put("value", val));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                    }
+                });
+            });
+
+            $(".jSaveF").click(function(){
+                var val = $("#v_fb").val();
+                var ajax = new AjaxSender(
+                    "/route.php?cmd=Uncallable.setPropertyAjax",
+                    true, "json",
+                    new sehoMap().put("name", "URL_FACEBOOK").put("value", val));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                    }
+                });
+            });
+
             $(".jSave").click(function(){
                 var jsonArr = getLangPair();
                 console.log(jsonArr);
@@ -131,6 +163,22 @@
             <h2>언어 및 문구 설정</h2>
 
             <br/>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">하단 페이스북 링크 주소(공통)</span>
+                </div>
+                <input type="text" class="form-control" id="v_fb" value="<?=$link_fb?>">
+                <a href="#" class="jSaveF btn btn-secondary">저장</a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">하단 인스타그램 링크 주소(공통)</span>
+                </div>
+                <input type="text" class="form-control" id="v_inst" value="<?=$link_ig?>">
+                <a href="#" class="jSaveI btn btn-secondary">저장</a>
+            </div>
 
             <!-- HEADER ELEMENTS -->
             <h4>웹사이트 헤더 영역</h4>

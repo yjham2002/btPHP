@@ -34,6 +34,16 @@
             });
         });
 
+        $(".jDelF").click(function(){
+            if(confirm("해당 FAQ 및 하위 계층 다국어 FAQ 게시글이 모두 삭제되며, 복구할 수 없습니다.\n정말 삭제하시겠습니까?")) {
+                var id = $(this).attr("fid");
+                var ajax = new AjaxSender("/route.php?cmd=Uncallable.deleteFaq", true, "json", new sehoMap().put("id", id));
+                ajax.send(function (data) {
+                    location.reload();
+                });
+            }
+        });
+
         $(".jView").click(function(){
             var id = $(this).attr("id");
             location.href = "/admin/pages/siteManage/faqDetail.php?id=" + id + "&langCode=kr";
@@ -75,13 +85,18 @@
             <tr>
                 <th>faq명(관리용)</th>
                 <th>등록일시</th>
+                <th>-</th>
             </tr>
             </thead>
             <tbody>
             <?foreach($list as $item){?>
-                <tr class="jView" id="<?=$item["id"]?>">
+                <tr class="" id="<?=$item["id"]?>">
                     <td><?=$item["desc"]?></td>
                     <td><?=$item["regDate"]?></td>
+                    <td>
+                        <button type="button" id="<?=$item["id"]?>" class="btn btn-secondary mb-2 jView">관리</button>
+                        <button type="button" fid="<?=$item["id"]?>" class="btn btn-danger mb-2 jDelF">삭제</button>
+                    </td>
                 </tr>
             <?}?>
             </tbody>
