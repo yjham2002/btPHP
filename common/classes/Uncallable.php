@@ -114,6 +114,11 @@ if(!class_exists("Uncallable")){
             return $this->getValue($sql, "value");
         }
 
+        function getProperties($prefix, $loc){
+            $sql = "SELECT * FROM tblProperty WHERE lang = '{$loc}' AND propertyName LIKE '{$prefix}%';";
+            return $this->getArray($sql);
+        }
+
         function getPropertyLoc($name, $loc){
             $sql = "SELECT `value` FROM tblProperty WHERE propertyName='{$name}' AND lang='{$loc}'";
             return $this->getValue($sql, "value");
@@ -140,12 +145,62 @@ if(!class_exists("Uncallable")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function setPropertyOnlyValue($name, $loc, $value){
+            $sql = "
+            INSERT INTO tblProperty(propertyName, `lang`, `value`) VALUES('{$name}', '{$loc}', '{$value}')
+            ON DUPLICATE KEY UPDATE `value` = '{$value}'
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function setPropertyLocDesc($name, $loc, $value, $desc){
+            $sql = "
+            INSERT INTO tblProperty(propertyName, `desc`, `lang`, `value`) VALUES('{$name}', '{$desc}', '{$loc}', '{$value}')
+            ON DUPLICATE KEY UPDATE `value` = '{$value}', `desc` = '{$desc}'
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function setPropertyAllAjax(){
+            $sql = "SELECT * FROM tblLang ORDER BY `order` ASC;";
+            $arr = $this->getArray($sql);
+            for($e = 0; $e < sizeof($arr); $e++){
+                $this->setPropertyLocDesc($_REQUEST["name"], $arr[$e]["code"], $_REQUEST["value"], $_REQUEST["desc"]);
+            }
+            return $this->makeResultJson(1, "succ");
+        }
+
         function setProperty($name, $value){
             $sql = "
             INSERT INTO tblProperty(propertyName, `desc`, `lang`, `value`) VALUES('{$name}', '', '#', '{$value}')
             ON DUPLICATE KEY UPDATE `value` = '{$value}'
             ";
             $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function setPropertyWithData(){
+            $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
+
+            $imgPath = NULL;
+            $imgPathIntro = NULL;
+
+            if($check !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile"]["tmp_name"], $targetDir)) $imgPath = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            else $imgPath = $_REQUEST["imgPath"];
+
+            $pName = $_REQUEST["propertyName"];
+            $pLoc = $_REQUEST["loc"];
+            $pValue = $imgPath;
+
+            $this->setPropertyOnlyValue($pName, $pLoc, $pValue);
+
             return $this->makeResultJson(1, "succ");
         }
 

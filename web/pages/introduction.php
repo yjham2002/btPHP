@@ -49,7 +49,7 @@ $historyData = json_decode($historyRaw);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floating" style="background-image: url('/web/images/intro_main.jpg');" exposureSet="SECTION_INTRO_BANNER">
+<section class="wrapper special sectionCover floating" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_BANNER"]?>');" exposureSet="SECTION_INTRO_BANNER">
     <a href="#toGo" class="jSmoothScroll baseAlign">
         <img class="small circleBtn" src="/web/images/btn_down.png" />
     </a>
@@ -61,8 +61,8 @@ $historyData = json_decode($historyRaw);
         <header>
             <h2><?=$INTRODUCTION_ELEMENTS["start"]["title"]?></h2>
             <div class="row small">
-                <div class="6u adjacent"><span class="image fit"><img src="/web/images/intro_s_01.jpg" alt="" /></span></div>
-                <div class="6u adjacent"><span class="image fit"><img src="/web/images/intro_s_02.jpg" alt="" /></span></div>
+                <div class="6u adjacent"><span class="image fit"><img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_START_LEFT"]?>" alt="" /></span></div>
+                <div class="6u adjacent"><span class="image fit"><img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_START_RIGHT"]?>" alt="" /></span></div>
             </div>
         </header>
 
@@ -90,7 +90,7 @@ $historyData = json_decode($historyRaw);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_middle.jpg');" exposureSet="SECTION_INTRO_HISTORY" >
+<section class="wrapper special sectionCover floatingS" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_HISTORY"]?>');" exposureSet="SECTION_INTRO_HISTORY" >
     <h1 style="color:white; font-size:3.0em; margin:0; line-height:1.3em;"><?=$INTRODUCTION_ELEMENTS["box"]["title"]?></h1>
     <div class="empLine vertical"></div>
     <h3 class="nanumGothic" style="color:white; font-size:1.7em"><?=$INTRODUCTION_ELEMENTS["box"]["text"]?></h3>
@@ -106,8 +106,8 @@ $historyData = json_decode($historyRaw);
             <h3 style="color:black;"><?=$INTRODUCTION_ELEMENTS["article"]["phrase"]?></h3>
             <div class="row small">
                 <!-- 필히, 관리자에서 해당 이미지 2개는 사이즈가 동일하게 업로드하도록 안내해야 함 -->
-                <div class="6u adjacent"><span class="image fit"><img src="/web/images/intro_mid_01.jpg" alt="" /></span></div>
-                <div class="6u adjacent"><span class="image fit"><img src="/web/images/intro_mid_02.jpg" alt="" /></span></div>
+                <div class="6u adjacent"><span class="image fit"><img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_HIS_LEFT"]?>" alt="" /></span></div>
+                <div class="6u adjacent"><span class="image fit"><img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_HIS_RIGHT"]?>" alt="" /></span></div>
             </div>
         </header>
         <div class="row">
@@ -195,7 +195,7 @@ $historyData = json_decode($historyRaw);
     </div>
 </section>
 
-<section exposureSet="SECTION_INTRO_GREETING_BANNER" class="wrapper special sectionCover floatingS" style="background-image: url('/web/images/intro_bottom.jpg');">
+<section exposureSet="SECTION_INTRO_GREETING_BANNER" class="wrapper special sectionCover floatingS" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_GREETING"]?>');">
     <h1 style="color:white; font-size:2.5em; margin:0; line-height:1.3em;"><?=$INTRODUCTION_ELEMENTS["prologue"]["title"]?></h1>
     <div class="empLineT white"></div>
     <h3 class="nanumGothic" style="color:white; font-size:1.3em"><?=$INTRODUCTION_ELEMENTS["prologue"]["text"]?></h3>

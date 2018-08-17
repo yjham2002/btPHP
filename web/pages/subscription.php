@@ -12,6 +12,14 @@
 <?
     $obj = new WebSubscription($_REQUEST);
     $publicationList = $obj->publicationList();
+    if($_COOKIE["btLocale"] == "kr") {
+        $currency = "₩";
+        $decimal = 0;
+    }
+    else{
+        $currency = "$";
+        $decimal = 2;
+    }
 ?>
 
 <script>
@@ -28,7 +36,7 @@
         <header exposureSet="SECTION_SUBSCRIBE_BANNER">
             <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
             <div class="empLineT"></div>
-            <div class="image fit thin" style="background-image: url('/web/images/sub_main.jpg');">
+            <div class="image fit thin" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUBSCRIBE_BANNER"]?>');">
             </div>
         </header>
         <div class="flex flex-4" exposureSet="SECTION_SUBSCRIBE_BOOKS">

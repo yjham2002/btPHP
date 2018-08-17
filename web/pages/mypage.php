@@ -90,9 +90,9 @@
 <section class="wrapper special books">
     <div class="inner mypage">
         <header>
-            <h2 class="pageTitle">마이페이지</h2>
+            <h2 class="pageTitle"><?=$MYPAGE_ELEMENTS["title"]?></h2>
             <div class="empLineT"></div>
-            <p>후원과 구독을 확인하는 공간입니다.</p>
+            <p><?=$MYPAGE_ELEMENTS["subTitle"]?></p>
         </header>
 
         <div style="" class="align-right">
@@ -115,7 +115,7 @@
 
             <?if($userInfo["type"] == "1"){?>
                 <div class="4u 12u$(small)">
-                    <h2 class="nanumGothic">기본정보</h2>
+                    <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["ordinary"]?></h2>
                 </div>
                 <div class="8u$ 12u$(small) align-left">
                     <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["name"]?></h3>
@@ -128,7 +128,7 @@
                 </div>
             <?}else if($userInfo["type"] == "2"){?>
                 <div class="4u 12u$(small)">
-                    <h2 class="nanumGothic">교회/단체 정보</h2>
+                    <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["church"]?></h2>
                 </div>
                 <div class="8u$ 12u$(small) align-left">
                     <input class="smallTextBox" type="text" name="cName" id="cName" placeholder="교회/단체명" value="<?=$userInfo["cName"]?>" />
@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="4u 12u$(small)">
-                    <h2 class="nanumGothic">담당자 정보</h2>
+                    <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["charge"]?></h2>
                 </div>
                 <div class="8u$ 12u$(small) align-left">
                     <input class="smallTextBox" type="text" name="name" id="name" placeholder="담당자 성함" value="<?=$userInfo["name"]?>"/>
@@ -150,14 +150,14 @@
             <?}?>
 
             <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">결제 정보</h2>
+                <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["payMethod"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
                 <h3 class="nanumGothic">카드사/계좌이체/직접입금 &nbsp;&nbsp; 카드번호 앞 네자리</h3>
             </div>
 
             <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">구독 정보</h2>
+                <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["subscription"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
                 <table>
@@ -195,7 +195,7 @@
             </div>
 
             <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">후원내역</h2>
+                <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["support"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
                 <table>

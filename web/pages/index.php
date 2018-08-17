@@ -11,6 +11,7 @@
 <?
     $obj = new WebSubscription($_REQUEST);
     $publicationList = $obj->publicationList();
+
 ?>
 <script>
     $(document).ready(function(){
@@ -24,7 +25,7 @@
     });
 </script>
 
-<section id="banner" style="background-image: url('/web/images/banner.jpg');" exposureSet="SECTION_HOME_BANNER">
+<section id="banner" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_HOME_BANNER"]?>');" exposureSet="SECTION_HOME_BANNER">
     <h1><?=$HOME_ELEMENTS["top"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["top"]["subTitle"]?></p>
     <a href="#" class="bannerLink toSubscription"><?=$HEADER_ELEMENTS["headerMenu_subscribe"]?></a>
@@ -71,7 +72,7 @@
     </div>
 </section>
 
-<section exposureSet="SECTION_HOME_PHRASE" class="wrapper special sectionCover" style="background-image: url('/web/images/section_cover.jpg');">
+<section exposureSet="SECTION_HOME_PHRASE" class="wrapper special sectionCover" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_HOME_PHRASE"]?>');">
     <h1><?=$HOME_ELEMENTS["midBottom"]["title"]?></h1>
     <p><?=$HOME_ELEMENTS["midBottom"]["subTitle"]?></p>
 </section>
@@ -89,7 +90,7 @@
             </article>
             <article>
                 <div class="image fit">
-                    <img src="/web/images/bb_dark_cover.jpg" alt="Pic 02" />
+                    <img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_HOME_BOTTOM"]?>" alt="Pic 02" />
                 </div>
             </article>
         </div>

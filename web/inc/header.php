@@ -9,6 +9,7 @@
 
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/web/inc/language.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
     $url = $_SERVER['REQUEST_URI'];
     $expObj = new WebUser($_REQUEST);
@@ -16,6 +17,15 @@
 
     $user= $expObj->webUser;
 //    echo json_encode($user);
+    $uc = new Uncallable($_REQUEST);
+    $CONST_PREFIX_IMAGE = "L_IMG";
+
+    $CONST_IMAGE_RAW = $uc->getProperties($CONST_PREFIX_IMAGE, $country_code);
+    $CONST_IMAGE;
+    for($imageLoop = 0; $imageLoop < sizeof($CONST_IMAGE_RAW); $imageLoop++){
+        $CONST_IMAGE[$CONST_IMAGE_RAW[$imageLoop]["propertyName"]] = $CONST_IMAGE_RAW[$imageLoop]["value"];
+    }
+
 ?>
 
 <!DOCTYPE HTML>
@@ -89,22 +99,6 @@
             setCookie('btLocale', val, 1);
             location.reload();
         });
-
-        // 숫자 타입에서 쓸 수 있도록 format() 함수 추가
-        Number.prototype.format = function(){
-            if(this==0) return 0;
-            var reg = /(^[+-]?\d+)(\d{3})/;
-            var n = (this + '');
-            while(reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-            return n;
-        };
-
-        // 문자열 타입에서 쓸 수 있도록 format() 함수 추가
-        String.prototype.format = function(){
-            var num = parseFloat(this);
-            if( isNaN(num) ) return "0";
-            return num.format();
-        };
     });
 </script>
 
@@ -127,9 +121,9 @@
             <a class="langBtn" loc="zh" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
 
             <?if($user != "" && $user != null){?>
-                <a class="link" href="/web/pages/mypage.php">마이페이지</a>
+                <a class="link" href="/web/pages/mypage.php"><?=$HEADER_ELEMENTS["headerMenu_mypage"]?></a>
             <?}else{?>
-                <a class="link" href="/web/pages/login.php">로그인</a>
+                <a class="link" href="/web/pages/login.php"><?=$HEADER_ELEMENTS["headerMenu_login"]?></a>
             <?}?>
         </div>
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>

@@ -26,7 +26,7 @@ $article = $uc->getSupport($lastSupportNumber, $country_code);
     });
 </script>
 <div class="image fit" exposureSet="SECTION_SUPPORT_BANNER">
-    <img src="/web/images/contribution_main.jpg" />
+    <img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUPPORT_BANNER"]?>" />
 </div>
 
 <section class="wrapper special books" exposureSet="SECTION_SUPPORT_CONTENT">
@@ -67,7 +67,7 @@ $article = $uc->getSupport($lastSupportNumber, $country_code);
 <section class="wrapper special slim" exposureSet="SECTION_SUPPORT_BOTTOM_IMG">
     <h2><?=$SUPPORT_ELEMENTS["phrase"]?></h2>
     <div class="image fit slim">
-        <img src="/web/images/contribution_bot.jpg" />
+        <img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUPPORT_BANNER_BOT"]?>" />
     </div>
 </section>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

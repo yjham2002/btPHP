@@ -51,7 +51,28 @@
         "headerMenu_subscribe" => $langJson->headerMenu_subscribe,
         "headerMenu_support" => $langJson->headerMenu_support,
         "headerMenu_share" => $langJson->headerMenu_share,
-        "headerMenu_faq" => $langJson->headerMenu_faq
+        "headerMenu_faq" => $langJson->headerMenu_faq,
+        "headerMenu_login" => $langJson->headerMenu_login,
+        "headerMenu_mypage" => $langJson->headerMenu_mypage
+    );
+
+    $MYPAGE_ELEMENTS = Array(
+        "title" => $langJson->mypage_title,
+        "subTitle" => $langJson->mypage_subTitle,
+        "menu" => Array(
+            "ordinary" => $langJson->mypage_ordinaryMenu,
+            "church" => $langJson->mypage_churchMenu,
+            "charge" => $langJson->mypage_chargeMenu,
+            "payMethod" => $langJson->mypage_payMethodMenu,
+            "subscription" => $langJson->mypage_subscriptionMenu,
+            "support" => $langJson->mypage_supportMenu
+        ),
+        "input" => Array(
+
+        ),
+        "tableMenu" => Array(
+
+        )
     );
 
     $HOME_ELEMENTS = Array(
@@ -155,10 +176,6 @@
     );
 
     $LOGIN_ELEMENTS = Array(
-
-    );
-
-    $MYPAGE_ELEMENTS = Array(
 
     );
 
