@@ -2,27 +2,26 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
-$selected = $_REQUEST["state"] == "" ? "SS" : $_REQUEST["state"];
+    $selected = $_REQUEST["state"] == "" ? "SS" : $_REQUEST["state"];
 
-$obj = new webUser($_REQUEST);
-$uc = new Uncallable($_REQUEST);
+    $obj = new WebUser($_REQUEST);
+    $uc = new Uncallable($_REQUEST);
 
-$nations = $uc->getNationsByCode($selected, $country_code);
-
-$danglingNo = 1;
-if($_REQUEST["nid"] == "" && sizeof($nations) > 0) $danglingNo = $nations[0]["id"];
-$nationSelected = $_REQUEST["nid"] == "" ? $danglingNo : $_REQUEST["nid"];
-
-$continent = $uc->getContinentCode($nationSelected);
-if($_REQUEST["nid"] != "") {
-    $selected = $continent;
     $nations = $uc->getNationsByCode($selected, $country_code);
-}
 
-$current = $_REQUEST["id"] == "" ? $uc->getLastSupportNumber($nationSelected) : $_REQUEST["id"];
-$article = $uc->getSupport($current, $country_code);
-$lastList = $uc->getLastStories($nationSelected, $country_code);
+    $danglingNo = 1;
+    if($_REQUEST["nid"] == "" && sizeof($nations) > 0) $danglingNo = $nations[0]["id"];
+    $nationSelected = $_REQUEST["nid"] == "" ? $danglingNo : $_REQUEST["nid"];
 
+    $continent = $uc->getContinentCode($nationSelected);
+    if($_REQUEST["nid"] != "") {
+        $selected = $continent;
+        $nations = $uc->getNationsByCode($selected, $country_code);
+    }
+
+    $current = $_REQUEST["id"] == "" ? $uc->getLastSupportNumber($nationSelected) : $_REQUEST["id"];
+    $article = $uc->getSupport($current, $country_code);
+    $lastList = $uc->getLastStories($nationSelected, $country_code);
 ?>
 
 <!-- 분리 영역 시작 -->

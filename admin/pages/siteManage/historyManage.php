@@ -115,6 +115,10 @@
                 addContainer("", "");
             });
 
+            $(document).on("click", ".jRemove", function(){
+                $(this).parent().parent().remove();
+            });
+
             $(".jSave").click(function(){
                 var json = executeJson();
                 var loc = $(".jLang").val();
@@ -132,6 +136,7 @@
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text"><select class="jSelectYear jYear" year="2017"></select></span>
+            <button class="btn btn-danger jRemove" value="X" >X</button>
         </div>
         <input type="text" placeholder="내용을 입력하세요" class="form-control jContent" value="#{content}">
     </div>

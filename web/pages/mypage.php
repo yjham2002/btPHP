@@ -24,6 +24,7 @@
 <script>
     $(document).ready(function(){
         var id = "<?=$userInfo["id"]?>";
+        var type = "<?=$userInfo["type"]?>";
 
         $(".jAddress").click(function(){
             new daum.Postcode({
@@ -59,10 +60,13 @@
             var password = $("#newPW").val();
             var phone = $("#phone").val();
             var zipcode = $("#zipcode").val();
-            var addr = $("#add").val();
+            var addr = $("#addr").val();
             var addrDetail = $("#addrDetail").val();
-            var params = new sehoMap().put("id", id).put("password", password).put("phone", phone).put("zipcode", zipcode).put("addr", addr).put("addrDetail", addrDetail);
-            params.put("type", "1");
+            var cName = $("#cName").val();
+            var cPhone = $("#cPhone").val();
+            var params = new sehoMap().put("id", id).put("password", password).put("phone", phone).put("zipcode", zipcode).put("addr", addr)
+                .put("addrDetail", addrDetail).put("cName", cName).put("cPhone", cPhone);
+            params.put("type", type);
 
             var ajax = new AjaxSender("/route.php?cmd=WebUser.updateCustomerInfo", false, "json", params);
             ajax.send(function(data){
@@ -109,40 +113,41 @@
                 <h5>*  띄어쓰기 없이 영문, 숫자, 특수문자 3가지 조합으로 5~15자 이내(대소문자 구별)로 입력해주세요.</h5>
             </div>
 
-            <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">기본정보</h2>
-            </div>
-            <div class="8u$ 12u$(small) align-left">
-                <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["name"]?></h3>
-                <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
+            <?if($userInfo["type"] == "1"){?>
+                <div class="4u 12u$(small)">
+                    <h2 class="nanumGothic">기본정보</h2>
+                </div>
+                <div class="8u$ 12u$(small) align-left">
+                    <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["name"]?></h3>
+                    <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
 
-                <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="우편번호" value="<?=$userInfo["zipcode"]?>" readonly/>
-                <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
-                <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
-                <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
-            </div>
+                    <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="우편번호" value="<?=$userInfo["zipcode"]?>" readonly/>
+                    <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                    <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
+                    <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
+                </div>
+            <?}else if($userInfo["type"] == "2"){?>
+                <div class="4u 12u$(small)">
+                    <h2 class="nanumGothic">교회/단체 정보</h2>
+                </div>
+                <div class="8u$ 12u$(small) align-left">
+                    <input class="smallTextBox" type="text" name="cName" id="cName" placeholder="교회/단체명" value="<?=$userInfo["cName"]?>" />
+                    <input class="smallTextBox" type="text" name="cPhone" id="CPhone" placeholder="교회/단체 전화번호" value="<?=$userInfo["cPhone"]?>" />
+                    <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="우편번호" value="<?=$userInfo["zipcode"]?>" readonly/>
+                    <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                    <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
+                    <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
+                </div>
 
-<!--            <div class="4u 12u$(small)">-->
-<!--                <h2 class="nanumGothic">교회/단체 정보</h2>-->
-<!--            </div>-->
-<!--            <div class="8u$ 12u$(small) align-left">-->
-<!--                <input class="smallTextBox" type="text" name="groupName" id="groupName" placeholder="교회 / 단체명" />-->
-<!--                <input class="smallTextBox" type="text" name="CRN" id="CRN" placeholder="사업자 등록 번호" />-->
-<!--                <a href="#" class="grayButton roundButton innerButton">변경</a>-->
-<!--                <input class="smallTextBox" type="text" name="zipCode" id="zipCode" placeholder="우편번호" />-->
-<!--                <a href="#" class="grayButton roundButton innerButton">주소찾기</a>-->
-<!--                <input class="smallTextBox" type="text" name="zipDetail" id="zipDetail" placeholder="상세주소" />-->
-<!--                <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="전화번호" />-->
-<!--            </div>-->
-<!---->
-<!--            <div class="4u 12u$(small)">-->
-<!--                <h2 class="nanumGothic">담당자 정보</h2>-->
-<!--            </div>-->
-<!--            <div class="8u$ 12u$(small) align-left">-->
-<!--                <input class="smallTextBox" type="text" name="chargeName" id="chargeName" placeholder="교회 / 단체명" />-->
-<!--                <input class="smallTextBox" type="text" name="chargeLevel" id="chargeLevel" placeholder="사업자 등록 번호" />-->
-<!--                <input class="smallTextBox" type="text" name="chargePhone" id="chargePhone" placeholder="휴대폰 번호" />-->
-<!--            </div>-->
+                <div class="4u 12u$(small)">
+                    <h2 class="nanumGothic">담당자 정보</h2>
+                </div>
+                <div class="8u$ 12u$(small) align-left">
+                    <input class="smallTextBox" type="text" name="name" id="name" placeholder="담당자 성함" value="<?=$userInfo["name"]?>"/>
+                    <input class="smallTextBox" type="text" name="rank" id="rank" placeholder="담당자 직분" value="<?=$userInfo["rank"]?>"/>
+                    <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
+                </div>
+            <?}?>
 
             <div class="4u 12u$(small)">
                 <h2 class="nanumGothic">결제 정보</h2>

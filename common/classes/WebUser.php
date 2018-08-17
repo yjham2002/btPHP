@@ -245,6 +245,9 @@ if(! class_exists("WebUser") ){
             $addr = $_REQUEST["addr"];
             $addrDetail = $_REQUEST["addrDetail"];
 
+            $cName = $_REQUEST["cName"];
+            $cPhone = $_REQUEST["cPhone"];
+
             if($type == "1"){
                 $sql = "
                     UPDATE tblCustomer
@@ -253,7 +256,9 @@ if(! class_exists("WebUser") ){
                       `phone` = '{$phone}',
                       `zipcode` = '{$zipcode}',
                       `addr` = '{$addr}',
-                      `addrDetail` = '{$addrDetail}'
+                      `addrDetail` = '{$addrDetail}',
+                      `cName` = '{$cName}',
+                      `cPhone` = '{$cPhone}'
                     WHERE `id` = '{$id}'
                 ";
                 $this->update($sql);
@@ -261,7 +266,6 @@ if(! class_exists("WebUser") ){
             } else if($type == "2"){
                 return $this->makeResultJson(1, "succ");
             }
-
             return $this->makeResultJson(-1, "type error");
         }
     }

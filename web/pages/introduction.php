@@ -9,8 +9,13 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
 $obj = new webUser($_REQUEST);
+$uc = new Uncallable($_REQUEST);
+$historyRaw = $uc->getPropertyLoc("LAYOUT_HISTORY", $country_code);
+$historyData = json_decode($historyRaw);
+
 ?>
 <script>
     $(document).ready(function(){
@@ -129,73 +134,47 @@ $obj = new webUser($_REQUEST);
                 <div class="conference-center-line"></div>
                 <div class="conference-timeline-content">
                     <!-- Article -->
-                    <div class="timeline-article">
-                        <div class="content-left-container">
-                            <div class="horizontal-line"></div>
-                            <div class="meta-date sticky"></div>
-                            <div class="content-left">
-                                <p>
-                                    2018<br/>
-                                    홈페이지 론칭 / ONE BODY 분사
-                                    <!--<span class="article-number">01</span>-->
-                                </p>
+                    <? for ($e = 0; $e < sizeof($historyData); $e++){?>
+                        <?if($e % 2 == 0){?>
+                            <div class="timeline-article">
+                                <div class="content-left-container">
+                                    <div class="horizontal-line"></div>
+                                    <div class="meta-date sticky"></div>
+                                    <div class="content-left">
+                                        <p>
+                                            <?=$historyData[$e]->year?><br/>
+                                            <?=$historyData[$e]->content?>
+                                            <!--<span class="article-number">01</span>-->
+                                        </p>
+                                    </div>
+                                    <!--<span class="timeline-author">John Doe</span>-->
+                                </div>
+                                <div class="meta-date">
+                                    <!--<span class="date">18</span>
+                                    <span class="month">APR</span>-->
+                                </div>
                             </div>
-                            <!--<span class="timeline-author">John Doe</span>-->
-                        </div>
-                        <div class="meta-date">
-                            <!--<span class="date">18</span>
-                            <span class="month">APR</span>-->
-                        </div>
-                    </div>
-                    <!-- // Article -->
+                            <?}else{?>
+                            <div class="timeline-article">
 
-                    <div class="timeline-article">
-
-                        <div class="content-right-container">
-                            <div class="horizontal-line"></div>
-                            <div class="meta-date sticky"></div>
-                            <div class="content-right">
-                                <p>
-                                    2017<br/>
-                                    홈페이지 론칭 / ONE BODY 분사
-                                </p>
+                                <div class="content-right-container">
+                                    <div class="horizontal-line"></div>
+                                    <div class="meta-date sticky"></div>
+                                    <div class="content-right">
+                                        <p>
+                                            <?=$historyData[$e]->year?><br/>
+                                            <?=$historyData[$e]->content?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="meta-date">
+                                    <!--<span class="date">18</span>
+                                    <span class="month">APR</span>-->
+                                </div>
                             </div>
-                        </div>
-                        <div class="meta-date">
-                            <!--<span class="date">18</span>
-                            <span class="month">APR</span>-->
-                        </div>
-                    </div>
+                            <?}?>
+                    <?}?>
 
-                    <div class="timeline-article">
-                        <div class="content-left-container">
-                            <div class="horizontal-line"></div>
-                            <div class="meta-date sticky"></div>
-                            <div class="content-left">
-                                <p>
-                                    2016<br/>
-                                    2016년 연혁
-                                </p>
-                            </div>
-                        </div>
-                        <div class="meta-date">
-                        </div>
-                    </div>
-
-                    <div class="timeline-article">
-                        <div class="content-right-container">
-                            <div class="horizontal-line"></div>
-                            <div class="meta-date sticky"></div>
-                            <div class="content-right">
-                                <p>
-                                    2015<br/>
-                                    2015년 연혁
-                                </p>
-                            </div>
-                        </div>
-                        <div class="meta-date">
-                        </div>
-                    </div>
 
                 </div>
                 <!--<div class="timeline-end">End</div>-->

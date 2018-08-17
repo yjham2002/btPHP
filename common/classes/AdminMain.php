@@ -355,6 +355,112 @@ if(!class_exists("AdminMain")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function supportAricleDetail(){
+            $id = $_REQUEST["sid"];
+            $locale = $_REQUEST["locale"] == "" ? "kr" : $_REQUEST["locale"];
+            $sql = "
+                SELECT * FROM tblSupportArticle
+                WHERE `parentId`= '{$id}' AND `locale` = '{$locale}';
+            ";
+            return $this->getRow($sql);
+        }
+
+        function upsertSupportArticle(){
+            $checkTitle = getimagesize($_FILES["titleFile"]["tmp_name"]);
+            $check1 = getimagesize($_FILES["imgFile1"]["tmp_name"]);
+            $check2 = getimagesize($_FILES["imgFile2"]["tmp_name"]);
+            $check3 = getimagesize($_FILES["imgFile3"]["tmp_name"]);
+            $check4 = getimagesize($_FILES["imgFile4"]["tmp_name"]);
+            $check5 = getimagesize($_FILES["imgFile5"]["tmp_name"]);
+
+            $parentId = $_REQUEST["parentId"];
+            $locale = $_REQUEST["locale"];
+            $smTitle = mysql_escape_string($_REQUEST["smTitle"]);
+            $Title = mysql_escape_string($_REQUEST["Title"]);
+            $subTitle = mysql_escape_string($_REQUEST["subTitle"]);
+            $goal = $_REQUEST["goal"];
+            $content = mysql_escape_string($_REQUEST["content"]);
+
+            $imgPathTitle = $_REQUEST["imgPathTitle"];
+            $imgPath1 = $_REQUEST["imgPath1"];
+            $imgPath2 = $_REQUEST["imgPath2"];
+            $imgPath3 = $_REQUEST["imgPath3"];
+            $imgPath4 = $_REQUEST["imgPath4"];
+            $imgPath5 = $_REQUEST["imgPath5"];
+
+            if($checkTitle !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["titleFile"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["titleFile"]["tmp_name"], $targetDir)) $imgPathTitle = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            if($check1 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile1"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile1"]["tmp_name"], $targetDir)) $imgPath1 = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            if($check2 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile2"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile2"]["tmp_name"], $targetDir)) $imgPath2 = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            if($check3 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile3"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile3"]["tmp_name"], $targetDir)) $imgPath3 = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            if($check4 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile4"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile4"]["tmp_name"], $targetDir)) $imgPath4 = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+            if($check5 !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile5"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["imgFile5"]["tmp_name"], $targetDir)) $imgPath5 = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+
+            $sql = "
+                INSERT INTO tblSupportArticle(`parentId`, `locale`, `smTitle`, `Title`, `subTitle`, `goal`, `content`, `titleImg`, `imgPath1`, `imgPath2`, `imgPath3`, `imgPath4`, `imgPath5`, regDate)
+                VALUES(
+                  '{$parentId}',
+                  '{$locale}',
+                  '{$smTitle}',
+                  '{$Title}',
+                  '{$subTitle}',
+                  '{$goal}',
+                  '{$content}',
+                  '{$imgPathTitle}',
+                  '{$imgPath1}',
+                  '{$imgPath2}',
+                  '{$imgPath3}',
+                  '{$imgPath4}',
+                  '{$imgPath5}',
+                  NOW()
+                )
+                ON DUPLICATE KEY UPDATE
+                `smTitle` = '{$smTitle}',
+                `Title` = '{$Title}',
+                `subTitle` = '{$subTitle}',
+                `goal` = '{$goal}',
+                `content` = '{$content}',
+                `titleImg` = '{$imgPathTitle}',
+                `imgPath1` = '{$imgPath1}',
+                `imgPath2` = '{$imgPath2}',
+                `imgPath3` = '{$imgPath3}',
+                `imgPath4` = '{$imgPath4}',
+                `imgPath5` = '{$imgPath5}'
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ", $id);
+
+        }
+
     }
 
 
