@@ -45,6 +45,7 @@ if(!class_exists("WebSubscription")){
         function setSubscriptionInfo(){
             $type = $_REQUEST["type"];
 
+            $customerId = $_REQUEST["customerId"];
             $phone = $_REQUEST["phone"];
             $email = $_REQUEST["email"];
             $name = $_REQUEST["name"];
@@ -59,10 +60,8 @@ if(!class_exists("WebSubscription")){
 
             $customerId = -1;
 
-            $sql = "SELECT * FROM tblCustomer WHERE email = '{$email}' LIMIT 1";
-            $member = $this->getRow($sql);
 
-            if($member == ""){
+            if($customerId == ""){
                 $sql = "
                     INSERT INTO tblCustomer(`type`, `name`, `phone`, `email`, `zipcode`, `addr`, `addrDetail`, `langCode`, `cName`, `cPhone`, `rank`, `regDate`)
                     VALUES(
@@ -82,7 +81,7 @@ if(!class_exists("WebSubscription")){
                 ";
                 $this->update($sql);
                 $customerId = $this->mysql_insert_id();
-            }else $customerId = $member["id"];
+            }
 
             $publicationId = $_REQUEST["publicationId"];
             $publicationCnt = $_REQUEST["publicationCnt"];

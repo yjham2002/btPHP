@@ -25,7 +25,7 @@
 ?>
 
 <!-- 분리 영역 시작 -->
-    <link rel="stylesheet" href="/web/assets/css/w3.css" />
+<link rel="stylesheet" href="/web/assets/css/w3.css" />
 <script src="/web/assets/js/mapdata.js"></script>
 <script src="/web/assets/js/continentmap.js"></script>
 <script>

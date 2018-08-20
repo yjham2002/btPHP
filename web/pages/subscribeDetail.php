@@ -31,12 +31,19 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     $(document).ready(function(){
+        var user = "<?=$user->id?>";
         var type = "<?=$_REQUEST["type"]?>"
         var currency = "<?=$currency?>";
         var decimal = "<?=$decimal?>";
-        var emailCheck = -1;
+        var emailCheck = "<?=$user->id == "" ? -1 : 1?>";
 
         setPrice($("#jCnt").val());
+        if(user > 1){
+            setReadonly("[name=name]");
+            setReadonly("[name=phone]");
+            setReadonly("[name=email]");
+            setReadonly("[name=addrDetail]");
+        }
 
         $("#jCategory").change(function(){
             var id = $(this).val();
@@ -59,6 +66,10 @@
 
             $(".jPriceTarget").text(currency + value.format());
             $("[name=totalPrice]").val(value);
+        }
+
+        function setReadonly(selector){
+            $(selector).attr("readonly", true);
         }
 
         $(".jAddress").click(function(){
@@ -117,6 +128,7 @@
             }
             if($("[name=phone]").val() == ""){
                 alert("휴대전화번호는 필수 입력 항목입니다.");
+                return;
             }
 
             var ajax = new AjaxSubmit("/route.php?cmd=WebSubscription.setSubscriptionInfo", "post", true, "json", "#form");
@@ -150,6 +162,7 @@
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
             <input type="hidden" name="publicationId" value="<?=$_REQUEST["id"]?>" />
+            <input type="hidden" name="customerId" value="<?=$user->id?>"/>
             <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
             <input type="hidden" name="totalPrice" value="" />
 
@@ -205,20 +218,24 @@
                     </div>
 
                     <div class="6u$ 12u$(small) align-left">
-                        <input class="smallTextBox" type="text" name="name" placeholder="성함" />
-                        <input class="smallTextBox" type="text" name="email" placeholder="이메일" />
-                        <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
-                        <br/><br/>
+                        <input class="smallTextBox" type="text" name="name" placeholder="성함" value="<?=$user->name?>" />
+                        <input class="smallTextBox" type="text" name="email" placeholder="이메일" value="<?=$user->email?>"/>
+                        <?if($user->id == ""){?>
+                            <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                            <br/><br/>
+                        <?}?>
                         <div class="jPhoneTarget">
                             <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
-                            <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" />
+                            <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" value="<?=$user->phone?>"/>
                         </div>
 
                         <div>
-                            <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" readonly/>
-                            <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
-                            <input class="smallTextBox" type="text" name="addr" placeholder="주소" readonly/>
-                            <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" />
+                            <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" value="<?=$user->zipcode?>" readonly/>
+                            <?if($user->id == ""){?>
+                                <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                            <?}?>
+                            <input class="smallTextBox" type="text" name="addr" placeholder="주소" value="<?=$user->addr?>" readonly/>
+                            <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" value="<?=$user->addrDetail?>" />
                         </div>
                     </div>
 
