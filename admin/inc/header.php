@@ -170,8 +170,8 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <span>직원서비스</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="login.html">공지사항</a>
-                <a class="dropdown-item" href="register.html">문서 서식</a>
+                <a class="dropdown-item" href="/admin/pages/staffService/noticeList.php">공지사항</a>
+                <a class="dropdown-item" href="/admin/pages/staffService/formList.php">문서 서식</a>
                 <a class="dropdown-item" href="register.html">스케줄관리</a>
             </div>
         </li>

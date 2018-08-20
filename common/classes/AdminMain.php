@@ -458,7 +458,21 @@ if(!class_exists("AdminMain")){
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ", $id);
+        }
 
+        function adminList(){
+            $this->initPage();
+            $sql = "SELECT COUNT(*) rowCnt FROM tblAdmin WHERE `status` = 1";
+            $this->rownum = $this->getValue($sql, "rowCnt");
+            $this->setPage($this->rownum);
+
+            $sql = " 
+                SELECT * FROM tblAdmin
+                WHERE `status` = 1
+                ORDER BY regDate DESC
+                LIMIT {$this->startNum}, {$this->endNum} 
+            ";
+            return $this->getArray($sql);
         }
 
     }

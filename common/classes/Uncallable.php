@@ -27,6 +27,100 @@ if(!class_exists("Uncallable")){
             return $this->getArray($sql);
         }
 
+        function getDocList(){
+            $this->initPage();
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblDocument";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.filePath, adn.fileName
+            FROM tblAdmin ad LEFT JOIN tblDocument adn ON ad.id = adn.adminId
+            ORDER BY adn.regDate DESC
+            LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
+        function getNoticeList(){
+            $this->initPage();
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblAdminNotification";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.filePath, adn.fileName
+            FROM tblAdmin ad LEFT JOIN tblAdminNotification adn ON ad.id = adn.adminId
+            ORDER BY adn.regDate DESC
+            LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
+        function getDoc(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.content, adn.filePath, adn.fileName
+            FROM tblAdmin ad LEFT JOIN tblDocument adn ON ad.id = adn.adminId
+            WHERE adn.id = '{$id}'";
+
+            return $this->getRow($sql);
+        }
+
+        function getNotice(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.content, adn.filePath, adn.fileName
+            FROM tblAdmin ad LEFT JOIN tblAdminNotification adn ON ad.id = adn.adminId
+            WHERE adn.id = '{$id}'";
+
+            return $this->getRow($sql);
+        }
+
+        function deleteNotice(){
+            $sql = "DELETE FROM tblAdminNotification WHERE `id`='{$_REQUEST["id"]}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
+        function deleteDoc(){
+            $sql = "DELETE FROM tblDocument WHERE `id`='{$_REQUEST["id"]}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
+        function upsertDoc(){
+            $id = $_REQUEST["id"];
+            $adminId = $this->admUser->id;
+            $title = $_REQUEST["title"];
+            $content = $_REQUEST["content"];
+            if($id == "") $id = 0;
+
+            $sql = "INSERT INTO tblDocument(`id`, `adminId`, `title`, `content`, `regDate`)
+                    VALUES('{$id}', '{$adminId}', '{$title}', '{$content}', NOW())
+                    ON DUPLICATE KEY UPDATE `title` = '{$title}', `adminId`='{$adminId}', `content` = '{$content}'
+                  ";
+
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
+        function upsertNotice(){
+            $id = $_REQUEST["id"];
+            $adminId = $this->admUser->id;
+            $title = $_REQUEST["title"];
+            $content = $_REQUEST["content"];
+            if($id == "") $id = 0;
+
+            $sql = "INSERT INTO tblAdminNotification(`id`, `adminId`, `title`, `content`, `regDate`)
+                    VALUES('{$id}', '{$adminId}', '{$title}', '{$content}', NOW())
+                    ON DUPLICATE KEY UPDATE `title` = '{$title}', `adminId`='{$adminId}', `content` = '{$content}'
+                  ";
+
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
         function getContinents(){
             $sql = "SELECT *, (SELECT COUNT(*) FROM tblNationGroup WHERE tblContinent.`id` = fContinent) AS ncnt FROM tblContinent ORDER BY `name` ASC";
             return $this->getArray($sql);
