@@ -62,7 +62,7 @@
 
             var value = 0;
             if(type == 1) value = cnt * price;
-            else value = cnt * discounted;
+            else value = cnt * discounted + 3000;
 
             $(".jPriceTarget").text(currency + value.format());
             $("[name=totalPrice]").val(value);

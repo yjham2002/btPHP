@@ -190,12 +190,6 @@ if(! class_exists("WebUser") ){
             $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $userInfo = $this->getRow($sql);
 
-            //TODO 교회/단체 정보
-            $orgInfo = null;
-
-            //TODO 담당자 정보
-            $managerInfo = null;
-
             //TODO 결제 정보
             $paymentInfo = null;
 
@@ -207,14 +201,21 @@ if(! class_exists("WebUser") ){
             ";
             $subscriptionInfo = $this->getArray($sql);
 
+            $sql = "
+                SELECT *
+                FROM tblSupport
+                WHERE `customerId` = '{$id}'
+                ORDER BY regDate DESC
+            ";
+            $supportInfo = $this->getArray($sql);
+
             //TODO 후원내역
 
             $retVal = Array(
                 "userInfo" => $userInfo,
-                "orgInfo" => $orgInfo,
-                "managerInfo" => $managerInfo,
                 "paymentInfo" =>$paymentInfo,
-                "subscriptionInfo" => $subscriptionInfo
+                "subscriptionInfo" => $subscriptionInfo,
+                "supportInfo" => $supportInfo
             );
             return $retVal;
         }

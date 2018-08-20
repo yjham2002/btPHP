@@ -15,9 +15,17 @@
 //    echo json_encode($info);
 
     $userInfo = $info["userInfo"];
-    $orgInfo = $info["orgInfo"];
-    $managerInfo = $info["managerInfo"];
     $subscriptionInfo = $info["subscriptionInfo"];
+    $supportInfo = $info["supportInfo"];
+
+    if($_COOKIE["btLocale"] == "kr") {
+        $currency = "₩";
+        $decimal = 0;
+    }
+    else{
+        $currency = "$";
+        $decimal = 2;
+    }
 ?>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -203,33 +211,19 @@
                     <tr>
                         <th>No.</th>
                         <th>후원자명</th>
-                        <th>후원유형</th>
                         <th>시작한 날짜</th>
                         <th>금액</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>김**</td>
-                        <td>고아후원</td>
-                        <td>2018-01-01</td>
-                        <td>금액</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <?for($i=0; $i<sizeof($supportInfo); $i++){?>
+                        <tr>
+                            <td><?=$i+1?></td>
+                            <td><?=$supportInfo[$i]["rName"]?></td>
+                            <td><?=$supportInfo[$i]["regDate"]?></td>
+                            <td><?=number_format($supportInfo[$i]["totalPrice"], $decimal)?></td>
+                        </tr>
+                    <?}?>
                     </tbody>
                 </table>
             </div>
