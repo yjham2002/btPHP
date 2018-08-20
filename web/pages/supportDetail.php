@@ -160,7 +160,7 @@
                     <?}?>
                     <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
                     <input class="smallTextBox" type="text" name="phone" placeholder="휴대폰 번호 (-없이 입력)" value="<?=$user->phone?>"/>
-
+                    <input class="smallTextBox" type="text" name="message" placeholder="응원글을 입력해 주세요"/>
                 </div>
 
                 <div class="6u 12u$(small)" style="margin-top : 1em;">

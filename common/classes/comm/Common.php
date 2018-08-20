@@ -657,8 +657,29 @@ if (! class_exists("Common"))
             return $this->req[$paramName] == "" ? $default : $this->req["$paramName"];
         }
 
-        function sendGmail(){
-
+        function get_masking_string($str, $len1, $len2=0, $limit=0, $mark='*')
+        {
+            $arr_str = preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+            $str_len = count($arr_str);
+            $len1 = abs($len1);
+            $len2 = abs($len2);
+            if($str_len <= ($len1 + $len2))
+                return $str;
+            $str_head = '';
+            $str_body = '';
+            $str_tail = '';
+            $str_head = join('', array_slice($arr_str, 0, $len1));
+            if($len2 > 0)
+                $str_tail = join('', array_slice($arr_str, $len2 * -1));
+            $arr_body = array_slice($arr_str, $len1, ($str_len - $len1 - $len2));
+            if(!empty($arr_body)) {
+                $len_body = count($arr_body);
+                $limit    = abs($limit);
+                if($limit > 0 && $len_body > $limit)
+                    $len_body = $limit;
+                $str_body = str_pad('', $len_body, $mark);
+            }
+            return $str_head.$str_body.$str_tail;
         }
 	}
 }

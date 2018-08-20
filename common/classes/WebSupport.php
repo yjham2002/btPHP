@@ -18,6 +18,14 @@ if(!class_exists("WebSupport")){
             parent::__construct($req);
         }
 
+        function getSupportMessage($id){
+            $sql = "
+                SELECT * FROM tblSupport
+                WHERE `parentId` = '{$id}'
+            ";
+            return $this->getArray($sql);
+        }
+
         function supportDetail(){
             $id = $_REQUEST["id"];
             $locale = $_COOKIE["btLocale"];
@@ -57,9 +65,10 @@ if(!class_exists("WebSupport")){
 
             $cnt = $_REQUEST["cnt"];
             $totalPrice = $_REQUEST["totalPrice"];
+            $message = $_REQUEST["message"];
 
             $sql = "
-                INSERT INTO tblSupport(`customerId`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `payMethodId`, `regDate`)
+                INSERT INTO tblSupport(`customerId`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `payMethodId`, `message`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$parentId}',
@@ -69,6 +78,7 @@ if(!class_exists("WebSupport")){
                   '{$email}',
                   '{$phone}',
                   1,
+                  '{$message}',
                   NOW()
                 )
             ";

@@ -1,11 +1,13 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSupport.php";?>
 <?
     $selected = $_REQUEST["state"] == "" ? "SS" : $_REQUEST["state"];
 
     $obj = new WebUser($_REQUEST);
     $uc = new Uncallable($_REQUEST);
+    $obj2 = new WebSupport($_REQUEST);
 
     $nations = $uc->getNationsByCode($selected, $country_code);
 
@@ -22,6 +24,8 @@
     $current = $_REQUEST["id"] == "" ? $uc->getLastSupportNumber($nationSelected) : $_REQUEST["id"];
     $article = $uc->getSupport($current, $country_code);
     $lastList = $uc->getLastStories($nationSelected, $country_code);
+
+    $messageList = $obj2->getSupportMessage($_REQUEST["id"]);
 ?>
 
 <!-- 분리 영역 시작 -->
@@ -196,44 +200,18 @@
                     <div class="empLineT" style="margin : 0 1em 10px 0;"></div>
                     <h1 style="color:black;" class="nanumGothic align-left">후원자</h1>
                     <div class="align-right">
-                        <a href="#" class="roundButton grayButton" >더보기</a>
+<!--                        <a href="#" class="roundButton grayButton" >더보기</a>-->
                     </div>
                 </div>
             </header>
             <div class="row">
                 <!-- Break -->
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
-                <div class="3u 12u$(medium)">
-                    <h2>김**<text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
-                    <p>응원 메시지가 삽입됩니다.</p>
-                </div>
+                <?foreach($messageList as $mItem){?>
+                    <div class="3u 12u$(medium)">
+                        <h2><?=$obj2->get_masking_string($mItem["rName"], 1)?><text style="font-size:0.6em;">&nbsp;&nbsp;후원자님</text></h2>
+                        <p><?=$mItem["message"]?></p>
+                    </div>
+                <?}?>
             </div>
         </div>
     </section>
