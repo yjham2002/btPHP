@@ -32,14 +32,12 @@
 </script>
 
 <section class="wrapper slimTitle special books">
-    <div class="inner">
-        <header exposureSet="SECTION_SUBSCRIBE_BANNER">
-            <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
-            <div class="empLineT"></div>
-            <div class="image fit thin" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUBSCRIBE_BANNER"]?>');">
-            </div>
-        </header>
-    </div>
+    <header exposureSet="SECTION_SUBSCRIBE_BANNER">
+        <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
+        <div class="empLineT"></div>
+        <div class="image fit thin" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUBSCRIBE_BANNER"]?>');">
+        </div>
+    </header>
 </section>
 
 <section class="wrapper special books">

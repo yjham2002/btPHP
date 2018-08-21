@@ -78,7 +78,7 @@
 </section>
 
 <section id="three" class="wrapper special darkSection" exposureSet="SECTION_HOME_SUPPORT">
-    <div class="inner">
+    <div class="inner tinySection">
         <div class="flex flex-2 darkness">
             <article>
                 <div class="empLine"></div>

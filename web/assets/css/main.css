@@ -2958,7 +2958,13 @@
 }
 
 .tinySection{
-	max-width:70%;
+    max-width:60%;
+}
+
+@media screen and (max-width:1280px){
+    .tinySection{
+        max-width:90%;
+    }
 }
 
 /* Collapsible */

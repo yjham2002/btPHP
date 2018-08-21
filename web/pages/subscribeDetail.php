@@ -59,10 +59,9 @@
             var discounted = "<?=$item["discounted"]?>";
             price = price.replace(/[^0-9\.]/g, '');
             discounted = discounted.replace(/[^0-9\.]/g, '');
-
             var value = 0;
-            if(type == 1) value = cnt * price;
-            else value = cnt * discounted + 3000;
+            if(cnt >= 10) value = cnt * discounted + 3000;
+            else value = cnt * price;
 
             $(".jPriceTarget").text(currency + value.format());
             $("[name=totalPrice]").val(value);
@@ -117,7 +116,10 @@
                         "문의 1644-9159");
                     location.href = "/web/pages/login.php";
                 }
-                else emailCheck = 1;
+                else{
+                    emailCheck = 1;
+                    alert("사용하실 수 있는 이메일 입니다.");
+                }
             })
         });
 
@@ -221,7 +223,7 @@
                         <input class="smallTextBox" type="text" name="name" placeholder="성함" value="<?=$user->name?>" />
                         <input class="smallTextBox" type="text" name="email" placeholder="이메일" value="<?=$user->email?>"/>
                         <?if($user->id == ""){?>
-                            <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                            <a class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
                             <br/><br/>
                         <?}?>
                         <div class="jPhoneTarget">
