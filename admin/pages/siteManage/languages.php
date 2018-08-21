@@ -17,6 +17,8 @@
     $uc = new Uncallable($_REQUEST);
     $link_fb = $uc->getProperty("URL_FACEBOOK");
     $link_ig = $uc->getProperty("URL_INSTAGRAM");
+    $link_kakao = $uc->getProperty("URL_KAKAO");
+
 ?>
 
     <script>
@@ -93,6 +95,16 @@
                 bindLangPair();
             });
 
+            $(".jSaveK").click(function(){
+                var val = $("#v_kakao").val();
+                var ajax = new AjaxSender("/route.php?cmd=Uncallable.setPropertyAjax", true, "json", new sehoMap().put("name", "URL_KAKAO").put("value", val));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다");
+                    }
+                });
+            });
+
             $(".jSaveI").click(function(){
                 var val = $("#v_inst").val();
                 var ajax = new AjaxSender(
@@ -118,6 +130,47 @@
                     }
                 });
             });
+
+            $(".jSaveO").click(function(){
+                var val = $("#v_info").val();
+                var loc = $(".jLangO").val();
+                var ajax = new AjaxSender(
+                    "/route.php?cmd=Uncallable.setPropertyLocAjax",
+                    true, "json",
+                    new sehoMap().put("name", "URL_INFO").put("value", val).put("lang", loc));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                        loadInfo(loc);
+                    }
+                });
+            });
+
+            $(".jLangO").change(function(){
+                loadInfo($(this).val());
+            });
+
+            loadInfo("kr");
+
+            function loadInfo(loc){
+                $.ajax({
+                    url : "/route.php?cmd=Uncallable.getPropertyLocAjax",
+                    async : true,
+                    type : 'get',
+                    dataType : 'text',
+                    data : {
+                        name : "URL_INFO",
+                        lang : loc
+                    },
+                    success : function(data){
+                        $("#v_info").text(data.trim());
+                        resizeTextArea();
+                    },
+                    error : function(a, b, c){
+                        alert("데이터를 불러올 수 없습니다.");
+                    }
+                });
+            }
 
             $(".jSave").click(function(){
                 var jsonArr = getLangPair();
@@ -166,6 +219,14 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <span class="input-group-text">하단 카카오 링크 주소(공통)</span>
+                </div>
+                <input type="text" class="form-control" id="v_kakao" value="<?=$link_kakao?>">
+                <a href="#" class="jSaveK btn btn-secondary">저장</a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <span class="input-group-text">하단 페이스북 링크 주소(공통)</span>
                 </div>
                 <input type="text" class="form-control" id="v_fb" value="<?=$link_fb?>">
@@ -178,6 +239,22 @@
                 </div>
                 <input type="text" class="form-control" id="v_inst" value="<?=$link_ig?>">
                 <a href="#" class="jSaveI btn btn-secondary">저장</a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">하단 사업자 정보
+                        &nbsp;&nbsp;
+                        <select class="custom-select mr-2 jLangO col-5" id="inputGroupSelect01">
+
+                        <?foreach($langList as $item){?>
+                            <option value="<?=$item["code"]?>"><?=$item["desc"]?></option>
+                        <?}?>
+                    </select></span>
+                </div>
+
+                <textarea class="form-control" id="v_info"></textarea>
+                <a href="#" class="jSaveO btn btn-secondary">저장</a>
             </div>
 
             <!-- HEADER ELEMENTS -->

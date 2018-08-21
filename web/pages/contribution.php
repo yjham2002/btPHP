@@ -11,18 +11,20 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
-$obj = new webUser($_REQUEST);
-$uc = new Uncallable($_REQUEST);
+    $obj = new webUser($_REQUEST);
+    $uc = new Uncallable($_REQUEST);
 
-$nationCode = $uc->getProperty("CONST_SUPPORT_NATION");
-$continent = $uc->getContinentCode($nationCode);
-$lastSupportNumber = $uc->getLastSupportNumber($nationCode);
-$article = $uc->getSupport($lastSupportNumber, $country_code);
-
+    $nationCode = $uc->getProperty("CONST_SUPPORT_NATION");
+    $continent = $uc->getContinentCode($nationCode);
+    $lastSupportNumber = $uc->getLastSupportNumber($nationCode);
+    $article = $uc->getSupport($lastSupportNumber, $country_code);
 ?>
 <script>
     $(document).ready(function(){
-
+        $(".jSupport").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/web/pages/supportDetail.php?id=" + id;
+        });
     });
 </script>
 <div class="image fit" exposureSet="SECTION_SUPPORT_BANNER">
@@ -55,8 +57,9 @@ $article = $uc->getSupport($lastSupportNumber, $country_code);
                 </div>
             </div>
             <div class="3u$ 12u$(medium)">
-                <a href="donationDetail.php?nid=<?=$nationCode?>&id=<?=$lastSupportNumber?>&state=<?=$continent?>"><img class="circleBtn" src="/web/images/btn_detail.png" /></a>
-                <a href="#"><img class="circleBtn" src="/web/images/btn_support.png" /></a>
+                <a href="donationDetail.php?nid=<?=$nationCode?>&id=<?=$lastSupportNumber?>&state=<?=$continent?>">
+                    <img class="circleBtn" src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUPPORT_BTN_01"]?>" /></a>
+                <a href="#" class="jSupport" id="<?=$lastSupportNumber?>"><img class="circleBtn" src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUPPORT_BTN_02"]?>" /></a>
             </div>
         </div>
     </div>

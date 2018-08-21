@@ -85,7 +85,7 @@
                 <h2><?=$HOME_ELEMENTS["bottom"]["title"]?></h2>
                 <p><?=$HOME_ELEMENTS["bottom"]["text"]?></p>
                 <footer>
-                    <a href="#" class="bottomLink"><?=$HEADER_ELEMENTS["headerMenu_support"]?> >></a>
+                    <a href="#" class="bottomLink toSupport"><?=$HEADER_ELEMENTS["headerMenu_support"]?> >></a>
                 </footer>
             </article>
             <article>
