@@ -33,7 +33,7 @@
 </section>
 
 <section class="wrapper special books" exposureSet="SECTION_HOME_BOOKS">
-    <div class="inner">
+    <div class="inner tinySection">
         <header>
             <h2><?=$HOME_ELEMENTS["mid"]["title"]?></h2>
             <p>

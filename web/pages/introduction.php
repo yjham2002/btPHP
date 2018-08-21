@@ -49,7 +49,7 @@ $historyData = json_decode($historyRaw);
     </div>
 </section>
 
-<section class="wrapper special sectionCover floating" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_BANNER"]?>');" exposureSet="SECTION_INTRO_BANNER">
+<section class="wrapper special sectionCover" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_BANNER"]?>');" exposureSet="SECTION_INTRO_BANNER">
     <a href="#toGo" class="jSmoothScroll baseAlign">
         <img class="small circleBtn" src="/web/images/btn_down.png" />
     </a>

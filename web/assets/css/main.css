@@ -2957,6 +2957,10 @@
 	height:40px;
 }
 
+.tinySection{
+	max-width:70%;
+}
+
 /* Collapsible */
 
 .thinLine{
@@ -4316,3 +4320,9 @@
 		}
 
 	}
+
+@media screen and (max-width:480px){
+	.w3-button{
+		width : 40px !important;
+	}
+}

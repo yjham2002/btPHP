@@ -35,6 +35,12 @@
         $("[name=locale]").val($(".jLang").val());
         // $("[name=description]").text($("[name=description]").text().replace(/<br\s?\/?>/g,""));
 
+        $("[name=goal]").keyup(function(){
+            $(this).val($(this).val().format());
+        });
+
+        $("[name=goal]").val($("[name=goal]").val().format());
+
         $(".jLang").change(function(){
             $("[name=locale]").val($(this).val());
             form.submit();
@@ -81,6 +87,8 @@
         }
 
         $(".jSave").click(function(){
+            $("[name=goal]").val(replaceAll($("[name=goal]").val(), ",", ""));
+
             var ajax = new AjaxSubmit("/route.php?cmd=AdminMain.upsertSupportArticle", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
@@ -89,6 +97,15 @@
                 }
                 else alert("이미지 저장 실패");
             });
+        });
+
+        $(".jDel").click(function(){
+            var img = $(this).attr("img");
+            var name = $(this).attr("nm");
+            var fileName = $(this).attr("fileName");
+            $("." + img).attr("src", "");
+            $("[name=" + name + "]").val("");
+            $("[name=" + fileName + "]").val("");
         });
     });
 </script>
@@ -122,15 +139,15 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light">상단 타이틀</td>
+                    <td class="bg-secondary text-light">메인 제목</td>
                     <td><input type="text" class="form-control" name="smTitle" value="<?=$info["smTitle"]?>" placeholder="내용을 입력하세요"/></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light">중앙 타이틀</td>
+                    <td class="bg-secondary text-light">선교사님 이름</td>
                     <td><input type="text" class="form-control" name="Title" value="<?=$info["Title"]?>" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
-                    <td class="bg-secondary text-light">하단 타이틀</td>
+                    <td class="bg-secondary text-light">선교지 정보</td>
                     <td><input type="text" class="form-control" name="subTitle" value="<?=$info["subTitle"]?>" placeholder="내용을 입력하세요" /></td>
                 </tr>
                 <tr class="h-auto">
@@ -148,9 +165,10 @@
                             <img class="jImgTitle" src="<?=$info["titleImg"] != "" ? $obj->fileShowPath . $info["titleImg"] : ""?>" width="100px;"/>
                         </div>
                         <div class="custom-file">
-                            <input type="hidden" class="form-control" name="titleImg" value="<?=$info["titleImg"]?>"/>
-                            <input type="file" class="custom-file-input" name="titleFile" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="hidden" class="form-control" name="imgPathTitle" value="<?=$info["titleImg"]?>"/>
+                            <input type="file" class="custom-file-input w-75" name="titleFile" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImgTitle" fileName="titleFile" nm="imgPathTitle">X</button>
                         </div>
                     </td>
                 </tr>
@@ -162,8 +180,9 @@
                         </div>
                         <div class="custom-file">
                             <input type="hidden" class="form-control" name="imgPath1" value="<?=$info["imgPath1"]?>"/>
-                            <input type="file" class="custom-file-input" name="imgFile1" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="file" class="custom-file-input w-75" name="imgFile1" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImg1" fileName="imgFile1" nm="imgPath1">X</button>
                         </div>
                     </td>
                 </tr>
@@ -175,8 +194,9 @@
                         </div>
                         <div class="custom-file">
                             <input type="hidden" class="form-control" name="imgPath2" value="<?=$info["imgPath2"]?>"/>
-                            <input type="file" class="custom-file-input" name="imgFile2" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="file" class="custom-file-input w-75" name="imgFile2" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImg2" fileName="imgFile2" nm="imgPath2">X</button>
                         </div>
                     </td>
                 </tr>
@@ -188,8 +208,9 @@
                         </div>
                         <div class="custom-file">
                             <input type="hidden" class="form-control" name="imgPath3" value="<?=$info["imgPath3"]?>"/>
-                            <input type="file" class="custom-file-input" name="imgFile3" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="file" class="custom-file-input w-75" name="imgFile3" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImg3" fileName="imgFile3" nm="imgPath3">X</button>
                         </div>
                     </td>
                 </tr>
@@ -201,8 +222,9 @@
                         </div>
                         <div class="custom-file">
                             <input type="hidden" class="form-control" name="imgPath4" value="<?=$info["imgPath4"]?>"/>
-                            <input type="file" class="custom-file-input" name="imgFile4" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="file" class="custom-file-input w-75" name="imgFile4" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImg4" fileName="imgFile4" nm="imgPath4">X</button>
                         </div>
                     </td>
                 </tr>
@@ -214,8 +236,9 @@
                         </div>
                         <div class="custom-file">
                             <input type="hidden" class="form-control" name="imgPath5" value="<?=$info["imgPath5"]?>"/>
-                            <input type="file" class="custom-file-input" name="imgFile5" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <input type="file" class="custom-file-input w-75" name="imgFile5" id="inputGroupFile01">
+                            <label class="custom-file-label w-75" for="inputGroupFile01">Choose file</label>
+                            <button type="button" class="btn btn-danger float-right jDel" img="jImg5" fileName="imgFile5" nm="imgPath5">X</button>
                         </div>
                     </td>
                 </tr>

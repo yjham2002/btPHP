@@ -86,5 +86,13 @@ if(!class_exists("WebSupport")){
 
             return $this->makeResultJson(1, "succ");
         }
+
+        function getSummation($id){
+            $sql = "
+                SELECT SUM(`totalPrice`) total FROM tblSupport WHERE `parentId` = '{$id}'
+            ";
+
+            return $this->getValue($sql, "total");
+        }
     }
 }

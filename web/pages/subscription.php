@@ -31,7 +31,7 @@
     });
 </script>
 
-<section class="wrapper special books">
+<section class="wrapper slimTitle special books">
     <div class="inner">
         <header exposureSet="SECTION_SUBSCRIBE_BANNER">
             <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["title"]?></h2>
@@ -39,6 +39,11 @@
             <div class="image fit thin" style="background-image: url('<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUBSCRIBE_BANNER"]?>');">
             </div>
         </header>
+    </div>
+</section>
+
+<section class="wrapper special books">
+    <div class="inner tinySection">
         <div class="flex flex-4" exposureSet="SECTION_SUBSCRIBE_BOOKS">
             <?foreach($publicationList as $item){?>
                 <div class="box person jView" id="<?=$item["publicationId"]?>">

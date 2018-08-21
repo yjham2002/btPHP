@@ -25,7 +25,10 @@
     $article = $uc->getSupport($current, $country_code);
     $lastList = $uc->getLastStories($nationSelected, $country_code);
 
-    $messageList = $obj2->getSupportMessage($_REQUEST["id"]);
+    $messageList = $obj2->getSupportMessage($current);
+    $total = $obj2->getSummation($current);
+    $per = intval($total / $article["goal"] * 100);
+
 ?>
 
 <!-- 분리 영역 시작 -->
@@ -132,9 +135,9 @@
                     <p class="align-left nanumGothic">
                         <?=$article["subTitle"]?>
                     </p>
-                    <p class="align-left nanumGothic small-primary">목표 <?=$article["goal"]?></p>
+                    <p class="align-left nanumGothic small-primary">목표</p>
                     <div class="w3-light-grey">
-                        <div class="w3-container w3-oyellow w3-center" style="width:25%">&nbsp;</div>
+                        <div class="w3-container w3-oyellow w3-center" style="width:<?=$per?>%">&nbsp;</div>
                     </div>
 
                     <p></p>
