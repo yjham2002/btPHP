@@ -54,7 +54,7 @@
 
         $(".jCheckEmail").click(function(){
             var email = $("[name=email]").val();
-            if(veryfyEmail(email) === false){
+            if(verifyEmail(email) === false){
                 alert("이메일 형식에 맞춰서 작성해 주시기 바랍니다.");
                 return;
             }

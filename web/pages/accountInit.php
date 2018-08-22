@@ -92,9 +92,15 @@
         });
 
         $(".jAuth").click(function(){
+            var password = $("#password").val();
+            if(verifyPassword(password) === false){
+                alert("비밀번호 형식에 맞춰서 작성해 주시기 바랍니다.");
+                return;
+            }
+
             var params = new sehoMap()
                 .put("customerId", customerId)
-                .put("code", $("#authText").val()).put("password", $("#password").val());
+                .put("code", $("#authText").val()).put("password", password);
             var ajax = new AjaxSender("/route.php?cmd=WebUser.auth", false, "json", params);
             ajax.send(function(data){
                 if(data.returnCode === 1){

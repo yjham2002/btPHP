@@ -116,9 +116,14 @@
         };
     });
 
-    function veryfyEmail(email){
+    function verifyEmail(email){
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         return (email.match(regExp) != null);
+    }
+
+    function verifyPassword(password){
+        var regExp = "^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[$@$!%*#?&])[A-Za-z0-9$@$!%*#?&]{5,15}$";
+        return (password.match(regExp) != null);
     }
 </script>
 

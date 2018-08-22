@@ -49,6 +49,11 @@
             var newPW = $("#newPW").val();
             var newPWC = $("#newPWC").val();
 
+            if(verifyPassword(newPW) === false){
+                alert("비밀번호 형식에 맞춰서 작성해 주시기 바랍니다.");
+                return;
+            }
+
             var ajax = new AjaxSender("/route.php?cmd=WebUser.checkCustomerPassword", true, "json", new sehoMap().put("id", id).put("password", currentPass));
             ajax.send(function(data){
                 if(data.returnCode !== 1){
