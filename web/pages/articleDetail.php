@@ -19,6 +19,22 @@
         var id = "<?=$_REQUEST["articleId"]?>";
         var ajax = new AjaxSender("/route.php?cmd=WebBoard.increaseArticleView", true, "json", new sehoMap().put("id", id));
         ajax.send(function(data){});
+
+        $(".jMod").click(function(){
+            location.href = "/web/pages/articleWrite.php?articleId=" + id;
+        });
+
+        $(".jDel").click(function(){
+            var ajax = new AjaxSender("/route.php?cmd=WebBoard.deleteArticle", false, "json", new sehoMap().put("id", id));
+            if(confirm("정말 삭제하시겠습니까?")){
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("삭제되었습니다");
+                        location.href = "/web/pages/articleList.php?categoryId=" + "<?=$_REQUEST["categoryId"]?>";
+                    }
+                });
+            }
+        });
     });
 </script>
 
@@ -28,13 +44,16 @@
         <div class="articleWrapper align-left">
             <table class="alt white">
                 <tr>
-<!--                    <td class="nanumGothic" style="width:3.2em;">-->
-<!--                        <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>-->
-<!--                    </td>-->
                     <td><?=$info["userName"]?></td>
-                    <td class="smallIconTD" style="text-align:right">
-                        <a href="#"><img src="/web/images/img_context.png" width=20 /></a>
-                    </td>
+                    <?if($user->id == $info["customerId"]){?>
+                        <td class="smallIconTD" style="text-align:right">
+                            <a href="#" class="jMod">수정</a>
+                        </td>
+                        <td class="smallIconTD" style="text-align:right">
+                            <a href="#" class="jDel">삭제</a>
+                        </td>
+
+                    <?}?>
                 </tr>
             </table>
             <h2 class="nanumGothic"><?=$info["title"]?></h2>

@@ -267,13 +267,22 @@ if(! class_exists("WebUser") ){
                 ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
-//
-//            if($type == "1"){
-//
-//            } else if($type == "2"){
-//                return $this->makeResultJson(1, "succ");
-//            }
-//            return $this->makeResultJson(-1, "type error");
+        }
+
+        function sendInquiryEmail(){
+            $email = "team@bibletime.org";
+            $title = $_REQUEST["title"];
+            $body = $_REQUEST["content"];
+
+            $mail = new GEmail();
+            $mail->setMailBody($body);
+            $mail->setSubject($title);
+            $mail->addReceiveEmail($email, "bibleTime");
+            $mail->setSendEmail($this->webUser->email, $this->webUser->name);
+
+            $flag = $mail->sendMail();
+            if($flag) return $this->makeResultJson(1, "succ");
+            else return $this->makeResultJson(-2, "send fail");
         }
     }
 }

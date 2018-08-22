@@ -57,6 +57,7 @@ if(!class_exists("WebBoard")){
         }
 
         function saveArticle(){
+		    $articleId = $_REQUEST["articleId"];
             $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
 
             $boardTypeId =$_REQUEST["boardTypeId"];
@@ -75,19 +76,38 @@ if(!class_exists("WebBoard")){
             else
                 $imgPath = $_REQUEST["imgPath"];
 
-            $sql = "
-                INSERT INTO tblBoard(`boardTypeId`, `customerId`, `title`, `content`, `imgPath`, `regDate`)
-                VALUES(
-                  '{$boardTypeId}',
-                  '{$customerId}',
-                  '{$title}',
-                  '{$content}',
-                  '{$imgPath}',
-                  NOW()
-                )
-            ";
+            if($articleId == ""){
+                $sql = "
+                    INSERT INTO tblBoard(`boardTypeId`, `customerId`, `title`, `content`, `imgPath`, `regDate`)
+                    VALUES(
+                      '{$boardTypeId}',
+                      '{$customerId}',
+                      '{$title}',
+                      '{$content}',
+                      '{$imgPath}',
+                      NOW()
+                    )
+                ";
+            }
+            else{
+                $sql = "
+                    UPDATE tblBoard
+                    SET
+                      `title` = '{$title}',
+                      `content` = '{$content}',
+                      `imgPath` = '{$imgPath}'
+                    WHERE `id` = '{$articleId}'
+                ";
+            }
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
+        }
+
+        function deleteArticle(){
+		    $id = $_REQUEST["id"];
+		    $sql = "DELETE FROM tblBoard WHERE `id` = '{$id}'";
+		    $this->update($sql);
+		    return $this->makeResultJson(1, "succ");
         }
 
         function increaseArticleView(){

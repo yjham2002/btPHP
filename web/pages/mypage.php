@@ -117,6 +117,10 @@
         $(".jCancel").click(function(){
             history.back();
         });
+
+        $(".jInquire").click(function(){
+            location.href = "/web/pages/inquire.php";
+        });
     });
 </script>
 
@@ -130,7 +134,7 @@
 
         <div style="" class="align-right">
             <a href="#" class="grayButton roundButton">거래명세서</a>
-            <a href="#" class="grayButton roundButton">1:1 문의</a>
+            <a href="#" class="grayButton roundButton jInquire">1:1 문의</a>
         </div>
         <hr />
 
@@ -204,6 +208,7 @@
                 <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["subscription"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
+                <a href="#" class="jView" style="float:right">상세페이지 보기</a>
                 <table>
                     <thead>
                     <tr>

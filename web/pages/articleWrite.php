@@ -10,9 +10,9 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBoard.php";?>
 <?
-$obj = new webBoard($_REQUEST);
-$categoryInfo = $obj->getCategoryInfo();
-$info = $obj->getArticleInfo();
+    $obj = new webBoard($_REQUEST);
+    $categoryInfo = $obj->getCategoryInfo();
+    $info = $obj->getArticleInfo();
 ?>
 <script>
     $(document).ready(function(){
@@ -32,7 +32,7 @@ $info = $obj->getArticleInfo();
         }
 
         $(".jSave").click(function(){
-            var categoryId = "<?=$_REQUEST["categoryId"]?>";
+            var categoryId = "<?=$_REQUEST["categoryId"] == "" ? $info["boardTypeId"] : $_REQUEST["categoryId"]?>";
             var ajax = new AjaxSubmit("/route.php?cmd=WebBoard.saveArticle", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
@@ -47,6 +47,7 @@ $info = $obj->getArticleInfo();
 
 <form method="post" id="form" action="#" enctype="multipart/form-data">
     <input type="hidden" name="boardTypeId" value="<?=$_REQUEST["categoryId"]?>" />
+    <input type="hidden" name="articleId" value="<?=$_REQUEST["articleId"]?>"/>
     <section class="wrapper special books">
         <div class="inner">
             <h5 class="dirHelper">BibleTime 나눔 > 게시판명 > 게시글명</h5>
@@ -56,17 +57,17 @@ $info = $obj->getArticleInfo();
                         <td class="nanumGothic" style="width:3.2em;">
 <!--                            <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>-->
                         </td>
-                        <td><?=$user->name?></td>
+                        <td><?=$info["userName"]?></td>
                         <td class="smallIconTD" style="text-align:right">
-                            <a href="#"><img src="/web/images/img_context.png" width=20 /></a>
+<!--                            <a href="#"><img src="/web/images/img_context.png" width=20 /></a>-->
                         </td>
                     </tr>
                 </table>
-                <input class="smallTextBox" type="text" name="title" id="title" placeholder="게시글 제목 입력" />
-                <input type="hidden" name="imgPath" value="<?=$item["imgPath"]?>"/>
-                <div class="image fit"><img class="jImg" src="" /></div>
+                <input class="smallTextBox" type="text" name="title" id="title" placeholder="게시글 제목 입력" value="<?=$info["title"]?>"/>
+                <input type="hidden" name="imgPath" value="<?=$info["imgPath"]?>"/>
+                <div class="image fit"><img class="jImg" src="<?=$info["imgPath"] != "" ? $obj->fileShowPath . $info["imgPath"] : ""?>" /></div>
                 <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01" style="margin-bottom: 2vh">
-                <textarea name="content" placeholder="게시물 내용 입력" style="height:20vh;"></textarea>
+                <textarea name="content" placeholder="게시물 내용 입력" style="height:20vh;"><?=$info["content"]?></textarea>
             </div>
         </div>
 
