@@ -109,6 +109,11 @@
 
         $(".jCheckEmail").click(function(){
             var email = $("[name=email]").val();
+            if(veryfyEmail(email) === false){
+                alert("이메일 형식에 맞춰서 작성해 주시기 바랍니다.");
+                return;
+            }
+
             var ajax = new AjaxSender("/route.php?cmd=WebUser.checkEmail", false, "json", new sehoMap().put("email", email));
             ajax.send(function(data){
                 if(data.returnCode !== 1){
@@ -138,7 +143,7 @@
                 if(data.returnCode === 1){
                     console.log(data);
                     alert("구독신청이 완료되었습니다.");
-                    location.href = "/web";
+                    // location.href = "/web";
                 }
                 else alert("저장 실패");
             });

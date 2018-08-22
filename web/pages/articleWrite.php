@@ -32,10 +32,14 @@ $info = $obj->getArticleInfo();
         }
 
         $(".jSave").click(function(){
+            var categoryId = "<?=$_REQUEST["categoryId"]?>";
             var ajax = new AjaxSubmit("/route.php?cmd=WebBoard.saveArticle", "post", true, "json", "#form");
             ajax.send(function(data){
-                // if(data.returnCode === 1) history.back();
-                // else alert("이미지 저장 실패");
+                if(data.returnCode === 1){
+                    alert("저장되었습니다.");
+                    location.href = "/web/pages/articleList.php?categoryId=" + categoryId;
+                }
+                else alert("저장 실패");
             });
         });
     });
@@ -50,9 +54,9 @@ $info = $obj->getArticleInfo();
                 <table class="alt white">
                     <tr>
                         <td class="nanumGothic" style="width:3.2em;">
-                            <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>
+<!--                            <div class="profileImage"><img src="/web/images/pic03.jpg" /></div>-->
                         </td>
-                        <td>길동 홍</td>
+                        <td><?=$user->name?></td>
                         <td class="smallIconTD" style="text-align:right">
                             <a href="#"><img src="/web/images/img_context.png" width=20 /></a>
                         </td>

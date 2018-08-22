@@ -22,7 +22,8 @@
 
         $(".jView").click(function(){
             if(permission != "E" && curr <=0){
-                alert("로그인 하셔야 게시물을 조회하실 수 있습니다.")
+                alert("로그인 하셔야 게시물을 조회하실 수 있습니다.");
+                return;
             }
 
 

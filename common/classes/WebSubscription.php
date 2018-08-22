@@ -58,9 +58,6 @@ if(!class_exists("WebSubscription")){
             $cPhone = $_REQUEST["cPhone"];
             $rank = $_REQUEST["rank"];
 
-            $customerId = -1;
-
-
             if($customerId == ""){
                 $sql = "
                     INSERT INTO tblCustomer(`type`, `name`, `phone`, `email`, `zipcode`, `addr`, `addrDetail`, `langCode`, `cName`, `cPhone`, `rank`, `regDate`)
