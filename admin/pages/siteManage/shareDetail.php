@@ -52,7 +52,7 @@
         </ol>
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
-            <input type="hidden" id="<?=$_REQUEST["id"]?>" />
+            <input type="hidden" name="id" value="<?=$_REQUEST["id"]?>" />
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

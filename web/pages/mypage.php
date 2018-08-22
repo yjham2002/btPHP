@@ -29,10 +29,28 @@
 ?>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+    .ui-datepicker select{display: inline!important;}
+</style>
+
 <script>
     $(document).ready(function(){
         var id = "<?=$userInfo["id"]?>";
         var type = "<?=$userInfo["type"]?>";
+        $(".datepicker").datepicker({
+            yearRange: "-100:",
+            showMonthAfterYear:true,
+            inline: true,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat : 'yy-mm-dd',
+            dayNamesMin:['일', '월', '화', '수', '목', '금', ' 토'],
+            monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+        });
 
         $(".jAddress").click(function(){
             new daum.Postcode({
@@ -77,8 +95,10 @@
             var addrDetail = $("#addrDetail").val();
             var cName = $("#cName").val();
             var cPhone = $("#cPhone").val();
+            var notiFlag = $("[name=notiFlag]:checked").val();
+            var birth = $("#birth").val();
             var params = new sehoMap().put("id", id).put("password", password).put("phone", phone).put("zipcode", zipcode).put("addr", addr)
-                .put("addrDetail", addrDetail).put("cName", cName).put("cPhone", cPhone);
+                .put("addrDetail", addrDetail).put("cName", cName).put("cPhone", cPhone).put("notiFlag", notiFlag).put("birth", birth);
             params.put("type", type);
 
             var ajax = new AjaxSender("/route.php?cmd=WebUser.updateCustomerInfo", false, "json", params);
@@ -138,6 +158,7 @@
                     <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
                     <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
                     <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
+                    <input class="smallTextBox datepicker" type="text" name="birth" id="birth" placeholder="생년월일" value="<?=$userInfo["birth"]?>" />
                 </div>
             <?}else if($userInfo["type"] == "2"){?>
                 <div class="4u 12u$(small)">
@@ -161,6 +182,16 @@
                     <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
                 </div>
             <?}?>
+
+            <div class="4u 12u$(small)">
+                <h2 class="nanumGothic">이메일 / SMS 수신</h2>
+            </div>
+            <div class="8u$ 12u$(small) align-left" style="margin-top : 1em;">
+                <input type="radio" id="noti_on" name="notiFlag" value="1" <?=$userInfo["notiFlag"] == "1" ? "checked" : ""?>>
+                <label for="noti_on">On</label>
+                <input type="radio" id="noti_off" name="notiFlag" value="0" <?=$userInfo["notiFlag"] == "0" ? "checked" : ""?>>
+                <label for="noti_off">Off</label>
+            </div>
 
             <div class="4u 12u$(small)">
                 <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["payMethod"]?></h2>

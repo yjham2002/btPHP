@@ -245,12 +245,13 @@ if(! class_exists("WebUser") ){
             $zipcode = $_REQUEST["zipcode"];
             $addr = $_REQUEST["addr"];
             $addrDetail = $_REQUEST["addrDetail"];
+            $notiFlag = $_REQUEST["notiFlag"];
+            $birth = $_REQUEST["birth"];
 
             $cName = $_REQUEST["cName"];
             $cPhone = $_REQUEST["cPhone"];
 
-            if($type == "1"){
-                $sql = "
+            $sql = "
                     UPDATE tblCustomer
                     SET
                       `password` = '{$password}',
@@ -259,15 +260,20 @@ if(! class_exists("WebUser") ){
                       `addr` = '{$addr}',
                       `addrDetail` = '{$addrDetail}',
                       `cName` = '{$cName}',
-                      `cPhone` = '{$cPhone}'
+                      `cPhone` = '{$cPhone}',
+                      `notiFlag` = '{$notiFlag}',
+                      `birth` = '{$birth}'
                     WHERE `id` = '{$id}'
                 ";
-                $this->update($sql);
-                return $this->makeResultJson(1, "succ");
-            } else if($type == "2"){
-                return $this->makeResultJson(1, "succ");
-            }
-            return $this->makeResultJson(-1, "type error");
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+//
+//            if($type == "1"){
+//
+//            } else if($type == "2"){
+//                return $this->makeResultJson(1, "succ");
+//            }
+//            return $this->makeResultJson(-1, "type error");
         }
     }
 }

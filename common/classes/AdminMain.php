@@ -139,7 +139,8 @@ if(!class_exists("AdminMain")){
             else
                 $imgPath = $_REQUEST["imgPath"];
 
-            $sql = "
+            if($id == ""){
+                $sql = "
                 INSERT INTO tblBoardType(`lang`, `name`, `subTitle`, `writePermission`, `readPermission`, `imgPath`, `regDate`)
                 VALUES(
                   '{$lang}',
@@ -149,15 +150,23 @@ if(!class_exists("AdminMain")){
                   '{$readPermission}',
                   '{$imgPath}',
                   NOW()
-                )
-                ON DUPLICATE KEY UPDATE
-                `lang` = '{$lang}',
-                `name` = '{$name}',
-                `subTitle` = '{$subTitle}',
-                `writePermission` = '{$writePermission}',
-                `readPermission` = '{$readPermission}',
-                `imgPath` = '{$imgPath}'        
-            ";
+                )        
+                ";
+            }
+            else{
+                $sql = "
+                    UPDATE tblBoardType
+                    SET
+                      `lang` = '{$lang}',
+                      `name` = '{$name}',
+                      `subTitle` = '{$subTitle}',
+                      `writePermission` = '{$writePermission}',
+                      `readPermission` = '{$readPermission}',
+                      `imgPath` = '{$imgPath}'  
+                    WHERE `id` = '{$id}';
+                ";
+            }
+
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }

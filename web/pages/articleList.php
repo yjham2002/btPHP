@@ -57,7 +57,7 @@
 <!--            <a href="#" style="margin-top:0.8em;"><img src="/web/images/img_search.png" width="20px"/></a>-->
 <!--        </div>-->
 <!--        <br/>-->
-        <?if($categoryInfo["writePermission"] == "E" || $user->id != ""){?>
+        <?if($user->id != ""){?>
             <a href="#" class="roundButton detailSubscribe nanumGothic jAdd" style="float: right; text-align: center">글쓰기</a>
         <?}?>
         <br/><br/><br/>

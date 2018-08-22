@@ -39,7 +39,7 @@ $info = $obj->getArticleInfo();
                     alert("저장되었습니다.");
                     location.href = "/web/pages/articleList.php?categoryId=" + categoryId;
                 }
-                else alert("저장 실패");
+                else if(data.returnCode === -1) alert("로그인 후 글작성이 가능합니다.");
             });
         });
     });

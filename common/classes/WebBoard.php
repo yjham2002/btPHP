@@ -61,11 +61,11 @@ if(!class_exists("WebBoard")){
 
             $boardTypeId =$_REQUEST["boardTypeId"];
             $customerId = $this->webUser->id;
+            if($customerId == "") return $this->makeResultJson(-1, "fail");
             $title = $_REQUEST["title"];
             $content = $_REQUEST["content"];
 
             $imgPath = NULL;
-
             if($check !== false){
                 $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["imgFile"]["name"]),PATHINFO_EXTENSION);
                 $targetDir = $this->filePath . $fName;
