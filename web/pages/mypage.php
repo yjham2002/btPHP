@@ -121,6 +121,10 @@
         $(".jInquire").click(function(){
             location.href = "/web/pages/inquire.php";
         });
+
+        $(".jView").click(function(){
+            location.href = "/web/pages/mySubscription.php";
+        });
     });
 </script>
 

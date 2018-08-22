@@ -114,6 +114,16 @@
             if( isNaN(num) ) return "0";
             return num.format();
         };
+
+        $(".jLogout").click(function(){
+            var ajax = new AjaxSender("/route.php?cmd=WebUser.logout", true, "json", new sehoMap());
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("로그아웃 되었습니다.");
+                    location.href = "/web";
+                }
+            });
+        });
     });
 
     function verifyEmail(email){
@@ -138,6 +148,11 @@
             <a class="headerMenu" match="/web/pages/contribution.php" href="/web/pages/contribution.php"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
             <a class="headerMenu" match="/web/pages/donation.php" href="/web/pages/donation.php"><?=$HEADER_ELEMENTS["headerMenu_share"]?></a>
             <a class="headerMenu" match="/web/pages/faq.php" href="/web/pages/faq.php"><?=$HEADER_ELEMENTS["headerMenu_faq"]?></a>
+            <?if($user->id != ""){?>
+                <a class="headerMenu jLogout">로그아웃</a>
+            <?}?>
+
+
         </nav>
         <div class="rightBox">
             <a class="langBtn" loc="kr" href="#"><img src="/web/images/lang_ko.png" />KO | </a>

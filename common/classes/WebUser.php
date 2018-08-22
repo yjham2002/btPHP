@@ -208,9 +208,6 @@ if(! class_exists("WebUser") ){
                 ORDER BY regDate DESC
             ";
             $supportInfo = $this->getArray($sql);
-
-            //TODO 후원내역
-
             $retVal = Array(
                 "userInfo" => $userInfo,
                 "paymentInfo" =>$paymentInfo,
