@@ -90,15 +90,40 @@ if(!class_exists("Uncallable")){
         }
 
         function upsertDoc(){
+            $check = file_exists($_FILES['docFile']['tmp_name'][0]);
+
             $id = $_REQUEST["id"];
             $adminId = $this->admUser->id;
             $title = $_REQUEST["title"];
             $content = $_REQUEST["content"];
             if($id == "") $id = 0;
 
-            $sql = "INSERT INTO tblDocument(`id`, `adminId`, `title`, `content`, `regDate`)
-                    VALUES('{$id}', '{$adminId}', '{$title}', '{$content}', NOW())
-                    ON DUPLICATE KEY UPDATE `title` = '{$title}', `adminId`='{$adminId}', `content` = '{$content}'
+            $fileName = $_FILES["docFile"]["name"];
+            $filePath = $_REQUEST["filePath"];
+
+            if($check !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION);
+                $targetDir = $this->filePath . $fName;
+                if(move_uploaded_file($_FILES["docFile"]["tmp_name"], $targetDir)) $filePath = $fName;
+                else return $this->makeResultJson(-1, "fail");
+            }
+
+            $sql = "INSERT INTO tblDocument(`id`, `adminId`, `title`, `fileName`, `filePath`, `content`, `regDate`)
+                    VALUES(
+                      '{$id}', 
+                      '{$adminId}', 
+                      '{$title}', 
+                      '{$fileName}',
+                      '{$filePath}',
+                      '{$content}',
+                      NOW()
+                    )
+                    ON DUPLICATE KEY UPDATE 
+                      `title` = '{$title}', 
+                      `adminId`='{$adminId}', 
+                      `content` = '{$content}',
+                      `fileName` = '{$fileName}',
+                      `filePath` = '{$filePath}'
                   ";
 
             $this->update($sql);

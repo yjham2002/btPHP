@@ -10,6 +10,7 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSupport.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php" ; ?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php" ; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/php/AnyGo.php" ;?>
 <?
 	$cmd	= $_REQUEST[cmd] ; 
