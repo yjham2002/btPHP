@@ -194,6 +194,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/staffService/noticeList.php">공지사항</a>
                 <a class="dropdown-item" href="/admin/pages/staffService/formList.php">문서 서식</a>
                 <a class="dropdown-item" href="register.html">스케줄관리</a>
+                <a class="dropdown-item" href="/admin/pages/staffService/adminList.php">관리자</a>
             </div>
         </li>
 

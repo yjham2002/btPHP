@@ -39,7 +39,7 @@
 
         $(".jView").click(function(){
             var id = $(this).attr("id");
-            location.href = "/admin/pages/siteManage/faqDetail.php?id=" + id + "&langCode=kr";
+            location.href = "/admin/pages/staffService/adminDetail.php?id=" + id + "&langCode=kr";
         });
     });
 </script>
