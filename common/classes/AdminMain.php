@@ -470,18 +470,48 @@ if(!class_exists("AdminMain")){
         }
 
         function adminList(){
-            $this->initPage();
-            $sql = "SELECT COUNT(*) rowCnt FROM tblAdmin WHERE `status` = 1";
-            $this->rownum = $this->getValue($sql, "rowCnt");
-            $this->setPage($this->rownum);
-
             $sql = " 
                 SELECT * FROM tblAdmin
                 WHERE `status` = 1
                 ORDER BY regDate DESC
-                LIMIT {$this->startNum}, {$this->endNum} 
             ";
             return $this->getArray($sql);
+        }
+
+        function getAdmin(){
+            $sql = "SELECT * FROM tblAdmin WHERE `id` = '{$_REQUEST["id"]}' AND `status` = 1 LIMIT 1";
+            return $this->getRow($sql);
+        }
+
+        function deleteAdmin(){
+            $sql = "UPDATE tblAdmin SET `status` = 0 WHERE `id` = '{$_REQUEST["id"]}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function upsertAdmin(){
+            $id = $_REQUEST["id"];
+            $account = $_REQUEST["account"];
+            $password = md5($_REQUEST["password"]);
+            $name = $_REQUEST["name"];
+            if($id == "") $id = 0;
+
+            $sql = "INSERT INTO tblAdmin(`id`, `account`, `password`, `name`, `status`, `regDate`)
+                    VALUES(
+                      '{$id}', 
+                      '{$account}', 
+                      '{$password}', 
+                      '{$name}',
+                      '1',
+                      NOW()
+                    )
+                    ON DUPLICATE KEY UPDATE 
+                      `account` = '{$account}',
+                      `password` = '{$password}',
+                      `name` = '{$name}'
+                  ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
         }
 
     }

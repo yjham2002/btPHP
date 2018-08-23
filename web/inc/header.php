@@ -59,8 +59,6 @@
             }
         }
 
-        console.log(getCookie("btLocale"));
-
         var url = window.location.pathname;
         $(".headerMenu").each(function(){
             $(this).removeClass("selected");

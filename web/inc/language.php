@@ -40,7 +40,8 @@
         SELECT * FROM tblLangJson WHERE `code` = '{$country_code}'
     ";
 
-    $langJson = json_decode($obj->getRow($sql)["json"]);
+    $langJson = $obj->getRow($sql);
+    $langJson = json_decode($langJson["json"]);
 
     $CODE = $country_code;
 

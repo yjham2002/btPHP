@@ -20,7 +20,7 @@ if(!class_exists("Uncallable")){
             $sql = "
             SELECT
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate
-            FROM tblAdmin ad LEFT JOIN tblAdminNotification adn ON ad.id = adn.adminId
+            FROM tblAdmin ad JOIN tblAdminNotification adn ON ad.id = adn.adminId
             ORDER BY adn.regDate DESC
             LIMIT 7
             ";
@@ -35,7 +35,7 @@ if(!class_exists("Uncallable")){
             $sql = "
             SELECT
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.filePath, adn.fileName
-            FROM tblAdmin ad LEFT JOIN tblDocument adn ON ad.id = adn.adminId
+            FROM tblAdmin ad JOIN tblDocument adn ON ad.id = adn.adminId
             ORDER BY adn.regDate DESC
             LIMIT {$this->startNum}, {$this->endNum};
             ";
@@ -50,7 +50,7 @@ if(!class_exists("Uncallable")){
             $sql = "
             SELECT
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.filePath, adn.fileName
-            FROM tblAdmin ad LEFT JOIN tblAdminNotification adn ON ad.id = adn.adminId
+            FROM tblAdmin ad JOIN tblAdminNotification adn ON ad.id = adn.adminId
             ORDER BY adn.regDate DESC
             LIMIT {$this->startNum}, {$this->endNum};
             ";
@@ -61,7 +61,7 @@ if(!class_exists("Uncallable")){
             $id = $_REQUEST["id"];
             $sql = "SELECT
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.content, adn.filePath, adn.fileName
-            FROM tblAdmin ad LEFT JOIN tblDocument adn ON ad.id = adn.adminId
+            FROM tblAdmin ad JOIN tblDocument adn ON ad.id = adn.adminId
             WHERE adn.id = '{$id}'";
 
             return $this->getRow($sql);
@@ -71,13 +71,13 @@ if(!class_exists("Uncallable")){
             $id = $_REQUEST["id"];
             $sql = "SELECT
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.content, adn.filePath, adn.fileName
-            FROM tblAdmin ad LEFT JOIN tblAdminNotification adn ON ad.id = adn.adminId
+            FROM tblAdmin ad JOIN tblAdminNotification adn ON ad.id = adn.adminId
             WHERE adn.id = '{$id}'";
 
             return $this->getRow($sql);
         }
 
-        function deleteNotice(){
+        function dele1teNotice(){
             $sql = "DELETE FROM tblAdminNotification WHERE `id`='{$_REQUEST["id"]}'";
             $this->update($sql);
             return $this->makeResultJson(1, "");
