@@ -18,12 +18,12 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a>고객관리</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item active">고객정보</li>
+            <li class="breadcrumb-item active">고객정보 상세</li>
         </ol>
 
         <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">

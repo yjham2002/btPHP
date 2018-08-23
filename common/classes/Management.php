@@ -34,6 +34,38 @@ if(!class_exists("Management")){
             return $this->getArray($sql);
         }
 
+        function customerInfo(){
+            $id = $_REQUEST["id"];
+            $locale = "kr";
 
+            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
+            $userInfo = $this->getRow($sql);
+
+            //TODO 결제 정보
+            $paymentInfo = null;
+
+            $sql = "
+                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
+                FROM tblSubscription 
+                WHERE `customerId` = '{$id}' 
+                ORDER BY regDate DESC
+            ";
+            $subscriptionInfo = $this->getArray($sql);
+
+            $sql = "
+                SELECT *
+                FROM tblSupport
+                WHERE `customerId` = '{$id}'
+                ORDER BY regDate DESC
+            ";
+            $supportInfo = $this->getArray($sql);
+            $retVal = Array(
+                "userInfo" => $userInfo,
+                "paymentInfo" =>$paymentInfo,
+                "subscriptionInfo" => $subscriptionInfo,
+                "supportInfo" => $supportInfo
+            );
+            return $retVal;
+        }
     }
 }

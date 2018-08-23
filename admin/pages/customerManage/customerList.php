@@ -27,17 +27,15 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a>고객관리</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item active">고객정보</li>
         </ol>
 
         <form id="form">
             <input type="hidden" name="page" />
-
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
@@ -61,9 +59,7 @@
             </div>
         </form>
 
-
-
-        <table class="table table-hover table-bordered">
+        <table class="table table-responsive table-hover table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -78,7 +74,7 @@
             <?foreach($list as $item){?>
                 <tr class="jView">
                     <td><?=$item["email"]?></td>
-                    <td><?=$item[""]?></td>
+                    <td><?=$item["type"] == "1" ? "개인" : "단체"?></td>
                     <td><?=$item["name"]?></td>
                     <td><?=$item["phone"]?></td>
                     <td><?=$item["addr"] . " " . $item["addrDetail"]?></td>
