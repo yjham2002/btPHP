@@ -28,13 +28,8 @@
         resizeTextArea();
 
         $(".jSave").click(function(){
-            var id = $(".jId").val();
-            var title = $(".jTitle").val();
-            var content = $(".jContent").val();
-
             if(confirm("저장하시겠습니까?")){
-                var ajax = new AjaxSender("/route.php?cmd=Uncallable.upsertNotice", true, "json",
-                    new sehoMap().put("id", id).put("title", title).put("content", content));
+                var ajax = new AjaxSubmit("/route.php?cmd=Uncallable.upsertNotice", "post", true, "json", "#form");
                 ajax.send(function(data){
                     if(data.returnCode === 1){
                         alert("저장되었습니다.");
@@ -42,7 +37,6 @@
                     }
                 });
             }
-
         });
 
         $(".jCancel").click(function(){
@@ -68,34 +62,38 @@
             <button type="button" class="btn btn-danger mb-2 jCancel">취소</button>
         </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon3">제목</span>
+        <form method="post" id="form" action="#" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">제목</span>
+                </div>
+                <input type="hidden" name="id" value="<?=$item["id"]?>" />
+                <input type="text" class="form-control" name="title" value="<?=$item["title"]?>">
             </div>
-            <input type="hidden" class="jId" value="<?=$item["id"]?>" />
-            <input type="text" class="form-control jTitle" name="title" value="<?=$item["title"]?>">
-        </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon3">내용</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">내용</span>
+                </div>
+                <textarea class="form-control" name="content"><?=$item["content"]?></textarea>
             </div>
-            <textarea class="form-control jContent" name="content"><?=$item["content"]?></textarea>
-        </div>
-<!---->
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <span class="input-group-text" id="basic-addon3">첨부파일</span>-->
-<!--            </div>-->
-<!--            <div class="custom-file">-->
-<!--                <input type="hidden" name="imgPath" value="--><?//=$item["imgPath"]?><!--"/>-->
-<!--                <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01">-->
-<!--                <label class="custom-file-label jLabel" for="inputGroupFile01">--><?//=$item["fileName"] == "" ? "파일을 선택하세요" : $item["fileName"]?><!--</label>-->
-<!--            </div>-->
-<!--        </div>-->
+
+            <div style="text-align: center;">
+                <img class="jImgIntro" src="<?=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?>" width="100px;"/>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">첨부파일</span>
+                </div>
+                <div class="custom-file">
+                    <input type="hidden" name="filePath" value="<?=$item["filePath"]?>"/>
+                    <input type="file" class="custom-file-input" name="imgFile" id="inputGroupFile01">
+                    <label class="custom-file-label jLabel" for="inputGroupFile01"><?=$item["fileName"] == "" ? "파일을 선택하세요" : $item["fileName"]?></label>
+                </div>
+            </div>
+        </form>
         
     </div>
-    <!-- /.container-fluid -->
 </div>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>

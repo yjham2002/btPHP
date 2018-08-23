@@ -37,10 +37,17 @@ $list = $obj->getDocList();
             }
         });
 
-        $(".jView").click(function(){
+        $(".jMod").click(function(e){
+            e.stopPropagation();
             var id = $(this).attr("id");
             location.href="/admin/pages/staffService/formDetail.php?id=" + id;
         });
+
+        $(".jView").click(function(){
+            var id = $(this).attr("id");
+            location.href="/admin/pages/staffService/formView.php?id=" + id;
+        });
+
 
     });
 </script>
@@ -71,13 +78,13 @@ $list = $obj->getDocList();
             <?
             $vnum = $obj->virtualNum;
             foreach($list as $item){?>
-                <tr class="" id="<?=$item["id"]?>">
+                <tr class="jView" id="<?=$item["id"]?>">
                     <td><?=$vnum--?></td>
                     <td><?=$item["title"]?></td>
                     <td><?=$item["name"]?></td>
                     <td><?=$item["regDate"]?></td>
                     <td>
-                        <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jView">수정</button>
+                        <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jMod">수정</button>
                         <button type="button" fid="<?=$item["id"]?>" class="btn-sm btn-danger mb-2 jDelF">삭제</button>
                     </td>
                 </tr>
