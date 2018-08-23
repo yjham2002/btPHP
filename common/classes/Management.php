@@ -20,9 +20,20 @@ if(!class_exists("Management")){
             parent::__construct($req);
         }
 
+        function customerList(){
+            $this->initPage();
+            $sql = "SELECT COUNT(*) cnt FROM tblCustomer";
+            $this->rownum = $this->getValue($sql, "cnt");
+            $this->setPage($this->rownum);
+
+            $sql = "
+                SELECT *
+                FROM tblCustomer
+                LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
 
 
     }
-
-
 }

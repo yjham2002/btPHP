@@ -17,6 +17,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function(){
+        resizeTextArea();
+
+        $("[name=imgFile]").change(function(){
+            readURL(this, ".jImg");
+            $("#imgPath").val("");
+        });
 
         function resizeTextArea(){
             var arr = $("textarea");
@@ -25,7 +31,15 @@
             }
         }
 
-        resizeTextArea();
+        function readURL(input, selector){
+            if (input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $(selector).attr("src", e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
         $(".jSave").click(function(){
             if(confirm("저장하시겠습니까?")){
@@ -42,7 +56,6 @@
         $(".jCancel").click(function(){
             history.back();
         });
-
     });
 </script>
 
@@ -79,7 +92,7 @@
             </div>
 
             <div style="text-align: center;">
-                <img class="jImgIntro" src="<?=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?>" width="100px;"/>
+                <img class="jImg" src="<?=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?>" width="100px;"/>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

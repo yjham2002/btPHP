@@ -7,8 +7,11 @@
  */
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
-
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<?
+    $obj = new Management($_REQUEST);
+    $list = $obj->customerList();
+?>
 <script>
     $(document).ready(function(){
         $(".jPage").click(function(){
@@ -72,36 +75,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="jView">
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>john@example.com</td>
-                <td>john@example.com</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr class="jView">
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-                <td>mary@example.com</td>
-                <td>mary@example.com</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr class="jView">
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-                <td>july@example.com</td>
-                <td>july@example.com</td>
-                <td>july@example.com</td>
-            </tr>
+            <?foreach($list as $item){?>
+                <tr class="jView">
+                    <td><?=$item["email"]?></td>
+                    <td><?=$item[""]?></td>
+                    <td><?=$item["name"]?></td>
+                    <td><?=$item["phone"]?></td>
+                    <td><?=$item["addr"] . " " . $item["addrDetail"]?></td>
+                    <td><?=$item["regDate"]?></td>
+                </tr>
+            <?}?>
             </tbody>
         </table>
         <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
-    <!-- /.container-fluid -->
 </div>
-
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>

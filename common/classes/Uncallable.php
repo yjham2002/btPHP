@@ -132,7 +132,6 @@ if(!class_exists("Uncallable")){
 
         function upsertNotice(){
             $check = file_exists($_FILES['imgFile']['tmp_name'][0]);
-            echo $check . "::";
 
             $id = $_REQUEST["id"];
             $adminId = $this->admUser->id;
