@@ -20,7 +20,8 @@
         });
 
         $(".jView").click(function(){
-            location.href = "/admin/pages/customerManage/customerDetail.php";
+            var id = $(this).attr("id");
+            location.href = "/admin/pages/customerManage/customerDetail.php?id=" + id;
         })
     });
 </script>
@@ -59,7 +60,7 @@
             </div>
         </form>
 
-        <table class="table table-responsive table-hover table-bordered">
+        <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -72,7 +73,7 @@
             </thead>
             <tbody>
             <?foreach($list as $item){?>
-                <tr class="jView">
+                <tr class="jView" id="<?=$item["id"]?>">
                     <td><?=$item["email"]?></td>
                     <td><?=$item["type"] == "1" ? "개인" : "단체"?></td>
                     <td><?=$item["name"]?></td>

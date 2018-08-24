@@ -36,7 +36,6 @@ if(!class_exists("Management")){
 
         function customerInfo(){
             $id = $_REQUEST["id"];
-            $locale = "kr";
 
             $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $userInfo = $this->getRow($sql);
@@ -45,7 +44,7 @@ if(!class_exists("Management")){
             $paymentInfo = null;
 
             $sql = "
-                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
+                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$userInfo["langCode"]}' LIMIT 1) publicationName 
                 FROM tblSubscription 
                 WHERE `customerId` = '{$id}' 
                 ORDER BY regDate DESC

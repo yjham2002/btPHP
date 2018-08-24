@@ -8,8 +8,23 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<?
+    $obj = new Management($_REQUEST);
+    $main = new AdminMain($_REQUEST);
 
+    $item = $obj->customerInfo();
+    $userInfo = $item["userInfo"];
+    $paymentInfo = $item["paymentInfo"];
+    $subscriptionInfo = $item["subscriptionInfo"];
+    $supportInfo = $item["supportInfo"];
+
+    $localeList = $main->getLocale();
+    $localeTxt = "";
+    foreach($localeList as $localeItem)
+        if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
+?>
 <script>
     $(document).ready(function(){
 
@@ -33,8 +48,7 @@
             <button type="button" class="btn btn-secondary">적용</button>
         </div>
 
-
-        <h2>전세호</h2>
+        <h2><?=$userInfo["name"]?></h2>
 
         <table class="table table-sm table-bordered w-auto text-center">
             <colgroup>
@@ -43,31 +57,31 @@
             </colgroup>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">ID(이메일주소)</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["email"]?></td>
             </tr>
             <tr class="h-auto">
-                <td class="bg-secondary text-light">국가</td>
-                <td>asdasdasd</td>
+                <td class="bg-secondary text-light">언어</td>
+                <td><?=$localeTxt?></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">생년월일</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["birth"]?></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">전화번호</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["phone"]?></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">우편번호</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["zipcode"]?></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">주소</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["addr"] . "<br>" . $userInfo["addrDetail"]?></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">가입일시</td>
-                <td>asdasdasd</td>
+                <td><?=$userInfo["regDate"]?></td>
             </tr>
         </table>
 
