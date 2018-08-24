@@ -66,5 +66,13 @@ if(!class_exists("Management")){
             );
             return $retVal;
         }
+
+        function setNotiFlag(){
+            $id = $_REQUEST["id"];
+            $flag = $_REQUEST["flag"];
+            $sql = "UPDATE tblCustomer SET `notiFlag` = '{$flag}' WHERE `id` = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
     }
 }
