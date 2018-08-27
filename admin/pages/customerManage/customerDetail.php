@@ -61,9 +61,61 @@
 
         $(".jDelivery").click(function(){
             //TODO 배송조회
-        })
+        });
+
+        $(document).on("click", "[name=historyType]", function(){
+            var currentType = $(this).val();
+            var typeArr = new Array();
+            if(currentType === "all"){
+                $("[name=historyType]").each(function(){
+                    $(this).prop("checked", false);
+                });
+                $(this).prop("checked", true);
+            }else{
+                $("[name=historyType][value=all]").prop("checked", false);
+            }
+
+            $("[name=historyType]:checked").each(function(){
+                typeArr.push($(this).val());
+            });
+            initHistoryTable(typeArr);
+        });
+
+        $("[name=historyType][value=all]").trigger("click");
+
+        function initHistoryTable(typeArr){
+            var ajax = new AjaxSender("/route.php?cmd=Management.historyData", true, "json", new sehoMap().put("typeArr", typeArr));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    $("#historyArea").html("");
+                    var arr = data.entity;
+                    for(var i=0; i<arr.length; i++){
+                        var row = arr[i];
+                        var template = $(".historyTemplate").html();
+                        template = template.replace("#{regDate}", row.regDate);
+                        template = template.replace("#{id}", row.id);
+                        template = template.replace("#{type}", row.type);
+                        template = template.replace("#{content}", row.content);
+                        $("#historyArea").append(template);
+                    }
+                }else alert("데이터 불러오기 실패!");
+            });
+        }
+
+
     });
 </script>
+
+<table  style="display: none;">
+    <tbody class="historyTemplate">
+    <tr>
+        <td>#{regDate}</td>
+        <td>#{id}</td>
+        <td>#{type}</td>
+        <td>#{content}</td>
+    </tr>
+    </tbody>
+</table>
 
 <div id="content-wrapper">
     <div class="container-fluid">
@@ -263,75 +315,54 @@
 
         <hr>
         <h3>History</h3>
-
         <div class="input-group mb-3 float-right">
             <div class="input-group-text">
-                <input type="checkbox" id="hOption1">
+                <input type="checkbox" name="historyType" id="hOption1" value="all">
                 <label for="hOption1">전체</label>
                 &nbsp;&nbsp;
-                <input type="checkbox" id="hOption2">
+                <input type="checkbox" name="historyType" id="hOption2" value="sub">
                 <label for="hOption1">구독</label>
                 &nbsp;&nbsp;
-                <input type="checkbox" id="hOption3">
+                <input type="checkbox" name="historyType" id="hOption3" value="sup">
                 <label for="hOption1">후원</label>
                 &nbsp;&nbsp;
-                <input type="checkbox" id="hOption4">
+                <input type="checkbox" name="historyType" id="hOption4" value="pay">
                 <label for="hOption1">결제</label>
+                &nbsp;&nbsp;
+                <input type="checkbox" name="historyType" id="hOption5" value="etc">
+                <label for="hOption5">기타</label>
             </div>
+            <button type="button" class="btn btn-secondary ml-4 jAddHistory">+</button>
         </div>
 
         <div style="width: 100%; height: 500px; overflow-y: scroll">
             <table class="table table-sm table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>구분</th>
-                    <th>이름</th>
-                    <th>핸드폰번호</th>
-                    <th>주소</th>
                     <th>등록일시</th>
+                    <th>상담ID</th>
+                    <th>상담유형</th>
+                    <th>내용</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr style="height: 10px;">
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                </tr>
+                <tbody id="historyArea">
+
+                </tbody>
+
+                <tbody class="historyTemplate">
                 <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
+                    <td>
+                        <input type="text" class="form-control"/>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" readonly>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
                 </tr>
                 </tbody>
             </table>

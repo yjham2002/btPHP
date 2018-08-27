@@ -24,7 +24,7 @@ if(! class_exists("WebUser") ){
 
             $sql = "
                 SELECT * FROM tblCustomer
-                WHERE `email` = '{$account}'
+                WHERE `email` = '{$account}' AND `status` = 1
                 LIMIT 1
             ";
             $res = $this->getRow($sql);
@@ -49,7 +49,7 @@ if(! class_exists("WebUser") ){
         function sendAuthEmail(){
             $email = $_REQUEST["email"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `email` = '{$email}' LIMIT 1
+                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 LIMIT 1
             ";
             $row = $this->getRow($sql);
 
@@ -87,7 +87,7 @@ if(! class_exists("WebUser") ){
         function sendAuthKakao(){
             $email = $_REQUEST["email"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `email` = '{$email}' LIMIT 1
+                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 LIMIT 1
             ";
             $row = $this->getRow($sql);
 
@@ -127,7 +127,7 @@ if(! class_exists("WebUser") ){
         function sendAuthSms(){
             $phone = $_REQUEST["phone"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `phone` = '{$phone}' LIMIT 1
+                SELECT * FROM tblCustomer WHERE `phone` = '{$phone}' AND `status` = 1 LIMIT 1
             ";
             $row = $this->getRow($sql);
 
@@ -187,7 +187,7 @@ if(! class_exists("WebUser") ){
             $id = $this->webUser->id;
             $locale = $_COOKIE["btLocale"];
 
-            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
+            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' AND `status` = 1 LIMIT 1";
             $userInfo = $this->getRow($sql);
 
             //TODO 결제 정보
@@ -219,7 +219,7 @@ if(! class_exists("WebUser") ){
 
         function checkEmail(){
             $email = $_REQUEST["email"];
-            $sql = "SELECT * FROM tblCustomer WHERE `email` = '{$email}' LIMIT 1";
+            $sql = "SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 LIMIT 1";
             $row = $this->getRow($sql);
             if($row == "") return $this->makeResultJson(1, "succ");
             else return $this->makeResultJson(-1, "fail");
@@ -228,7 +228,7 @@ if(! class_exists("WebUser") ){
         function checkCustomerPassword(){
             $id = $_REQUEST["id"];
             $password = md5($_REQUEST["password"]);
-            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' AND `password` = '{$password}' LIMIT 1";
+            $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' AND `password` = '{$password}' AND `status` = 1 LIMIT 1";
             $row = $this->getRow($sql);
             if($row != "") return $this->makeResultJson(1, "succ");
             else return $this->makeResultJson(-1, "fail");
@@ -259,7 +259,7 @@ if(! class_exists("WebUser") ){
                       `cName` = '{$cName}',
                       `cPhone` = '{$cPhone}',
                       `notiFlag` = '{$notiFlag}',
-                      `birth` = '{$birth}'
+                      `birth` = '{$birth}'``
                     WHERE `id` = '{$id}'
                 ";
             $this->update($sql);

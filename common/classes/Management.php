@@ -90,5 +90,20 @@ if(!class_exists("Management")){
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }
+
+        function historyData(){
+            $typeArr = $_REQUEST["typeArr"];
+            $where = "1=1";
+            if($typeArr[0] != "all"){
+                $where .= " AND(";
+                foreach($typeArr as $item) {
+                    if(!next($typeArr)) $where .= "`type` = '{$item}'";
+                    else $where .= "`type` = '{$item}' OR";
+                }
+                $where .= ")";
+            }
+            $sql = "SELECT * FROM tblCustomerHistory WHERE {$where} ORDER BY regDate ASC";
+            return $this->makeResultJson(1, succ, $this->getArray($sql));
+        }
     }
 }
