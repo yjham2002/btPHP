@@ -21,14 +21,30 @@ if(!class_exists("Management")){
         }
 
         function customerList(){
+            $searchType = $_REQUEST["searchType"];
+            $searchText = $_REQUEST["searchText"];
+            $where = "1=1";
+            if($searchType == "name"){
+                $where .= " AND `name` LIKE '%{$searchText}%'";
+            }else if($searchType == "BO"){
+                //TODO bank owner search
+            }else if($searchType == "phone"){
+                $where .= " AND `phone` LIKE '%{$searchText}%'";
+            }else if($searchType == "email"){
+                $where .= " AND `email` LIKE '%{$searchText}%'";
+            }else if($searchType == "addr"){
+                $where .= " AND (`addr` LIKE '%{$searchText}%' OR `addrDetail` LIKE '%{$searchText}%')";
+            }
+
             $this->initPage();
-            $sql = "SELECT COUNT(*) cnt FROM tblCustomer";
+            $sql = "SELECT COUNT(*) cnt FROM tblCustomer WHERE `status` = 1 AND {$where}";
             $this->rownum = $this->getValue($sql, "cnt");
             $this->setPage($this->rownum);
 
             $sql = "
                 SELECT *
                 FROM tblCustomer
+                WHERE `status` = 1 AND {$where}
                 LIMIT {$this->startNum}, {$this->endNum};
             ";
             return $this->getArray($sql);

@@ -22,7 +22,13 @@
         $(".jView").click(function(){
             var id = $(this).attr("id");
             location.href = "/admin/pages/customerManage/customerDetail.php?id=" + id;
-        })
+        });
+
+        $(".jSearch").click(function(){form.submit();});
+
+        $(".jDetailSearch").click(function(){
+            //TODO 상세검색
+        });
     });
 </script>
 
@@ -36,25 +42,22 @@
         </ol>
 
         <form id="form">
-            <input type="hidden" name="page" />
+            <input type="hidden" name="page"/>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
+                    <button type="button" class="btn btn-secondary mr-lg-5 jDetailSearch"><i class="fas fa-search fa-fw"></i></button>
+                    <select class="form-control" name="searchType">
+                        <option value="">선택</option>
+                        <option value="name" <?=$_REQUEST["searchType"] == "name" ? "selected" : ""?>>이름</option>
+                        <option value="BO" <?=$_REQUEST["searchType"] == "BO" ? "selected" : ""?>>뱅크오너</option>
+                        <option value="phone" <?=$_REQUEST["searchType"] == "phone" ? "selected" : ""?>>전화번호</option>
+                        <option value="email" <?=$_REQUEST["searchType"] == "email" ? "selected" : ""?>>이메일</option>
+                        <option value="addr" <?=$_REQUEST["searchType"] == "addr" ? "selected" : ""?>>주소</option>
+                    </select>
                 </div>
-                <input type="text" class="form-control mr-2" aria-label="Text input with dropdown button">
+                <input type="text" class="form-control mr-2" name="searchText" value="<?=$_REQUEST["searchText"]?>">
                 <div class="btn-group float-right" role="group" aria-label="Basic example">
-
-                    <button type="button" class="btn btn-secondary mr-lg-5">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                    <button type="button" class="btn btn-secondary mr-2">삭제</button>
+                    <button type="button" class="btn btn-secondary mr-2 jSearch">검색</button>
                     <button type="button" class="btn btn-secondary">Excel</button>
                 </div>
             </div>

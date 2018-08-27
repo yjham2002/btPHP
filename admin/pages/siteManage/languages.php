@@ -395,12 +395,12 @@
                     </tr>
 
                     <tr class="h-auto">
-                        <td class="bg-secondary text-light langKey" key="intro_pbraseText">소개[성경구절]</td>
-                        <td><input type="text" class="form-control langValue" key="intro_pbraseText" value="" placeholder="내용을 입력하세요" /></td>
+                        <td class="bg-secondary text-light langKey" key="intro_phraseText">소개[성경구절]</td>
+                        <td><input type="text" class="form-control langValue" key="intro_phraseText" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
                     <tr class="h-auto">
-                        <td class="bg-secondary text-light langKey" key="intro_pbraseLoc">소개[구절 위치(장/절)]</td>
-                        <td><input type="text" class="form-control langValue" key="intro_pbraseLoc" value="" placeholder="내용을 입력하세요" /></td>
+                        <td class="bg-secondary text-light langKey" key="intro_phraseLoc">소개[구절 위치(장/절)]</td>
+                        <td><input type="text" class="form-control langValue" key="intro_phraseLoc" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
 
                     <tr class="h-auto">
