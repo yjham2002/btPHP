@@ -348,6 +348,11 @@ if(!class_exists("Uncallable")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function getNowSchedule($type){
+            $sql = "SELECT COUNT(*) AS rn FROM tblSchedule WHERE `start` <= DATE(NOW()) AND `end` >= DATE(NOW()) AND `type`='{$type}'";
+            return $this->getValue($sql, "rn");
+        }
+
     }
 
 }

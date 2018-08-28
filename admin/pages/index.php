@@ -14,6 +14,8 @@
     $uncallable = new Uncallable($_REQUEST);
     $overview = $uncallable->getOverviews();
     $notices = $uncallable->getNoticesForMain();
+    $todayL = $uncallable->getNowSchedule("l");
+    $todayG = $uncallable->getNowSchedule("g");
 ?>
 
 <script>
@@ -28,12 +30,12 @@
 
         $('#calendar_local').fullCalendar({
             defaultView: 'month',
-            events: example_json // 주소를 입력 시 파싱됨 : 예제 json은 fc_picklecode.js 참조
+            events: "/route.php?cmd=ScheduleLoader.getMonthlySchedule&type=l" // 주소를 입력 시 파싱됨 : 예제 json은 fc_picklecode.js 참조
         });
 
         $('#calendar_global').fullCalendar({
             defaultView: 'month',
-            events: example_json
+            events: "/route.php?cmd=ScheduleLoader.getMonthlySchedule&type=g" // 주소를 입력 시 파싱됨 : 예제 json은 fc_picklecode.js 참조
         });
 
     });
@@ -54,47 +56,41 @@
 
         <!-- Icon Cards-->
         <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="col-xl-12 col-sm-12 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fas fa-fw fa-search"></i>
+                        </div>
+                        <div class="mr-5 mb-3">고객 검색</div>
+                        <div class="mr-5">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <select class="custom-select" id="inputGroupSelect01">
+                                        <option selected>전체</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control jStart"
+                                       placeholder="검색어를 입력하세요" />
+                                <button type="button" class="btn btn-secondary jSearch">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-sm-6 mb-3">
                 <div class="card text-white bg-primary o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fas fa-fw fa-list"></i>
                         </div>
-                        <div class="mr-5">금일 스케쥴<br/>총 0 항목</div>
+                        <div class="mr-5">금일 스케쥴<br/>국내 <?=$todayL?> / 해외 <?=$todayG?><br/>총 <?=$todayL + $todayG?> 항목</div>
                     </div>
-<!--                    <a class="card-footer text-white clearfix small z-1" href="#">-->
-<!--                        <span class="float-left">자세히 보기</span>-->
-<!--                        <span class="float-right">-->
-<!--                    <i class="fas fa-angle-right"></i>-->
-<!--                  </span>-->
-<!--                    </a>-->
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-                <div class="card text-white bg-warning o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-list"></i>
-                        </div>
-                        <div class="mr-5">이번달 스케쥴<br/>총 0 항목</div>
-                    </div>
-<!--                    <a class="card-footer text-white clearfix small z-1" href="#">-->
-<!--                        <span class="float-left">자세히 보기</span>-->
-<!--                        <span class="float-right">-->
-<!--                    <i class="fas fa-angle-right"></i>-->
-                  </span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-                <div class="card text-white bg-danger o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-shopping-cart"></i>
-                        </div>
-                        <div class="mr-5">금일 후원/구독<br/>총 0 항목</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="/admin/pages/staffService/schedules.php">
                         <span class="float-left">자세히 보기</span>
                         <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -102,7 +98,8 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
+
+            <div class="col-xl-6 col-sm-6 mb-3">
                 <div class="card text-white bg-dark o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
@@ -149,7 +146,7 @@
                         <tfoot>
                         <tr>
                             <td colspan=3>
-                                <a href="#" >더보기</a>
+                                <a href="/admin/pages/staffService/noticeList.php" >더보기</a>
                             </td>
                         </tr>
                         </tfoot>

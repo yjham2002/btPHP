@@ -9,14 +9,13 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<?
+    $m = new Management($_REQUEST);
 
+?>
 <script>
     $(document).ready(function(){
-        $(".jPage").click(function(){
-            $("[name=page]").val($(this).attr("page"));
-            form.submit();
-        });
-
         $(".jHistory").click(function(){
             location.href = "/admin/pages/customerManage/foreignHistory.php";
         });
@@ -24,7 +23,6 @@
 </script>
 
 <style>
-
     .dotWrap{
         padding-left: 5px;
         padding-right: 5px;
@@ -77,9 +75,9 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a>고객관리</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item active">해외진행 현황</li>
         </ol>
 
         <form class="mb-2" id="form">
@@ -149,7 +147,6 @@
 
             </tbody>
         </table>
-        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
     <!-- /.container-fluid -->
 </div>
