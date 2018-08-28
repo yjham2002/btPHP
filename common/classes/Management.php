@@ -168,5 +168,19 @@ if(!class_exists("Management")){
 
             return $this->getArray($sql);
         }
+
+        function foreignPubInfo(){
+            $id = $_REQUEST["parentId"];
+            $sql = "SELECT * FROM tblForeignPub WHERE `id` = '{$id}' LIMIT 1";
+            return $this->getRow($sql);
+        }
+
+        function foreignPubChild(){
+            $id = $_REQUEST["id"];
+            $sql = "
+                SELECT * FROM tblForeignPubItem WHERE `id` = '{$id}' LIMIT 1
+            ";
+            return $this->getRow($sql);
+        }
     }
 }

@@ -12,6 +12,8 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $management = new Management($_REQUEST);
+    $parent = $management->foreignPubInfo();
+    $item = $management->foreignPubChild();
 ?>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -71,100 +73,116 @@
             <li class="breadcrumb-item active">Blank Page</li>
         </ol>
         <button type="button" class="btn btn-primary float-right mb-3">등록/수정</button>
-        <table class="table table-sm table-bordered text-center">
-            <colgroup>
-                <col width="10%"/>
-                <col width="25%"/>
-                <col width="10%"/>
-                <col width="25%"/>
-                <col width="10%"/>
-                <col width="25%"/>
-            </colgroup>
-            <tr class="h-auto">
-                <td class="bg-secondary text-light">국가</td>
-                <td>asdasdasdsad</td>
-                <td class="bg-secondary text-light">언어</td>
-                <td>asdasdasd</td>
-                <td class="bg-secondary text-light">ND</td>
-                <td><input type="text" class="form-control" name="nd"/></td>
-            </tr>
-            <tr class="h-auto">
-                <td class="bg-secondary text-light">월호</td>
-                <td>asdasdasd</td>
-                <td class="bg-secondary text-light">구분</td>
-                <td><input type="text" class="form-control" name="type"/></td>
-                <td class="bg-secondary text-light">수량</td>
-                <td><input type="number" class="form-control" name="cnt"/></td>
-            </tr>
-            <tr class="h-auto">
-                <td class="bg-secondary text-light">인쇄 거래처</td>
-                <td><input type="text" class="form-control" name="client"/></td>
-                <td class="bg-secondary text-light">인쇄비</td>
-                <td><input type="text" class="form-control" name="printCharge"/></td>
-                <td class="bg-secondary text-light">배송비</td>
-                <td><input type="text" class="form-control" name="deliveryCharge"/></td>
-            </tr>
-            <tr class="h-auto">
-                <td class="bg-secondary text-light">합계</td>
-                <td colspan="5" class="text-right jTotal"></td>
-            </tr>
-        </table>
-
-        <hr>
-
-        <div style="width: 100%;">
-            <table class="table table-sm table-bordered">
-                <thead>
-                <tr>
-                    <th>일자</th>
-                    <th>번역</th>
-                    <th>데이터</th>
-                    <th>인쇄</th>
-                    <th>배송</th>
-                    <th>입금</th>
+        <form id="form">
+            <table class="table table-sm table-bordered text-center">
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="25%"/>
+                    <col width="10%"/>
+                    <col width="25%"/>
+                    <col width="10%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light">국가</td>
+                    <td><?=$parent["country"]?></td>
+                    <td class="bg-secondary text-light">언어</td>
+                    <td><?=$parent["language"]?></td>
+                    <td class="bg-secondary text-light">ND</td>
+                    <td><input type="text" class="form-control" name="nd"/></td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>예정일</th>
-                    <td><input class="form-control datePicker" name="birth" value="" /></td>
-                    <td><input class="form-control datePicker" name="birth" value=""/></td>
-                    <td><input class="form-control datePicker" name="birth" value=""/></td>
-                    <td><input class="form-control datePicker" name="birth" value=""/></td>
-                    <td><input class="form-control datePicker" name="birth" value=""/></td>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light">월호</td>
+                    <td>
+                        <select class="form-control" id="aYear" style="width:40%;">
+                            <option value="">선택</option>
+                            <?for($i=1; $i<=12; $i++){?>
+                                <option value="<?=$i?>"><?=$i?></option>
+                            <?}?>
+                        </select>
+                        ~
+                        <select class="form-control" id="aYear" style="width:40%;">
+                            <option value="">선택</option>
+                            <?for($i=1; $i<=12; $i++){?>
+                                <option value="<?=$i?>"><?=$i?></option>
+                            <?}?>
+                        </select>
+                    </td>
+                    <td class="bg-secondary text-light">구분</td>
+                    <td><input type="text" class="form-control" name="type"/></td>
+                    <td class="bg-secondary text-light">수량</td>
+                    <td><input type="number" class="form-control" name="cnt"/></td>
                 </tr>
-                <tr>
-                    <th>완료일시</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light">인쇄 거래처</td>
+                    <td><input type="text" class="form-control" name="client"/></td>
+                    <td class="bg-secondary text-light">인쇄비</td>
+                    <td><input type="text" class="form-control" name="printCharge"/></td>
+                    <td class="bg-secondary text-light">배송비</td>
+                    <td><input type="text" class="form-control" name="deliveryCharge"/></td>
                 </tr>
-                </tbody>
+                <tr class="h-auto">
+                    <td class="bg-secondary text-light">합계</td>
+                    <td colspan="5" class="text-right jTotal"></td>
+                </tr>
             </table>
-        </div>
 
-        <hr>
+            <hr>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
-                    <br>
-                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
-                </div>
-                <div class="col">
-                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
-                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
-                </div>
-                <div class="col">
-                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
-                    <br>
-                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+            <div style="width: 100%;">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                    <tr>
+                        <th>일자</th>
+                        <th>번역</th>
+                        <th>데이터</th>
+                        <th>인쇄</th>
+                        <th>배송</th>
+                        <th>입금</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>예정일</th>
+                        <td><input class="form-control datePicker" name="birth" value="" /></td>
+                        <td><input class="form-control datePicker" name="birth" value=""/></td>
+                        <td><input class="form-control datePicker" name="birth" value=""/></td>
+                        <td><input class="form-control datePicker" name="birth" value=""/></td>
+                        <td><input class="form-control datePicker" name="birth" value=""/></td>
+                    </tr>
+                    <tr>
+                        <th>완료일시</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                        <br>
+                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                    </div>
+                    <div class="col">
+                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                    </div>
+                    <div class="col">
+                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                        <br>
+                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 <!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
 <!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->

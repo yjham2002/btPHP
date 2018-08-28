@@ -41,9 +41,16 @@
             });
         });
 
-        $(".jHistory").click(function(){
-            location.href = "/admin/pages/customerManage/foreignHistory.php";
+        $(".jAddChild").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/admin/pages/customerManage/foreignHistory.php?parentId=" + id;
         });
+
+        $(".jHistory").click(function(){
+            var id = $(this).attr("id");
+            location.href = "/admin/pages/customerManage/foreignHistory.php?id=" + id;
+        });
+
     });
 </script>
 
@@ -61,7 +68,6 @@
     }
 
     .dotWrap h3{
-
         font-size: 1.5em;
     }
 
@@ -167,8 +173,7 @@
                     <td><?=$item["language"]?></td>
                     <td style="padding-left: 0; padding-right: 0;">
                         <div class="dotWrap">
-
-                            <h3>6-7월 <i class="fas fa-fw fa-list jHistory"></i></h3>
+                            <h3>6-7월 <i class="fas fa-fw fa-list jHistory" id="" parentId=""></i></h3>
                             <div class="dot text"><pickle>번역</pickle></div>
                             <div class="dot disabled"><pickle>데이터</pickle></div>
                             <div class="dot disabled"><pickle>인쇄</pickle></div>
@@ -202,54 +207,55 @@
                             <div class="dot"><pickle>인쇄</pickle></div>
                             <div class="dot disabled"><pickle>배송</pickle></div>
                         </div>
+                        <button type="button" class="btn btn-secondary float-left mt-3 jAddChild" id="<?=$item["id"]?>">+</button>
                     </td>
                     <td><?=$item["text"]?></td>
                 </tr>
             <?}?>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>ㅁㄴㅇㅁㄴㅇ</td>
-                <td style="padding-left: 0; padding-right: 0;">
-                    <div class="dotWrap">
-                        <h3>6-7월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                        <div class="dot text"><pickle>번역</pickle></div>
-                        <div class="dot disabled"><pickle>데이터</pickle></div>
-                        <div class="dot disabled"><pickle>인쇄</pickle></div>
-                        <div class="dot disabled"><pickle>배송</pickle></div>
-                    </div>
-                    <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                        <div class="dot"><pickle>번역</pickle></div>
-                        <div class="dot text"><pickle>데이터</pickle></div>
-                        <div class="dot disabled"><pickle>인쇄</pickle></div>
-                        <div class="dot disabled"><pickle>배송</pickle></div>
-                    </div>
-                    <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                        <div class="dot"><pickle>번역</pickle></div>
-                        <div class="dot"><pickle>데이터</pickle></div>
-                        <div class="dot text"><pickle>인쇄</pickle></div>
-                        <div class="dot disabled"><pickle>배송</pickle></div>
-                    </div>
-                    <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                        <div class="dot"><pickle>번역</pickle></div>
-                        <div class="dot"><pickle>데이터</pickle></div>
-                        <div class="dot"><pickle>인쇄</pickle></div>
-                        <div class="dot text"><pickle>배송</pickle></div>
-                    </div>
-                    <div class="dotWrap">
-                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                        <div class="dot"><pickle>번역</pickle></div>
-                        <div class="dot text"><pickle>데이터</pickle></div>
-                        <div class="dot"><pickle>인쇄</pickle></div>
-                        <div class="dot disabled"><pickle>배송</pickle></div>
-                    </div>
-                </td>
-                <td>adsdas</td>
-            </tr>
-
+<!--            <tr>-->
+<!--                <td>John</td>-->
+<!--                <td>Doe</td>-->
+<!--                <td>ㅁㄴㅇㅁㄴㅇ</td>-->
+<!--                <td style="padding-left: 0; padding-right: 0;">-->
+<!--                    <div class="dotWrap">-->
+<!--                        <h3>6-7월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
+<!--                        <div class="dot text"><pickle>번역</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>데이터</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>인쇄</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
+<!--                    </div>-->
+<!--                    <div class="dotWrap">-->
+<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
+<!--                        <div class="dot"><pickle>번역</pickle></div>-->
+<!--                        <div class="dot text"><pickle>데이터</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>인쇄</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
+<!--                    </div>-->
+<!--                    <div class="dotWrap">-->
+<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
+<!--                        <div class="dot"><pickle>번역</pickle></div>-->
+<!--                        <div class="dot"><pickle>데이터</pickle></div>-->
+<!--                        <div class="dot text"><pickle>인쇄</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
+<!--                    </div>-->
+<!--                    <div class="dotWrap">-->
+<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
+<!--                        <div class="dot"><pickle>번역</pickle></div>-->
+<!--                        <div class="dot"><pickle>데이터</pickle></div>-->
+<!--                        <div class="dot"><pickle>인쇄</pickle></div>-->
+<!--                        <div class="dot text"><pickle>배송</pickle></div>-->
+<!--                    </div>-->
+<!--                    <div class="dotWrap">-->
+<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
+<!--                        <div class="dot"><pickle>번역</pickle></div>-->
+<!--                        <div class="dot text"><pickle>데이터</pickle></div>-->
+<!--                        <div class="dot"><pickle>인쇄</pickle></div>-->
+<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
+<!--                    </div>-->
+<!--                    <button type="button" class="btn btn-secondary float-left mt-3 jAddChild">+</button>-->
+<!--                </td>-->
+<!--                <td>adsdas</td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>

@@ -5,3 +5,11 @@ td, th {
 th {
     background-color: #EFEFEF;
 }
+
+td .form-control {
+    border : none;
+    width: 100%;
+    height: 100%;
+    font-size: 1.0em !important;
+    padding : 0 !important;
+}

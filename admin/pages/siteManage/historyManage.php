@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
@@ -28,7 +28,7 @@
                 var now = new Date().getFullYear();
                 var html = "<option value='#'>연도 선택</option>";
 
-                for(var e = now - 50; e <= now; e++){
+                for(var e = now + 20; e >= 1900; e--){
                     html += "<option value='"+e+"'>"+e+"</option>";
                 }
 
@@ -172,4 +172,4 @@
     </div>
 
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>

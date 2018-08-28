@@ -120,13 +120,13 @@ if($userInfo->id < 0 || $userInfo->id == ""){
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-circle fa-fw"></i>
-                <?=$userInfo->name?> 님
+                <?=$userInfo->name?>(<?=$userInfo->account?>) 님
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 <!--                <a class="dropdown-item" href="#">Settings</a>-->
 <!--                <a class="dropdown-item" href="#">Activity Log</a>-->
 <!--                <div class="dropdown-divider"></div>-->
-                <a class="dropdown-item jLogout">Logout</a>
+                <a class="dropdown-item jLogout">로그아웃</a>
             </div>
         </li>
     </ul>
@@ -146,19 +146,19 @@ if($userInfo->id < 0 || $userInfo->id == ""){
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>고객관리</span>
+                <i class="fas fa-fw fa-user"></i>
+                <span>고객 관리</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">고객관리:</h6>
+                <h6 class="dropdown-header">고객 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/customerList.php">고객정보</a>
                 <a class="dropdown-item" href="/admin/pages/customerManage/failedPurchase.php">결제실패</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">발송:</h6>
+                <h6 class="dropdown-header">발송</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/kakaoList.php">카톡 발송 현황</a>
                 <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php">거래명세서 발송</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">해외:</h6>
+                <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>
                 <a class="dropdown-item" href="/admin/pages/customerManage/paymentStatus.php">입금 현황</a>
             </div>
@@ -166,32 +166,33 @@ if($userInfo->id < 0 || $userInfo->id == ""){
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
+                <i class="fas fa-fw fa-box"></i>
                 <span>배송</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">발주서:</h6>
+                <h6 class="dropdown-header">발주서</h6>
                 <a class="dropdown-item" href="/admin/pages/shipping/signatures.php">발주서 서명</a>
                 <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderList.php">발주서 조회</a>
-                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderDetail.php">발주입력</a>
-                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderReport.php">발주보고서</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderDetail.php">발주 입력</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderReport.php">발주 보고서</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">입/출고 관리:</h6>
-                <a class="dropdown-item" href="/admin/pages/shipping/stockList.php">재고현황/조회</a>
+                <h6 class="dropdown-header">입/출고 관리</h6>
+                <a class="dropdown-item" href="/admin/pages/shipping/stockList.php">재고현황 / 조회</a>
                 <a class="dropdown-item" href="blank.html">입고 입력</a>
                 <a class="dropdown-item" href="blank.html">출고 입력</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">배송 관리:</h6>
+                <h6 class="dropdown-header">배송 관리</h6>
                 <a class="dropdown-item" href="404.html">당일배송 추출</a>
             </div>
         </li>
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>직원서비스</span>
+                <i class="fas fa-fw fa-desktop"></i>
+                <span>직원 서비스</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">직원 서비스</h6>
                 <a class="dropdown-item" href="/admin/pages/staffService/noticeList.php">공지사항</a>
                 <a class="dropdown-item" href="/admin/pages/staffService/formList.php">문서 서식</a>
                 <a class="dropdown-item" href="/admin/pages/staffService/schedules.php">스케쥴</a>
@@ -201,10 +202,11 @@ if($userInfo->id < 0 || $userInfo->id == ""){
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>홈페이지관리</span>
+                <i class="fas fa-fw fa-cog"></i>
+                <span>홈페이지 관리</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">홈페이지 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/siteManage/historyManage.php">연혁</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/supportPage.php">후원</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/publicationList.php">간행물 관리</a>
