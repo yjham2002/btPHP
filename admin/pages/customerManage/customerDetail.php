@@ -24,12 +24,41 @@
     $localeTxt = "";
     foreach($localeList as $localeItem)
         if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
+
+    $publicationList = $main->publicationList();
 ?>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
     $(document).ready(function(){
         var notiFlag = "<?=$userInfo["notiFlag"]?>";
         if(notiFlag == 1) $(".jNoti[value=1]").show();
         else $(".jNoti[value=0]").show();
+
+        $(".monthPicker").datepicker({
+            showMonthAfterYear:true,
+            dateFormat: 'yy-mm',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            onClose: function(dateText, inst) {
+                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).datepicker('setDate', new Date(year, month, 1));
+            }
+        });
+
+        $(".monthPicker").focus(function(){
+            $(".ui-datepicker-calendar").hide();
+            $("#ui-datepicker-div").position({
+                my: "center top",
+                at: "center bottom",
+                of: $(this)
+            });
+        });
 
         $(".jNoti").click(function(){
             var id = "<?=$userInfo["id"]?>";
@@ -269,35 +298,81 @@
                 <table class="table table-sm table-bordered jCTable" value="SUB">
                     <thead>
                     <tr>
-                        <th>받는사람</th>
-                        <th>전화번호</th>
-                        <th>우편번호</th>
-                        <th>주소</th>
-                        <th>상태</th>
-                        <th>버전</th>
-                        <th>부수</th>
-                        <th>시작 월호</th>
-                        <th>끝나는 월호</th>
-                        <th>결제정보</th>
-                        <th>LOST 횟수</th>
-                        <th>상태</th>
+                        <th width="6%">받는사람</th>
+                        <th width="6%">전화번호</th>
+                        <th width="6%">우편번호</th>
+                        <th width="6%">주소</th>
+                        <th width="6%">상세주소</th>
+                        <th width="6%">버전</th>
+                        <th width="6%">부수</th>
+                        <th width="6%">유형</th>
+                        <th width="6%">배송</th>
+                        <th width="6%">신청일</th>
+                        <th width="6%">시작 월호</th>
+                        <th width="6%">끝나는 월호</th>
+                        <th width="6%">결제정보</th>
+                        <th width="6%">LOST 횟수</th>
+                        <th width="6%">상태</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?foreach($subscriptionInfo as $subItem){?>
                         <tr>
-                            <td><?=$subItem["rName"]?></td>
-                            <td><?=$subItem["rPhone"]?></td>
-                            <td><?=$subItem["rZipCode"]?></td>
-                            <td><?=$subItem["rAddr"] . " " . $subItem["rAddrDetail"]?></td>
-                            <td></td>
-                            <td><?=$subItem["publicationName"]?></td>
-                            <td><?=$subItem["cnt"]?></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_rPhone[]" value="<?=$subItem["rPhone"]?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_rZipCode[]" value="<?=$subItem["rZipCode"]?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_rAddr[]" value="<?=$subItem["rAddr"]?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_rAddrDetail[]" value="<?=$subItem["rAddrDetail"]?>"/>
+                            </td>
+                            <td>
+                                <select class="form-control" name="sub_publicationId[]">
+                                    <?foreach($publicationList as $pubItem){?>
+                                        <option value="<?=$pubItem["id"]?>" <?=$pubItem["id"] == $subItem["publicationId"] ? "selected" : ""?>>
+                                            <?=$pubItem["desc"]?>
+                                        </option>
+                                    <?}?>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sub_cnt[]" value="<?=$subItem["cnt"]?>"/>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <select class="form-control" name="sub_deliveryType[]">
+                                    <option value="">선택</option>
+                                    <option value="0" <?=$subItem["deliveryType"] == "0" ? "selected" : ""?>>우편</option>
+                                    <option value="1" <?=$subItem["deliveryType"] == "1" ? "selected" : ""?>>택배</option>
+                                </select>
+                            </td>
+                            <td>
+                                <?=$subItem["regDate"]?>
+                            </td>
+                            <td>
+                                <input class="form-control monthPicker" type="text" name="birth" id="birth" placeholder="" value="<?=$userInfo["birth"]?>" />
+                            </td>
+                            <td>
+                                <input class="form-control monthPicker" type="text" name="birth" id="birth" placeholder="" value="<?=$userInfo["birth"]?>" />
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
                         </tr>
                     <?}?>
                     </tbody>

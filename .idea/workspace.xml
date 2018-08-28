@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/admin/inc/header.php" afterPath="$PROJECT_DIR$/admin/inc/header.php" />
       <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" afterPath="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Management.php" afterPath="$PROJECT_DIR$/common/classes/Management.php" />
+      <change beforePath="$PROJECT_DIR$/route.php" afterPath="$PROJECT_DIR$/route.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,27 +28,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="customerDetail.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="customerDetail.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="104" column="64" lean-forward="false" selection-start-line="104" selection-start-column="64" selection-end-line="104" selection-end-column="64" />
+            <state relative-caret-position="541">
+              <caret line="54" column="48" lean-forward="true" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
               <folding>
                 <element signature="n#style#0;n#table#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1535439794428" expanded="true" signature="16936:17168" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="16961:17139" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="17196:17321" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="17284:17321" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="17753:18285" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="17778:18256" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="18313:18443" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="18406:18443" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="20456:20516" ph="..." />
+                <marker date="1535439794428" expanded="true" signature="20481:20516" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Management.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/inc/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-413">
+              <caret line="46" column="90" lean-forward="true" selection-start-line="46" selection-start-column="90" selection-end-line="46" selection-end-column="90" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mypage.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="168" column="20" lean-forward="false" selection-start-line="168" selection-start-column="20" selection-end-line="168" selection-end-column="148" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Management.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="118" column="53" lean-forward="false" selection-start-line="118" selection-start-column="53" selection-end-line="118" selection-end-column="53" />
+            <state relative-caret-position="518">
+              <caret line="127" column="42" lean-forward="true" selection-start-line="127" selection-start-column="42" selection-end-line="127" selection-end-column="42" />
               <folding>
                 <marker date="1535434027348" expanded="true" signature="1170:1230" ph="SELECT COUNT... tblCustomer" />
                 <marker date="1535434027348" expanded="true" signature="1380:1511" ph="SELECT * FRO... tblCustomer" />
@@ -67,21 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Uncallable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/classes/Uncallable.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="112" column="26" lean-forward="true" selection-start-line="112" selection-start-column="26" selection-end-line="112" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bottomList</find>
       <find>v_info</find>
       <find>textarea</find>
       <find>btn_down</find>
@@ -96,7 +116,6 @@
       <find>upsertCate</find>
       <find>본인</find>
       <find>기본정</find>
-      <find>datepi</find>
       <find>datepicker</find>
       <find>send</find>
       <find>setSendEmail</find>
@@ -111,6 +130,8 @@
       <find>tblCustomer</find>
       <find>적용</find>
       <find>on duplicate key</find>
+      <find>publicationN</find>
+      <find>datepi</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -172,8 +193,8 @@
         <option value="$PROJECT_DIR$/web/pages/introduction.php" />
         <option value="$PROJECT_DIR$/common/classes/WebUser.php" />
         <option value="$PROJECT_DIR$/admin/pages/siteManage/languages.php" />
-        <option value="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/Management.php" />
+        <option value="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" />
       </list>
     </option>
   </component>
@@ -206,8 +227,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,12 +273,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="unC&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;imageS&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/imageSetting.php&#10;manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;langu&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;lang&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;WebUser&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebUser.php&#10;customerD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Man&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;languages&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;introduction&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/introduction.php&#10;Manage&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;customerList&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerList.php&#10;Mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;ㅊㅕ&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;gemail&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/module/email/GEmail.php&#10;consta&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;Cons&#9;null&#9;null&#10;WebS&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;WebU&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;shareL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareList.php&#10;publicationD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;noticeD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/noticeDetail.php&#10;upsertNotice&#9;null&#9;null&#10;adminL&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/adminList.php&#10;header&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/inc/header.php&#10;uncall&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Uncallable.php&#10;language&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/inc/language.php&#10;publi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;un&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;notice&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/noticeDetail.php&#10;noticeV&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/noticeView.php&#10;formList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formList.php&#10;Unc&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;fo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formDetail.php&#10;formView&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formView.php&#10;shareD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareDetail.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;adminMa&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;imageSe&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/imageSetting.php&#10;formDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formDetail.php&#10;webUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;heade&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/header.php&#10;supportD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;mypage&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/mypage.php&#10;articleL&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleList.php&#10;articleWri&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleWrite.php" />
+    <property name="SearchEverywhereHistoryKey" value="header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;mypage&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/mypage.php&#10;unC&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;imageS&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/imageSetting.php&#10;manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Const&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;langu&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;lang&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;WebUser&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebUser.php&#10;customerD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Man&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;languages&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/languages.php&#10;introduction&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/introduction.php&#10;Manage&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;customerList&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerList.php&#10;Mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;ㅊㅕ&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;gemail&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/module/email/GEmail.php&#10;consta&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;Cons&#9;null&#9;null&#10;WebS&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;WebU&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;shareL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareList.php&#10;publicationD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;noticeD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/noticeDetail.php&#10;upsertNotice&#9;null&#9;null&#10;adminL&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/adminList.php&#10;uncall&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Uncallable.php&#10;language&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/inc/language.php&#10;publi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/publicationDetail.php&#10;un&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;notice&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/noticeDetail.php&#10;noticeV&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/noticeView.php&#10;formList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formList.php&#10;Unc&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;fo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formDetail.php&#10;formView&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formView.php&#10;shareD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/shareDetail.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;adminMa&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;imageSe&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/imageSetting.php&#10;formDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/staffService/formDetail.php&#10;webUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;heade&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/header.php&#10;supportD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;articleL&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleList.php&#10;articleWri&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/articleWrite.php" />
     <property name="nodejs_interpreter_path" value="node" />
   </component>
   <component name="RecentsManager">
@@ -328,18 +349,18 @@
       <workItem from="1535003571853" duration="4326000" />
       <workItem from="1535016760939" duration="1870000" />
       <workItem from="1535362634055" duration="10661000" />
-      <workItem from="1535430625626" duration="3216000" />
+      <workItem from="1535430625626" duration="6740000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216863000" />
+    <option name="totallyTimeSpent" value="220387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2682672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21388888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -503,13 +524,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/pages/mySubscription.php" />
-    <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="649">
-          <caret line="246" column="24" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="246" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/shareDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -558,14 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/AdminMain.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/staffService/formList.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -603,14 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/inc/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="196" column="71" lean-forward="true" selection-start-line="196" selection-start-column="71" selection-end-line="196" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -664,6 +662,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="26" column="0" lean-forward="false" selection-start-line="25" selection-start-column="30" selection-end-line="26" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -699,20 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="104" column="64" lean-forward="false" selection-start-line="104" selection-start-column="64" selection-end-line="104" selection-end-column="64" />
-          <folding>
-            <element signature="n#style#0;n#table#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/Uncallable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="446">
@@ -721,10 +706,75 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/common/classes/AdminMain.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-595">
+          <caret line="195" column="16" lean-forward="true" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
+          <folding>
+            <marker date="1535086553969" expanded="true" signature="445:584" ph="SELECT * FRO... tblAdmin" />
+            <marker date="1535086553969" expanded="true" signature="1045:1087" ph="SELECT * FRO... tblLang" />
+            <marker date="1535086553969" expanded="true" signature="1292:1336" ph="DELETE FROM tblLang... " />
+            <marker date="1535086553969" expanded="true" signature="1571:1735" ph="INSERT INTO tblLang" />
+            <marker date="1535086553969" expanded="true" signature="1736:1779" ph="UPDATE `order`... " />
+            <marker date="1535086553969" expanded="true" signature="2085:2213" ph="INSERT INTO tblLangJson... " />
+            <marker date="1535086553969" expanded="true" signature="2214:2237" ph="UPDATE `json`... " />
+            <marker date="1535086553969" expanded="true" signature="2469:2519" ph="SELECT * FRO... tblLangJson" />
+            <marker date="1535086553969" expanded="true" signature="2623:2665" ph="SELECT * FRO... tblLang" />
+            <marker date="1535086553969" expanded="true" signature="2834:2946" ph="SELECT *, (S... tblBoardType" />
+            <marker date="1535086553969" expanded="true" signature="2845:2893" ph="SELECT `desc... tblLang" />
+            <marker date="1535086553969" expanded="true" signature="2974:3123" ph="SELECT *, (S... tblBoardType" />
+            <marker date="1535086553969" expanded="true" signature="2985:3033" ph="SELECT `desc... tblLang" />
+            <marker date="1535086553969" expanded="true" signature="3239:3306" ph="SELECT * FRO... tblBoardType" />
+            <marker date="1535086553969" expanded="true" signature="3413:3464" ph="SELECT * FRO... tblLayoutExposure" />
+            <marker date="1535086553969" expanded="true" signature="3850:3925" ph="UPDATE tblLayoutExposure... " />
+            <marker date="1535086553969" expanded="true" signature="4912:5291" ph="INSERT INTO tblBoardType... " />
+            <marker date="1535086553969" expanded="true" signature="5396:5789" ph="UPDATE tblBoardType... " />
+            <marker date="1535086553969" expanded="true" signature="5995:6097" ph="SELECT * FRO... tblPublication" />
+            <marker date="1535086553969" expanded="true" signature="6324:6425" ph="SELECT * FRO... tblPublicationLang" />
+            <marker date="1535086553969" expanded="true" signature="6587:6655" ph="INSERT INTO tblPublication... " />
+            <marker date="1535086553969" expanded="true" signature="8355:8946" ph="INSERT INTO tblPublicationLang... " />
+            <marker date="1535086553969" expanded="true" signature="8947:9314" ph="UPDATE `name... name" />
+            <marker date="1535086553969" expanded="true" signature="9480:9522" ph="SELECT * FRO... tblFaq" />
+            <marker date="1535086553969" expanded="true" signature="9725:9810" ph="SELECT * FRO... tblFaqLang" />
+            <marker date="1535086553969" expanded="true" signature="9964:10024" ph="INSERT INTO tblFaq... " />
+            <marker date="1535086553969" expanded="true" signature="10285:10362" ph="INSERT INTO tblNationGroup... " />
+            <marker date="1535086553969" expanded="true" signature="10626:10726" ph="INSERT INTO tblSupportParent... " />
+            <marker date="1535086553969" expanded="true" signature="10980:11057" ph="SELECT * FRO... tblNationLang" />
+            <marker date="1535086553969" expanded="true" signature="11303:11437" ph="INSERT INTO tblNationLang... " />
+            <marker date="1535086553969" expanded="true" signature="11438:11463" ph="UPDATE `name`... " />
+            <marker date="1535086553969" expanded="true" signature="11652:11699" ph="DELETE FROM tblSupportParent... " />
+            <marker date="1535086553969" expanded="true" signature="11755:11810" ph="DELETE FROM tblSupportArticle... " />
+            <marker date="1535086553969" expanded="true" signature="11999:12044" ph="DELETE FROM tblNationGroup... " />
+            <marker date="1535086553969" expanded="true" signature="12100:12151" ph="DELETE FROM tblNationLang... " />
+            <marker date="1535086553969" expanded="true" signature="12207:12313" ph="DELETE FROM tblSupportArticle... " />
+            <marker date="1535086553969" expanded="true" signature="12256:12312" ph="SELECT `id` tblSupportParent" />
+            <marker date="1535086553969" expanded="true" signature="12369:12423" ph="DELETE FROM tblSupportParent... " />
+            <marker date="1535086553969" expanded="true" signature="12838:13184" ph="INSERT INTO tblFaqLang... " />
+            <marker date="1535086553969" expanded="true" signature="13185:13320" ph="UPDATE `ques... question" />
+            <marker date="1535086553969" expanded="true" signature="13625:13725" ph="SELECT * FRO... tblSupportArticle" />
+            <marker date="1535086553969" expanded="true" signature="17349:18053" ph="INSERT INTO tblSupportArticle... " />
+            <marker date="1535086553969" expanded="true" signature="18054:18529" ph="UPDATE `smTi... smTitle" />
+            <marker date="1535086553969" expanded="true" signature="18715:18810" ph="SELECT * FRO... tblAdmin" />
+            <marker date="1535086553969" expanded="true" signature="18928:19008" ph="SELECT * FRO... tblAdmin" />
+            <marker date="1535086553969" expanded="true" signature="19114:19179" ph="UPDATE tblAdmin... " />
+            <marker date="1535086553969" expanded="true" signature="19538:19898" ph="INSERT INTO tblAdmin... " />
+            <marker date="1535086553969" expanded="true" signature="19899:20045" ph="UPDATE `acco... account" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/mypage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="168" column="20" lean-forward="false" selection-start-line="168" selection-start-column="20" selection-end-line="168" selection-end-column="148" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="118" column="53" lean-forward="false" selection-start-line="118" selection-start-column="53" selection-end-line="118" selection-end-column="53" />
+        <state relative-caret-position="518">
+          <caret line="127" column="42" lean-forward="true" selection-start-line="127" selection-start-column="42" selection-end-line="127" selection-end-column="42" />
           <folding>
             <marker date="1535434027348" expanded="true" signature="1170:1230" ph="SELECT COUNT... tblCustomer" />
             <marker date="1535434027348" expanded="true" signature="1380:1511" ph="SELECT * FRO... tblCustomer" />
@@ -739,6 +789,38 @@
             <marker date="1535434027348" expanded="true" signature="4458:4518" ph="UPDATE `type... type" />
             <marker date="1535434027348" expanded="true" signature="4458:4550" ph="UPDATE `type... type" />
             <marker date="1535434027348" expanded="true" signature="4458:4577" ph="UPDATE `type... type" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/inc/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-413">
+          <caret line="46" column="90" lean-forward="true" selection-start-line="46" selection-start-column="90" selection-end-line="46" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="54" column="48" lean-forward="true" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
+          <folding>
+            <element signature="n#style#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1535439794428" expanded="true" signature="16936:17168" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="16961:17139" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="17196:17321" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="17284:17321" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="17753:18285" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="17778:18256" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="18313:18443" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="18406:18443" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="20456:20516" ph="..." />
+            <marker date="1535439794428" expanded="true" signature="20481:20516" ph="..." />
           </folding>
         </state>
       </provider>
