@@ -7,16 +7,57 @@
  */
 ?>
 
-
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<?
+    $management = new Management($_REQUEST);
+?>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
     $(document).ready(function(){
+        $(".datePicker").datepicker({
+//            yearRange: "-100:",
+            showMonthAfterYear:true,
+            inline: true,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat : 'yy-mm-dd',
+            dayNamesMin:['일', '월', '화', '수', '목', '금', ' 토'],
+            monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+        });
+
         $(document).on("click", ".jViewDoc", function(){
             var path = $(this).attr("data");
             alert(path);
             location.href = "";
+        });
+
+        $("[name=printCharge]").keyup(function(){
+            $(this).val($(this).val().format());
+            calculateCharge();
+        });
+
+        $("[name=deliveryCharge]").keyup(function(){
+            $(this).val($(this).val().format());
+            calculateCharge();
+        });
+
+        function calculateCharge(){
+            var printCharge = $("[name=printCharge]").val().replace(",", "");
+            var deliveryCharge = $("[name=deliveryCharge]").val().replace(",", "");
+            if(printCharge === "") printCharge = 0;
+            else printCharge = parseInt(printCharge);
+            if(deliveryCharge === "") deliveryCharge = 0;
+            else deliveryCharge = parseInt(deliveryCharge)
+            $(".jTotal").text((printCharge + deliveryCharge).format());
+        }
+
+        $(".jSave").click(function(){
+            //TODO remove comma
         });
     });
 </script>
@@ -30,7 +71,7 @@
             </li>
             <li class="breadcrumb-item active">Blank Page</li>
         </ol>
-
+        <button type="button" class="btn btn-primary float-right mb-3">등록/수정</button>
         <table class="table table-sm table-bordered text-center">
             <colgroup>
                 <col width="10%"/>
@@ -42,31 +83,31 @@
             </colgroup>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">국가</td>
-                <td>asdasdasd</td>
+                <td>asdasdasdsad</td>
                 <td class="bg-secondary text-light">언어</td>
                 <td>asdasdasd</td>
                 <td class="bg-secondary text-light">ND</td>
-                <td>asdasdasd</td>
+                <td><input type="text" class="form-control" name="nd"/></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">월호</td>
                 <td>asdasdasd</td>
                 <td class="bg-secondary text-light">구분</td>
-                <td>asdasdasd</td>
+                <td><input type="text" class="form-control" name="type"/></td>
                 <td class="bg-secondary text-light">수량</td>
-                <td>asdasdasd</td>
+                <td><input type="number" class="form-control" name="cnt"/></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">인쇄 거래처</td>
-                <td>asdasdasd</td>
+                <td><input type="text" class="form-control" name="client"/></td>
                 <td class="bg-secondary text-light">인쇄비</td>
-                <td>asdasdasd</td>
+                <td><input type="text" class="form-control" name="printCharge"/></td>
                 <td class="bg-secondary text-light">배송비</td>
-                <td>asdasdasd</td>
+                <td><input type="text" class="form-control" name="deliveryCharge"/></td>
             </tr>
             <tr class="h-auto">
                 <td class="bg-secondary text-light">합계</td>
-                <td colspan="5" class="text-right">asdasdasd</td>
+                <td colspan="5" class="text-right jTotal"></td>
             </tr>
         </table>
 
@@ -85,29 +126,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr style="height: 10px;">
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
+                <tr>
+                    <th>예정일</th>
+                    <td><input class="form-control datePicker" name="birth" value="" /></td>
+                    <td><input class="form-control datePicker" name="birth" value=""/></td>
+                    <td><input class="form-control datePicker" name="birth" value=""/></td>
+                    <td><input class="form-control datePicker" name="birth" value=""/></td>
+                    <td><input class="form-control datePicker" name="birth" value=""/></td>
                 </tr>
                 <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
-                    <td>july@example.com</td>
+                    <th>완료일시</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
@@ -115,22 +148,37 @@
 
         <hr>
 
-        <div class="float-left text-center" style="width: 300px; height: 600px">
-            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="300px" height="460px"></object>
-            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
-        </div>
-        <div class="float-left text-center" style="width: 300px; height: 600px">
-            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="300px" height="460px"></object>
-            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
-        </div>
-        <div class="float-left text-center" style="width: 300px; height: 600px">
-            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="300px" height="460px"></object>
-            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                    <br>
+                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                </div>
+                <div class="col">
+                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                </div>
+                <div class="col">
+                    <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                    <br>
+                    <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                </div>
+            </div>
         </div>
 
-
-        <button type="button" class="btn btn-secondary float-right mb-3">등록/수정</button>
-
+<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
+<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
+<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
+<!--        </div>-->
+<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
+<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
+<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
+<!--        </div>-->
+<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
+<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
+<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
+<!--        </div>-->
     </div>
     <!-- /.container-fluid -->
 </div>

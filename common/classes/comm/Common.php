@@ -483,7 +483,20 @@ if (! class_exists("Common"))
             );
 
             $result = curl_exec($ch);
+
+            $this->logKakao(1, $to, $text, $templateCode, $result);
+
             return $result;
+        }
+
+        function logKakao($count, $phone, $content, $template, $result){
+            $res = json_decode($result);
+            $resNum = 0;
+            if($res->code == "200") $resNum = 1;
+
+            $sql = "INSERT INTO tblKakaoLog(`count`, `phone`, `content`, `templateName`, `result`, `regDate`)
+                    VALUES ('{$count}', '{$phone}', '{$content}', '{$template}', '{$resNum}', NOW())";
+            $this->update($sql);
         }
 
         function makeFileName(){
