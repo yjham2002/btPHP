@@ -105,5 +105,36 @@ if(!class_exists("Management")){
             $sql = "SELECT * FROM tblCustomerHistory WHERE {$where} ORDER BY regDate ASC";
             return $this->makeResultJson(1, succ, $this->getArray($sql));
         }
+
+        function upsertCustomer(){
+            $historyIdArr = $_REQUEST["historyId"];
+            $historyTypeArr = $_REQUEST["hType"];
+            $historyContentArr = $_REQUEST["historyContent"];
+
+//            echo json_encode($historyIdArr);
+//            echo json_encode($historyTypeArr);
+//            echo json_encode($historyContentArr);
+
+            for($i=0; $i<sizeof($historyIdArr); $i++){
+                $tmpId = $historyIdArr[$i] == "" ? "0" : $historyIdArr[$i];
+                $sql = "
+                    INSERT INTO tblCustomerHistory(`id`, `type`, `content`, `regDate`)
+                    VALUES(
+                      '{$tmpId}',
+                      '{$historyTypeArr[$i]}',
+                      '{$historyContentArr[$i]}',
+                      NOW()
+                    )
+                    ON DUPLICATE KEY UPDATE
+                    `type` = '{$historyTypeArr[$i]}',
+                    `content` = '{$historyContentArr[$i]}'
+                ";
+                $this->update($sql);
+            }
+
+            return $this->makeResultJson(1, "succ");
+
+
+        }
     }
 }
