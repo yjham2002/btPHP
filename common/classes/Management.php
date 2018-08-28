@@ -133,8 +133,40 @@ if(!class_exists("Management")){
             }
 
             return $this->makeResultJson(1, "succ");
+        }
 
+        function addForeignPub(){
+            $year = $_REQUEST["year"];
+            $print = $_REQUEST["print"];
+            $country = $_REQUEST["country"];
+            $language = $_REQUEST["language"];
+            $text = $_REQUEST["text"];
 
+            $sql = "
+              INSERT INTO tblForeignPub(`year`, `print`, `country`, `language`, `text`, regDate)
+              VALUES(
+                '{$year}',
+                '{$print}',
+                '{$country}',
+                '{$language}',
+                '{$text}',
+                NOW()
+              )
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function foreignPubList(){
+            $year = $_REQUEST["year"];
+            $where = "1=1";
+            if($year != "") $where .= " AND `year` = '{$year}'";
+
+            $sql = "
+                SELECT * FROM tblForeignPub WHERE {$where} ORDER BY regDate DESC
+            ";
+
+            return $this->getArray($sql);
         }
     }
 }

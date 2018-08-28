@@ -8,13 +8,37 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+<?
+$obj = new Uncallable($_REQUEST);
+$list = $obj->getKakaoList();
+
+?>
 
 <script>
     $(document).ready(function(){
         $(".jPage").click(function(){
-            $("[name=page]").val($(this).attr("page"));
-            form.submit();
+            var page = $(this).attr("page");
+            var range = $("[name=dateRange]:checked").val();
+            var year = $("#jYear").val();
+            var month = $("#jMonth").val();
+            location.href="/admin/pages/shipping/purchaseOrderList.php?" +
+                "page=" + page + "&" +
+                "range=" + range + "&" +
+                "year=" + year + "&" +
+                "month=" + month;
+        });
+
+        $(".jSearch").click(function(){
+            var page = $(".pageNum").val();
+            var range = $("[name=dateRange]:checked").val();
+            var year = $("#jYear").val();
+            var month = $("#jMonth").val();
+            location.href="/admin/pages/shipping/purchaseOrderList.php?" +
+                "page=" + page + "&" +
+                "range=" + range + "&" +
+                "year=" + year + "&" +
+                "month=" + month;
         });
 
         $(".jDetail").click(function(){
@@ -28,27 +52,43 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index.php">Dashboard</a>
+                <a href="/admin/index.php">배송</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item active">발주서 조회</li>
         </ol>
 
         <form id="form">
-            <input type="hidden" name="page" />
+            <input type="hidden" name="page" class="pageNum" />
 
-            <div class="input-group mb-3">
-                <select class="custom-select mr-2 col-2" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="custom-select mr-2 col-2" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+            <div class="col-xl-12 col-sm-12 mb-3">
+                <div class="card text-white bg-secondary o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fas fa-fw fa-search"></i>
+                        </div>
+                        <div class="mr-3">
+                            <input type="radio" id="date-all" name="dateRange" value="0" <?=$_REQUEST["range"] == 0 ? "checked" : ""?>>
+                            <label for="date-all">전체</label>
+                            <input type="radio" id="date-range" name="dateRange" value="1" <?=$_REQUEST["range"] == 1 ? "checked" : ""?>>
+                            <label for="date-range">기간</label>
+                        </div>
+                        <div class="input-group">
+                            <select class="custom-select mr-2" id="jYear">
+                                <?for($e = intval(date("Y")) + 5; $e >= 1950 ; $e--){?>
+                                    <option value="<?=$e?>" <?=$_REQUEST["year"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
+                                <?}?>
+                            </select>
+                            <select class="custom-select mr-2" id="jMonth">
+                                <?for($e = 1; $e <= 12; $e++){
+                                    $temp = $e < 10 ? "0".$e : $e;
+                                    ?>
+                                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$_REQUEST["month"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
+                                <?}?>
+                            </select>
+                            <button type="button" class="btn btn-primary jSearch">조회</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
 

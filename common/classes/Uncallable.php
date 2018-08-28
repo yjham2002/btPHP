@@ -1,4 +1,4 @@
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminBase.php" ;?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminBase.php";?>
 <?
 if(!class_exists("Uncallable")){
     class Uncallable extends  AdminBase {
@@ -37,6 +37,42 @@ if(!class_exists("Uncallable")){
             ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.filePath, adn.fileName
             FROM tblAdmin ad JOIN tblDocument adn ON ad.id = adn.adminId
             ORDER BY adn.regDate DESC
+            LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
+        function getKakaoList(){
+            $this->initPage();
+            $where = " WHERE `state` = 1";
+
+            $year = $_REQUEST["year"];
+            $month = $_REQUEST["month"];
+            $query = $_REQUEST["query"];
+            $cls = $_REQUEST["cls"];
+
+            if($_REQUEST["range"] == "1" && $month != "" && $year != "") {
+                $yearNum = intval($year);
+                $monthNum = intval($month);
+                $where .= " AND YEAR(`regDate`) = '{$yearNum}' AND MONTH(`regDate`) = '{$monthNum}'";
+            }
+
+            if($query != ""){
+                if($cls == "1"){
+                    $where .= " AND `phone` LIKE '%{$query}%'";
+                }else if($cls == "2"){
+                    $where .= " AND `content` LIKE '%{$query}%'";
+                }else{
+                    $where .= " AND (`phone` LIKE '%{$query}%' OR `content` LIKE '%{$query}%')";
+                }
+            }
+
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblKakaoLog {$where}";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT * FROM tblKakaoLog {$where}
+            ORDER BY regDate DESC
             LIMIT {$this->startNum}, {$this->endNum};
             ";
             return $this->getArray($sql);
