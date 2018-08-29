@@ -61,13 +61,33 @@
         }
 
         $(".jSave").click(function(){
+            //TODO file save
             var ajax = new AjaxSubmit("/route.php?cmd=Management.upsertForeignPubChild", "post", false, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     alert("저장되었습니다");
+                    location.reload();
                 }
             })
+        });
 
+        $(".jFile").change(function(){
+            var no = $(this).attr("no");
+            var fullPath = $(this).val();
+            if(fullPath){
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) filename = filename.substring(1);
+                $(".jLabel" + no).text(filename);
+            }
+        });
+
+        $(".jClear").click(function(){
+            var no = $(this).attr("no");
+            $(".jLabel" + no).text("");
+            $("[name=docFile" + no + "]").val("");
+            $("[name=filePath" + no + "]").val("");
+            $(".jDown" + no).parent().remove();
         });
     });
 </script>
@@ -77,9 +97,10 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a>Dashboard</a>
+                <a>고객관리</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item active">해외진행 현황</li>
+            <li class="breadcrumb-item active">해외진행 현황 상세</li>
         </ol>
         <button type="button" class="btn btn-primary float-right mb-3 jSave">등록/수정</button>
         <form method="post" id="form" action="#" enctype="multipart/form-data">
@@ -180,36 +201,62 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                    <div class="col" style="width: 33.3%">
+                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath1"]?>" type="application/pdf" width="100%" height="480px"></object>
                         <br>
-                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="hidden" name="filePath1" value="<?=$item["filePath1"]?>"/>
+                                <input type="hidden" name="fileName1" value="<?=$item["fileName1"]?>"/>
+                                <input type="file" class="custom-file-input" name="docFile1" id="inputGroupFile01">
+                                <label class="custom-file-label jLabel1" for="inputGroupFile01"><?=$item["fileName1"] == "" ? "파일을 선택하세요" : $item["fileName1"]?></label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <a class="jDown1" href="<?=$item["filePath1"] != "" ? $obj->fileShowPath . $item["filePath1"] : ""?>" id="file1" download="<?=$item["fileName1"]?>">
+                                <label style="color:black;" for="file1"><?=$item["fileName1"]?></label>
+                            </a>
+                            <a no="1" class="btn-sm btn-danger ml-2 text-white jClear"> X </a>
+                        </div>
                     </div>
-                    <div class="col">
-                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
-                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                    <div class="col" style="width: 33.3%">
+                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath2"]?>" type="application/pdf" width="100%" height="480px"></object>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="hidden" name="filePath2" value="<?=$item["filePath2"]?>"/>
+                                <input type="hidden" name="fileName2" value="<?=$item["fileName2"]?>"/>
+                                <input type="file" class="custom-file-input" name="docFile2" id="inputGroupFile01">
+                                <label class="custom-file-label jLabel2" for="inputGroupFile01"><?=$item["fileName2"] == "" ? "파일을 선택하세요" : $item["fileName2"]?></label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <a class="jDown2" href="<?=$item["filePath2"] != "" ? $obj->fileShowPath . $item["filePath2"] : ""?>" id="file2" download="<?=$item["fileName2"]?>">
+                                <label style="color:black;" for="file2"><?=$item["fileName2"]?></label>
+                            </a>
+                            <a no="2" class="btn-sm btn-danger ml-2 text-white jClear"> X </a>
+                        </div>
                     </div>
-                    <div class="col">
-                        <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>
+                    <div class="col" style="width: 33.3%">
+                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath3"]?>" type="application/pdf" width="100%" height="480px"></object>
                         <br>
-                        <button type="button" class="btn btn-secondary mb-3">등록/수정</button>
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="hidden" name="filePath3" value="<?=$item["filePath3"]?>"/>
+                                <input type="hidden" name="fileName3" value="<?=$item["fileName3"]?>"/>
+                                <input type="file" class="custom-file-input" name="docFile3" id="inputGroupFile01">
+                                <label class="custom-file-label jLabel3" for="inputGroupFile01"><?=$item["fileName3"] == "" ? "파일을 선택하세요" : $item["fileName3"]?></label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <a class="jDown3" href="<?=$item["filePath3"] != "" ? $obj->fileShowPath . $item["filePath3"] : ""?>" id="file3" download="<?=$item["fileName3"]?>">
+                                <label style="color:black;" for="file3"><?=$item["fileName3"]?></label>
+                            </a>
+                            <a no="3" class="btn-sm btn-danger ml-2 text-white jClear"> X </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
-
-<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
-<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
-<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
-<!--        </div>-->
-<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
-<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
-<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
-<!--        </div>-->
-<!--        <div class="float-left text-center" style="width: 300px; height: 600px">-->
-<!--            <object class="jViewDoc" data="../test.pdf" type="application/pdf" width="auto" height="460px"></object>-->
-<!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
-<!--        </div>-->
     </div>
 </div>
 

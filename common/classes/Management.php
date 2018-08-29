@@ -188,13 +188,38 @@ if(!class_exists("Management")){
         }
 
         function upsertForeignPubChild(){
+            $fileArray = array();
             $parentId = $_REQUEST["parentId"];
             $id = $_REQUEST["id"] == "" ? 0 : $_REQUEST["id"];
             $printCharge = str_replace(",", "", $_REQUEST["printCharge"]);
             $deliveryCharge = str_replace(",", "", $_REQUEST["deliveryCharge"]);
+
+            for($i = 0; $i < 3; $i++) {
+                $check = file_exists($_FILES['docFile'.($i+1)]['tmp_name']);
+                $fileName = $_FILES["docFile".($i+1)]["name"];
+                $filePath = $_REQUEST["filePath".($i+1)];
+
+                if ($check !== false) {
+                    $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile".($i+1)]["name"]), PATHINFO_EXTENSION);
+                    $targetDir = $this->filePath . $fName;
+                    if (move_uploaded_file($_FILES["docFile".($i+1)]["tmp_name"], $targetDir)) $filePath = $fName;
+                    else return $this->makeResultJson(-1, "fail");
+                }else{
+                    if($filePath != ""){
+                        $fileName = $_REQUEST["fileName".($i+1)];
+                    }else {
+                        $fileName = "";
+                        $filePath = "";
+                    }
+                }
+                $fileArray[$i]["fileName"] = $fileName;
+                $fileArray[$i]["filePath"] = $filePath;
+            }
+
             $sql = "
                 INSERT INTO tblForeignPubItem(`id`, `foreignPubId`, `nd`, `startMonth`, `endMonth`, `type`, `cnt`, `client`, `printCharge`, 
-                `deliveryCharge`, `dueDate1`, `dueDate2`, `dueDate3`, `dueDate4`, `dueDate5`, `regDate`)
+                `deliveryCharge`, `dueDate1`, `dueDate2`, `dueDate3`, `dueDate4`, `dueDate5`, `fileName1`, `filePath1`, `fileName2`, `filePath2`, 
+                `fileName3`, `filePath3`, `regDate`)
                 VALUES(
                   '{$id}',
                   '{$parentId}',
@@ -211,6 +236,9 @@ if(!class_exists("Management")){
                   '{$_REQUEST["dueDate3"]}',
                   '{$_REQUEST["dueDate4"]}',
                   '{$_REQUEST["dueDate5"]}',
+                  '{$fileArray[0]["fileName"]}', '{$fileArray[0]["filePath"]}',
+                  '{$fileArray[1]["fileName"]}', '{$fileArray[1]["filePath"]}',
+                  '{$fileArray[2]["fileName"]}', '{$fileArray[2]["filePath"]}',
                   NOW()
                 )
                 ON DUPLICATE KEY UPDATE
@@ -226,7 +254,13 @@ if(!class_exists("Management")){
                   `dueDate2` = '{$_REQUEST["dueDate2"]}',
                   `dueDate3` = '{$_REQUEST["dueDate3"]}',
                   `dueDate4` = '{$_REQUEST["dueDate4"]}',
-                  `dueDate5` = '{$_REQUEST["dueDate5"]}'
+                  `dueDate5` = '{$_REQUEST["dueDate5"]}',
+                  `fileName1` = '{$fileArray[0]["fileName"]}',
+                  `filePath1` = '{$fileArray[0]["filePath"]}',
+                  `fileName2` = '{$fileArray[1]["fileName"]}',
+                  `filePath2` = '{$fileArray[1]["filePath"]}',
+                  `fileName3` = '{$fileArray[2]["fileName"]}',
+                  `filePath3` = '{$fileArray[2]["filePath"]}'
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");

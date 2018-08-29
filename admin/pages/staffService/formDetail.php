@@ -52,6 +52,7 @@ $item = $obj->getDoc();
         $(".jCancel").click(function(){
             history.back();
         });
+
     });
 </script>
 

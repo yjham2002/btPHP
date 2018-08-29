@@ -55,6 +55,26 @@ if(!class_exists("Uncallable")){
             return $this->getArray($sql);
         }
 
+        function getReportList(){
+            $this->initPage();
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblReport";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, 
+            adn.filePath1, adn.fileName1,
+            adn.filePath2, adn.fileName2,
+            adn.filePath3, adn.fileName3,
+            adn.filePath4, adn.fileName4,
+            adn.filePath5, adn.fileName5
+            FROM tblAdmin ad JOIN tblReport adn ON ad.id = adn.adminId
+            ORDER BY adn.regDate DESC
+            LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
         function getKakaoList(){
             $this->initPage();
             $where = " WHERE `state` = 1";
@@ -154,6 +174,21 @@ if(!class_exists("Uncallable")){
             return $this->getRow($sql);
         }
 
+        function getReport(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT
+            ad.name, adn.adminId, adn.id, adn.title, adn.regDate, adn.content, 
+            adn.filePath1, adn.fileName1,
+            adn.filePath2, adn.fileName2,
+            adn.filePath3, adn.fileName3,
+            adn.filePath4, adn.fileName4,
+            adn.filePath5, adn.fileName5
+            FROM tblAdmin ad JOIN tblReport adn ON ad.id = adn.adminId
+            WHERE adn.id = '{$id}'";
+
+            return $this->getRow($sql);
+        }
+
         function getNotice(){
             $id = $_REQUEST["id"];
             $sql = "SELECT
@@ -172,6 +207,12 @@ if(!class_exists("Uncallable")){
 
         function deleteDoc(){
             $sql = "DELETE FROM tblDocument WHERE `id`='{$_REQUEST["id"]}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
+        function deleteReport(){
+            $sql = "DELETE FROM tblReport WHERE `id`='{$_REQUEST["id"]}'";
             $this->update($sql);
             return $this->makeResultJson(1, "");
         }
@@ -213,6 +254,77 @@ if(!class_exists("Uncallable")){
                       `filePath` = '{$filePath}'
                   ";
 
+            $this->update($sql);
+            return $this->makeResultJson(1, "");
+        }
+
+        function upsertReport(){
+            $fileArray = array();
+            $id = $_REQUEST["id"];
+            $adminId = $this->admUser->id;
+            $title = $_REQUEST["title"];
+            $content = $_REQUEST["content"];
+            if ($id == "") $id = 0;
+
+            for($i = 0; $i < 5; $i++) {
+                $check = file_exists($_FILES['docFile'.($i+1)]['tmp_name']);
+
+                $fileName = $_FILES["docFile".($i+1)]["name"];
+                $filePath = $_REQUEST["filePath".($i+1)];
+
+                if ($check !== false) {
+                    $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile".($i+1)]["name"]), PATHINFO_EXTENSION);
+                    $targetDir = $this->filePath . $fName;
+                    if (move_uploaded_file($_FILES["docFile".($i+1)]["tmp_name"], $targetDir)) $filePath = $fName;
+                    else return $this->makeResultJson(-1, "fail");
+                }else{
+                    if($filePath != ""){
+                        $fileName = $_REQUEST["fileName".($i+1)];
+                    }else {
+                        $fileName = "";
+                        $filePath = "";
+                    }
+                }
+
+                $fileArray[$i]["fileName"] = $fileName;
+                $fileArray[$i]["filePath"] = $filePath;
+
+            }
+
+            $sql = "INSERT INTO tblReport(`id`, `adminId`, `title`,
+                    `fileName1`, `filePath1`,
+                    `fileName2`, `filePath2`,
+                    `fileName3`, `filePath3`,
+                    `fileName4`, `filePath4`,
+                    `fileName5`, `filePath5`, 
+                    `content`, `regDate`)
+                    VALUES(
+                      '{$id}', 
+                      '{$adminId}', 
+                      '{$title}', 
+                      '{$fileArray[0]["fileName"]}', '{$fileArray[0]["filePath"]}',
+                      '{$fileArray[1]["fileName"]}', '{$fileArray[1]["filePath"]}',
+                      '{$fileArray[2]["fileName"]}', '{$fileArray[2]["filePath"]}',
+                      '{$fileArray[3]["fileName"]}', '{$fileArray[3]["filePath"]}',
+                      '{$fileArray[4]["fileName"]}', '{$fileArray[4]["filePath"]}',
+                      '{$content}',
+                      NOW()
+                    )
+                    ON DUPLICATE KEY UPDATE 
+                      `title` = '{$title}', 
+                      `adminId`='{$adminId}', 
+                      `content` = '{$content}',
+                      `fileName1` = '{$fileArray[0]["fileName"]}',
+                      `filePath1` = '{$fileArray[0]["filePath"]}',
+                      `fileName2` = '{$fileArray[1]["fileName"]}',
+                      `filePath2` = '{$fileArray[1]["filePath"]}',
+                      `fileName3` = '{$fileArray[2]["fileName"]}',
+                      `filePath3` = '{$fileArray[2]["filePath"]}',
+                      `fileName4` = '{$fileArray[3]["fileName"]}',
+                      `filePath4` = '{$fileArray[3]["filePath"]}',
+                      `fileName5` = '{$fileArray[4]["fileName"]}',
+                      `filePath5` = '{$fileArray[4]["filePath"]}'
+                  ";
             $this->update($sql);
             return $this->makeResultJson(1, "");
         }
