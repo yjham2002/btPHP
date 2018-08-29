@@ -53,6 +53,24 @@ $item = $obj->getDoc();
             history.back();
         });
 
+        $(".jFile").change(function(){
+            var no = $(this).attr("no");
+            var fullPath = $(this).val();
+            if(fullPath){
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) filename = filename.substring(1);
+                $(".jLabel" + no).text(filename);
+            }
+        });
+
+        $(".jClear").click(function(){
+            var no = $(this).attr("no");
+            $(".jLabel" + no).text("");
+            $("[name=docFile]").val("");
+            $("[name=filePath]").val("");
+            $(".jDown" + no).parent().remove();
+        });
     });
 </script>
 
@@ -96,17 +114,23 @@ $item = $obj->getDoc();
                 </div>
                 <div class="custom-file">
                     <input type="hidden" name="filePath" value="<?=$item["filePath"]?>"/>
-                    <input type="file" class="custom-file-input" name="docFile" id="inputGroupFile01">
-                    <label class="custom-file-label jLabel" for="inputGroupFile01"><?=$item["fileName"] == "" ? "파일을 선택하세요" : $item["fileName"]?></label>
+                    <input type="hidden" name="fileName" value="<?=$item["fileName"]?>"/>
+                    <input type="file" class="custom-file-input jFile" no="1" name="docFile" id="inputGroupFile01">
+                    <label class="custom-file-label jLabel1" for="inputGroupFile01"><?=$item["fileName"] == "" ? "파일을 선택하세요" : $item["fileName"]?></label>
                 </div>
             </div>
 
+<!--            <div class="input-group mb-3">-->
+<!--                <a href="--><?//=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?><!--" id="file" download="--><?//=$item["fileName"]?><!--">-->
+<!--                    <label for="file">--><?//=$item["fileName"]?><!--</label>-->
+<!--                </a>-->
+<!--            </div>-->
+
             <div class="input-group mb-3">
-                <a href="<?=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?>" id="file" download="<?=$item["fileName"]?>">
-                    <label for="file"><?=$item["fileName"]?></label>
+                <a class="jDown1" href="<?=$item["filePath"] != "" ? $obj->fileShowPath . $item["filePath"] : ""?>" id="file3" download="<?=$item["fileName"]?>">
+                    <label style="color:black;" for="file3"><?=$item["fileName"]?></label>
                 </a>
-
-
+                <a no="1" class="btn-sm btn-danger ml-2 text-white jClear"> X </a>
             </div>
         </form>
 

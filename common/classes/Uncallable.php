@@ -218,7 +218,7 @@ if(!class_exists("Uncallable")){
         }
 
         function upsertDoc(){
-            $check = file_exists($_FILES['docFile']['tmp_name'][0]);
+            $check = file_exists($_FILES['docFile']['tmp_name']);
 
             $id = $_REQUEST["id"];
             $adminId = $this->admUser->id;
@@ -226,12 +226,14 @@ if(!class_exists("Uncallable")){
             $content = $_REQUEST["content"];
             if($id == "") $id = 0;
 
-            $fileName = $_FILES["docFile"]["name"];
+            $fileName = $_REQUEST["fileName"];
             $filePath = $_REQUEST["filePath"];
 
             if($check !== false){
+                echo "::::::";
                 $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION);
                 $targetDir = $this->filePath . $fName;
+                $fileName = $_FILES["docFile"]["name"];
                 if(move_uploaded_file($_FILES["docFile"]["tmp_name"], $targetDir)) $filePath = $fName;
                 else return $this->makeResultJson(-1, "fail");
             }
