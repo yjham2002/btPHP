@@ -40,7 +40,7 @@
             <li class="breadcrumb-item">
                 <a href="index.html">배송</a>
             </li>
-            <li class="breadcrumb-item active">발주 입력</li>
+            <li class="breadcrumb-item active">발주 상세</li>
         </ol>
 
         <h4>내역</h4>
@@ -91,7 +91,7 @@
         <table class="table table-sm table-bordered text-center">
             <thead>
             <tr>
-                <th></th>
+                <th width="60px"></th>
                 <th>클래식</th>
                 <th>연대기</th>
                 <th>맥체인</th>
@@ -103,16 +103,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr style="height: 10px;">
+            <tr>
                 <th>수량</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><input type="number" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
             </tr>
             <tr>
                 <th>금액</th>
@@ -142,11 +142,11 @@
         <hr>
         
         <h4>배송지</h4>
-        <div class="mb-2" style="width: 100%; height: 300px; overflow-y: scroll">
+        <div class="mb-2">
             <table class="table table-sm table-bordered text-center">
                 <thead>
                 <tr>
-                    <th>No.</th>
+                    <th width="60px"></th>
                     <th>배송처</th>
                     <th>내용</th>
                     <th>클래식</th>
@@ -175,19 +175,6 @@
                 </tr>
                 <tr>
                     <th>2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>3</th>
                     <td></td>
                     <td></td>
                     <td></td>

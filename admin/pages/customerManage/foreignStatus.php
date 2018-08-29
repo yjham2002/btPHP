@@ -48,7 +48,22 @@
 
         $(".jHistory").click(function(){
             var id = $(this).attr("id");
-            location.href = "/admin/pages/customerManage/foreignHistory.php?id=" + id;
+            var parentId = $(this).attr("parentId");
+            location.href = "/admin/pages/customerManage/foreignHistory.php?id=" + id + "&parentId=" + parentId;
+        });
+
+        $(".jModStatus").click(function(){
+            var id = $(this).attr("id");
+            var next = $(this).attr("next");
+            if(confirm("상태를 변경하시겠습니까?")){
+                var ajax = new AjaxSender("/route.php?cmd=Management.changeFpubStatus", true, "json", new sehoMap().put("id", id).put("next", next));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("변경되었습니다");
+                        location.reload();
+                    }
+                })
+            }
         });
 
     });
@@ -172,90 +187,28 @@
                     <td><?=$item["country"]?></td>
                     <td><?=$item["language"]?></td>
                     <td style="padding-left: 0; padding-right: 0;">
-                        <div class="dotWrap">
-                            <h3>6-7월 <i class="fas fa-fw fa-list jHistory" id="" parentId=""></i></h3>
-                            <div class="dot text"><pickle>번역</pickle></div>
-                            <div class="dot disabled"><pickle>데이터</pickle></div>
-                            <div class="dot disabled"><pickle>인쇄</pickle></div>
-                            <div class="dot disabled"><pickle>배송</pickle></div>
-                        </div>
-                        <div class="dotWrap">
-                            <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                            <div class="dot"><pickle>번역</pickle></div>
-                            <div class="dot text"><pickle>데이터</pickle></div>
-                            <div class="dot disabled"><pickle>인쇄</pickle></div>
-                            <div class="dot disabled"><pickle>배송</pickle></div>
-                        </div>
-                        <div class="dotWrap">
-                            <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                            <div class="dot"><pickle>번역</pickle></div>
-                            <div class="dot"><pickle>데이터</pickle></div>
-                            <div class="dot text"><pickle>인쇄</pickle></div>
-                            <div class="dot disabled"><pickle>배송</pickle></div>
-                        </div>
-                        <div class="dotWrap">
-                            <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                            <div class="dot"><pickle>번역</pickle></div>
-                            <div class="dot"><pickle>데이터</pickle></div>
-                            <div class="dot"><pickle>인쇄</pickle></div>
-                            <div class="dot text"><pickle>배송</pickle></div>
-                        </div>
-                        <div class="dotWrap">
-                            <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>
-                            <div class="dot"><pickle>번역</pickle></div>
-                            <div class="dot text"><pickle>데이터</pickle></div>
-                            <div class="dot"><pickle>인쇄</pickle></div>
-                            <div class="dot disabled"><pickle>배송</pickle></div>
-                        </div>
+                        <?foreach($item["childList"] as $cItem){?>
+                            <div class="dotWrap">
+                                <h3><?=$cItem["startMonth"]?>-<?=$cItem["endMonth"]?>월 <i class="fas fa-fw fa-list jHistory" id="<?=$cItem["id"]?>" parentId="<?=$item["id"]?>"></i></h3>
+                                <div class="dot <?=$cItem["manufactureFlag"] == 0 ? "text" : ""?> <?=$cItem["manufactureFlag"] < 1 ? "disabled" : ""?>">
+                                    <pickle class="jModStatus" id="<?=$cItem["id"]?>" next="1">번역</pickle>
+                                </div>
+                                <div class="dot <?=$cItem["manufactureFlag"] == 1 ? "text" : ""?> <?=$cItem["manufactureFlag"] < 2 ? "disabled" : ""?>">
+                                    <pickle class="jModStatus" id="<?=$cItem["id"]?>" next="2">데이터</pickle>
+                                </div>
+                                <div class="dot <?=$cItem["manufactureFlag"] == 2 ? "text" : ""?> <?=$cItem["manufactureFlag"] < 3 ? "disabled" : ""?>">
+                                    <pickle class="jModStatus" id="<?=$cItem["id"]?>" next="3">인쇄</pickle>
+                                </div>
+                                <div class="dot <?=$cItem["manufactureFlag"] == 3 ? "text" : ""?> <?=$cItem["manufactureFlag"] < 4 ? "disabled" : ""?>">
+                                    <pickle class="jModStatus" id="<?=$cItem["id"]?>" next="4">배송</pickle>
+                                </div>
+                            </div>
+                        <?}?>
                         <button type="button" class="btn btn-secondary float-left mt-3 jAddChild" id="<?=$item["id"]?>">+</button>
                     </td>
                     <td><?=$item["text"]?></td>
                 </tr>
             <?}?>
-<!--            <tr>-->
-<!--                <td>John</td>-->
-<!--                <td>Doe</td>-->
-<!--                <td>ㅁㄴㅇㅁㄴㅇ</td>-->
-<!--                <td style="padding-left: 0; padding-right: 0;">-->
-<!--                    <div class="dotWrap">-->
-<!--                        <h3>6-7월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
-<!--                        <div class="dot text"><pickle>번역</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>데이터</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>인쇄</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
-<!--                    </div>-->
-<!--                    <div class="dotWrap">-->
-<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
-<!--                        <div class="dot"><pickle>번역</pickle></div>-->
-<!--                        <div class="dot text"><pickle>데이터</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>인쇄</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
-<!--                    </div>-->
-<!--                    <div class="dotWrap">-->
-<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
-<!--                        <div class="dot"><pickle>번역</pickle></div>-->
-<!--                        <div class="dot"><pickle>데이터</pickle></div>-->
-<!--                        <div class="dot text"><pickle>인쇄</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
-<!--                    </div>-->
-<!--                    <div class="dotWrap">-->
-<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
-<!--                        <div class="dot"><pickle>번역</pickle></div>-->
-<!--                        <div class="dot"><pickle>데이터</pickle></div>-->
-<!--                        <div class="dot"><pickle>인쇄</pickle></div>-->
-<!--                        <div class="dot text"><pickle>배송</pickle></div>-->
-<!--                    </div>-->
-<!--                    <div class="dotWrap">-->
-<!--                        <h3>8-9월 <i class="fas fa-fw fa-list jHistory"></i></h3>-->
-<!--                        <div class="dot"><pickle>번역</pickle></div>-->
-<!--                        <div class="dot text"><pickle>데이터</pickle></div>-->
-<!--                        <div class="dot"><pickle>인쇄</pickle></div>-->
-<!--                        <div class="dot disabled"><pickle>배송</pickle></div>-->
-<!--                    </div>-->
-<!--                    <button type="button" class="btn btn-secondary float-left mt-3 jAddChild">+</button>-->
-<!--                </td>-->
-<!--                <td>adsdas</td>-->
-<!--            </tr>-->
             </tbody>
         </table>
     </div>

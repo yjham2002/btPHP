@@ -161,12 +161,16 @@ if(!class_exists("Management")){
             $year = $_REQUEST["year"];
             $where = "1=1";
             if($year != "") $where .= " AND `year` = '{$year}'";
-
             $sql = "
                 SELECT * FROM tblForeignPub WHERE {$where} ORDER BY regDate DESC
             ";
-
-            return $this->getArray($sql);
+            $list = $this->getArray($sql);
+            foreach($list as $i=>$item){
+                $sql = "SELECT * FROM tblForeignPubItem WHERE `foreignPubId` = '{$item["id"]}' ORDER BY regDate ASC";
+                $childList = $this->getArray($sql);
+                $list[$i]["childList"] = $childList;
+            }
+            return $list;
         }
 
         function foreignPubInfo(){
@@ -181,6 +185,82 @@ if(!class_exists("Management")){
                 SELECT * FROM tblForeignPubItem WHERE `id` = '{$id}' LIMIT 1
             ";
             return $this->getRow($sql);
+        }
+
+        function upsertForeignPubChild(){
+            $parentId = $_REQUEST["parentId"];
+            $id = $_REQUEST["id"] == "" ? 0 : $_REQUEST["id"];
+            $printCharge = str_replace(",", "", $_REQUEST["printCharge"]);
+            $deliveryCharge = str_replace(",", "", $_REQUEST["deliveryCharge"]);
+            $sql = "
+                INSERT INTO tblForeignPubItem(`id`, `foreignPubId`, `nd`, `startMonth`, `endMonth`, `type`, `cnt`, `client`, `printCharge`, 
+                `deliveryCharge`, `dueDate1`, `dueDate2`, `dueDate3`, `dueDate4`, `dueDate5`, `regDate`)
+                VALUES(
+                  '{$id}',
+                  '{$parentId}',
+                  '{$_REQUEST["nd"]}',
+                  '{$_REQUEST["startMonth"]}',
+                  '{$_REQUEST["endMonth"]}',
+                  '{$_REQUEST["type"]}',
+                  '{$_REQUEST["cnt"]}',
+                  '{$_REQUEST["client"]}',
+                  '{$printCharge}',
+                  '{$deliveryCharge}',
+                  '{$_REQUEST["dueDate1"]}',
+                  '{$_REQUEST["dueDate2"]}',
+                  '{$_REQUEST["dueDate3"]}',
+                  '{$_REQUEST["dueDate4"]}',
+                  '{$_REQUEST["dueDate5"]}',
+                  NOW()
+                )
+                ON DUPLICATE KEY UPDATE
+                  `nd` = '{$_REQUEST["nd"]}',
+                  `startMonth` = '{$_REQUEST["startMonth"]}',
+                  `endMonth` = '{$_REQUEST["endMonth"]}',
+                  `type` = '{$_REQUEST["type"]}',
+                  `cnt` = '{$_REQUEST["cnt"]}',
+                  `client` = '{$_REQUEST["client"]}',
+                  `printCharge` = '{$printCharge}',
+                  `deliveryCharge` = '{$deliveryCharge}',
+                  `dueDate1` = '{$_REQUEST["dueDate1"]}',
+                  `dueDate2` = '{$_REQUEST["dueDate2"]}',
+                  `dueDate3` = '{$_REQUEST["dueDate3"]}',
+                  `dueDate4` = '{$_REQUEST["dueDate4"]}',
+                  `dueDate5` = '{$_REQUEST["dueDate5"]}'
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function changeFpubStatus(){
+            $id = $_REQUEST["id"];
+            $next = $_REQUEST["next"];
+
+            $set = "";
+            switch($next){
+                case "1":
+                    $set = ",`endDate1` = NOW()";
+                    break;
+                case "2":
+                    $set = ",`endDate2` = NOW()";
+                    break;
+                case "3":
+                    $set = ",`endDate3` = NOW()";
+                    break;
+                case "4":
+                    $set = ",`endDate4` = NOW()";
+                    break;
+            }
+            $sql = "
+                UPDATE tblForeignPubItem
+                SET
+                  `manufactureFlag` = `manufactureFlag` + 1
+                  {$set}
+                WHERE 
+                `id` IN (SELECT * FROM (SELECT `id` FROM tblForeignPubItem WHERE `id` = '{$id}' LIMIT 1) tmp)
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
         }
     }
 }

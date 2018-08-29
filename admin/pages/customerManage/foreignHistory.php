@@ -18,6 +18,7 @@
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/admin/scss/smSheet.css">
 <script>
     $(document).ready(function(){
         $(".datePicker").datepicker({
@@ -30,6 +31,8 @@
             monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
             monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
         });
+
+        calculateCharge();
 
         $(document).on("click", ".jViewDoc", function(){
             var path = $(this).attr("data");
@@ -58,7 +61,13 @@
         }
 
         $(".jSave").click(function(){
-            //TODO remove comma
+            var ajax = new AjaxSubmit("/route.php?cmd=Management.upsertForeignPubChild", "post", false, "json", "#form");
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("저장되었습니다");
+                }
+            })
+
         });
     });
 </script>
@@ -72,8 +81,11 @@
             </li>
             <li class="breadcrumb-item active">Blank Page</li>
         </ol>
-        <button type="button" class="btn btn-primary float-right mb-3">등록/수정</button>
-        <form id="form">
+        <button type="button" class="btn btn-primary float-right mb-3 jSave">등록/수정</button>
+        <form method="post" id="form" action="#" enctype="multipart/form-data">
+            <input type="hidden" name="parentId" value="<?=$_REQUEST["parentId"]?>"/>
+            <input type="hidden" name="id" value="<?=$_REQUEST["id"]?>"/>
+
             <table class="table table-sm table-bordered text-center">
                 <colgroup>
                     <col width="10%"/>
@@ -89,37 +101,39 @@
                     <td class="bg-secondary text-light">언어</td>
                     <td><?=$parent["language"]?></td>
                     <td class="bg-secondary text-light">ND</td>
-                    <td><input type="text" class="form-control" name="nd"/></td>
+                    <td><input type="text" class="form-control" name="nd" value="<?=$item["nd"]?>"/></td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light">월호</td>
-                    <td>
-                        <select class="form-control" id="aYear" style="width:40%;">
-                            <option value="">선택</option>
-                            <?for($i=1; $i<=12; $i++){?>
-                                <option value="<?=$i?>"><?=$i?></option>
-                            <?}?>
-                        </select>
-                        ~
-                        <select class="form-control" id="aYear" style="width:40%;">
-                            <option value="">선택</option>
-                            <?for($i=1; $i<=12; $i++){?>
-                                <option value="<?=$i?>"><?=$i?></option>
-                            <?}?>
-                        </select>
+                    <td style="text-align: center;">
+                        <div class="form-inline">
+                            <select class="form-control" id="startMonth" name="startMonth">
+                                <option value="">선택</option>
+                                <?for($i=1; $i<=12; $i++){?>
+                                    <option value="<?=$i?>" <?=$item["startMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                <?}?>
+                            </select>
+                            &nbsp;~&nbsp;
+                            <select class="form-control" id="endMonth" name="endMonth">
+                                <option value="">선택</option>
+                                <?for($i=1; $i<=12; $i++){?>
+                                    <option value="<?=$i?>" <?=$item["endMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                <?}?>
+                            </select>
+                        </div>
                     </td>
                     <td class="bg-secondary text-light">구분</td>
-                    <td><input type="text" class="form-control" name="type"/></td>
+                    <td><input type="text" class="form-control" name="type" value="<?=$item["type"]?>"/></td>
                     <td class="bg-secondary text-light">수량</td>
-                    <td><input type="number" class="form-control" name="cnt"/></td>
+                    <td><input type="number" class="form-control" name="cnt" value="<?=$item["cnt"]?>"/></td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light">인쇄 거래처</td>
-                    <td><input type="text" class="form-control" name="client"/></td>
+                    <td><input type="text" class="form-control" name="client" value="<?=$item["client"]?>"/></td>
                     <td class="bg-secondary text-light">인쇄비</td>
-                    <td><input type="text" class="form-control" name="printCharge"/></td>
+                    <td><input type="text" class="form-control" name="printCharge" value="<?=$item["printCharge"]?>"/></td>
                     <td class="bg-secondary text-light">배송비</td>
-                    <td><input type="text" class="form-control" name="deliveryCharge"/></td>
+                    <td><input type="text" class="form-control" name="deliveryCharge" value="<?=$item["deliveryCharge"]?>"/></td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light">합계</td>
@@ -143,19 +157,19 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <th>예정일</th>
-                        <td><input class="form-control datePicker" name="birth" value="" /></td>
-                        <td><input class="form-control datePicker" name="birth" value=""/></td>
-                        <td><input class="form-control datePicker" name="birth" value=""/></td>
-                        <td><input class="form-control datePicker" name="birth" value=""/></td>
-                        <td><input class="form-control datePicker" name="birth" value=""/></td>
+                        <th>예정</th>
+                        <td><input class="form-control datePicker" name="dueDate1" value="<?=$item["dueDate1"]?>" /></td>
+                        <td><input class="form-control datePicker" name="dueDate2" value="<?=$item["dueDate2"]?>"/></td>
+                        <td><input class="form-control datePicker" name="dueDate3" value="<?=$item["dueDate3"]?>"/></td>
+                        <td><input class="form-control datePicker" name="dueDate4" value="<?=$item["dueDate4"]?>"/></td>
+                        <td><input class="form-control datePicker" name="dueDate5" value="<?=$item["dueDate5"]?>"/></td>
                     </tr>
                     <tr>
-                        <th>완료일시</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <th>완료</th>
+                        <td><?=$item["endDate1"]?></td>
+                        <td><?=$item["endDate2"]?></td>
+                        <td><?=$item["endDate3"]?></td>
+                        <td><?=$item["endDate4"]?></td>
                         <td></td>
                     </tr>
                     </tbody>
@@ -197,9 +211,7 @@
 <!--            <button type="button" class="btn btn-secondary mb-3">등록/수정</button>-->
 <!--        </div>-->
     </div>
-    <!-- /.container-fluid -->
 </div>
-
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
 

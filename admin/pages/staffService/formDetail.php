@@ -37,13 +37,21 @@ $item = $obj->getDoc();
                     }
                 });
             }
+        });
 
+        $("[name=docFile]").change(function(){
+            var fullPath = $(this).val();
+            if(fullPath){
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) filename = filename.substring(1);
+                $(".jLabel").text(filename);
+            }
         });
 
         $(".jCancel").click(function(){
             history.back();
         });
-
     });
 </script>
 

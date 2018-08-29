@@ -5,200 +5,23 @@ $CONST_PREFIX_IMAGE = "S_ORDER_";
 $sign1 = $uc->getProperty($CONST_PREFIX_IMAGE."01");
 $sign2 = $uc->getProperty($CONST_PREFIX_IMAGE."02");
 $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
+
+$static_addr = $uc->getProperty("STATIC_ADDR");
+$static_reg = $uc->getProperty("STATIC_REG");
+$static_trade = $uc->getProperty("STATIC_TRADE");
+$static_phone = $uc->getProperty("STATIC_PHONE");
+
+if($_REQUEST["id"] == ""){
+    echo "<script>alert('비정상적인 접근입니다.'); window.close();</script>";
+}
+
+$formData = $uc->getOrderForm();
+$formJson = $formData["formJson"];
+
 ?>
 <?
-    $F_VALUE = array(
-        "order_number" => "20180823_#", // 발주번호
-        "order_name" => "OYBT 2018년 5월호_#", // 건명
-        "reg_number" => "610-82-78048_#", // 등록번호
-        "reg_name" => "바이블타임_#", // 상호
-        "reg_addr" => "경기 성남시 수정구<br/>사송로 46번길 20, 3층 바이블타임_#", // 사업장주소
-        "reg_phone" => "070-7874-0895_#", // 전화
-        "price" => "_#", // 가격
-        "tax" => "_#", // 세액
-        "total" => "_#", // 합계금액
-        "charge" => "이재암_#", // 담당자
-        "place" => "바이블타임 및 월드피에이디_#", // 납품장소
-        "comment" => "1. 청주여자교도소(X3 NT) 100권 스티커 제거 및 발송 (이름: 청주여자교도소 사회복귀과, 전화번호: 0432888145.
-                       <br>   발송주소: 충북 청주시 서원구 청남로 1887번길 78, 청주여자교도소 사회복귀과 기독교담당(산남동)
-                       <br>2. X2 5월호는 미국과 같이 인쇄하였습니다.
-                       <br>3. 판교 수량은 위에 표기 되었습니다(박스별 책 권수를 반드시 기록해주세요). 
-                       <br>4. 월드피에이디 납품 Box(대)는 이전과 동일하게 진행해주세요.
-                       <br>5. X2 6월호는 창영에 1달 보관 부탁드립니다.
-                       <br>6. 극동방송 1770권 &gt; 월드 / 850권 &gt; 판교로 부탁드립니다._#", // 참고사항
+    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', nl2br($formJson)), true);
 
-        "product_01" => array(
-            "name" => "클래식_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "12,320_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_02" => array(
-            "name" => "맥체인_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "3,540_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_03" => array(
-            "name" => "연대기_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "6,240_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_04" => array(
-            "name" => "X2_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "0_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_05" => array(
-            "name" => "X3 OT_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "8,460_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_06" => array(
-            "name" => "X3 NT_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "10,300_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_07" => array(
-            "name" => "NT_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "3,910_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-        "product_08" => array(
-            "name" => "노트_#",
-            "use" => "_#",
-            "unit" => "_#",
-            "quantity" => "800_#",
-            "price" => "_#",
-            "etc" => "_#"
-        ),
-
-        "product_left" => "월드피에이디 납품_#",
-        "product_right" => "판교 바이블타임 납품_#",
-        
-        "product_left_01" => array(
-            "name" => "클래식_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_02" => array(
-            "name" => "맥체인_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_03" => array(
-            "name" => "연대기_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_04" => array(
-            "name" => "X2_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_05" => array(
-            "name" => "X3 OT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_06" => array(
-            "name" => "X3 NT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_07" => array(
-            "name" => "NT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_08" => array(
-            "name" => "노트_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_09" => array(
-            "name" => "Box(대)_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_left_10" => array(
-            "name" => "Box(소)_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-
-        "product_right_01" => array(
-            "name" => "클래식_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_02" => array(
-            "name" => "맥체인_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_03" => array(
-            "name" => "연대기_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_04" => array(
-            "name" => "X2_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_05" => array(
-            "name" => "X3 OT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_06" => array(
-            "name" => "X3 NT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_07" => array(
-            "name" => "NT_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_08" => array(
-            "name" => "노트_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_09" => array(
-            "name" => "Box(대)_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-        "product_right_10" => array(
-            "name" => "Box(소)_#",
-            "quantity" => "0_#",
-            "etc" => "_#"
-        ),
-    );
-
-    $F_VALUE = json_decode(json_encode($F_VALUE), true);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -502,24 +325,24 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
     </tr>
     <tr>
         <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=5 rowspan=2 height="50" align="center" class="darkBg">발주번호</td>
-        <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=12 rowspan=2 align="center" valign=middle ><?=$F_VALUE["order_number"]?></td>
+        <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=12 rowspan=2 align="center" valign=middle ><?=$formData["regNo"]?></td>
         <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 rowspan=4 align="center" valign=middle class="darkBg">발 <br><br><br><br>주</td>
         <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 align="center" class="darkBg">등록번호</td>
-        <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$F_VALUE["reg_number"]?></td>
+        <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$static_reg?></td>
     </tr>
     <tr>
         <td style="border: 1px solid #000000;" colspan=6 align="center" class="darkBg">상호</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$F_VALUE["reg_name"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$static_trade?></td>
     </tr>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=5 rowspan=2 height="70" align="center" class="darkBg">건명</td>
         <td style="border: 1px solid #000000;" colspan=12 rowspan=2 align="center" valign=middle><?=$F_VALUE["order_name"]?></td>
         <td style="border: 1px solid #000000;" colspan=6 align="center" class="darkBg">사업장주소</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$F_VALUE["reg_addr"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$static_addr?></td>
     </tr>
     <tr>
         <td style="border: 1px solid #000000;" colspan=6 align="center" class="darkBg">전화</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$F_VALUE["reg_phone"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$static_phone?></td>
     </tr>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" class="darkBg">번호</td>
@@ -530,78 +353,17 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
         <td style="border: 1px solid #000000;" colspan=4 align="center" class="darkBg">단가</td>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" class="darkBg">비고</td>
     </tr>
+    <?for($w = 0; $w < sizeof($F_VALUE["products"]); $w++){?>
     <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="1" sdnum="1033;">1</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_01"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_01"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_01"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_01"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_01"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_01"]["etc"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg"><?=$w + 1?></td>
+        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["products"][$w]["name"]?></td>
+        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["products"][$w]["use"]?></td>
+        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["products"][$w]["unit"]?></td>
+        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["products"][$w]["quantity"]?></td>
+        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["products"][$w]["price"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["products"][$w]["etc"]?></td>
     </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="2" sdnum="1033;">2</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_02"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_02"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_02"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_02"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_02"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_02"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="3" sdnum="1033;">3</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_03"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_03"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_03"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_03"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_03"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_03"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="4" sdnum="1033;">4</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_04"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_04"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_04"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_04"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_04"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_04"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="5" sdnum="1033;">5</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_05"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_05"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_05"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_05"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_05"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_05"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="6" sdnum="1033;">6</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_06"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_06"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_06"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_06"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_06"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_06"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="7" sdnum="1033;">7</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_07"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_07"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_07"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_07"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_07"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_07"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg" sdval="8" sdnum="1033;">8</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["product_08"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_08"]["use"]?></td>
-        <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["product_08"]["unit"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["product_08"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["product_08"]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["product_08"]["etc"]?></td>
-    </tr>
+    <?}?>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="30" align="center" valign=middle class="darkBg">가격</td>
         <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["price"]?></td>
@@ -629,86 +391,16 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
         <td style="border: 1px solid #000000;" colspan=6 align="center" bgcolor="#FFFFFF">수량</td>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" bgcolor="#FFFFFF">비고</td>
     </tr>
+    <?for($w = 0; $w < sizeof($F_VALUE["products_left"]); $w++){?>
     <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_01"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_01"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_01"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_01"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_01"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_01"]["etc"]?></td>
+        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["products_left"][$w]["name"]?></td>
+        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["products_left"][$w]["quantity"]?></td>
+        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["products_left"][$w]["etc"]?></td>
+        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["products_right"][$w]["name"]?></td>
+        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["products_right"][$w]["quantity"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["products_right"][$w]["etc"]?></td>
     </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_02"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_02"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_02"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_02"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_02"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_02"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_03"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_03"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_03"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_03"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_03"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_03"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_04"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_04"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_04"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_04"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_04"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_04"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_05"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_05"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_05"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_05"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_05"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_05"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_06"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_06"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_06"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_06"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_06"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_06"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_07"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_07"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_07"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_07"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_07"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_07"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_08"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_08"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_08"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_08"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_08"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_08"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_09"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_09"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_09"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_09"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_09"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_09"]["etc"]?></td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_left_10"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_left_10"]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["product_left_10"]["etc"]?></td>
-        <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["product_right_10"]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["product_right_10"]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["product_right_10"]["etc"]?></td>
-    </tr>
+    <?}?>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle class="darkBg">참<br><br>고<br><br>사<br><br>항</td>
         <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=34 align="left" valign=middle><?=$F_VALUE["comment"]?></td>

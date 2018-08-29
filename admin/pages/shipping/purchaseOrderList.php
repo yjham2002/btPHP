@@ -11,39 +11,79 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
 $obj = new Uncallable($_REQUEST);
-$list = $obj->getKakaoList();
+$list = $obj->getOrderFormList();
 
 ?>
-
 <script>
     $(document).ready(function(){
         $(".jPage").click(function(){
             var page = $(this).attr("page");
             var range = $("[name=dateRange]:checked").val();
-            var year = $("#jYear").val();
-            var month = $("#jMonth").val();
+            var yearS = $("#jYearS").val();
+            var monthS = $("#jMonthS").val();
+            var yearE = $("#jYearE").val();
+            var monthE = $("#jMonthE").val();
+
+            if(yearS > yearE || (yearS == yearE && monthS > monthE)){
+                alert("시작일자는 종료일자 이전으로 설정하세요.");
+                return;
+            }
+
             location.href="/admin/pages/shipping/purchaseOrderList.php?" +
                 "page=" + page + "&" +
                 "range=" + range + "&" +
-                "year=" + year + "&" +
-                "month=" + month;
+                "yearS=" + yearS + "&" +
+                "yearE=" + yearE + "&" +
+                "monthS=" + monthS + "&" +
+                "monthE=" + monthE;
         });
 
         $(".jSearch").click(function(){
             var page = $(".pageNum").val();
             var range = $("[name=dateRange]:checked").val();
-            var year = $("#jYear").val();
-            var month = $("#jMonth").val();
+            var yearS = $("#jYearS").val();
+            var monthS = $("#jMonthS").val();
+            var yearE = $("#jYearE").val();
+            var monthE = $("#jMonthE").val();
+
+            if(yearS > yearE || (yearS == yearE && monthS > monthE)){
+                alert("시작일자는 종료일자 이전으로 설정하세요.");
+                return;
+            }
+
             location.href="/admin/pages/shipping/purchaseOrderList.php?" +
                 "page=" + page + "&" +
                 "range=" + range + "&" +
-                "year=" + year + "&" +
-                "month=" + month;
+                "yearS=" + yearS + "&" +
+                "yearE=" + yearE + "&" +
+                "monthS=" + monthS + "&" +
+                "monthE=" + monthE;
         });
 
         $(".jDetail").click(function(){
+            var id = $(this).attr("no");
+            location.href = "/admin/pages/shipping/purchaseOrderDetail.php?id=" + id;
+        });
+
+        $(".jForm").click(function(){
+            var id = $(this).attr("no");
+            window.open("/admin/writable/order_template.php?id=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes");
+        });
+
+        $(".jAdd").click(function(){
             location.href = "/admin/pages/shipping/purchaseOrderDetail.php"
         });
+
+        $(".jDelete").click(function(){
+            var id = $(this).attr("no");
+            if(confirm("해당 작업은 복구가 불가능합니다.\n정말 삭제하시겠습니까?")){
+                var ajax = new AjaxSender("/route.php?cmd=Uncallable.deleteOrderForm", true, "json", new sehoMap().put("id", id));
+                ajax.send(function (data) {
+                    location.reload();
+                });
+            }
+        });
+
     });
 </script>
 
@@ -73,24 +113,42 @@ $list = $obj->getKakaoList();
                             <label for="date-range">기간</label>
                         </div>
                         <div class="input-group">
-                            <select class="custom-select mr-2" id="jYear">
+                            <span class="form-control">범위</span>
+                            <select class="custom-select" id="jYearS">
                                 <?for($e = intval(date("Y")) + 5; $e >= 1950 ; $e--){?>
-                                    <option value="<?=$e?>" <?=$_REQUEST["year"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
+                                    <option value="<?=$e?>" <?=$_REQUEST["yearS"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
                                 <?}?>
                             </select>
-                            <select class="custom-select mr-2" id="jMonth">
+                            <select class="custom-select" id="jMonthS">
                                 <?for($e = 1; $e <= 12; $e++){
                                     $temp = $e < 10 ? "0".$e : $e;
                                     ?>
-                                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$_REQUEST["month"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
+                                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$_REQUEST["monthS"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
                                 <?}?>
                             </select>
-                            <button type="button" class="btn btn-primary jSearch">조회</button>
+                            <span class="form-control" style="text-align: center;"> ~ </span>
+                            <select class="custom-select" id="jYearE">
+                                <?for($e = intval(date("Y")) + 5; $e >= 1950 ; $e--){?>
+                                    <option value="<?=$e?>" <?=$_REQUEST["yearE"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
+                                <?}?>
+                            </select>
+                            <select class="custom-select" id="jMonthE">
+                                <?for($e = 1; $e <= 12; $e++){
+                                    $temp = $e < 10 ? "0".$e : $e;
+                                    ?>
+                                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$_REQUEST["monthE"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
+                                <?}?>
+                            </select>
+                            <button type="button" class="btn btn-primary jSearch form-control">조회</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+
+        <div class="float-right">
+            <button type="button" class="btn btn-secondary mb-3 jAdd">발주 입력</button>
+        </div>
 
         <table class="table">
             <thead>
@@ -99,43 +157,29 @@ $list = $obj->getKakaoList();
                 <th>년도</th>
                 <th>월호</th>
                 <th>유형</th>
-                <th>등록번호</th>
+                <th>발주번호</th>
                 <th>발주서</th>
                 <th>등록일자</th>
-                <th>상세</th>
+                <th>-</th>
             </tr>
             </thead>
             <tbody>
+            <?$vnum = $obj->virtualNum;
+            foreach($list as $item){?>
             <tr>
-                <td>1</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>미국판</td>
-                <td>610-82-78048</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
-                <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
+                <td><?=$vnum--?></td>
+                <td><?=$item["year"]?></td>
+                <td><?=$item["month"]?></td>
+                <td><?=$item["type"]?></td>
+                <td><?=$item["regNo"]?></td>
+                <td><button type="button" no="<?=$item["id"]?>" class="btn btn-secondary btn-sm jForm">발주서</button></td>
+                <td><?=$item["regDate"]?></td>
+                <td>
+                    <button type="button" no="<?=$item["id"]?>" class="btn btn-secondary btn-sm jDetail">상세</button>
+                    <button type="button" no="<?=$item["id"]?>" class="btn btn-danger btn-sm jDelete">삭제</button>
+                </td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>미국판</td>
-                <td>610-82-78048</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
-                <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>미국판</td>
-                <td>610-82-78048</td>
-                <td><button type="button" class="btn btn-secondary btn-sm">발주서</button></td>
-                <td>2018-01-01 13:12:13</td>
-                <td><button type="button" class="btn btn-secondary btn-sm jDetail">상세</button></td>
-            </tr>
+            <?}?>
             </tbody>
         </table>
         <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>

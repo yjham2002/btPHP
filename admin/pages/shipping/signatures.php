@@ -18,6 +18,12 @@ $uc = new Uncallable($_REQUEST);
 $CONST_PREFIX_IMAGE = "S_ORDER_";
 
 $imageList = $uc->getProperties($CONST_PREFIX_IMAGE, "#");
+
+$static_addr = $uc->getProperty("STATIC_ADDR");
+$static_reg = $uc->getProperty("STATIC_REG");
+$static_trade = $uc->getProperty("STATIC_TRADE");
+$static_phone = $uc->getProperty("STATIC_PHONE");
+
 ?>
 
     <script>
@@ -49,6 +55,22 @@ $imageList = $uc->getProperties($CONST_PREFIX_IMAGE, "#");
                 });
             });
 
+            $(".jSaveStatic").click(function(){
+                var pr = $(this).attr("pr");
+                var val = $("[pr="+pr+"]").val();
+
+                var ajax = new AjaxSender(
+                    "/route.php?cmd=Uncallable.setPropertyAjax",
+                    true, "json",
+                    new sehoMap().put("name", pr).put("value", val));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                        location.reload();
+                    }
+                });
+            });
+
         });
     </script>
 
@@ -56,11 +78,46 @@ $imageList = $uc->getProperties($CONST_PREFIX_IMAGE, "#");
         <div class="container-fluid">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">배송</li>
-                <li class="breadcrumb-item active">발주서 서명</li>
+                <li class="breadcrumb-item active">발주서 정적 데이터</li>
             </ol>
 
+            <h3>발주서 정적 정보 설정</h3>
+            <p>※ 발주서 양식에 정적으로 삽입되는 정보</p>
 
-            <h2>발주서 서명 이미지 설정</h2>
+            <br/>
+
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">사업장주소</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_ADDR" name="setDate" value="<?=$static_addr?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_ADDR">저장</a>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">등록번호</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_REG" name="setDate" value="<?=$static_reg?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_REG">저장</a>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">상호</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_TRADE" name="setDate" value="<?=$static_trade?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_TRADE">저장</a>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">전화</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_PHONE" name="setDate" value="<?=$static_phone?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_PHONE">저장</a>
+            </div>
+
+            <br/>
+
+            <h3>발주서 서명 이미지 설정</h3>
             <p>※ 가로 2 : 세로 1 비율 권장</p>
 
             <br/>

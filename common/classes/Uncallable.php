@@ -7,6 +7,19 @@ if(!class_exists("Uncallable")){
             parent::__construct($req);
         }
 
+        function deleteOrderForm(){
+            $id = $_REQUEST["id"];
+            $sql = "DELETE FROM tblOrderform WHERE `id`='{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function getOrderForm(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT * FROM tblOrderform WHERE `id`='{$id}'";
+            return $this->getRow($sql);
+        }
+
         function getOverviews(){
             $sql = "
             SELECT
@@ -72,6 +85,44 @@ if(!class_exists("Uncallable")){
             $this->setPage($this->rownum);
             $sql = "
             SELECT * FROM tblKakaoLog {$where}
+            ORDER BY regDate DESC
+            LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
+        function getOrderFormList(){
+            $this->initPage();
+            $where = " WHERE 1=1 ";
+
+            $yearS = $_REQUEST["yearS"];
+            $monthS = $_REQUEST["monthS"];
+            $yearE = $_REQUEST["yearE"];
+            $monthE = $_REQUEST["monthE"];
+
+            if($_REQUEST["range"] == "1" && $monthS != "" && $yearS != "" && $monthE != "" && $yearE != "") {
+                $yearSNum = intval($yearS);
+                $monthSNum = intval($monthS) < 10 ? "0".intval($monthS) : intval($monthS);
+                $yearENum = intval($yearE);
+                $monthENum = intval($monthE) < 10 ? "0".intval($monthE) : intval($monthE);
+                $where .= " AND `regDate` BETWEEN DATE('{$yearSNum}-{$monthSNum}-01') AND LAST_DAY(DATE('{$yearENum}-{$monthENum}-01'))";
+            }
+
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblOrderform {$where}";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT 
+                `id`, 
+                `regNo`, 
+                `buyer`, 
+                `year`, 
+                `month`, 
+                `setDate`, 
+                `type`,  
+                `uptDate`, 
+                `regDate`
+            FROM tblOrderform {$where}
             ORDER BY regDate DESC
             LIMIT {$this->startNum}, {$this->endNum};
             ";

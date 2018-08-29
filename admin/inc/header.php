@@ -60,7 +60,11 @@ if($userInfo->id < 0 || $userInfo->id == ""){
     echo "<script>location.href='/admin';</script>";
 }
 ?>
-
+<style>
+    td, th {
+        font-size: 0.9em;
+    }
+</style>
 <script>
     $(document).ready(function(){
         $(".jLogout").click(function(){
@@ -171,10 +175,9 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">발주서</h6>
-                <a class="dropdown-item" href="/admin/pages/shipping/signatures.php">발주서 서명</a>
-                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderList.php">발주서 조회</a>
-                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderDetail.php">발주 입력</a>
-                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderReport.php">발주 보고서</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/signatures.php">발주서 정적 데이터</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderList.php">발주서 입력 / 조회</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/formList.php">발주 보고서</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">입/출고 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/shipping/stockList.php">재고현황 / 조회</a>
