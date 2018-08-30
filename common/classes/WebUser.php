@@ -18,6 +18,11 @@ if(! class_exists("WebUser") ){
             return $arr;
         }
 
+        function getLocale(){
+            $sql = "SELECT * FROM tblLang ORDER BY `order` ASC";
+            return $this->getArray($sql);
+        }
+
         function login(){
             $account = $_REQUEST["account"];
             $password = md5($_REQUEST["password"]);

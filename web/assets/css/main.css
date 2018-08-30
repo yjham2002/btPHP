@@ -3787,7 +3787,7 @@
 			}
 
 			#header .rightBox {
-				padding : 0px 5px 0px 5px;
+				padding : 0px 5px;
 				z-index:998;
 				text-align: right;
 				background: inherit;
@@ -3799,15 +3799,14 @@
 				right : 0;
 			}
 
-			#header .rightBox .langBtn img{
-				vertical-align: middle;
-				display: inline-block;
-				margin-right: 5px;
+			@media screen and (min-width:1280px){
+				#header .rightBox{
+					margin-right : 1.0em;
+				}
 			}
 
 			#header .rightBox .link{
-				margin-right: 1.0em;
-				margin-left: 60px;
+				margin: 1.0em 0.2em;
 				height : 30px;
 				line-height: 30px;
 				vertical-align: middle;
@@ -3818,19 +3817,12 @@
 
 			@media screen and (max-width:430px){
 				#header .rightBox .link{
-					margin-left: 8px;
+					margin: 1.0em 0.1em;
 					font-size:0.6em;
 				}	
 				#header .rightBox .langBtn{
 					padding : 0 !important;
 				}
-			}
-
-			#header .rightBox .langBtn{
-				font-size: 0.7em;
-				vertical-align: middle;
-				padding:5px;
-				color : black;
 			}
 
 			#header a.navPanelToggle {

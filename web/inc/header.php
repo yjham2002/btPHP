@@ -92,7 +92,7 @@
             return unescape(cValue);
         }
 
-        $(".langBtn").click(function(){
+        $(".langBtnEv").click(function(){
             var val = $(this).attr("loc");
             setCookie('btLocale', val, 1);
             location.reload();
@@ -112,6 +112,14 @@
             if( isNaN(num) ) return "0";
             return num.format();
         };
+
+        $(".jLangShow").click(function(){
+            $("#jLangPop").fadeIn();
+        });
+
+        $(".jCloseLangPop").click(function(){
+            $("#jLangPop").fadeOut();
+        });
 
         $(".jLogout").click(function(){
             var ajax = new AjaxSender("/route.php?cmd=WebUser.logout", true, "json", new sehoMap());
@@ -137,6 +145,38 @@
 
 <!-- Header -->
 <header id="header">
+
+    <div id="jLangPop" style="
+      border:2px white solid;
+      display: none;
+      padding:0em 1.0em 1.0em 1.0em;
+      vertical-align:middle;
+      text-align:center;
+      border-radius:5px;
+      z-index: 999;
+      position: fixed;
+      top : 28%;
+      left:calc(50% - 15vw);
+      background: #3a3a3a;
+      width : 30vw;
+      ">
+        <a href="#" style="float:right;margin:1.0em;color:white;text-decoration: none;">
+            <span class="fa fa-close jCloseLangPop"></span>
+        </a>
+        <table style="height: 100%; margin:auto 0;">
+            <tr>
+                <td>
+                    <?
+                    $langList = $expObj->getLocale();
+                    ?>
+                    <?foreach($langList as $listItem){?>
+                        <a class="langBtnEv" loc="<?=$listItem["code"]?>" href="#" style="margin:.5em 0em;color:white;text-decoration: none;"><?=strtoupper($listItem["code"])?></a><br/>
+                    <?}?>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div class="inner">
         <a href="/web" class="logo"><?=$HEADER_ELEMENTS["webTitle"]?></a>
         <nav id="nav">
@@ -146,24 +186,20 @@
             <a class="headerMenu" match="/web/pages/contribution.php" href="/web/pages/contribution.php"><?=$HEADER_ELEMENTS["headerMenu_support"]?></a>
             <a class="headerMenu" match="/web/pages/donation.php" href="/web/pages/donation.php"><?=$HEADER_ELEMENTS["headerMenu_share"]?></a>
             <a class="headerMenu" match="/web/pages/faq.php" href="/web/pages/faq.php"><?=$HEADER_ELEMENTS["headerMenu_faq"]?></a>
-            <?if($user->id != ""){?>
-                <a class="headerMenu jLogout">로그아웃</a>
-            <?}?>
-
-
         </nav>
-        <div class="rightBox">
-            <a class="langBtn" loc="kr" href="#"><img src="/web/images/lang_ko.png" />KO | </a>
-            <a class="langBtn" loc="en" href="#"><img src="/web/images/lang_en.png" />EN | </a>
-            <a class="langBtn" loc="es" href="#"><img src="/web/images/lang_es.png" />ES | </a>
-            <a class="langBtn" loc="zh" href="#"><img src="/web/images/lang_zh.png" />ZH</a>
 
+        <div class="rightBox">
+            <a class="link jLangShow" href="#"><span class="fa fa-language"> <?=strtoupper($country_code)?> </span></a>
             <?if($user != "" && $user != null){?>
-                <a class="link" href="/web/pages/mypage.php"><?=$HEADER_ELEMENTS["headerMenu_mypage"]?></a>
+                <a class="link" href="/web/pages/mypage.php"><span class="fa fa-user"> <?=$HEADER_ELEMENTS["headerMenu_mypage"]?> </span></a>
             <?}else{?>
-                <a class="link" href="/web/pages/login.php"><?=$HEADER_ELEMENTS["headerMenu_login"]?></a>
+                <a class="link" href="/web/pages/login.php"><span class="fa fa-user"> <?=$HEADER_ELEMENTS["headerMenu_login"]?> </span></a>
+            <?}?>
+            <?if($user->id != ""){?>
+                <a class="link jLogout" href="#"><span class="fa fa-power-off"> 로그아웃 </span></a>
             <?}?>
         </div>
+
         <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
     </div>
 </header>
