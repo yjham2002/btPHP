@@ -250,6 +250,7 @@ if(!class_exists("Management")){
                   `client` = '{$_REQUEST["client"]}',
                   `printCharge` = '{$printCharge}',
                   `deliveryCharge` = '{$deliveryCharge}',
+                  `paymentFlag` = '{$_REQUEST["paymentFlag"]}',
                   `dueDate1` = '{$_REQUEST["dueDate1"]}',
                   `dueDate2` = '{$_REQUEST["dueDate2"]}',
                   `dueDate3` = '{$_REQUEST["dueDate3"]}',
@@ -292,6 +293,34 @@ if(!class_exists("Management")){
                   {$set}
                 WHERE 
                 `id` IN (SELECT * FROM (SELECT `id` FROM tblForeignPubItem WHERE `id` = '{$id}' LIMIT 1) tmp)
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function fPubChildList(){
+            $this->initPage();
+            $sql = "SELECT COUNT(*) cnt FROM tblForeignPubItem FPI JOIN tblForeignPub FP ON FPI.foreignPubId = FP.id";
+            $this->rownum = $this->getValue($sql, "cnt");
+
+            $this->setPage($this->rownum);
+
+            $sql = "
+                SELECT FPI.*, FP.country, FP.language, FP.year 
+                FROM tblForeignPubItem FPI JOIN tblForeignPub FP ON FPI.foreignPubId = FP.id
+                ORDER BY regDate DESC
+                LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
+        function changeFpubFlag(){
+            $id = $_REQUEST["id"];
+            $flag = $_REQUEST["flag"];
+            $sql = "
+                UPDATE tblForeignPubItem 
+                SET `paymentFlag` = '{$flag}'
+                WHERE `id` = '{$id}'
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");

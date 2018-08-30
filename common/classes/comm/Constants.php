@@ -20,9 +20,9 @@ if(! class_exists("Constants") )
 //		var $con_domain				= "http://localhost:9880" ;	// 메일에서 사용되는 도메인
 //
         //MAC Local path
-//        var $filePath               = "/usr/local/var/BibleTime/uploadFiles/";
+        var $filePath               = "/usr/local/var/BibleTime/uploadFiles/";
         //Windows Local path
-        var $filePath               = "D:/workspace_integrated/WebstormProjects/BibleTime/uploadFiles/";
+//        var $filePath               = "D:/workspace_integrated/WebstormProjects/BibleTime/uploadFiles/";
 
         var $fileShowPath           = "/uploadFiles/";
 

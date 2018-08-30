@@ -191,7 +191,14 @@
                         <td><?=$item["endDate2"]?></td>
                         <td><?=$item["endDate3"]?></td>
                         <td><?=$item["endDate4"]?></td>
-                        <td></td>
+                        <td>
+                            <select class="form-control" id="paymentFlag" name="paymentFlag">
+                                <option value="0" <?=$item["paymentFlag"] == "0" ? "selected" : ""?>>처리중</option>
+                                <option value="-1" <?=$item["paymentFlag"] == "-1" ? "selected" : ""?>>미결제</option>
+                                <option value="1" <?=$item["paymentFlag"] == "1" ? "selected" : ""?>>완료</option>
+                            </select>
+
+                        </td>
                     </tr>
                     </tbody>
                 </table>
