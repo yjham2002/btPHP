@@ -6074,20 +6074,20 @@ locale</ColNames>
     </column>
     <column id="1286" parent="404" name="shippingType">
       <Position>4</Position>
-      <Comment>배송방식 우편/택배/직배송</Comment>
-      <DataType>varchar(8)|0s</DataType>
+      <Comment>배송방식 0: 우편 1: 택배 2: 직배송</Comment>
+      <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="1287" parent="404" name="shippingCo">
       <Position>5</Position>
       <Comment>배송거래처 DM/우체국/CJ</Comment>
-      <DataType>varchar(16)|0s</DataType>
+      <DataType>varchar(128)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="1288" parent="404" name="shippingPrice">
       <Position>6</Position>
       <Comment>배송비</Comment>
-      <DataType>varchar(16)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="1289" parent="404" name="trackingNo">
@@ -6098,8 +6098,8 @@ locale</ColNames>
     </column>
     <column id="1290" parent="404" name="type">
       <Position>8</Position>
-      <Comment>언어판 KO/EN</Comment>
-      <DataType>varchar(8)|0s</DataType>
+      <Comment>분류  0: 미국판 1: 한국판 2: 표지광고</Comment>
+      <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="1291" parent="404" name="cnt">

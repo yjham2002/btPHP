@@ -363,11 +363,34 @@ if(!class_exists("Management")){
                       NOW()
                     )
                 ";
-                echo $sql;
-                echo "\n";
                 $this->update($sql);
             }
             return $this->makeResultJson(1, "succ");
+        }
+
+        function stockHistory(){
+            $startDate = $_REQUEST["startDate"];
+            $endDate = $_REQUEST["endDate"];
+            $where = "1=1";
+            if($startDate != "") $where .= " AND regDate >= '{$startDate}'";
+            if($endDate != "") $where .= "AND regDate <= '{$endDate}'";
+
+            $sql = "SELECT COUNT(*) cnt FROM tblWarehousing WHERE {$where}";
+            $this->initPage();
+            $this->rownum = $this->getValue($sql, "cnt");
+            $this->setPage($this->rownum);
+
+            $sql = "
+                SELECT 
+                  *, 
+                  (SELECT `desc` FROM tblPublication WHERE `id` = publicationId) publicationName,
+                  (SELECT `name` FROM tblAdmin WHERE tblAdmin.id = adminId) adminName
+                FROM tblWarehousing
+                WHERE {$where}
+                ORDER BY regDate DESC
+                LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
         }
     }
 }
