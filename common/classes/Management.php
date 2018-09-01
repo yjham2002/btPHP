@@ -331,5 +331,43 @@ if(!class_exists("Management")){
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }
+
+        function storePublication(){
+            $adminId = $this->admUser->id;
+            $shippingType = $_REQUEST["shippingType"];
+            $shippingCo = $_REQUEST["shippingCo"];
+            $shippingPrice = str_replace(",", "", $_REQUEST["shippingPrice"]);
+
+            $publicationIdArr = $_REQUEST["publicationId"];
+            $typeArr = $_REQUEST["type"];
+            $cntArr = $_REQUEST["cnt"];
+            $pYearArr = $_REQUEST["pYear"];
+            $pMonthArr = $_REQUEST["pMonth"];
+            $contentArr = $_REQUEST["content"];
+
+            for($i=0; $i<sizeof($publicationIdArr); $i++){
+                $sql = "
+                    INSERT INTO tblWarehousing(`publicationId`, `adminId`, `shippingType`, `shippingCo`, `shippingPrice`, `type`, `cnt`, `pYear`, `pMonth`,
+                    `content`, `regDate`)
+                    VALUES(
+                      '{$publicationIdArr[$i]}',
+                      '{$adminId}',
+                      '{$shippingType}',
+                      '{$shippingPrice}',
+                      '{$shippingPrice}',
+                      '{$typeArr[$i]}',
+                      '{$cntArr[$i]}',
+                      '{$pYearArr[$i]}',
+                      '{$pMonthArr[$i]}',
+                      '{$contentArr[$i]}',
+                      NOW()
+                    )
+                ";
+                echo $sql;
+                echo "\n";
+                $this->update($sql);
+            }
+            return $this->makeResultJson(1, "succ");
+        }
     }
 }
