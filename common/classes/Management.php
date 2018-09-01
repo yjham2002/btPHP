@@ -194,6 +194,12 @@ if(!class_exists("Management")){
             $printCharge = str_replace(",", "", $_REQUEST["printCharge"]);
             $deliveryCharge = str_replace(",", "", $_REQUEST["deliveryCharge"]);
 
+            $dueDate1 = $_REQUEST["dueDate1"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate1"]);
+            $dueDate2 = $_REQUEST["dueDate2"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate2"]);
+            $dueDate3 = $_REQUEST["dueDate3"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate3"]);
+            $dueDate4 = $_REQUEST["dueDate4"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate4"]);
+            $dueDate5 = $_REQUEST["dueDate5"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate5"]);
+
             for($i = 0; $i < 3; $i++) {
                 $check = file_exists($_FILES['docFile'.($i+1)]['tmp_name']);
                 $fileName = $_FILES["docFile".($i+1)]["name"];
@@ -231,11 +237,11 @@ if(!class_exists("Management")){
                   '{$_REQUEST["client"]}',
                   '{$printCharge}',
                   '{$deliveryCharge}',
-                  '{$_REQUEST["dueDate1"]}',
-                  '{$_REQUEST["dueDate2"]}',
-                  '{$_REQUEST["dueDate3"]}',
-                  '{$_REQUEST["dueDate4"]}',
-                  '{$_REQUEST["dueDate5"]}',
+                  {$dueDate1},
+                  {$dueDate2},
+                  {$dueDate3},
+                  {$dueDate4},
+                  {$dueDate5},
                   '{$fileArray[0]["fileName"]}', '{$fileArray[0]["filePath"]}',
                   '{$fileArray[1]["fileName"]}', '{$fileArray[1]["filePath"]}',
                   '{$fileArray[2]["fileName"]}', '{$fileArray[2]["filePath"]}',
@@ -251,11 +257,11 @@ if(!class_exists("Management")){
                   `printCharge` = '{$printCharge}',
                   `deliveryCharge` = '{$deliveryCharge}',
                   `paymentFlag` = '{$_REQUEST["paymentFlag"]}',
-                  `dueDate1` = '{$_REQUEST["dueDate1"]}',
-                  `dueDate2` = '{$_REQUEST["dueDate2"]}',
-                  `dueDate3` = '{$_REQUEST["dueDate3"]}',
-                  `dueDate4` = '{$_REQUEST["dueDate4"]}',
-                  `dueDate5` = '{$_REQUEST["dueDate5"]}',
+                  `dueDate1` = {$dueDate1},
+                  `dueDate2` = {$dueDate2},
+                  `dueDate3` = {$dueDate3},
+                  `dueDate4` = {$dueDate4},
+                  `dueDate5` = {$dueDate5},
                   `fileName1` = '{$fileArray[0]["fileName"]}',
                   `filePath1` = '{$fileArray[0]["filePath"]}',
                   `fileName2` = '{$fileArray[1]["fileName"]}',

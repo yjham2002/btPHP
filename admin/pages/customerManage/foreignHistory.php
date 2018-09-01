@@ -209,7 +209,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col" style="width: 33.3%">
-                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath1"]?>" type="application/pdf" width="100%" height="480px"></object>
+                        <object class="jViewDoc" data="<?=$item["filePath1"] == "" ? "" : "../../../uploadFiles/" . $item["filePath1"]?>" type="application/pdf" width="100%" height="480px"></object>
                         <br>
                         <div class="input-group mb-3">
                             <div class="custom-file">
@@ -227,7 +227,7 @@
                         </div>
                     </div>
                     <div class="col" style="width: 33.3%">
-                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath2"]?>" type="application/pdf" width="100%" height="480px"></object>
+                        <object class="jViewDoc" data="<?=$item["filePath2"] == "" ? "" : "../../../uploadFiles/" . $item["filePath2"]?>" type="application/pdf" width="100%" height="480px"></object>
                         <div class="input-group mb-3">
                             <div class="custom-file">
                                 <input type="hidden" name="filePath2" value="<?=$item["filePath2"]?>"/>
@@ -244,7 +244,7 @@
                         </div>
                     </div>
                     <div class="col" style="width: 33.3%">
-                        <object class="jViewDoc" data="../../../uploadFiles/<?=$item["filePath3"]?>" type="application/pdf" width="100%" height="480px"></object>
+                        <object class="jViewDoc" data="<?=$item["filePath3"] == "" ? "" : "../../../uploadFiles/" . $item["filePath3"]?>" type="application/pdf" width="100%" height="480px"></object>
                         <br>
                         <div class="input-group mb-3">
                             <div class="custom-file">
