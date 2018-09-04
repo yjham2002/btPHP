@@ -353,7 +353,7 @@ if(!class_exists("Management")){
                       '{$publicationIdArr[$i]}',
                       '{$adminId}',
                       '{$shippingType}',
-                      '{$shippingPrice}',
+                      '{$shippingCo}',
                       '{$shippingPrice}',
                       '{$typeArr[$i]}',
                       '{$cntArr[$i]}',
@@ -391,6 +391,49 @@ if(!class_exists("Management")){
                 LIMIT {$this->startNum}, {$this->endNum};
             ";
             return $this->getArray($sql);
+        }
+
+        function stockStat(){
+            $startYear = $_REQUEST["startYear"];
+            $startMonth = $_REQUEST["startMonth"];
+            $endYear = $_REQUEST["endYear"];
+            $endMonth = $_REQUEST["endMonth"];
+
+            $sql = "
+                SELECT *, SUM(cnt) AS summation
+                FROM tblWarehousing
+                WHERE 
+                1=1
+            ";
+            if($startYear != ""){
+                if($startMonth == "") $startMonth = 1;
+                $sql .= "
+                AND CASE
+                  WHEN pYear = '{$startYear}' THEN pMonth >= '{$startMonth}'
+                  WHEN pYear < '{$startYear}' THEN pYear > '{$startYear}'
+                  WHEN pYear > '{$startYear}' THEN 1=1   
+                  ELSE 1=1
+                END
+                ";
+            }
+            if($endYear != ""){
+                if($endMonth == "") $endMonth = 1;
+                $sql .= "
+                AND CASE
+                  WHEN pYear = '{$endYear}' THEN pMonth <= '{$endMonth}'
+                  WHEN pYear < '{$endYear}' THEN 1=1
+                  WHEN pYear > '{$endYear}' THEN pYear < '{$endYear}'
+                  ELSE 1=1
+                END
+                ";
+            }
+            $sql .= "GROUP BY pYear, pMonth, publicationId ORDER BY pYear DESC, pMonth DESC";
+
+            return $this->getArray($sql);
+        }
+
+        function currentStock(){
+
         }
     }
 }

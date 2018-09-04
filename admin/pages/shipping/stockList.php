@@ -12,7 +12,21 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $obj = new Management($_REQUEST);
+    $obj2 = new AdminMain($_REQUEST);
     $list = $obj->stockHistory();
+    $pubList = $obj2->publicationList();
+
+    $statList = $obj->stockStat();
+    $pivotArray = array();
+
+    for($e = 0; $e < sizeof($statList); $e++){
+        $year = $statList[$e]["pYear"];
+        $month = $statList[$e]["pMonth"];
+        $pId = $statList[$e]["publicationId"];
+        $pivotArray[$year][$month][$pId] = $statList[$e]["summation"];
+    }
+
+//    echo json_encode($pivotArray);
 ?>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -56,38 +70,38 @@
             <input type="hidden" name="page" />
 
             <div class="input-group mb-3">
-<!--                <select class="custom-select mr-2 col-2" id="startYear" name="startYear">-->
-<!--                    <option value="">선택</option>-->
-<!--                    --><?//for($i=-50; $i<50; $i++){
-//                        $tmp = intval(date("Y")) + $i;
-//                        ?>
-<!--                        <option value="--><?//=$tmp?><!--">--><?//=$tmp?><!--</option>-->
-<!--                    --><?//}?>
-<!--                </select>-->
-<!--                <select class="custom-select mr-2 col-2" name="pMonth[]">-->
-<!--                    <option value="">선택</option>-->
-<!--                    --><?//for($i=1; $i<13; $i++){?>
-<!--                        <option value="--><?//=$i?><!--">--><?//=$i?><!--</option>-->
-<!--                    --><?//}?>
-<!--                </select>-->
-<!--                <b class="mr-3">~</b>-->
-<!--                <select class="custom-select mr-2 col-2" id="endYear" name="endYear">-->
-<!--                    <option value="">선택</option>-->
-<!--                    --><?//for($i=-50; $i<50; $i++){
-//                        $tmp = intval(date("Y")) + $i;
-//                        ?>
-<!--                        <option value="--><?//=$tmp?><!--">--><?//=$tmp?><!--</option>-->
-<!--                    --><?//}?>
-<!--                </select>-->
-<!--                <select class="custom-select mr-2 col-2" name="encMonth">-->
-<!--                    <option value="">선택</option>-->
-<!--                    --><?//for($i=1; $i<13; $i++){?>
-<!--                        <option value="--><?//=$i?><!--">--><?//=$i?><!--</option>-->
-<!--                    --><?//}?>
-<!--                </select>-->
-                <input class="form-control datePicker mr-3 col-2" name="startDate" value="<?=$_REQUEST["startDate"]?>" />
+                <select class="custom-select mr-2 col-2" id="startYear" name="startYear">
+                    <option value="">선택</option>
+                    <?for($i=-50; $i<50; $i++){
+                        $tmp = intval(date("Y")) + $i;
+                        ?>
+                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                    <?}?>
+                </select>
+                <select class="custom-select mr-2 col-2" name="pMonth[]">
+                    <option value="">선택</option>
+                    <?for($i=1; $i<13; $i++){?>
+                        <option value="<?=$i?>"><?=$i?></option>
+                    <?}?>
+                </select>
                 <b class="mr-3">~</b>
-                <input class="form-control datePicker mr-2 col-2" name="endDate" value="<?=$_REQUEST["endDate"]?>" />
+                <select class="custom-select mr-2 col-2" id="endYear" name="endYear">
+                    <option value="">선택</option>
+                    <?for($i=-50; $i<50; $i++){
+                        $tmp = intval(date("Y")) + $i;
+                        ?>
+                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                    <?}?>
+                </select>
+                <select class="custom-select mr-2 col-2" name="encMonth">
+                    <option value="">선택</option>
+                    <?for($i=1; $i<13; $i++){?>
+                        <option value="<?=$i?>"><?=$i?></option>
+                    <?}?>
+                </select>
+<!--                <input class="form-control datePicker mr-3 col-2" name="startDate" value="--><?//=$_REQUEST["startDate"]?><!--" />-->
+<!--                <b class="mr-3">~</b>-->
+<!--                <input class="form-control datePicker mr-2 col-2" name="endDate" value="--><?//=$_REQUEST["endDate"]?><!--" />-->
                 <button type="button" class="btn btn-secondary ml-2 jSearch">
                     <i class="fas fa-search fa-fw"></i>
                 </button>
@@ -97,6 +111,36 @@
                 </div>
             </div>
         </form>
+
+        <table class="table table-sm text-center">
+            <thead>
+            <tr>
+                <th>연도</th>
+                <th>월호</th>
+                <?foreach($pubList as $pubItem){?>
+                    <th><?=$pubItem["desc"]?></th>
+                <?}?>
+            </tr>
+            </thead>
+            <tbody>
+            <?$i=-1;?>
+            <?foreach(array_keys($pivotArray) as $year){?>
+                <?foreach(array_keys($pivotArray[$year]) as $month){?>
+                    <tr>
+                        <td><?=$year?></td>
+                        <td><?=$month?></td>
+                        <?foreach($pubList as $pubItem2){?>
+                            <td><?=$pivotArray[$year][$month][$pubItem2["id"]]?></td>
+                        <?}?>
+
+<!--                        --><?//for($e=0; $e<sizeof($pubList); $e++){?>
+<!--                            <td>--><?//=$pivotArray[$year][$month][$pubList[$e]]?><!--</td>-->
+<!--                        --><?//}?>
+                    </tr>
+                <?}?>
+            <?}?>
+            </tbody>
+        </table>
 
         <table class="table table table-sm text-center">
             <thead>

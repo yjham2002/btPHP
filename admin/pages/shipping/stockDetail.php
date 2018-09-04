@@ -2,92 +2,47 @@
 /**
  * Created by PhpStorm.
  * User: sayho
- * Date: 2018. 9. 1.
- * Time: PM 4:39
+ * Date: 2018. 8. 1.
+ * Time: PM 4:38
  */
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
-    $obj = new Management($_REQUEST);
-    $obj2 = new AdminMain($_REQUEST);
-    $pList = $obj2->publicationList();
+$obj = new Management($_REQUEST);
+$obj2 = new AdminMain($_REQUEST);
+$list = $obj->stockHistory();
+$pubList = $obj2->publicationList();
 ?>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="/admin/scss/smSheet.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--<link rel="stylesheet" href="/admin/scss/smSheet.css">-->
 <script>
     $(document).ready(function(){
-        $(".jAddStore").click(function(){
-            var template = $(".newStoreTemplate").html();
-            $("#storeAddArea").append(template);
+        $(".datePicker").datepicker({
+            showMonthAfterYear:true,
+            inline: true,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat : 'yy-mm-dd',
+            dayNamesMin:['일', '월', '화', '수', '목', '금', ' 토'],
+            monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
         });
 
-        $("[name=shippingPrice]").keyup(function(){
-            $(this).val($(this).val().format());
+        $(".jPage").click(function(){
+            $("[name=page]").val($(this).attr("page"));
+            form.submit();
         });
 
-        $(".jSave").click(function(){
-            //TODO table cell save procedure
-            var ajax = new AjaxSubmit("/route.php?cmd=Management.storePublication", "post", true, "json", "#form");
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    alert("등록되었습니다.");
-                    location.reload();
-                }
-            });
+        $(".jSearch").click(function(){
+            form.submit();
         });
     });
 </script>
-
-
-<table style="display: none;">
-    <tbody class="newStoreTemplate">
-    <tr>
-        <td>
-            <select class="form-control" name="publicationId[]">
-                <?foreach($pList as $pItem){?>
-                    <option value="<?=$pItem["id"]?>"><?=$pItem["desc"]?></option>
-                <?}?>
-            </select>
-        </td>
-        <td>
-            <select class="form-control" name="type[]">
-                <option value="">선택</option>
-                <option value="0">미국판</option>
-                <option value="1">한국판</option>
-                <option value="2">표지광고</option>
-            </select>
-        </td>
-        <td>
-            <input type="number" class="form-control" name="cnt[]">
-        </td>
-        <td>
-            <select class="form-control" name="pYear[]">
-                <option value="">선택</option>
-                <?for($i=-50; $i<50; $i++){
-                    $tmp = intval(date("Y")) + $i;
-                    ?>
-                    <option value="<?=$tmp?>"><?=$tmp?></option>
-                <?}?>
-            </select>
-        </td>
-        <td>
-            <select class="form-control" name="pMonth[]">
-                <option value="">선택</option>
-                <?for($i=1; $i<13; $i++){?>
-                    <option value="<?=$i?>"><?=$i?></option>
-                <?}?>
-            </select>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="content[]">
-        </td>
-    </tr>
-    </tbody>
-</table>
 
 <div id="content-wrapper">
     <div class="container-fluid">
@@ -96,73 +51,97 @@
             <li class="breadcrumb-item">
                 <a>배송</a>
             </li>
-            <li class="breadcrumb-item active">입고 입력</li>
+            <li class="breadcrumb-item active">재고현황 조회</li>
         </ol>
-        <button type="button" class="btn btn-primary float-right mb-3 jSave">입력</button>
-        <form method="post" id="form" action="#" enctype="multipart/form-data">
 
-            <table class="table table-sm table-bordered text-center">
-                <colgroup>
-                    <col width="10%"/>
-                    <col width="25%"/>
-                    <col width="10%"/>
-                    <col width="25%"/>
-                </colgroup>
-                <tr class="h-auto">
-                    <td class="bg-secondary text-light">일자</td>
-                    <td><?=date("Y-m-d")?></td>
-                    <td class="bg-secondary text-light">담당자</td>
-                    <td><?=$obj->admUser->name?></td>
-                </tr>
-                <tr class="h-auto">
-                    <td class="bg-secondary text-light">배송방식</td>
-                    <td style="text-align: center;">
-                        <select class="form-control" name="shippingType">
-                            <option value="">선택</option>
-                            <option value="0">우편</option>
-                            <option value="1">택배</option>
-                            <option value="2">직배송</option>
-                        </select>
-                    </td>
-                    <td class="bg-secondary text-light">배송거래처</td>
-                    <td><input type="text" class="form-control" name="shippingCo" value=""/></td>
-                </tr>
-                <tr class="h-auto">
-                    <td class="bg-secondary text-light">배송비</td>
-                    <td><input type="text" class="form-control" name="shippingPrice" value=""/></td>
-                </tr>
-            </table>
+        <form id="form">
+            <input type="hidden" name="page" />
 
-            <hr>
+            <div class="input-group mb-3">
+                <select class="custom-select mr-2 col-2" id="startYear" name="startYear">
+                    <option value="">선택</option>
+                    <?for($i=-50; $i<50; $i++){
+                        $tmp = intval(date("Y")) + $i;
+                        ?>
+                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                    <?}?>
+                </select>
+                <select class="custom-select mr-2 col-2" name="pMonth[]">
+                    <option value="">선택</option>
+                    <?for($i=1; $i<13; $i++){?>
+                        <option value="<?=$i?>"><?=$i?></option>
+                    <?}?>
+                </select>
+                <b class="mr-3">~</b>
+                <select class="custom-select mr-2 col-2" id="endYear" name="endYear">
+                    <option value="">선택</option>
+                    <?for($i=-50; $i<50; $i++){
+                        $tmp = intval(date("Y")) + $i;
+                        ?>
+                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                    <?}?>
+                </select>
+                <select class="custom-select mr-2 col-2" name="encMonth">
+                    <option value="">선택</option>
+                    <?for($i=1; $i<13; $i++){?>
+                        <option value="<?=$i?>"><?=$i?></option>
+                    <?}?>
+                </select>
+                <!--                <input class="form-control datePicker mr-3 col-2" name="startDate" value="--><?//=$_REQUEST["startDate"]?><!--" />-->
+                <!--                <b class="mr-3">~</b>-->
+                <!--                <input class="form-control datePicker mr-2 col-2" name="endDate" value="--><?//=$_REQUEST["endDate"]?><!--" />-->
+                <button type="button" class="btn btn-secondary ml-2 jSearch">
+                    <i class="fas fa-search fa-fw"></i>
+                </button>
 
-            <div class="input-group mb-3 float-right">
-
-            </div>
-
-            <div style="width: 100%; height: 500px; overflow-y: scroll">
-                <table class="table table-sm table-bordered">
-                    <thead>
-                    <tr>
-                        <th style="width:12%">버전</th>
-                        <th style="width:12%">분류</th>
-                        <th style="width:12%">수량</th>
-                        <th style="width:12%">연도</th>
-                        <th style="width:12%">월호</th>
-                        <th style="width:40%">내용</th>
-                    </tr>
-                    </thead>
-                    <tbody id="storeAddArea">
-
-                    </tbody>
-                </table>
-                <div class="input-group float-none">
-                    <button type="button" class="btn btn-secondary ml-4 jAddStore">+</button>
+                <div class="btn-group float-right ml-5">
+                    <button type="button" class="btn btn-secondary float-right jExcel">Excel</button>
                 </div>
             </div>
         </form>
+
+        <table class="table table-sm text-center">
+            <thead>
+            <tr>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
+
+        <table class="table table table-sm text-center">
+            <thead>
+            <tr>
+                <th>등록일시</th>
+                <th>입고/출고</th>
+                <th>버전</th>
+                <th>담당자</th>
+                <th>수량</th>
+                <th>연도</th>
+                <th>월호</th>
+                <th>받는사람</th>
+                <th>내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?foreach($list as $item){?>
+                <tr>
+                    <td><?=$item["regDate"]?></td>
+                    <td><?=$item["cnt"] > 0 ? "입고" : "출고"?></td>
+                    <td><?=$item["publicationName"]?></td>
+                    <td><?=$item["adminName"]?></td>
+                    <td><?=$item["cnt"]?></td>
+                    <td><?=$item["pYear"]?></td>
+                    <td><?=$item["pMonth"]?></td>
+                    <td><?=$item[""]?> TODO</td>
+                    <td><?=$item["content"]?></td>
+                </tr>
+            <?}?>
+            </tbody>
+        </table>
+        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
 </div>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
 
+<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
 
