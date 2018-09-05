@@ -45,6 +45,7 @@ if(!class_exists("Uncallable")){
             $sql = "UPDATE tblOrderform SET `formJson` = '{$formJson}' WHERE `id`='{$id}'";
             $this->update($sql);
 
+
             return $this->makeResultJson(1, $sql);
         }
 
