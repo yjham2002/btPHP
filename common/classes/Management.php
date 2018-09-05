@@ -371,9 +371,10 @@ if(!class_exists("Management")){
         function stockHistory(){
             $startDate = $_REQUEST["startDate"];
             $endDate = $_REQUEST["endDate"];
-            $where = "1=1";
-            if($startDate != "") $where .= " AND regDate >= '{$startDate}'";
-            if($endDate != "") $where .= "AND regDate <= '{$endDate}'";
+
+            $year = $_REQUEST["year"];
+            $month = $_REQUEST["month"];
+            $where = "pYear = '{$year}' AND pMonth = '{$month}'";
 
             $sql = "SELECT COUNT(*) cnt FROM tblWarehousing WHERE {$where}";
             $this->initPage();
@@ -431,8 +432,34 @@ if(!class_exists("Management")){
             return $this->getArray($sql);
         }
 
-        function currentStock(){
+        function stockDetail(){
+            $year = $_REQUEST["year"];
+            $month = $_REQUEST["month"];
 
+            $sql = "
+                SELECT 
+                  *
+                FROM tblPublication 
+                ORDER BY regDate DESC
+            ";
+            $pubList = $this->getArray($sql);
+
+            $sql = "
+                SELECT *, SUM(cnt) AS summation
+                FROM tblWarehousing
+                WHERE pYear = '{$year}' AND pMonth = '{$month}'
+                GROUP BY publicationId, `type` 
+            ";
+            $stat = $this->getArray($sql);
+
+            for($i=0; $i<sizeof($pubList); $i++){
+                for($e=0; $e<sizeof($stat); $e++){
+                    if($pubList[$i]["id"] == $stat[$e]["publicationId"]){
+                        $pubList[$i]["stat"][intval($stat[$e]["type"])] = $stat[$e]["summation"];
+                    }
+                }
+            }
+            return $pubList;
         }
     }
 }

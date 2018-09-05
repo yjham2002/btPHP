@@ -145,37 +145,37 @@
             </tbody>
         </table>
 
-        <table class="table table table-sm text-center">
-            <thead>
-            <tr>
-                <th>등록일시</th>
-                <th>입고/출고</th>
-                <th>버전</th>
-                <th>담당자</th>
-                <th>수량</th>
-                <th>연도</th>
-                <th>월호</th>
-                <th>받는사람</th>
-                <th>내용</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?foreach($list as $item){?>
-              <tr>
-                  <td><?=$item["regDate"]?></td>
-                  <td><?=$item["cnt"] > 0 ? "입고" : "출고"?></td>
-                  <td><?=$item["publicationName"]?></td>
-                  <td><?=$item["adminName"]?></td>
-                  <td><?=$item["cnt"]?></td>
-                  <td><?=$item["pYear"]?></td>
-                  <td><?=$item["pMonth"]?></td>
-                  <td><?=$item[""]?> TODO</td>
-                  <td><?=$item["content"]?></td>
-              </tr>
-            <?}?>
-            </tbody>
-        </table>
-        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
+<!--        <table class="table table table-sm text-center">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>등록일시</th>-->
+<!--                <th>입고/출고</th>-->
+<!--                <th>버전</th>-->
+<!--                <th>담당자</th>-->
+<!--                <th>수량</th>-->
+<!--                <th>연도</th>-->
+<!--                <th>월호</th>-->
+<!--                <th>받는사람</th>-->
+<!--                <th>내용</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            --><?//foreach($list as $item){?>
+<!--              <tr>-->
+<!--                  <td>--><?//=$item["regDate"]?><!--</td>-->
+<!--                  <td>--><?//=$item["cnt"] > 0 ? "입고" : "출고"?><!--</td>-->
+<!--                  <td>--><?//=$item["publicationName"]?><!--</td>-->
+<!--                  <td>--><?//=$item["adminName"]?><!--</td>-->
+<!--                  <td>--><?//=$item["cnt"]?><!--</td>-->
+<!--                  <td>--><?//=$item["pYear"]?><!--</td>-->
+<!--                  <td>--><?//=$item["pMonth"]?><!--</td>-->
+<!--                  <td>--><?//=$item[""]?><!-- TODO</td>-->
+<!--                  <td>--><?//=$item["content"]?><!--</td>-->
+<!--              </tr>-->
+<!--            --><?//}?>
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        --><?//include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
 </div>
 

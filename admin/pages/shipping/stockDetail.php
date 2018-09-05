@@ -11,10 +11,12 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
-$obj = new Management($_REQUEST);
-$obj2 = new AdminMain($_REQUEST);
-$list = $obj->stockHistory();
-$pubList = $obj2->publicationList();
+    $obj = new Management($_REQUEST);
+    $obj2 = new AdminMain($_REQUEST);
+
+    $stat = $obj->stockDetail();
+
+    $list = $obj->stockHistory();
 ?>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -58,38 +60,20 @@ $pubList = $obj2->publicationList();
             <input type="hidden" name="page" />
 
             <div class="input-group mb-3">
-                <select class="custom-select mr-2 col-2" id="startYear" name="startYear">
+                <select class="custom-select mr-2 col-2" id="startYear" name="year">
                     <option value="">선택</option>
                     <?for($i=-50; $i<50; $i++){
                         $tmp = intval(date("Y")) + $i;
                         ?>
-                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                        <option value="<?=$tmp?>" <?=$_REQUEST["year"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
                     <?}?>
                 </select>
-                <select class="custom-select mr-2 col-2" name="pMonth[]">
+                <select class="custom-select mr-2 col-2" name="month">
                     <option value="">선택</option>
                     <?for($i=1; $i<13; $i++){?>
-                        <option value="<?=$i?>"><?=$i?></option>
+                        <option value="<?=$i?>" <?=$_REQUEST["month"] == $i ? "selected" : ""?>><?=$i?></option>
                     <?}?>
                 </select>
-                <b class="mr-3">~</b>
-                <select class="custom-select mr-2 col-2" id="endYear" name="endYear">
-                    <option value="">선택</option>
-                    <?for($i=-50; $i<50; $i++){
-                        $tmp = intval(date("Y")) + $i;
-                        ?>
-                        <option value="<?=$tmp?>"><?=$tmp?></option>
-                    <?}?>
-                </select>
-                <select class="custom-select mr-2 col-2" name="encMonth">
-                    <option value="">선택</option>
-                    <?for($i=1; $i<13; $i++){?>
-                        <option value="<?=$i?>"><?=$i?></option>
-                    <?}?>
-                </select>
-                <!--                <input class="form-control datePicker mr-3 col-2" name="startDate" value="--><?//=$_REQUEST["startDate"]?><!--" />-->
-                <!--                <b class="mr-3">~</b>-->
-                <!--                <input class="form-control datePicker mr-2 col-2" name="endDate" value="--><?//=$_REQUEST["endDate"]?><!--" />-->
                 <button type="button" class="btn btn-secondary ml-2 jSearch">
                     <i class="fas fa-search fa-fw"></i>
                 </button>
@@ -100,12 +84,27 @@ $pubList = $obj2->publicationList();
             </div>
         </form>
 
-        <table class="table table-sm text-center">
+        <table class="table table-bordered table-sm text-center">
             <thead>
             <tr>
-                <th></th>
+                <th width="20%">버전</th>
+                <th width="20%">미국판</th>
+                <th width="20%">한국판</th>
+                <th width="20%">광고</th>
+                <th width="20%">합계</th>
             </tr>
             </thead>
+            <tbody>
+            <?foreach($stat as $sItem){?>
+                <tr>
+                    <td><?=$sItem["desc"]?></td>
+                    <td><?=$sItem["stat"]["0"]?></td>
+                    <td><?=$sItem["stat"]["1"]?></td>
+                    <td><?=$sItem["stat"]["2"]?></td>
+                    <td><?=intval($sItem["stat"]["0"]) + intval($sItem["stat"]["1"]) + intval($sItem["stat"]["2"])?></td>
+                </tr>
+            <?}?>
+            </tbody>
         </table>
 
         <table class="table table table-sm text-center">
