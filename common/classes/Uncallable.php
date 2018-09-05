@@ -7,6 +7,47 @@ if(!class_exists("Uncallable")){
             parent::__construct($req);
         }
 
+        function saveOrderForm(){
+            $id = $_REQUEST["id"];
+            $regNo = $_REQUEST["regNo"];
+            $buyer = $_REQUEST["buyer"];
+            $year = $_REQUEST["year"];
+            $month = $_REQUEST["month"];
+            $setDate = $_REQUEST["setDate"];
+            $type = $_REQUEST["type"];
+            $formJson = $_REQUEST["formJson"];
+
+            $sql = "INSERT INTO tblOrderform
+            (`id`, `regNo`, `buyer`, `year`, `month`, `setDate`, `type`, `formJson`, `regDate`)
+            VALUES (
+              '{$id}', '{$regNo}', '{$buyer}', '{$year}', '{$month}', '{$setDate}', '{$type}', '{$formJson}', NOW() 
+            )
+            ON DUPLICATE KEY UPDATE
+              `regNo` = '{$regNo}',
+              `buyer` = '{$buyer}',
+              `year` = '{$year}',
+              `month` = '{$month}',
+              `setDate` = '{$setDate}',
+              `type` = '{$type}',
+              `formJson` = '{$formJson}'
+            ;
+            ";
+
+            $this->update($sql);
+        }
+
+        function updateOrderJson(){
+            $id = $_REQUEST["id"];
+            $formJson = $_REQUEST["formJson"];
+
+            $formJson = mb_decode_numericentity($formJson, array(0x80, 0xffff, 0, 0xffff), 'UTF-8');
+
+            $sql = "UPDATE tblOrderform SET `formJson` = '{$formJson}' WHERE `id`='{$id}'";
+            $this->update($sql);
+
+            return $this->makeResultJson(1, $sql);
+        }
+
         function deleteOrderForm(){
             $id = $_REQUEST["id"];
             $sql = "DELETE FROM tblOrderform WHERE `id`='{$id}'";

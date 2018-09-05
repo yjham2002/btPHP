@@ -7,13 +7,83 @@
  */
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+
+<?
+    $uc = new Uncallable($_REQUEST);
+    $currentId = $_REQUEST["id"];
+
+    if($currentId != ""){
+        $item = $uc->getOrderForm();
+        $formJson = $item["formJson"];
+
+        $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', nl2br($formJson)), true);
+    }else{
+        $formJson = $uc->getProperty("FORM_JSON_ORDER");
+    }
+
+?>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="/admin/scss/smSheet.css">
 <script>
+    var currentId = "<?=$currentId?>";
+
     $(document).ready(function(){
+
+        var formJson = <?=preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $formJson)?>;
+
+        function process(){
+            var objs = $("input");
+            for(var e = 0; e < objs.length;  e++){
+                var name = objs.eq(e).attr("name");
+                var content = objs.eq(e).val();
+                var spName = name.split("-");
+                var pointer = "formJson";
+                if(!formJson.hasOwnProperty(spName[0])) continue;
+                for(var w = 0; w < spName.length; w++){
+                    pointer = pointer + "['" + spName[w] + "']";
+                }
+                eval(pointer + " = content");
+            }
+        }
+
+        function updateFormJson(jsonObj, id){
+            $.ajax({
+                type : "POST",
+                url: "/route.php?cmd=Uncallable.updateOrderJson",
+                async: true,
+                cache: false,
+                dataType: "json",
+                data: {
+                    "formJson" : jsonObj,
+                    "id" : id
+                },
+                success: function (data){
+                    console.log(data);
+                },
+                error : function(req, res, err){
+                    alert(req+res+err);
+                }
+            });
+        }
+
+        $("input").change(function(){
+            process();
+            console.log(JSON.stringify(formJson));
+            updateFormJson(JSON.stringify(formJson), currentId);
+        });
+
+        $(".jForm").click(function(){
+            var id = $(this).attr("no");
+            window.open("/admin/writable/order_template.php?id=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes");
+        });
+
+        $(".jBack").click(function(){
+            history.back();
+        });
+
         $(".jDate").datepicker({
             yearRange: "-100:",
             showMonthAfterYear:true,
@@ -63,7 +133,7 @@
             </div>
             <select class="custom-select" id="jYear">
                 <?for($e = intval(date("Y")) + 5; $e >= 1950 ; $e--){?>
-                    <option value="<?=$e?>" <?=$_REQUEST["year"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
+                    <option value="<?=$e?>" <?=$item["year"] == $e ? "SELECTED" : ""?>><?=$e?>년</option>
                 <?}?>
             </select>
             <div class="input-group-prepend">
@@ -73,7 +143,7 @@
                 <?for($e = 1; $e <= 12; $e++){
                     $temp = $e < 10 ? "0".$e : $e;
                     ?>
-                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$_REQUEST["month"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
+                    <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$item["month"] == $temp ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
                 <?}?>
             </select>
         </div>
@@ -92,49 +162,29 @@
             <thead>
             <tr>
                 <th width="60px"></th>
-                <th>클래식</th>
-                <th>연대기</th>
-                <th>맥체인</th>
-                <th>X2</th>
-                <th>NT</th>
-                <th>X3_NT</th>
-                <th>X3_OT</th>
-                <th>NOTE</th>
+                <?for($i = 0; $i < 8; $i++){?>
+                    <th><?=$F_VALUE["products"][$i]["name"]?></th>
+                <?}?>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <th>수량</th>
-                <td><input type="number" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
-                <td><input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/></td>
+                <?for($i = 0; $i < 8; $i++){?>
+                    <td><input type="text" class="form-control" name="products-<?=$i?>-quantity" value="<?=$F_VALUE["products"][$i]["quantity"]?>"/></td>
+                <?}?>
             </tr>
             <tr>
                 <th>금액</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <?for($i = 0; $i < 8; $i++){?>
+                    <td><input type="text" class="form-control" name="products-<?=$i?>-price" value="<?=$F_VALUE["products"][$i]["price"]?>"/></td>
+                <?}?>
             </tr>
             <tr>
                 <th>단가</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <?for($i = 0; $i < 8; $i++){?>
+                    <td><input type="text" class="form-control" name="products-<?=$i?>-unit" value="<?=$F_VALUE["products"][$i]["unit"]?>"/></td>
+                <?}?>
             </tr>
             </tbody>
         </table>
@@ -149,42 +199,27 @@
                     <th width="60px"></th>
                     <th>배송처</th>
                     <th>내용</th>
-                    <th>클래식</th>
-                    <th>연대기</th>
-                    <th>맥체인</th>
-                    <th>X2</th>
-                    <th>NT</th>
-                    <th>X3_NT</th>
-                    <th>X3_OT</th>
-                    <th>NOTE</th>
+                    <?for($i = 0; $i < 8; $i++){?>
+                        <th><?=$F_VALUE["products_left"][$i]["name"]?></th>
+                    <?}?>
                 </tr>
                 </thead>
                 <tbody>
                 <tr style="height: 10px;">
                     <th>1</th>
+                    <td><input type="text" class="form-control" name="product_left" value="<?=$F_VALUE["product_left"]?>"/></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <?for($i = 0; $i < 8; $i++){?>
+                        <td><input type="text" class="form-control" name="products_left-<?=$i?>-quantity" value="<?=$F_VALUE["products_left"][$i]["quantity"]?>"/></td>
+                    <?}?>
                 </tr>
                 <tr>
                     <th>2</th>
+                    <td><input type="text" class="form-control" name="product_right" value="<?=$F_VALUE["product_right"]?>"/></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <?for($i = 0; $i < 8; $i++){?>
+                        <td><input type="text" class="form-control" name="products_right-<?=$i?>-quantity" value="<?=$F_VALUE["products_right"][$i]["quantity"]?>"/></td>
+                    <?}?>
                 </tr>
                 </tbody>
             </table>
@@ -198,7 +233,7 @@
         <?}else{?>
             <div class="btn-group float-right mb-2 mr-1" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary mr-1">Excel</button>
-                <button type="button" class="btn btn-secondary mr-1">발주서</button>
+                <button type="button" no="<?=$_REQUEST["id"]?>" class="jForm btn btn-secondary mr-1">발주서</button>
                 <button type="button" class="btn btn-secondary jBack">취소</button>
             </div>
         <?}?>

@@ -409,9 +409,9 @@ if(!class_exists("Management")){
                 if($startMonth == "") $startMonth = 1;
                 $sql .= "
                 AND CASE
-                  WHEN pYear = '{$startYear}' THEN pMonth >= '{$startMonth}'
-                  WHEN pYear < '{$startYear}' THEN pYear > '{$startYear}'
-                  WHEN pYear > '{$startYear}' THEN 1=1   
+                  WHEN pYear = {$startYear} THEN pMonth >= {$startMonth}
+                  WHEN pYear < {$startYear} THEN pYear > {$startYear}
+                  WHEN pYear > {$startYear} THEN 1=1   
                   ELSE 1=1
                 END
                 ";
@@ -420,15 +420,14 @@ if(!class_exists("Management")){
                 if($endMonth == "") $endMonth = 1;
                 $sql .= "
                 AND CASE
-                  WHEN pYear = '{$endYear}' THEN pMonth <= '{$endMonth}'
-                  WHEN pYear < '{$endYear}' THEN 1=1
-                  WHEN pYear > '{$endYear}' THEN pYear < '{$endYear}'
+                  WHEN pYear = {$endYear} THEN pMonth <= {$endMonth}
+                  WHEN pYear < {$endYear} THEN 1=1
+                  WHEN pYear > {$endYear} THEN pYear < {$endYear}
                   ELSE 1=1
                 END
                 ";
             }
             $sql .= "GROUP BY pYear, pMonth, publicationId ORDER BY pYear DESC, pMonth DESC";
-
             return $this->getArray($sql);
         }
 

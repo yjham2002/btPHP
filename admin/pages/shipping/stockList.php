@@ -53,12 +53,22 @@
         $(".jSearch").click(function(){
             form.submit();
         });
+
+        $(".jDetail").click(function(){
+            var year = $(this).attr("year");
+            var month = $(this).attr("month");
+            console.log(year + month);
+            location.href = "/admin/pages/shipping/stockDetail.php?year=" + year + "&month=" + month;
+        });
+
+        $(".jExcel").click(function(){
+
+        });
     });
 </script>
 
 <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a>배송</a>
@@ -70,38 +80,35 @@
             <input type="hidden" name="page" />
 
             <div class="input-group mb-3">
-                <select class="custom-select mr-2 col-2" id="startYear" name="startYear">
+                <select class="custom-select mr-2 col-2" name="startYear" id="startYear">
                     <option value="">선택</option>
                     <?for($i=-50; $i<50; $i++){
                         $tmp = intval(date("Y")) + $i;
                         ?>
-                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                        <option value="<?=$tmp?>" <?=$_REQUEST["startYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
                     <?}?>
                 </select>
-                <select class="custom-select mr-2 col-2" name="pMonth[]">
+                <select class="custom-select mr-2 col-2" name="startMonth" id="startMonth">
                     <option value="">선택</option>
                     <?for($i=1; $i<13; $i++){?>
-                        <option value="<?=$i?>"><?=$i?></option>
+                        <option value="<?=$i?>" <?=$_REQUEST["startMonth"] == $i ? "selected" : ""?>><?=$i?></option>
                     <?}?>
                 </select>
                 <b class="mr-3">~</b>
-                <select class="custom-select mr-2 col-2" id="endYear" name="endYear">
+                <select class="custom-select mr-2 col-2" name="endYear" id="endYear">
                     <option value="">선택</option>
                     <?for($i=-50; $i<50; $i++){
                         $tmp = intval(date("Y")) + $i;
                         ?>
-                        <option value="<?=$tmp?>"><?=$tmp?></option>
+                        <option value="<?=$tmp?>" <?=$_REQUEST["endYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
                     <?}?>
                 </select>
-                <select class="custom-select mr-2 col-2" name="encMonth">
+                <select class="custom-select mr-2 col-2" name="endMonth">
                     <option value="">선택</option>
                     <?for($i=1; $i<13; $i++){?>
-                        <option value="<?=$i?>"><?=$i?></option>
+                        <option value="<?=$i?>" <?=$_REQUEST["endMonth"] == $i ? "selected" : ""?>><?=$i?></option>
                     <?}?>
                 </select>
-<!--                <input class="form-control datePicker mr-3 col-2" name="startDate" value="--><?//=$_REQUEST["startDate"]?><!--" />-->
-<!--                <b class="mr-3">~</b>-->
-<!--                <input class="form-control datePicker mr-2 col-2" name="endDate" value="--><?//=$_REQUEST["endDate"]?><!--" />-->
                 <button type="button" class="btn btn-secondary ml-2 jSearch">
                     <i class="fas fa-search fa-fw"></i>
                 </button>
@@ -112,13 +119,13 @@
             </div>
         </form>
 
-        <table class="table table-sm text-center">
+        <table class="table table-hover table-bordered table-sm text-center">
             <thead>
             <tr>
-                <th>연도</th>
-                <th>월호</th>
+                <th width="8%">연도</th>
+                <th width="8%">월호</th>
                 <?foreach($pubList as $pubItem){?>
-                    <th><?=$pubItem["desc"]?></th>
+                    <th width="12%"><?=$pubItem["desc"]?></th>
                 <?}?>
             </tr>
             </thead>
@@ -126,16 +133,12 @@
             <?$i=-1;?>
             <?foreach(array_keys($pivotArray) as $year){?>
                 <?foreach(array_keys($pivotArray[$year]) as $month){?>
-                    <tr>
+                    <tr class="jDetail" year="<?=$year?>" month="<?=$month?>">
                         <td><?=$year?></td>
                         <td><?=$month?></td>
                         <?foreach($pubList as $pubItem2){?>
                             <td><?=$pivotArray[$year][$month][$pubItem2["id"]]?></td>
                         <?}?>
-
-<!--                        --><?//for($e=0; $e<sizeof($pubList); $e++){?>
-<!--                            <td>--><?//=$pivotArray[$year][$month][$pubList[$e]]?><!--</td>-->
-<!--                        --><?//}?>
                     </tr>
                 <?}?>
             <?}?>
@@ -175,7 +178,6 @@
         <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
 </div>
-
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
 
