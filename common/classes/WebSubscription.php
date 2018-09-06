@@ -44,7 +44,6 @@ if(!class_exists("WebSubscription")){
         }
 
         function setSubscriptionInfo(){
-
             $uc = new Uncallable($_REQUEST);
             $flag = $uc->getProperty("FLAG_VALUE_LOST");
 
@@ -105,13 +104,10 @@ if(!class_exists("WebSubscription")){
             //TODO paymethod/payment info insert
             $payMethodId = 0;
 
-
             $publicationName = $_REQUEST["publicationName"];
             $curYear = intval(date("Y"));
             $curMonth = intval(date("m"));
             $curDate = intval(date("d"));
-            $pYear = $curYear;
-            $pMonth = $curMonth;
             $templateCode = "";
             $temp = "";
             if($curDate < 10){
@@ -139,6 +135,8 @@ if(!class_exists("WebSubscription")){
                 $curYear++;
                 $curMonth = $curMonth - 12;
             }
+            $pYear = $curYear;
+            $pMonth = $curMonth;
             $msg = "[바이블타임선교회] 주문하신 상품이 정상 처리 되었습니다. ▶ 상품명: {$publicationName} {$curMonth} ▶ 결제금액: {$totalPrice} {$temp}일까지 도착하지 않을 시, 연락주세요. ▶ 문의: 1644-9159 ▶ www.BibleTime.org";
 
             if(strpos($phone, "+") !== false) $phone = $phone;
@@ -167,14 +165,14 @@ if(!class_exists("WebSubscription")){
                 ";
                 $this->update($sql);
             }
-
-
             $sql = "
-                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `totalPrice`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
+                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$publicationId}',
                   '{$publicationCnt}',
+                  '{$pYear}',
+                  '{$pMonth}',
                   '{$totalPrice}',
                   '{$rName}',
                   '{$rPhone}',
@@ -186,8 +184,6 @@ if(!class_exists("WebSubscription")){
                 )
             ";
             $this->update($sql);
-
-
             return $this->makeResultJson(1, "succ");
         }
     }

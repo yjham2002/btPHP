@@ -301,6 +301,40 @@ if(! class_exists("WebUser") ){
             if($flag) return $this->makeResultJson(1, "succ");
             else return $this->makeResultJson(-2, "send fail");
         }
+
+        function setLost(){
+            $type = $_REQUEST["type"];
+            $noArr = $_REQUEST["noArr"];
+            $noStr = implode(',', $noArr);
+
+            $sql = "
+                SELECT * FROM tblSubscription WHERE `id` IN ({$noStr})
+            ";
+            $targetArr = $this->getArray($sql);
+
+            foreach($targetArr as $item){
+                $sql = "
+                    INSERT INTO tblShipping(`rName`, `zipcode`, `phone`, `addr`, `addrDetail`, `publicationId`, `cnt`, `pYear`, `pMonth`, `shippingType`, `regDate`)
+                    VALUES(
+                      '{$item["rName"]}',
+                      '{$item["rZipCode"]}',
+                      '{$item["rPhone"]}',
+                      '{$item["rAddr"]}',
+                      '{$item["rAddrDetail"]}',
+                      '{$item["publicationId"]}',
+                      '{$item["cnt"]}',
+                      '{$item["pYear"]}',
+                      '{$item["pMonth"]}',
+                      '{$type}',
+                      NOW()
+                    )
+                ";
+                $this->update($sql);
+            }
+            return $this->makeResultJson(1, "succ");
+        }
+
+        
     }
 }
 ?>
