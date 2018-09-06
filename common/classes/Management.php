@@ -461,5 +461,12 @@ if(!class_exists("Management")){
             }
             return $pubList;
         }
+
+        function shippingList($type){
+            $sql = "
+                SELECT * FROM tblShipping WHERE shippingType = '{$type}' ORDER BY regDate DESC
+            ";
+            return $this->getArray($sql);
+        }
     }
 }

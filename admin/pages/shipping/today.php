@@ -9,34 +9,38 @@
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
-$obj = new Uncallable($_REQUEST);
-$list = $obj->getReportList();
-$flag = $obj->getProperty("FLAG_VALUE_LOST");
+    $obj = new Uncallable($_REQUEST);
+    $list = $obj->getReportList();
+    $flag = $obj->getProperty("FLAG_VALUE_LOST");
 
+    $management = new Management($_REQUEST);
+    $list0 = $management->shippingList(0);
+    $list1 = $management->shippingList(1);
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function(){
+        var selected;
 
-        $(".jPage").click(function(){
-            location.href="/admin/pages/shipping/formList.php?page=" + $(this).attr("page");
+        $(".jTab").click(function(){
+            $(".jTab").removeClass("btn-secondary");
+            $(this).addClass("btn-secondary");
+            selected = $(this).attr("target");
+            toggleView();
         });
 
-        $(".jAdd").click(function(){
-            location.href="/admin/pages/shipping/formDetail.php";
-        });
-
-        $(".jDelF").click(function(){
-            if(confirm("정말 삭제하시겠습니까?")) {
-                var id = $(this).attr("fid");
-                var ajax = new AjaxSender("/route.php?cmd=Uncallable.deleteReport", true, "json", new sehoMap().put("id", id));
-                ajax.send(function (data) {
-                    location.reload();
-                });
+        function toggleView(){
+            if(selected == "0"){
+                $(".jType1").hide();
+                $(".jType0").fadeIn();
+            }else{
+                $(".jType0").hide();
+                $(".jType1").fadeIn();
             }
-        });
+        }
 
         $(".jTog").click(function(){
             var ajax = new AjaxSender("/route.php?cmd=Uncallable.setPropertyAjax", true, "json",
@@ -48,19 +52,6 @@ $flag = $obj->getProperty("FLAG_VALUE_LOST");
                 location.reload();
             });
         });
-
-        $(".jMod").click(function(e){
-            e.stopPropagation();
-            var id = $(this).attr("id");
-            location.href="/admin/pages/shipping/formDetail.php?id=" + id;
-        });
-
-        $(".jView").click(function(){
-            var id = $(this).attr("sid");
-            location.href="/admin/pages/shipping/formView.php?id=" + id;
-        });
-
-
     });
 </script>
 
@@ -74,16 +65,21 @@ $flag = $obj->getProperty("FLAG_VALUE_LOST");
             <li class="breadcrumb-item active">당일 배송 추출</li>
         </ol>
 
+        <button type="button" target="0" class="jTab btn-secondary btn mb-2">우편</button>
+        <button type="button" target="1" class="jTab btn mb-2">택배</button>
         <button type="button" class="btn <?=$flag == 0 ? "btn-secondary" : "btn-primary"?> float-right mb-2 jTog">자동등록 <?=$flag == 0 ? "OFF" : "ON"?></button>
 
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>No.</th>
-                <th>제목</th>
-                <th>최종작성자</th>
-                <th>작성일자</th>
-                <th>-</th>
+                <th></th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>주소</th>
+                <th>품명</th>
+                <th>담당자</th>
+                <th>유형</th>
+                <th>배송사고 이력</th>
             </tr>
             </thead>
             <tbody>
@@ -103,10 +99,7 @@ $flag = $obj->getProperty("FLAG_VALUE_LOST");
             <?}?>
             </tbody>
         </table>
-
-        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
 </div>
-
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>

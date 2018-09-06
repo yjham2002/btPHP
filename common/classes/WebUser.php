@@ -306,10 +306,7 @@ if(! class_exists("WebUser") ){
             $type = $_REQUEST["type"];
             $noArr = $_REQUEST["noArr"];
             $noStr = implode(',', $noArr);
-
-            $sql = "
-                SELECT * FROM tblSubscription WHERE `id` IN ({$noStr})
-            ";
+            $sql = "SELECT * FROM tblSubscription WHERE `id` IN ({$noStr})";
             $targetArr = $this->getArray($sql);
 
             foreach($targetArr as $item){
@@ -334,7 +331,7 @@ if(! class_exists("WebUser") ){
             return $this->makeResultJson(1, "succ");
         }
 
-        
+
     }
 }
 ?>
