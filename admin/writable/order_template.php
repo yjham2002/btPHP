@@ -20,7 +20,8 @@ $formJson = $formData["formJson"];
 
 ?>
 <?
-    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', nl2br($formJson)), true);
+//    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', nl2br($formJson)), true);
+    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', nl2br($formJson)), true);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

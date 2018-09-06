@@ -185,7 +185,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
 <!--                <a class="dropdown-item" href="blank.html">출고 입력</a>-->
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">배송 관리</h6>
-                <a class="dropdown-item" href="404.html">당일배송 추출</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/today.php">당일배송 추출</a>
             </div>
         </li>
 

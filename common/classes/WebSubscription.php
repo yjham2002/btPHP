@@ -8,6 +8,7 @@
 ?>
 
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBase.php" ;?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php" ;?>
 <?
 if(!class_exists("WebSubscription")){
     class WebSubscription extends  WebBase {
@@ -43,6 +44,10 @@ if(!class_exists("WebSubscription")){
         }
 
         function setSubscriptionInfo(){
+
+            $uc = new Uncallable($_REQUEST);
+            $flag = $uc->getProperty("FLAG_VALUE_LOST");
+
             $type = $_REQUEST["type"];
 
             $customerId = $_REQUEST["customerId"];
@@ -139,11 +144,30 @@ if(!class_exists("WebSubscription")){
             if(strpos($phone, "+") !== false) $phone = $phone;
             else $phone = "82" . substr($phone, 1, strlen($phone));
 
-            $result = $this->sendKakao($phone, $msg, $templateCode);
 
-            $sql = "
-            //TODO tblShipping insert
-            ";
+            $result = $this->sendKakao($phone, $msg, $templateCode);
+            if($flag == 1){
+                $shippingType = 0;
+                if($publicationCnt >= 10) $shippingType = 1;
+                $sql = "
+                    INSERT INTO tblShipping(rName, zipcode, phone, addr, addrDetail, publicationId, cnt, pYear, pMonth, shippingType, regDate)
+                    VALUES(
+                      '{$rName}',
+                      '{$rZipcode}',
+                      '{$rPhone}',
+                      '{$rAddr}',
+                      '{$rAddrDetail}',
+                      '{$publicationId}',
+                      '{$publicationCnt}',
+                      '{$pYear}',
+                      '{$pMonth}',
+                      '{$shippingType}',
+                      NOW()
+                    )
+                ";
+                $this->update($sql);
+            }
+
 
             $sql = "
                 INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `totalPrice`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)

@@ -201,6 +201,7 @@
                     <th>배송처</th>
                     <th>내용</th>
                     <?for($i = 0; $i < 8; $i++){?>
+
                         <th><?=$F_VALUE["products_left"][$i]["name"]?></th>
                     <?}?>
                 </tr>
