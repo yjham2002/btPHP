@@ -116,6 +116,7 @@
             <input type="hidden" name="customerId" value="<?=$user->id?>"/>
             <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
             <input type="hidden" name="totalPrice" value="" />
+            <input type="hidden" name="nationId" value="<?=$item["nationId"]?>"/>
             <div class="row uniform" style="margin : 0 1em;">
                 <div class="6u 12u$(small)">
                     <div class="image fit">

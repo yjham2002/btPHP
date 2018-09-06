@@ -31,7 +31,8 @@ if(!class_exists("WebSupport")){
             $locale = $_COOKIE["btLocale"];
 
             $sql = "
-                SELECT * FROM tblSupportArticle
+                SELECT *, (SELECT nationId FROM tblSupportParent SP WHERE parentId = SP.id) AS nationId
+                FROM tblSupportArticle
                 WHERE `parentId` = '{$id}' AND locale = '{$locale}'
                 LIMIT 1 
             ";
@@ -45,6 +46,7 @@ if(!class_exists("WebSupport")){
             $name = $_REQUEST["name"];
             $email = $_REQUEST["email"];
             $phone = $_REQUEST["phone"];
+            $nationId = $_REQUEST["nationId"];
             $langCode = $_COOKIE["btLocale"];
             if($customerId == ""){
                 $type = 1;
@@ -83,6 +85,24 @@ if(!class_exists("WebSupport")){
                 )
             ";
             $this->update($sql);
+
+
+            if(strpos($phone, "+") !== false) $phone = $phone;
+            else $phone = "82" . substr($phone, 1, strlen($phone));
+
+            $sql = "SELECT `name` FROM tblNationLang WHERE nationId = '{$nationId}' AND lang = '{$langCode}'";
+            $nation = $this->getValue($sql, "name");
+
+            $type = "정기후원";
+            $templateCode = "01_Share";
+            $msg = "[바이블타임선교회] 안녕하세요. {$name}님! 귀한 섬김으로 성경을 보내주셔서 감사드립니다. *후원정보 {$nation} * 결제금액 {$type} / {$totalPrice} ▶ 문의: 1644-9159 ▶ www.BibleTime.org";
+            $result = $this->sendKakao($phone, $msg, $templateCode);
+            $res = json_decode($result);
+            echo json_encode($res);
+
+            if($res->code == "200") return $this->makeResultJson(1, "succ", $row["id"]);
+            else return $this->makeResultJson(-2, "send fail");
+
 
             return $this->makeResultJson(1, "succ");
         }

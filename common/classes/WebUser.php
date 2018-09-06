@@ -120,8 +120,8 @@ if(! class_exists("WebUser") ){
             else $phone = "82" . substr($row["phone"], 1, strlen($row["phone"]));
 
 
-            $templateCode = "BibleTIme_002";
-            $msg = "{$code}님! BibleTime 홈페이지 회원가입을 진심으로 축하드립니다. 감사합니다.";
+            $templateCode = "Home_01";
+            $msg = "고객님이 홈페이지에서 요청하신 인증번호는 {$code}입니다.";
             $result = $this->sendKakao($phone, $msg, $templateCode);
             $res = json_decode($result);
 
