@@ -100,6 +100,51 @@ if(!class_exists("WebSubscription")){
             //TODO paymethod/payment info insert
             $payMethodId = 0;
 
+
+            $publicationName = $_REQUEST["publicationName"];
+            $curYear = intval(date("Y"));
+            $curMonth = intval(date("m"));
+            $curDate = intval(date("d"));
+            $pYear = $curYear;
+            $pMonth = $curMonth;
+            $templateCode = "";
+            $temp = "";
+            if($curDate < 10){
+                $curMonth++;
+                $templateCode = "04_Delivery";
+                $temp = 25;
+            }
+            else if($curDate >= 10 && $curDate <=20){
+                $curMonth++;
+                $templateCode = "02_Delivery";
+                $temp = 30;
+            }
+            else if($curDate >=21 && $curDate <= 25){
+                $curMonth++;
+                $templateCode = "03_Delivery";
+                $temp = 10;
+            }
+            else if($curDate > 25){
+                $curMonth = $curMonth + 2;
+                $templateCode = "04_Delivery";
+                $temp = 25;
+            }
+
+            if($curMonth > 12){
+                $curYear++;
+                $curMonth = $curMonth - 12;
+            }
+            $msg = "[바이블타임선교회] 주문하신 상품이 정상 처리 되었습니다. ▶ 상품명: {$publicationName} {$curMonth} ▶ 결제금액: {$totalPrice} {$temp}일까지 도착하지 않을 시, 연락주세요. ▶ 문의: 1644-9159 ▶ www.BibleTime.org";
+
+            if(strpos($phone, "+") !== false) $phone = $phone;
+            else $phone = "82" . substr($phone, 1, strlen($phone));
+
+            $result = $this->sendKakao($phone, $msg, $templateCode);
+
+            $sql = "
+            //TODO tblShipping insert
+            ";
+
             $sql = "
                 INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `totalPrice`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
                 VALUES(
@@ -117,6 +162,7 @@ if(!class_exists("WebSubscription")){
                 )
             ";
             $this->update($sql);
+
 
             return $this->makeResultJson(1, "succ");
         }

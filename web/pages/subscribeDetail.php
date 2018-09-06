@@ -168,10 +168,11 @@
         <h2 class="align-left nanumGothic" style="margin-left:1.0em;">BibleTime 배송상품</h2>
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
-            <input type="hidden" name="publicationId" value="<?=$_REQUEST["id"]?>" />
+            <input type="hidden" name="publicationId" value="<?=$_REQUEST["id"]?>"/>
             <input type="hidden" name="customerId" value="<?=$user->id?>"/>
-            <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
-            <input type="hidden" name="totalPrice" value="" />
+            <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>"/>
+            <input type="hidden" name="totalPrice" value=""/>
+            <input type="hidden" name="publicationName" value="<?=$item["name"]?>"/>
 
             <div class="row uniform" style="margin : 0 1em;">
                 <div class="6u 12u$(small)">

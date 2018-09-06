@@ -38,6 +38,21 @@ if(! class_exists("WebUser") ){
 
             if($res["initFlag"] == 1 && $res["password"] == $password){
                 LoginUtil::doWebLogin($res);
+
+                if($res["logDate"] == "" || $res["logDate"] == null){
+                    $uptSql = "UPDATE tblCustomer SET `logDate`=NOW() WHERE `id` = '{$res["id"]}'";
+                    $this->update($uptSql);
+
+                    $phone = $res["phone"];
+                    if(strpos($phone, "+") !== false) $phone = $phone;
+                    else $phone = "82" . substr($phone, 1, strlen($phone));
+
+                    $result = $this->sendKakao($phone,
+                        "[바이블타임선교회] 안녕하세요. {$res["name"]}님! 바이블타임선교회 홈페이지에 가입해주셔서 진심으로 감사드립니다. *회원가입 정보 아이디 : {$res["email"]} 성경을 읽는데 도움이 되는 동기부여 영상, 현수막, 포스터 이미지, 성경 골든벨 서비스를 만나보세요! ▶ 문의: 1644-9159 ▶ www.BibleTime.org"
+                        , "Home_02");
+                    $res = json_decode($result);
+                }
+
                 return $this->makeResultJson(1, "succ", $res);
             }
             else if($res["initFlag"] == 0) return $this->makeResultJson(-1, "init", $res);

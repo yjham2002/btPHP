@@ -98,7 +98,6 @@ if(!class_exists("WebSupport")){
             $msg = "[바이블타임선교회] 안녕하세요. {$name}님! 귀한 섬김으로 성경을 보내주셔서 감사드립니다. *후원정보 {$nation} * 결제금액 {$type} / {$totalPrice} ▶ 문의: 1644-9159 ▶ www.BibleTime.org";
             $result = $this->sendKakao($phone, $msg, $templateCode);
             $res = json_decode($result);
-            echo json_encode($res);
 
             if($res->code == "200") return $this->makeResultJson(1, "succ", $row["id"]);
             else return $this->makeResultJson(-2, "send fail");
