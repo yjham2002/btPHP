@@ -18,12 +18,10 @@
     $management = new Management($_REQUEST);
     $list0 = $management->shippingList(0);
     $list1 = $management->shippingList(1);
-
-//    echo json_encode($list0);
-//    echo json_encode($list1);
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="/admin/scss/smSheet.css">
 <script>
     $(document).ready(function(){
         var selected;
@@ -55,6 +53,38 @@
                 location.reload();
             });
         });
+
+        $("#jCheckAll").change(function(){
+            if($(this).is(":checked"))
+                $(".jShip").prop("checked", true);
+            else
+                $(".jShip").prop("checked", false);
+        });
+
+
+        // 아래로 참조용 소스
+        $(".jDel").click(function(){
+            var noArr = new Array();
+            var noCount = $(".jStage:checked").length;
+            if(noCount == 0){
+                alert("삭제할 항목을 하나 이상 선택해주세요.");
+                return false;
+            }
+            if(confirm("삭제하시겠습니까?")){
+                for(var i = 0; i < noCount; i++ ) noArr[i] = $(".jStage:checked:eq(" + i + ")").val();
+                deleteStage(noArr);
+            }
+        });
+
+        function deleteStage(noArr){
+            var ajax = new AjaxSender("/action_front.php?cmd=AdminMain.deleteStage", false, "json", new sehoMap().put("no", noArr));
+            ajax.send(function(data){
+                if(data.returnCode == 1){
+                    alert("삭제되었습니다");
+                    location.reload();
+                }
+            });
+        }
     });
 </script>
 
@@ -75,7 +105,9 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th></th>
+                <th>
+                    <input type="checkbox" id="jCheckAll">
+                </th>
                 <th>이름</th>
                 <th>연락처</th>
                 <th>주소</th>
@@ -86,30 +118,30 @@
             </tr>
             </thead>
             <tbody class="jType0">
-            <?foreach($list0 as $item0){?>
+            <?foreach($list0 as $item0){ echo json_encode($item0);?>
                 <tr>
-                    <td><?=$vnum--?></td>
+                    <td><input type="checkbox" class="jShip"></td>
                     <td><?=$item0["rName"]?></td>
-                    <td><?=$item0["rPhone"]?></td>
-                    <td><?=$item0["rAddr"] . $item0["rAddrDetail"]?></td>
-                    <td>
-                        <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jMod">수정</button>
-                        <button type="button" fid="<?=$item["id"]?>" class="btn-sm btn-danger mb-2 jDelF">삭제</button>
-                    </td>
+                    <td><?=$item0["phone"]?></td>
+                    <td><?=$item0["addr"] . $item0["addrDetail"]?></td>
+                    <td><?=$item0["publicationName"]?></td>
+                    <td><?=$item0["manager"]?></td>
+                    <td><?=$item0["type"] == "0" ? "신규배송" : "재배송"?></td>
+                    <td><?=$item0["publicationName"]?></td>
                 </tr>
             <?}?>
             </tbody>
-            <tbody class="jType1">
+            <tbody class="jType1" style="display: none;">
             <?foreach($list1 as $item1){?>
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox" class="jShip"></td>
                     <td><?=$item1["rName"]?></td>
-                    <td><?=$item1["rPhone"]?></td>
-                    <td><?=$item1["rAddr"] . $item1["rAddrDetail"]?></td>
-                    <td>
-                        <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jMod">수정</button>
-                        <button type="button" fid="<?=$item["id"]?>" class="btn-sm btn-danger mb-2 jDelF">삭제</button>
-                    </td>
+                    <td><?=$item1["phone"]?></td>
+                    <td><?=$item1["addr"] . $item1["addrDetail"]?></td>
+                    <td><?=$item1["publicationName"]?></td>
+                    <td><?=$item1["manager"]?></td>
+                    <td><?=$item1["type"] == "0" ? "신규배송" : "재배송"?></td>
+                    <td><?=$item1["publicationName"]?></td>
                 </tr>
             <?}?>
             </tbody>

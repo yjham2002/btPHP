@@ -522,7 +522,10 @@ if(!class_exists("Management")){
 
         function shippingList($type){
             $sql = "
-                SELECT * FROM tblShipping WHERE shippingType = '{$type}' ORDER BY regDate DESC
+                SELECT *, (SELECT `desc` FROM tblPublication WHERE id = publicationId) publicationName
+                FROM tblShipping 
+                WHERE shippingType = '{$type}' 
+                ORDER BY regDate DESC
             ";
             return $this->getArray($sql);
         }
