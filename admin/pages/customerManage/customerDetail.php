@@ -182,7 +182,7 @@
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     alert("저장되었습니다.");
-                    // location.reload();
+                    location.reload();
                 }
             });
         });

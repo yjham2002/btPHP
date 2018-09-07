@@ -236,7 +236,13 @@
                                 <?
                                     switch($subscriptionInfo[$i]["deliveryStatus"]){
                                         case 0:
-                                            echo "배송준비중";
+                                            echo "정상";
+                                            break;
+                                        case 1:
+                                            echo "취소";
+                                            break;
+                                        case 2:
+                                            echo "발송대기중";
                                             break;
                                     }
                                 ?>

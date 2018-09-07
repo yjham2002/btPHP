@@ -18,6 +18,9 @@
     $management = new Management($_REQUEST);
     $list0 = $management->shippingList(0);
     $list1 = $management->shippingList(1);
+
+//    echo json_encode($list0);
+//    echo json_encode($list1);
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -82,15 +85,27 @@
                 <th>배송사고 이력</th>
             </tr>
             </thead>
-            <tbody>
-            <?
-            $vnum = $obj->virtualNum;
-            foreach($list as $item){?>
+            <tbody class="jType0">
+            <?foreach($list0 as $item0){?>
                 <tr>
-                    <td sid="<?=$item["id"]?>" class="jView"><?=$vnum--?></td>
-                    <td sid="<?=$item["id"]?>" class="jView"><?=$item["title"]?></td>
-                    <td sid="<?=$item["id"]?>" class="jView"><?=$item["name"]?></td>
-                    <td sid="<?=$item["id"]?>" class="jView"><?=$item["regDate"]?></td>
+                    <td><?=$vnum--?></td>
+                    <td><?=$item0["rName"]?></td>
+                    <td><?=$item0["rPhone"]?></td>
+                    <td><?=$item0["rAddr"] . $item0["rAddrDetail"]?></td>
+                    <td>
+                        <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jMod">수정</button>
+                        <button type="button" fid="<?=$item["id"]?>" class="btn-sm btn-danger mb-2 jDelF">삭제</button>
+                    </td>
+                </tr>
+            <?}?>
+            </tbody>
+            <tbody class="jType1">
+            <?foreach($list1 as $item1){?>
+                <tr>
+                    <td></td>
+                    <td><?=$item1["rName"]?></td>
+                    <td><?=$item1["rPhone"]?></td>
+                    <td><?=$item1["rAddr"] . $item1["rAddrDetail"]?></td>
                     <td>
                         <button type="button" id="<?=$item["id"]?>" class="btn-sm btn-secondary mb-2 jMod">수정</button>
                         <button type="button" fid="<?=$item["id"]?>" class="btn-sm btn-danger mb-2 jDelF">삭제</button>

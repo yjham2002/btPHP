@@ -144,27 +144,9 @@ if(!class_exists("WebSubscription")){
 
 
             $result = $this->sendKakao($phone, $msg, $templateCode);
-            if($flag == 1){
-                $shippingType = 0;
-                if($publicationCnt >= 10) $shippingType = 1;
-                $sql = "
-                    INSERT INTO tblShipping(rName, zipcode, phone, addr, addrDetail, publicationId, cnt, pYear, pMonth, shippingType, regDate)
-                    VALUES(
-                      '{$rName}',
-                      '{$rZipcode}',
-                      '{$rPhone}',
-                      '{$rAddr}',
-                      '{$rAddrDetail}',
-                      '{$publicationId}',
-                      '{$publicationCnt}',
-                      '{$pYear}',
-                      '{$pMonth}',
-                      '{$shippingType}',
-                      NOW()
-                    )
-                ";
-                $this->update($sql);
-            }
+            $shippingType = 0;
+            if($publicationCnt >= 10) $shippingType = 1;
+
             $sql = "
                 INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `shippingType`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
                 VALUES(
@@ -185,6 +167,33 @@ if(!class_exists("WebSubscription")){
                 )
             ";
             $this->update($sql);
+            $subscriptionId = $this->mysql_insert_id();
+
+            if($flag == 1){
+                $sql = "
+                    INSERT INTO tblShipping(customerId, subsciptionId, rName, `type`, zipcode, phone, addr, addrDetail, publicationId, cnt, pYear, pMonth, shippingType, manager, regDate)
+                    VALUES(
+                      '{$customerId}',
+                      '{$subscriptionId}',
+                      '{$rName}',
+                      '0',
+                      '{$rZipcode}',
+                      '{$rPhone}',
+                      '{$rAddr}',
+                      '{$rAddrDetail}',
+                      '{$publicationId}',
+                      '{$publicationCnt}',
+                      '{$pYear}',
+                      '{$pMonth}',
+                      '{$shippingType}',
+                      'SYSTEM',
+                      NOW()
+                    )
+                ";
+
+                $this->update($sql);
+            }
+
             return $this->makeResultJson(1, "succ");
         }
     }

@@ -214,8 +214,8 @@ if(! class_exists("WebUser") ){
             $paymentInfo = null;
 
             $sql = "
-                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
-                FROM tblSubscription 
+                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = S.publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
+                FROM tblSubscription S
                 WHERE `customerId` = '{$id}' 
                 ORDER BY regDate DESC
             ";
@@ -311,8 +311,11 @@ if(! class_exists("WebUser") ){
 
             foreach($targetArr as $item){
                 $sql = "
-                    INSERT INTO tblShipping(`rName`, `zipcode`, `phone`, `addr`, `addrDetail`, `publicationId`, `cnt`, `pYear`, `pMonth`, `shippingType`, `regDate`)
+                    INSERT INTO tblShipping(`customerId`, `subsciptionId`, `type`, `rName`, `zipcode`, `phone`, `addr`, `addrDetail`, `publicationId`, `cnt`, `pYear`, `pMonth`, `shippingType`, `manager`, `regDate`)
                     VALUES(
+                      '{$item["customerId"]}',
+                      '{$item["id"]}',
+                      '1',
                       '{$item["rName"]}',
                       '{$item["rZipCode"]}',
                       '{$item["rPhone"]}',
@@ -323,6 +326,7 @@ if(! class_exists("WebUser") ){
                       '{$item["pYear"]}',
                       '{$item["pMonth"]}',
                       '{$type}',
+                      '고객',
                       NOW()
                     )
                 ";
