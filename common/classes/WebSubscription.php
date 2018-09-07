@@ -166,7 +166,7 @@ if(!class_exists("WebSubscription")){
                 $this->update($sql);
             }
             $sql = "
-                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
+                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `shippingType`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$publicationId}',
@@ -174,6 +174,7 @@ if(!class_exists("WebSubscription")){
                   '{$pYear}',
                   '{$pMonth}',
                   '{$totalPrice}',
+                  '{$shippingType}',
                   '{$rName}',
                   '{$rPhone}',
                   '{$rZipcode}',

@@ -153,6 +153,39 @@
                 }
             });
         });
+
+        $(".jSaveSub").click(function(){
+            var id = $(this).attr("id");
+            var index = $(".jSaveSub").index($(this));
+            var customerId = "<?=$userInfo["id"]?>";
+            var customerLang = "<?=$userInfo["langCode"]?>";
+            alert($("[name='sub_subType[]']").eq(index).val());
+            var ajax = new AjaxSender("/route.php?cmd=Management.updateSubscription", true, "json", new sehoMap()
+                .put("id", id).put("customerId", customerId)
+                .put("customerLang", customerLang)
+                .put("rName", $("[name='sub_rName[]']").eq(index).val())
+                .put("rPhone", $("[name='sub_rPhone[]']").eq(index).val())
+                .put("rZipCode", $("[name='sub_rZipCode[]']").eq(index).val())
+                .put("rAddr", $("[name='sub_rAddr[]']").eq(index).val())
+                .put("rAddrDetail", $("[name='sub_rAddrDetail[]']").eq(index).val())
+                .put("publicationId", $("[name='sub_publicationId[]']").eq(index).val())
+                .put("cnt", $("[name='sub_cnt[]']").eq(index).val())
+                .put("subType", $("[name='sub_subType[]']").eq(index).val())
+                .put("shippingType", $("[name='sub_shippingType[]']").eq(index).val())
+                .put("pYear", $("[name='pYear[]']").eq(index).val())
+                .put("pMonth", $("[name='pMonth[]']").eq(index).val())
+                .put("eYear", $("[name='eYear[]']").eq(index).val())
+                .put("eMonth", $("[name='eMonth[]']").eq(index).val())
+                .put("deliveryStatus", $("[name='deliveryStatus[]']").eq(index).val())
+            );
+            console.log(ajax);
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("저장되었습니다.");
+                    // location.reload();
+                }
+            });
+        });
     });
 </script>
 
@@ -299,21 +332,22 @@
                 <table class="table table-sm table-bordered jCTable" value="SUB">
                     <thead>
                     <tr>
-                        <th width="6%">받는사람</th>
-                        <th width="6%">전화번호</th>
-                        <th width="6%">우편번호</th>
-                        <th width="6%">주소</th>
+                        <th width="4%">받는사람</th>
+                        <th width="5%">전화번호</th>
+                        <th width="3%">우편번호</th>
+                        <th width="12%">주소</th>
                         <th width="6%">상세주소</th>
-                        <th width="6%">버전</th>
-                        <th width="6%">부수</th>
+                        <th width="5%">버전</th>
+                        <th width="3%">부수</th>
                         <th width="6%">유형</th>
                         <th width="6%">배송</th>
-                        <th width="6%">신청일</th>
-                        <th width="6%">시작 월호</th>
-                        <th width="6%">끝나는 월호</th>
+                        <th width="9%">신청일</th>
+                        <th width="4%">시작 월호</th>
+                        <th width="4%">끝나는 월호</th>
                         <th width="6%">결제정보</th>
-                        <th width="6%">LOST 횟수</th>
-                        <th width="6%">상태</th>
+                        <th width="6%">발송현황</th>
+                        <th width="5%">상태</th>
+                        <th width="6%">-</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -347,32 +381,76 @@
                                 <input type="text" class="form-control" name="sub_cnt[]" value="<?=$subItem["cnt"]?>"/>
                             </td>
                             <td>
-
+                                <select class="form-control" name="sub_subType[]">
+                                    <option value="">선택</option>
+                                    <option value="0" <?=$subItem["subType"] == "0" ? "selected" : ""?>>개인</option>
+                                    <option value="1" <?=$subItem["subType"] == "1" ? "selected" : ""?>>단체</option>
+                                    <option value="2" <?=$subItem["subType"] == "2" ? "selected" : ""?>>묶음배송</option>
+                                    <option value="3" <?=$subItem["subType"] == "3" ? "selected" : ""?>>표지광고</option>
+                                </select>
                             </td>
                             <td>
-                                <select class="form-control" name="sub_deliveryType[]">
+                                <select class="form-control" name="sub_shippingType[]">
                                     <option value="">선택</option>
-                                    <option value="0" <?=$subItem["deliveryType"] == "0" ? "selected" : ""?>>우편</option>
-                                    <option value="1" <?=$subItem["deliveryType"] == "1" ? "selected" : ""?>>택배</option>
+                                    <option value="0" <?=$subItem["shippingType"] == "0" ? "selected" : ""?>>우편</option>
+                                    <option value="1" <?=$subItem["shippingType"] == "1" ? "selected" : ""?>>택배</option>
                                 </select>
                             </td>
                             <td>
                                 <?=$subItem["regDate"]?>
                             </td>
                             <td>
-                                <input class="form-control monthPicker" type="text" name="birth" id="birth" placeholder="" value="<?=$userInfo["birth"]?>" />
+                                <select class="form-control" name="pYear[]">
+                                    <option value="">선택</option>
+                                    <?for($i=-50; $i<50; $i++){
+                                        $tmp = intval(date("Y")) + $i;
+                                        ?>
+                                        <option value="<?=$tmp?>" <?=$subItem["pYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                    <?}?>
+                                </select>
+                                <select class="form-control" name="pMonth[]">
+                                    <option value="">선택</option>
+                                    <?for($i=1; $i<13; $i++){?>
+                                        <option value="<?=$i?>" <?=$subItem["pMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                    <?}?>
+                                </select>
                             </td>
                             <td>
-                                <input class="form-control monthPicker" type="text" name="birth" id="birth" placeholder="" value="<?=$userInfo["birth"]?>" />
+                                <select class="form-control" name="eYear[]">
+                                    <option value="">선택</option>
+                                    <?for($i=-50; $i<50; $i++){
+                                        $tmp = intval(date("Y")) + $i;
+                                        ?>
+                                        <option value="<?=$tmp?>" <?=$subItem["eYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                    <?}?>
+                                </select>
+                                <select class="form-control" name="eMonth[]">
+                                    <option value="">선택</option>
+                                    <?for($i=1; $i<13; $i++){?>
+                                        <option value="<?=$i?>" <?=$subItem["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                    <?}?>
+                                </select>
                             </td>
                             <td>
 
                             </td>
                             <td>
-
+                                <?=$subItem["lostCnt"]?>
+                                /
+                                <?=$subItem["eYear"] != "" && $subItem["eMonth"] != "" ?
+                                    (intval($subItem["eYear"]) - intval($subItem["pYear"])) * 12 + (intval($subItem["eMonth"]) - intval($subItem["pMonth"])) : "-"
+                                ?>
                             </td>
                             <td>
-
+                                <select class="form-control" name="deliveryStatus[]">
+                                    <option value="">선택</option>
+                                    <option value="0" <?=$subItem["deliveryStatus"] == "0" ? "selected" : ""?>>정상</option>
+                                    <option value="1" <?=$subItem["deliveryStatus"] == "1" ? "selected" : ""?>>취소</option>
+                                    <option value="2" <?=$subItem["deliveryStatus"] == "2" ? "selected" : ""?>>발송보류</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary jSaveSub" id="<?=$subItem["id"]?>">저장</button>
                             </td>
                         </tr>
                     <?}?>

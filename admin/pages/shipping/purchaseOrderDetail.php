@@ -18,10 +18,11 @@
         $formJson = $item["formJson"];
 
 //        $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', nl2br($formJson)), true);
-        $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', nl2br($formJson)), true);
     }else{
         $formJson = $uc->getProperty("FORM_JSON_ORDER");
     }
+
+    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', $formJson), true);
 
 ?>
 
@@ -33,7 +34,7 @@
 
     $(document).ready(function(){
 
-        var formJson = <?=preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $formJson)?>;
+        var formJson = <?=preg_replace('/[\x00-\x1F\x7F]/', '', $formJson)?>;
 
         function process(){
             var objs = $("input");
@@ -47,6 +48,19 @@
                     pointer = pointer + "['" + spName[w] + "']";
                 }
                 eval(pointer + " = content");
+            }
+        }
+
+        function clear(){
+            var objs = $("input");
+            for(var e = 0; e < objs.length;  e++){
+                var name = objs.eq(e).attr("name");
+                var content = objs.eq(e).val();
+                var spName = name.split("-");
+                var pointer = "formJson";
+                if(formJson.hasOwnProperty(spName[0])){
+                    objs.eq(e).val("");
+                }
             }
         }
 
@@ -72,8 +86,42 @@
 
         $("input").change(function(){
             process();
-            console.log(JSON.stringify(formJson));
-            updateFormJson(JSON.stringify(formJson), currentId);
+//            console.log(JSON.stringify(formJson));
+            if(currentId == ""){
+
+            }else{
+//                updateFormJson(JSON.stringify(formJson), currentId);
+            }
+
+        });
+
+        $(".jSubmit").click(function(){
+            $.ajax({
+                type : "POST",
+                url: "/route.php?cmd=Uncallable.saveOrderForm",
+                async: true,
+                cache: false,
+                dataType: "json",
+                data: {
+                    "id" : currentId,
+                    "regNo" : $("input[name=regNo]").val(),
+                    "buyer" : $("input[name=buyer]").val(),
+                    "year" : $("#jYear").val(),
+                    "month" : $("#jMonth").val(),
+                    "setDate" : $("input[name=setDate]").val(),
+                    "type" : $("input[name=type]").val(),
+                    "formJson" : JSON.stringify(formJson)
+                },
+                success: function (data){
+                    console.log(data);
+                    alert("저장되었습니다.");
+                    if(currentId == "") history.back();
+                    else location.reload();
+                },
+                error : function(req, res, err){
+                    alert(req+res+err);
+                }
+            });
         });
 
         $(".jForm").click(function(){
@@ -83,6 +131,10 @@
 
         $(".jBack").click(function(){
             history.back();
+        });
+
+        $(".jClear").click(function(){
+            clear();
         });
 
         $(".jDate").datepicker({
@@ -201,7 +253,6 @@
                     <th>배송처</th>
                     <th>내용</th>
                     <?for($i = 0; $i < 8; $i++){?>
-
                         <th><?=$F_VALUE["products_left"][$i]["name"]?></th>
                     <?}?>
                 </tr>
@@ -229,12 +280,14 @@
 
         <?if($_REQUEST["id"] == ""){?>
             <div class="btn-group float-right mb-2 mr-1" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary mr-1">입력</button>
-                <button type="button" class="btn btn-secondary jBack">다시작성</button>
+                <button type="button" class="btn btn-secondary mr-1 jSubmit">저장</button>
+                <button type="button" class="btn btn-secondary jClear">다시작성</button>
+                <button type="button" class="btn btn-secondary jBack">취소</button>
             </div>
         <?}else{?>
             <div class="btn-group float-right mb-2 mr-1" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary mr-1">Excel</button>
+                <button type="button" class="btn btn-secondary mr-1 jSubmit">저장</button>
                 <button type="button" no="<?=$_REQUEST["id"]?>" class="jForm btn btn-secondary mr-1">발주서</button>
                 <button type="button" class="btn btn-secondary jBack">취소</button>
             </div>

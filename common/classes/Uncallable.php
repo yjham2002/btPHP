@@ -8,7 +8,7 @@ if(!class_exists("Uncallable")){
         }
 
         function saveOrderForm(){
-            $id = $_REQUEST["id"];
+            $id = $_REQUEST["id"] == "" ? 0 : $_REQUEST["id"];
             $regNo = $_REQUEST["regNo"];
             $buyer = $_REQUEST["buyer"];
             $year = $_REQUEST["year"];
@@ -34,6 +34,8 @@ if(!class_exists("Uncallable")){
             ";
 
             $this->update($sql);
+
+            return $this->makeResultJson(1, "succ");
         }
 
         function updateOrderJson(){
@@ -44,7 +46,6 @@ if(!class_exists("Uncallable")){
 
             $sql = "UPDATE tblOrderform SET `formJson` = '{$formJson}' WHERE `id`='{$id}'";
             $this->update($sql);
-
 
             return $this->makeResultJson(1, $sql);
         }

@@ -60,7 +60,10 @@ if(!class_exists("Management")){
             $paymentInfo = null;
 
             $sql = "
-                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$userInfo["langCode"]}' LIMIT 1) publicationName 
+                SELECT 
+                  *, 
+                  (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$userInfo["langCode"]}' LIMIT 1) publicationName,
+                  (SELECT COUNT(*) FROM tblShipping S WHERE S.subsciptionId = id) lostCnt
                 FROM tblSubscription 
                 WHERE `customerId` = '{$id}' 
                 ORDER BY regDate DESC
@@ -87,6 +90,60 @@ if(!class_exists("Management")){
             $id = $_REQUEST["id"];
             $flag = $_REQUEST["flag"];
             $sql = "UPDATE tblCustomer SET `notiFlag` = '{$flag}' WHERE `id` = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function updateSubscription(){
+            $id = $_REQUEST["id"];
+            $customerLang = $_REQUEST["customerLang"];
+            $sql = "SELECT * FROM tblPublicationLang WHERE publicationId = '{$_REQUEST["publicationId"]}' AND langCode = '{$customerLang}' LIMIT 1";
+            $publication = $this->getRow($sql);
+            $totalPrice = -1;
+            if($_REQUEST["cnt"] < 10)
+                $totalPrice = $publication["price"] * $_REQUEST["cnt"];
+            else
+                $totalPrice = $publication["discounted"] * $_REQUEST["cnt"];
+
+            $sql = "
+                INSERT INTO tblSubscription(id, customerId, publicationId, cnt, pYear, pMonth, eYear, eMonth, totalPrice, subType, shippingType, rName, rPhone, rZipCode, rAddr, rAddrDetail, deliveryStatus, regDate) 
+                VALUES(
+                  '{$id}',
+                  '{$_REQUEST["customerId"]}',
+                  '{$_REQUEST["publicationId"]}',
+                  '{$_REQUEST["cnt"]}',
+                  '{$_REQUEST["pYear"]}',
+                  '{$_REQUEST["pMonth"]}',
+                  '{$_REQUEST["eYear"]}',
+                  '{$_REQUEST["eMonth"]}',
+                  '{$totalPrice}',
+                  '{$_REQUEST["subType"]}',
+                  '{$_REQUEST["shippingType"]}',
+                  '{$_REQUEST["rName"]}',
+                  '{$_REQUEST["rPhone"]}',
+                  '{$_REQUEST["rZipCode"]}',
+                  '{$_REQUEST["rAddr"]}',
+                  '{$_REQUEST["rAddrDetail"]}',
+                  '{$_REQUEST["deliveryStatus"]}',
+                  NOW()
+                )
+                ON DUPLICATE KEY UPDATE
+                publicationId = '{$_REQUEST["publicationId"]}',
+                cnt = '{$_REQUEST["cnt"]}',
+                pYear = '{$_REQUEST["pYear"]}',
+                pMonth = '{$_REQUEST["pMonth"]}',
+                eYear = '{$_REQUEST["eYear"]}',
+                eMonth = '{$_REQUEST["eMonth"]}',
+                totalPrice = '{$totalPrice}',
+                subType = '{$_REQUEST["subType"]}',
+                shippingType = '{$_REQUEST["shippingType"]}',
+                rName = '{$_REQUEST["rName"]}',
+                rPhone = '{$_REQUEST["rPhone"]}',
+                rZipCode = '{$_REQUEST["rZipCode"]}',
+                rAddr = '{$_REQUEST["rAddr"]}',
+                rAddrDetail = '{$_REQUEST["rAddrDetail"]}',
+                deliveryStatus = '{$_REQUEST["deliveryStatus"]}'
+            ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }
@@ -194,11 +251,11 @@ if(!class_exists("Management")){
             $printCharge = str_replace(",", "", $_REQUEST["printCharge"]);
             $deliveryCharge = str_replace(",", "", $_REQUEST["deliveryCharge"]);
 
-            $dueDate1 = $_REQUEST["dueDate1"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate1"]);
-            $dueDate2 = $_REQUEST["dueDate2"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate2"]);
-            $dueDate3 = $_REQUEST["dueDate3"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate3"]);
-            $dueDate4 = $_REQUEST["dueDate4"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate4"]);
-            $dueDate5 = $_REQUEST["dueDate5"] == "" ? "NULL" : mysql_real_escape_string($_REQUEST["dueDate5"]);
+            $dueDate1 = $_REQUEST["dueDate1"] == "" ? "NULL" : "'" . $_REQUEST["dueDate1"] . "'";
+            $dueDate2 = $_REQUEST["dueDate2"] == "" ? "NULL" : "'" . $_REQUEST["dueDate2"] . "'";
+            $dueDate3 = $_REQUEST["dueDate3"] == "" ? "NULL" : "'" . $_REQUEST["dueDate3"] . "'";
+            $dueDate4 = $_REQUEST["dueDate4"] == "" ? "NULL" : "'" . $_REQUEST["dueDate4"] . "'";
+            $dueDate5 = $_REQUEST["dueDate5"] == "" ? "NULL" : "'" . $_REQUEST["dueDate5"] . "'";
 
             for($i = 0; $i < 3; $i++) {
                 $check = file_exists($_FILES['docFile'.($i+1)]['tmp_name']);
@@ -269,6 +326,7 @@ if(!class_exists("Management")){
                   `fileName3` = '{$fileArray[2]["fileName"]}',
                   `filePath3` = '{$fileArray[2]["filePath"]}'
             ";
+            echo $sql;
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }

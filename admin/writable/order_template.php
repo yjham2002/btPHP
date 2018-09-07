@@ -41,6 +41,15 @@ $formJson = $formData["formJson"];
             margin: 0;
         }
         @media print {
+
+            td input[type=text], td textarea {
+                border : none;
+                width: 100%;
+                height: 100%;
+                font-size: 1.0em !important;
+                padding : 0 !important;
+            }
+
             #toPrint {
                 margin: 5mm 10mm 8mm 10mm;
                 border: initial;
@@ -86,7 +95,21 @@ $formJson = $formData["formJson"];
 <!--    <script src="/admin/writable/jspdf/plugins/addimage.js"></script>-->
 <!--    <script src="/admin/writable/jspdf/plugins/png_support.js"></script>-->
     <script src="/admin/writable/jspdf/libs/html2canvas/dist/html2canvas.js"></script>
+
+    <style>
+        td input[type=text], td textarea {
+            border : none;
+            width: 100%;
+            height: 100%;
+            font-size: 1.0em !important;
+            padding : 0 !important;
+        }
+    </style>
+
     <script>
+        var formJson = <?=preg_replace('/[\x00-\x1F\x7F]/', '', $formJson)?>;
+        var currentId = "<?=$_REQUEST["id"]?>";
+
         function exportToExcel(){
             var divToPrint=document.getElementById("toPrint");
             var optionCss = "#toPrint{width : 210mm;}";
@@ -117,6 +140,27 @@ $formJson = $formData["formJson"];
             link.click();
         }
 
+        function updateFormJson(jsonObj, id){
+            $.ajax({
+                type : "POST",
+                url: "/route.php?cmd=Uncallable.updateOrderJson",
+                async: true,
+                cache: false,
+                dataType: "json",
+                data: {
+                    "formJson" : jsonObj,
+                    "id" : id
+                },
+                success: function (data){
+                    console.log(data);
+                    window.close();
+                },
+                error : function(req, res, err){
+                    alert(req+res+err);
+                }
+            });
+        }
+
         function printData() {
             var divToPrint=document.getElementById("toPrint");
             newWin= window.open("");
@@ -129,6 +173,44 @@ $formJson = $formData["formJson"];
         }
 
         $(document).ready(function(){
+
+            function resizeTextArea(){
+                var arr = $("textarea");
+                for(var e = 0; e < arr.length; e++){
+                    arr.eq(e).height(arr.eq(e).prop('scrollHeight'));
+                }
+            }
+
+            resizeTextArea();
+
+            $("input, textarea").change(function(){
+                process();
+                console.log(JSON.stringify(formJson));
+                if(currentId == ""){
+
+                }else{
+
+                }
+
+            });
+
+            var processed = false;
+
+            function process(){
+                processed = true;
+                var objs = $("input, textarea");
+                for(var e = 0; e < objs.length;  e++){
+                    var name = objs.eq(e).attr("name");
+                    var content = objs.eq(e).val();
+                    var spName = name.split("-");
+                    var pointer = "formJson";
+                    if(!formJson.hasOwnProperty(spName[0])) continue;
+                    for(var w = 0; w < spName.length; w++){
+                        pointer = pointer + "['" + spName[w] + "']";
+                    }
+                    eval(pointer + " = content");
+                }
+            }
 
             function exportToPdf(fileName){
                 html2canvas($(".tableWrapper"), {
@@ -165,7 +247,11 @@ $formJson = $formData["formJson"];
             }
 
             $(".jPrint").click(function(){
-                printData();
+                if(processed){
+                    alert("변경사항이 있습니다. 저장 후 인쇄가 가능합니다.");
+                }else{
+                    printData();
+                }
             });
 
             $(".jModify").click(function(){
@@ -177,7 +263,7 @@ $formJson = $formData["formJson"];
             });
 
             $(".jClose").click(function(){
-
+                updateFormJson(JSON.stringify(formJson), currentId);
             });
 
         });
@@ -337,7 +423,9 @@ $formJson = $formData["formJson"];
     </tr>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=5 rowspan=2 height="70" align="center" class="darkBg">건명</td>
-        <td style="border: 1px solid #000000;" colspan=12 rowspan=2 align="center" valign=middle><?=$F_VALUE["order_name"]?></td>
+        <td style="border: 1px solid #000000;" colspan=12 rowspan=2 align="center" valign=middle>
+            <input type="text" name="order_name" value="<?=$F_VALUE["order_name"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=6 align="center" class="darkBg">사업장주소</td>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=11 align="center" valign=middle><?=$static_addr?></td>
     </tr>
@@ -358,26 +446,40 @@ $formJson = $formData["formJson"];
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="27" align="center" valign=middle class="darkBg"><?=$w + 1?></td>
         <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["products"][$w]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["products"][$w]["use"]?></td>
+        <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle>
+            <input type="text" name="products-<?=$w?>-use" value="<?=$F_VALUE["products"][$w]["use"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=3 align="center" valign=middle><?=$F_VALUE["products"][$w]["unit"]?></td>
         <td style="border: 1px solid #000000;" colspan=5 align="right" valign=middle><?=$F_VALUE["products"][$w]["quantity"]?></td>
         <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle><?=$F_VALUE["products"][$w]["price"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["products"][$w]["etc"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle>
+            <input type="text" name="products-<?=$w?>-etc" value="<?=$F_VALUE["products"][$w]["etc"]?>" />
+        </td>
     </tr>
     <?}?>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=3 height="30" align="center" valign=middle class="darkBg">가격</td>
-        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle><?=$F_VALUE["price"]?></td>
+        <td style="border: 1px solid #000000;" colspan=12 align="center" valign=middle>
+            <input type="text" name="price" value="<?=$F_VALUE["price"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle class="darkBg">세액</td>
-        <td style="border: 1px solid #000000;" colspan=8 align="center" valign=middle><?=$F_VALUE["tax"]?></td>
+        <td style="border: 1px solid #000000;" colspan=8 align="center" valign=middle>
+            <input type="text" name="tax" value="<?=$F_VALUE["tax"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=4 align="center" valign=middle class="darkBg">합계금액</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle><?=$F_VALUE["tax"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=5 align="center" valign=middle>
+            <input type="text" name="total" value="<?=$F_VALUE["total"]?>" />
+        </td>
     </tr>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=5 height="30" align="center" valign=middle class="darkBg">담당자</td>
-        <td style="border: 1px solid #000000;" colspan=14 align="center" valign=middle><?=$F_VALUE["charge"]?></td>
+        <td style="border: 1px solid #000000;" colspan=14 align="center" valign=middle>
+            <input type="text" name="charge" value="<?=$F_VALUE["charge"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=8 align="center" valign=middle class="darkBg">납품장소</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=9 align="center" valign=middle><?=$F_VALUE["place"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=9 align="center" valign=middle>
+            <input type="text" name="place" value="<?=$F_VALUE["place"]?>" />
+        </td>
     </tr>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 rowspan=12 height="320" align="center" valign=middle class="darkBg">납<br><br>품<br><br>상<br><br>세<br><br>내<br><br>역</td>
@@ -395,16 +497,32 @@ $formJson = $formData["formJson"];
     <?for($w = 0; $w < sizeof($F_VALUE["products_left"]); $w++){?>
     <tr>
         <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["products_left"][$w]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["products_left"][$w]["quantity"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle><?=$F_VALUE["products_left"][$w]["etc"]?></td>
+        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle>
+            <input type="text" name="products_left-<?=$w?>-quantity" value="<?=$F_VALUE["products_left"][$w]["quantity"]?>" />
+        </td>
+        <td style="border: 1px solid #000000;" colspan=6 align="center" valign=middle>
+            <input type="text" name="products_left-<?=$w?>-etc" value="<?=$F_VALUE["products_left"][$w]["etc"]?>" />
+        </td>
         <td style="border: 1px solid #000000;" colspan=5 align="center" valign=middle><?=$F_VALUE["products_right"][$w]["name"]?></td>
-        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle><?=$F_VALUE["products_right"][$w]["quantity"]?></td>
-        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle><?=$F_VALUE["products_right"][$w]["etc"]?></td>
+        <td style="border: 1px solid #000000;" colspan=6 align="right" valign=middle>
+            <input type="text" name="products_right-<?=$w?>-quantity" value="<?=$F_VALUE["products_right"][$w]["quantity"]?>" />
+        </td>
+        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=6 align="center" valign=middle>
+            <input type="text" name="products_right-<?=$w?>-etc" value="<?=$F_VALUE["products_right"][$w]["etc"]?>" />
+        </td>
     </tr>
     <?}?>
     <tr>
         <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle class="darkBg">참<br><br>고<br><br>사<br><br>항</td>
-        <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=34 align="left" valign=middle><?=$F_VALUE["comment"]?></td>
+        <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=34 align="left" valign=middle>
+            <?
+            function br2nl($str) {
+                $str = preg_replace("/(\r\n|\n|\r)/", "", $str);
+                return preg_replace("=&lt;br */?&gt;=i", "\n", $str);
+            }
+            ?>
+            <textarea name="comment"><?=br2nl($F_VALUE["comment"])?></textarea>
+        </td>
     </tr>
 </table>
 </div>
@@ -416,7 +534,7 @@ $formJson = $formData["formJson"];
 <a href="#" class="jPrint jRounded" >인쇄</a>
 <a href="#" class="jModify jRounded" >입력/수정</a>
 <a href="#" class="jDownload jRounded" >다운로드</a>
-<a href="#" class="jClose jRounded" >닫기</a>
+<a href="#" class="jClose jRounded" >저장 및 닫기</a>
 </div>
 
 </body>
