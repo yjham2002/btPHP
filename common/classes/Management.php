@@ -281,7 +281,7 @@ if(!class_exists("Management")){
 
             $sql = "
                 INSERT INTO tblForeignPubItem(`id`, `foreignPubId`, `nd`, `startMonth`, `endMonth`, `type`, `cnt`, `client`, `printCharge`, 
-                `deliveryCharge`, `dueDate1`, `dueDate2`, `dueDate3`, `dueDate4`, `dueDate5`, `fileName1`, `filePath1`, `fileName2`, `filePath2`, 
+                `deliveryCharge`, `note`, `dueDate1`, `dueDate2`, `dueDate3`, `dueDate4`, `dueDate5`, `fileName1`, `filePath1`, `fileName2`, `filePath2`, 
                 `fileName3`, `filePath3`, `regDate`)
                 VALUES(
                   '{$id}',
@@ -294,6 +294,7 @@ if(!class_exists("Management")){
                   '{$_REQUEST["client"]}',
                   '{$printCharge}',
                   '{$deliveryCharge}',
+                  '{$_REQUEST["note"]}',
                   {$dueDate1},
                   {$dueDate2},
                   {$dueDate3},
@@ -313,6 +314,7 @@ if(!class_exists("Management")){
                   `client` = '{$_REQUEST["client"]}',
                   `printCharge` = '{$printCharge}',
                   `deliveryCharge` = '{$deliveryCharge}',
+                  `note` = '{$_REQUEST["note"]}',
                   `paymentFlag` = '{$_REQUEST["paymentFlag"]}',
                   `dueDate1` = {$dueDate1},
                   `dueDate2` = {$dueDate2},
@@ -326,7 +328,6 @@ if(!class_exists("Management")){
                   `fileName3` = '{$fileArray[2]["fileName"]}',
                   `filePath3` = '{$fileArray[2]["filePath"]}'
             ";
-            echo $sql;
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }

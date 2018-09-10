@@ -66,13 +66,13 @@ $historyData = json_decode($historyRaw);
             </div>
         </header>
 
-        <div class="row">
+        <div class="row small">
             <!-- Break -->
-            <div class="4u 12u$(medium)">
+            <div class="4u 12u$(medium)" style="padding : 0;">
 <!--                <h3><text style="color:black;">바이블타임은</text><br />기독교 국가<text style="color:black;">에서 시작되었습니다.</text></h3>-->
-                <h3><text style="color:black;"><?=$INTRODUCTION_ELEMENTS["start"]["subTitle"]?></text></h3>
+                <h3 class="align-left"><text style="color:black;"><?=$INTRODUCTION_ELEMENTS["start"]["subTitle"]?></text></h3>
             </div>
-            <div class="7u 12u$(medium)">
+            <div class="8u 12u$(medium)">
                 <p class="align-left">
                     <?=$INTRODUCTION_ELEMENTS["start"]["text"]?>
                 </p>
@@ -110,12 +110,12 @@ $historyData = json_decode($historyRaw);
                 <div class="6u adjacent"><span class="image fit"><img src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_INTRO_HIS_RIGHT"]?>" alt="" /></span></div>
             </div>
         </header>
-        <div class="row">
+        <div class="row small">
             <!-- Break -->
-            <div class="4u 12u$(medium) align-center">
+            <div class="4u 12u$(medium) align-left" style="padding : 0;">
                 <h3><text style="color:black;"><?=$INTRODUCTION_ELEMENTS["article"]["subTitle"]?></text></h3>
             </div>
-            <div class="7u 12u$(medium)">
+            <div class="8u 12u$(medium)">
                 <p class="align-left">
                     <?=$INTRODUCTION_ELEMENTS["article"]["text"]?>
                 </p>

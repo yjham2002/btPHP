@@ -25,8 +25,23 @@
                     if(data.returnCode === 1){
                         alert("저장되었습니다.");
                         location.href = "/admin/pages/staffService/adminList.php";
+                    }else if(data.returnCode == -1){
+                        alert("중복된 아이디가 존재합니다.");
                     }
                 });
+            }
+
+        });
+
+        var origin = "<?=$item["auth"]?>";
+
+        $(".jCls").change(function(){
+            if("<?=$userInfo->auth?>" == "2") {
+
+            }else{
+                alert("권한이 없습니다.");
+                $(".jCls").val(origin);
+                return;
             }
 
         });
@@ -72,9 +87,20 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">권한</span>
+                </div>
+                <select class="custom-select jCls" name="auth">
+                    <option value="0" <?=$item["auth"] == "0" ? "SELECTED" : ""?>>일반관리자</option>
+                    <option value="2" <?=$item["auth"] == "2" ? "SELECTED" : ""?>>슈퍼관리자</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">비밀번호</span>
                 </div>
                 <input type="text" class="form-control" name="password" value="">
+                <input type="hidden" name="originPass" value = "<?=$item["password"]?>" />
             </div>
         </form>
     </div>

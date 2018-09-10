@@ -124,7 +124,7 @@
                         <img src="<?=$obj->fileShowPath.$article["titleImg"]?>" />
                     </div>
                     <a class="align-right jSupport" href="#" id="<?=$article["parentId"]?>">
-                        <img class="circleBtn" src="../images/btn_support.png" />
+                        <img class="circleBtn" src="<?=$obj->fileShowPath.$CONST_IMAGE["L_IMG_SUPPORT_BTN_02"]?>" />
                     </a>
                 </div>
                 <div class="8u 12u$(medium)">

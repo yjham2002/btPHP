@@ -172,6 +172,34 @@
                 });
             }
 
+            $(".jS01").click(function(){
+                var d = "#" + $(this).attr("divId");
+                $(".jS01").removeClass("btn-primary");
+                $(".jS01").addClass("btn-secondary");
+                $(this).removeClass("btn-secondary");
+                $(this).addClass("btn-primary");
+                hideAllBox();
+                $(d).fadeIn();
+                resizeTextArea();
+            });
+
+            function hideAllBox(){
+                $("#show01").hide();
+                $("#show02").hide();
+                $("#show03").hide();
+                $("#show04").hide();
+                $("#show05").hide();
+                $("#show06").hide();
+                $("#show07").hide();
+            }
+
+            $("#show02").hide();
+            $("#show03").hide();
+            $("#show04").hide();
+            $("#show05").hide();
+            $("#show06").hide();
+            $("#show07").hide();
+
             $(".jSave").click(function(){
                 var jsonArr = getLangPair();
                 console.log(jsonArr);
@@ -257,9 +285,23 @@
                 <a href="#" class="jSaveO btn btn-secondary">저장</a>
             </div>
 
-            <!-- HEADER ELEMENTS -->
-            <h4>웹사이트 헤더 영역</h4>
+            <h4>영역별 설정</h4>
 
+            <div class="btn-group float-left mb-3" role="group">
+                <button type="button" class="btn btn-primary jS01" divId="show01">웹사이트 헤더</button>
+                <button type="button" class="btn btn-secondary jS01" divId="show02">웹사이트 HOME</button>
+                <button type="button" class="btn btn-secondary jS01" divId="show03">웹사이트 소개</button>
+                <button type="button" class="btn btn-secondary jS01" divId="show04">웹사이트 구독</button>
+            </div>
+            <div class="btn-group float-left mb-3" role="group">
+            <button type="button" class="btn btn-secondary jS01" divId="show05">웹사이트 나눔</button>
+            <button type="button" class="btn btn-secondary jS01" divId="show06">웹사이트 FAQ</button>
+            <button type="button" class="btn btn-secondary jS01" divId="show07">웹사이트 MYPAGE</button>
+            </div>
+
+            <!-- HEADER ELEMENTS -->
+
+            <div id="show01">
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <colgroup>
@@ -309,10 +351,11 @@
                     </tr>
                 </table>
             </div>
+            </div>
 
             <br/>
 
-            <h4>웹사이트 HOME 영역</h4>
+            <div id="show02">
             <!-- HOME ELEMENTS-->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -361,10 +404,11 @@
                     </tr>
                 </table>
             </div>
+            </div>
 
             <br/>
 
-            <h4>웹사이트 소개 영역</h4>
+            <div id="show03">
             <!-- INTRODUCTION ELEMENTS-->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -457,10 +501,11 @@
                     </tr>
                 </table>
             </div>
+            </div>
 
             <br/>
 
-            <h4>웹사이트 구독하기 영역</h4>
+            <div id="show04">
             <!-- SUBSCRIBE ELEMENTS -->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -478,6 +523,8 @@
                         <td><input type="text" class="form-control langValue" key="subscribe_title" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
                 </table>
+            </div>
+
             </div>
             <br/>
 
@@ -511,7 +558,7 @@
 <!---->
 <!--            <br/>-->
 
-            <h4>웹사이트 나눔 영역</h4>
+            <div id="show05">
             <!-- SHARE ELEMENTS -->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -543,9 +590,10 @@
                     </tr>
                 </table>
             </div>
+            </div>
             <br/>
 
-            <h4>웹사이트 FAQ 영역</h4>
+            <div id="show06">
             <!-- FAQ ELEMENTS -->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -568,9 +616,10 @@
                     </tr>
                 </table>
             </div>
+            </div>
             <br/>
 
-            <h4>웹사이트 Mypage 영역</h4>
+            <div id="show07">
             <!-- MYPAGE ELEMENTS -->
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -618,6 +667,7 @@
                         <td><input type="text" class="form-control langValue" key="mypage_supportMenu" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
                 </table>
+            </div>
             </div>
             <br/>
 

@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="stockList added">
-      <change beforePath="$PROJECT_DIR$/admin/pages/shipping/today.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/shipping/today.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4f6aea7-3d38-4290-8cb9-77a013093e55.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f4f6aea7-3d38-4290-8cb9-77a013093e55.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/inc/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/inc/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/publicationList.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/siteManage/publicationList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/staffService/adminDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/staffService/adminDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/staffService/adminList.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/staffService/adminList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/classes/AdminMain.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/AdminMain.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/classes/Management.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Management.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/inc/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/inc/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/donationDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/donationDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/introduction.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/introduction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/mypage.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/mypage.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,16 +74,16 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="4" />
-          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="php" value="48" />
+          <entry key="php" value="50" />
           <entry key="sql" value="1" />
           <entry key="tblCustomer" value="1" />
           <entry key="tblWarehousing" value="1" />
@@ -78,19 +92,19 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Database Element" value="2" />
-          <entry key="PHP" value="48" />
+          <entry key="PHP" value="50" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="9516" />
+          <entry key="php" value="9657" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="9444" />
-          <entry key="SQL" value="72" />
+          <entry key="PHP" value="9583" />
+          <entry key="SQL" value="74" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.rename.constructor" />
@@ -148,22 +162,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/admin/pages/shipping/today.php">
+        <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="133" column="6" selection-start-line="133" selection-start-column="6" selection-end-line="133" selection-end-column="6" />
-              <folding>
-                <element signature="n#style#0;n#tbody#1;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="32" selection-start-line="32" selection-end-line="32" selection-end-column="54" />
+            <state relative-caret-position="556">
+              <caret line="182" column="28" lean-forward="true" selection-start-line="182" selection-start-column="28" selection-end-line="182" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -171,26 +173,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="523" column="20" lean-forward="true" selection-start-line="523" selection-start-column="20" selection-end-line="523" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/pages/mySubscription.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="30" column="45" lean-forward="true" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/classes/WebUser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="309" column="47" lean-forward="true" selection-start-line="309" selection-start-column="47" selection-end-line="309" selection-end-column="47" />
+            <state relative-caret-position="510">
+              <caret line="326" column="62" lean-forward="true" selection-start-line="326" selection-start-column="62" selection-end-line="326" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -199,7 +183,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>locale</find>
       <find>langList</find>
       <find>history</find>
       <find>upserCus</find>
@@ -221,7 +204,6 @@
       <find>$item</find>
       <find>setProper</find>
       <find>input</find>
-      <find>upsertForeignPubChild</find>
       <find>상태</find>
       <find>sub_subType</find>
       <find>배송주</find>
@@ -229,6 +211,8 @@
       <find>echo</find>
       <find>jLost</find>
       <find>setLo</find>
+      <find>upsertForeignPubChild</find>
+      <find>note</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -276,7 +260,6 @@
         <option value="$PROJECT_DIR$/common/classes/comm/Constants.php" />
         <option value="$PROJECT_DIR$/web/inc/header.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/storeForm.php" />
-        <option value="$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/stockList.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/stockDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/Uncallable.php" />
@@ -291,8 +274,9 @@
         <option value="$PROJECT_DIR$/web/pages/mypage.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/WebUser.php" />
-        <option value="$PROJECT_DIR$/common/classes/Management.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/today.php" />
+        <option value="$PROJECT_DIR$/common/classes/Management.php" />
+        <option value="$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php" />
       </list>
     </option>
   </component>
@@ -321,10 +305,9 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="973" />
-    <option name="height" value="1057" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -334,7 +317,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -413,11 +395,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mariadb" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;CUSTOMERd&#9;null&#9;null&#10;today\&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/today.php&#10;WebUser&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebUser.php&#10;myS&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;cust&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;mypage&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mypage.php&#10;webSu&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebSubscription.php&#10;Mana&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;mysub&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;unc&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Uncallable.php&#10;Manage&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;stockL&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/stockList.php&#10;WebSub&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebSubscription.php&#10;customerDetail&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Consta&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/comm/Constants.php&#10;DB&#9;null&#9;null&#10;foreign&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/foreignHistory.php&#10;manageM&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;schedules&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/schedules.php&#10;today&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/today.php&#10;mySubsc&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;U&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;Uncal&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;order_te&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/writable/order_template.php&#10;purcha&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/purchaseOrderDetail.php&#10;WebSuppo&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;Web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;subscribeD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscribeDetail.php&#10;webSub&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;Webu&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;WebSupp&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;supportD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;adminMain&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;stockLi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockList.php&#10;fore&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/foreignHistory.php&#10;store&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/storeForm.php&#10;stockD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/stockDetail.php&#10;pYear&#9;null&#9;null&#10;CustomerD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Manag&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;customerD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;managem&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;head&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/header.php&#10;Constan&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;formList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/formList.php&#10;pageNav&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/pageNavigator.php&#10;paymentSt&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/paymentStatus.php" />
+    <property name="SearchEverywhereHistoryKey" value="Manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;foreignH&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/foreignHistory.php&#10;CUSTOMERd&#9;null&#9;null&#10;today\&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/today.php&#10;WebUser&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebUser.php&#10;myS&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;cust&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;mypage&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mypage.php&#10;webSu&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebSubscription.php&#10;Mana&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;mysub&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;unc&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Uncallable.php&#10;stockL&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/stockList.php&#10;WebSub&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/WebSubscription.php&#10;customerDetail&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Consta&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/comm/Constants.php&#10;DB&#9;null&#9;null&#10;foreign&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/foreignHistory.php&#10;manageM&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/common/classes/Management.php&#10;schedules&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/staffService/schedules.php&#10;today&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/today.php&#10;mySubsc&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/web/pages/mySubscription.php&#10;U&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;Uncal&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;order_te&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/writable/order_template.php&#10;purcha&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/purchaseOrderDetail.php&#10;WebSuppo&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;Web&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;subscribeD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscribeDetail.php&#10;webSub&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;Webu&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;WebSupp&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;supportD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;adminMain&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;stockLi&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockList.php&#10;fore&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/customerManage/foreignHistory.php&#10;store&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/storeForm.php&#10;stockD&#9;FILE&#9;file://D:/workspace_integrated/WebstormProjects/BibleTime/admin/pages/shipping/stockDetail.php&#10;pYear&#9;null&#9;null&#10;CustomerD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;Manag&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;customerD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;managem&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;head&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/header.php&#10;Constan&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Constants.php&#10;formList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/formList.php&#10;pageNav&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/pageNavigator.php&#10;paymentSt&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/paymentStatus.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -503,16 +486,18 @@
       <workItem from="1536206256785" duration="6374000" />
       <workItem from="1536234263935" duration="6166000" />
       <workItem from="1536294421033" duration="17089000" />
+      <workItem from="1536384790000" duration="1182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="304589000" />
+    <option name="totallyTimeSpent" value="305771000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="973" height="1057" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3876698" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26180556" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -532,7 +517,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.30825496" />
+      <window_info anchor="right" id="Database" order="3" weight="0.30763888" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -807,13 +792,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="64" column="86" selection-start-line="64" selection-start-column="65" selection-end-line="64" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/comm/Constants.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="685">
@@ -856,41 +834,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/mySubscription.php">
+    <entry file="file://$PROJECT_DIR$/admin/pages/shipping/today.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="30" column="45" lean-forward="true" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+        <state relative-caret-position="384">
+          <caret line="130" column="21" lean-forward="true" selection-start-line="130" selection-start-column="21" selection-end-line="130" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
+        <state relative-caret-position="405">
           <caret line="32" selection-start-line="32" selection-end-line="32" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
+    <entry file="file://$PROJECT_DIR$/web/pages/mySubscription.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="523" column="20" lean-forward="true" selection-start-line="523" selection-start-column="20" selection-end-line="523" selection-end-column="20" />
+        <state relative-caret-position="375">
+          <caret line="30" column="45" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/WebUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="309" column="47" lean-forward="true" selection-start-line="309" selection-start-column="47" selection-end-line="309" selection-end-column="47" />
+        <state relative-caret-position="4635">
+          <caret line="309" column="47" selection-start-line="309" selection-start-column="47" selection-end-line="309" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/pages/shipping/today.php">
+    <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="133" column="6" selection-start-line="133" selection-start-column="6" selection-end-line="133" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#tbody#1;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="510">
+          <caret line="326" column="62" lean-forward="true" selection-start-line="326" selection-start-column="62" selection-end-line="326" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="182" column="28" lean-forward="true" selection-start-line="182" selection-start-column="28" selection-end-line="182" selection-end-column="28" />
         </state>
       </provider>
     </entry>

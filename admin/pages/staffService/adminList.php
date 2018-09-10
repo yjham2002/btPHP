@@ -47,13 +47,16 @@
             <li class="breadcrumb-item active">관리자</li>
         </ol>
 
+        <?if($userInfo->auth == 2){?>
         <button type="button" class="btn btn-secondary float-right mb-2 jAdd">추가</button>
+        <?}?>
 
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
                 <th>관리자 계정</th>
                 <th>관리자 이름</th>
+                <th>권한</th>
                 <th>등록일시</th>
                 <th>-</th>
             </tr>
@@ -63,9 +66,18 @@
                 <tr class="jView" id="<?=$item["id"]?>">
                     <td><?=$item["account"]?></td>
                     <td><?=$item["name"]?></td>
+                    <td>
+                        <?switch ($item["auth"]) {
+                            case 0: echo "일반관리자"; break;
+//                            case 1: echo "중간관리자"; break;
+                            case 2: echo "슈퍼관리자"; break;
+                        }?>
+                    </td>
                     <td><?=$item["regDate"]?></td>
                     <td>
+                        <?if($userInfo->auth == 2){?>
                         <button type="button" id="<?=$item["id"]?>" class="btn btn-danger mb-2 jDel">삭제</button>
+                        <?}?>
                     </td>
                 </tr>
             <?}?>

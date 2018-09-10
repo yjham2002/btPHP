@@ -156,6 +156,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">고객 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/customerList.php">고객정보</a>
+                <?if($userInfo->auth >= 2){?>
                 <a class="dropdown-item" href="/admin/pages/customerManage/failedPurchase.php">결제실패</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">발송</h6>
@@ -165,9 +166,11 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>
                 <a class="dropdown-item" href="/admin/pages/customerManage/paymentStatus.php">입금 현황</a>
+                <?}?>
             </div>
         </li>
 
+        <?if($userInfo->auth >= 2){?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-box"></i>
@@ -188,6 +191,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/shipping/today.php">당일배송 추출</a>
             </div>
         </li>
+        <?}?>
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -199,10 +203,13 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/staffService/noticeList.php">공지사항</a>
                 <a class="dropdown-item" href="/admin/pages/staffService/formList.php">문서 서식</a>
                 <a class="dropdown-item" href="/admin/pages/staffService/schedules.php">스케쥴</a>
+                <?if($userInfo->auth >= 2){?>
                 <a class="dropdown-item" href="/admin/pages/staffService/adminList.php">관리자</a>
+                <?}?>
             </div>
         </li>
 
+        <?if($userInfo->auth >= 2){?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-cog"></i>
@@ -219,6 +226,8 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어 및 문구</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/layoutSetting.php">레이아웃</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/imageSetting.php">레이아웃 이미지 설정</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/popup.php">메인 팝업 관리</a>
             </div>
         </li>
+        <?}?>
     </ul>

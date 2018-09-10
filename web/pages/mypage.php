@@ -137,7 +137,7 @@
         </header>
 
         <div style="" class="align-right">
-            <a href="#" class="grayButton roundButton">거래명세서</a>
+<!--            <a href="#" class="grayButton roundButton">거래명세서</a>-->
             <a href="#" class="grayButton roundButton jInquire">1:1 문의</a>
         </div>
         <hr />
@@ -279,8 +279,7 @@
                 </table>
             </div>
         </div>
-        <a href="#" class="roundButton grayButton jCancel">취소</a>
-        <a href="#" class="roundButton blueButton jSave">확인</a>
+        <a href="#" class="roundButton grayButton jSave">저장</a>
     </div>
 </section>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

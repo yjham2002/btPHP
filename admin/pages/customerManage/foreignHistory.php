@@ -160,6 +160,11 @@
                     <td class="bg-secondary text-light">합계</td>
                     <td colspan="5" class="text-right jTotal"></td>
                 </tr>
+                <tr>
+                    <td colspan="6">
+                        <textarea class="form-control" name="note"><?=$item["note"]?></textarea>
+                    </td>
+                </tr>
             </table>
 
             <hr>

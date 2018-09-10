@@ -198,6 +198,14 @@ if(!class_exists("AdminMain")){
             return $this->makeResultJson(1, "succ", $this->mysql_insert_id());
         }
 
+        function editPub(){
+            $id = $_REQUEST["id"];
+            $desc = $_REQUEST["desc"];
+            $sql = "UPDATE tblPublication SET `desc` = '{$desc}' WHERE `id` = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
         function upsertPublication(){
             $check = getimagesize($_FILES["imgFile"]["tmp_name"]);
             $check2 = getimagesize($_FILES["imgFileIntro"]["tmp_name"]);
@@ -493,22 +501,33 @@ if(!class_exists("AdminMain")){
             $id = $_REQUEST["id"];
             $account = $_REQUEST["account"];
             $password = md5($_REQUEST["password"]);
+            if($_REQUEST["password"] == "") $password = $_REQUEST["originPass"];
             $name = $_REQUEST["name"];
+            $level = $_REQUEST["auth"];
             if($id == "") $id = 0;
+            if($level == "") $level = 0;
 
-            $sql = "INSERT INTO tblAdmin(`id`, `account`, `password`, `name`, `status`, `regDate`)
+            $Tsql = "SELECT COUNT(*) AS rn FROM tblAdmin WHERE `account` = '{$account}'";
+            $Trn = $this->getValue($Tsql, "rn");
+            if($id == 0 && $Trn > 0){
+                return $this->makeResultJson(-1, "");
+            }
+
+            $sql = "INSERT INTO tblAdmin(`id`, `account`, `password`, `name`, `status`, `auth`, `regDate`)
                     VALUES(
                       '{$id}', 
                       '{$account}', 
                       '{$password}', 
                       '{$name}',
                       '1',
+                      '{$level}',
                       NOW()
                     )
                     ON DUPLICATE KEY UPDATE 
                       `account` = '{$account}',
                       `password` = '{$password}',
-                      `name` = '{$name}'
+                      `name` = '{$name}',
+                      `auth` = '{$level}'
                   ";
             $this->update($sql);
             return $this->makeResultJson(1, "");

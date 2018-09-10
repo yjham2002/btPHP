@@ -15,6 +15,12 @@
 ?>
 <script>
     $(document).ready(function(){
+
+        var popFlag = "<?=$popFlag?>";
+        if(popFlag == "1"){
+            window.open("/web/pages/popup.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px");
+        }
+
         $(".toSubscription").click(function(){location.href = "/web/pages/subscription.php";});
         $(".toSupport").click(function(){location.href = "/web/pages/contribution.php";});
 

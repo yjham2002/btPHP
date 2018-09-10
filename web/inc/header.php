@@ -18,6 +18,9 @@
     $user= $expObj->webUser;
 //    echo json_encode($user);
     $uc = new Uncallable($_REQUEST);
+
+    $popFlag = $uc->getProperty("FLAG_VALUE_POPUP_SHOW");
+
     $CONST_PREFIX_IMAGE = "L_IMG";
 
     $CONST_IMAGE_RAW = $uc->getProperties($CONST_PREFIX_IMAGE, $country_code);
