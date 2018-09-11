@@ -9,6 +9,7 @@
 
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBase.php" ;?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php" ;?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/web/abroad/billing.php" ;?>
 <?
 if(!class_exists("WebSubscription")){
     class WebSubscription extends  WebBase {
@@ -102,7 +103,80 @@ if(!class_exists("WebSubscription")){
             }
 
             //TODO paymethod/payment info insert
-            $payMethodId = 0;
+            $paymentType = $_REQUEST["paymentType"];
+            $isOwner = $_REQUEST["isOwner"];
+            $ownerName = $_REQUEST["ownerName"];
+            $cardTypeId = $_REQUEST["cardType"] == "" ? -1 : $_REQUEST["cardType"];
+            $bankCode = $_REQUEST["bankType"];
+            $info = $_REQUEST["info"];
+            $validThruYear = $_REQUEST["validThruYear"];
+            $validThruMonth =  $_REQUEST["validThruMonth"];
+
+            if($paymentType == "CC")
+                $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
+
+            if($paymentType == "FC"){
+                $info = $_REQUEST["cardForeign"];
+                $validThruYear = $_REQUEST["validThruYearF"];
+                $validThruMonth = $_REQUEST["validThruMonthF"];
+
+//                $this->webuser->type == "1" ? "" : ""
+
+                /**
+                 * Parameters
+                 */
+                $subscriptionName = "";
+                $startDate = "";
+                $totalOccurrences = "";
+                $trialOccurrences = "";
+                $unit = "month";
+                $trialAmount = "";
+                $cardNo = $info;
+                $cardExpiry = $validThruYear."-".$validThruMonth;
+                $FirstName = "";
+                $LastName = "";
+                $invoiceNumber = "";
+                $description = "Subscription Of Bibletime";
+                $intervalLength = "";
+                /**
+                 * End
+                 */
+
+                //TODO 해외 신용카드 경우도 붙여서 저장
+                createSubscription(
+                    $subscriptionName,
+                    $startDate,
+                    $totalOccurrences,
+                    $trialOccurrences,
+                    $unit,
+                    $trialAmount,
+                    $cardNo,
+                    $cardExpiry,
+                    $FirstName,
+                    $LastName,
+                    $invoiceNumber,
+                    $description,
+                    $intervalLength
+                );
+            }
+
+            $sql = "
+                INSERT INTO tblPayMethod(customerId, isOwner, cardTypeId, bankCode, ownerName, `type`, info, validThruYear, validThruMonth, regDate)
+                VALUES(
+                  '{$customerId}',
+                  '{$isOwner}',
+                  '{$cardTypeId}',
+                  '{$bankCode}',
+                  '{$ownerName}',
+                  '{$paymentType}',
+                  '{$info}',
+                  '{$validThruYear}',
+                  '{$validThruMonth}',
+                  NOW()
+                )
+            ";
+            $this->update($sql);
+            $payMethodId = $this->mysql_insert_id();
 
             $publicationName = $_REQUEST["publicationName"];
             $curYear = intval(date("Y"));

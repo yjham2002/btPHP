@@ -530,5 +530,19 @@ if(!class_exists("Management")){
             ";
             return $this->getArray($sql);
         }
+
+        function cardTypeList(){
+            $sql = "
+                SELECT * FROM tblCardType ORDER BY `id` ASC
+            ";
+            return $this->getArray($sql);
+        }
+
+        function bankTypeList(){
+            $sql = "
+                SELECT * FROM tblBankType ORDER BY `id` ASC
+            ";
+            return $this->getArray($sql);
+        }
     }
 }
