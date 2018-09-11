@@ -73,6 +73,30 @@ if(!class_exists("AdminMain")){
             $this->update($sql);
         }
 
+        function _upsertLangJsonStatic(){
+            $this->upsertLangJsonStatic($_REQUEST["code"], $_REQUEST["json"]);
+        }
+
+        function upsertLangJsonStatic($code, $jsonArray){
+            $json = mysql_escape_string($jsonArray);
+
+            $sql = "
+            INSERT INTO tblLangJsonStatic(`code`, `json`, `regDate`)
+            VALUES ('{$code}', '{$json}', NOW())
+            ON DUPLICATE KEY UPDATE `json`='{$json}'
+            ";
+            $this->update($sql);
+        }
+
+        function _getLangJsonStatic(){
+            return json_encode($this->getLangJsonStatic($_REQUEST["code"]));
+        }
+
+        function getLangJsonStatic($code){
+            $sql = "SELECT * FROM tblLangJsonStatic WHERE `code` = '{$code}'";
+            return $this->getRow($sql);
+        }
+
         function _getLangJson(){
             return json_encode($this->getLangJson($_REQUEST["code"]));
         }

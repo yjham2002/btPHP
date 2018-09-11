@@ -29,10 +29,11 @@
                 var arr = $(".langValue");
                 for(var e = 0; e < arr.length; e++){
                     var item = arr.eq(e);
-                    if(item.val().length > lengthLimit){
-                        var html = "<textarea class='form-control langValue' key="+ item.attr("key") +">" + item.val() + "</textarea>";
-                        item.parent().html(html);
-                    }
+                    // if(item.val().length > lengthLimit){
+                    //
+                    // }
+                    var html = "<textarea class='form-control langValue' key="+ item.attr("key") +">" + item.val() + "</textarea>";
+                    item.parent().html(html);
                 }
                 resizeTextArea();
             }
@@ -64,7 +65,8 @@
                 // console.log(map);
 
                 $.each(map, function(key, value){
-                    $('input[key='+key+'], textarea[key='+key+']').val(value);
+                    str = value.replace(/(?:\r\n|\r|\n)/g, '&#13;&#10;');
+                    $('input[key='+key+'], textarea[key='+key+']').val(str);
                 });
 
                 convert();
@@ -72,7 +74,7 @@
 
             function bindLangPair(){
                 $.ajax({
-                    url : "/route.php?cmd=AdminMain._getLangJson",
+                    url : "/route.php?cmd=AdminMain._getLangJsonStatic",
                     async : true,
                     type : 'get',
                     dataType : 'json',
@@ -92,93 +94,11 @@
                 bindLangPair();
             });
 
-            $(".jSavePr").click(function(){
-                var val = $("#v_fb").val();
-                var ajax = new AjaxSender(
-                    "/route.php?cmd=Uncallable.setPropertyAjax",
-                    true, "json",
-                    new sehoMap().put("name", "TEXT_PRIVACY").put("value", val));
-                ajax.send(function(data){
-                    if(data.returnCode === 1){
-                        alert("저장되었습니다.");
-                    }
-                });
-            });
-
-            $(".jSavePl").click(function(){
-                var val = $("#v_info").val();
-                var loc = $(".jLangO").val();
-                var ajax = new AjaxSender(
-                    "/route.php?cmd=Uncallable.setPropertyLocAjax",
-                    true, "json",
-                    new sehoMap().put("name", "TEXT_POLICY").put("value", val).put("lang", loc));
-                ajax.send(function(data){
-                    if(data.returnCode === 1){
-                        alert("저장되었습니다.");
-                        loadInfo(loc);
-                    }
-                });
-            });
-
-            $(".jLangO").change(function(){
-                loadInfo($(this).val());
-            });
-
-            loadInfo("kr");
-
-            function loadInfo(loc){
-                $.ajax({
-                    url : "/route.php?cmd=Uncallable.getPropertyLocAjax",
-                    async : true,
-                    type : 'get',
-                    dataType : 'text',
-                    data : {
-                        name : "URL_INFO",
-                        lang : loc
-                    },
-                    success : function(data){
-                        $("#v_info").text(data.trim());
-                        resizeTextArea();
-                    },
-                    error : function(a, b, c){
-                        alert("데이터를 불러올 수 없습니다.");
-                    }
-                });
-            }
-
-            $(".jS01").click(function(){
-                var d = "#" + $(this).attr("divId");
-                $(".jS01").removeClass("btn-primary");
-                $(".jS01").addClass("btn-secondary");
-                $(this).removeClass("btn-secondary");
-                $(this).addClass("btn-primary");
-                hideAllBox();
-                $(d).fadeIn();
-                resizeTextArea();
-            });
-
-            function hideAllBox(){
-                $("#show01").hide();
-                $("#show02").hide();
-                $("#show03").hide();
-                $("#show04").hide();
-                $("#show05").hide();
-                $("#show06").hide();
-                $("#show07").hide();
-            }
-
-            $("#show02").hide();
-            $("#show03").hide();
-            $("#show04").hide();
-            $("#show05").hide();
-            $("#show06").hide();
-            $("#show07").hide();
-
             $(".jSave").click(function(){
                 var jsonArr = getLangPair();
                 console.log(jsonArr);
                 $.ajax({
-                    url : "/route.php?cmd=AdminMain._upsertLangJson",
+                    url : "/route.php?cmd=AdminMain._upsertLangJsonStatic",
                     async : true,
                     type : 'post',
                     data : {
@@ -222,18 +142,26 @@
                             <col width="30%"/>
                             <col width="70%"/>
                         </colgroup>
+
                         <tr class="h-auto">
-                            <td colspan="2">
-                                <img src="./attr/header_elem.png" width="100%" />
-                            </td>
+                            <td class="bg-secondary text-light langKey" key="policy_text_thebill">약관 정보(더빌)</td>
+                            <td><input type="text" class="form-control langValue" key="policy_text_thebill" value="" placeholder="내용을 입력하세요" /></td>
                         </tr>
                         <tr class="h-auto">
-                            <td class="bg-secondary text-light langKey" key="policy_text">약관 정보</td>
-                            <td><input type="text" class="form-control langValue" key="policy_text" value="" placeholder="내용을 입력하세요" /></td>
+                            <td class="bg-secondary text-light langKey" key="privacy_text_thebill">개인정보처리방침(더빌)</td>
+                            <td><input type="text" class="form-control langValue" key="privacy_text_thebill" value="" placeholder="내용을 입력하세요" /></td>
                         </tr>
                         <tr class="h-auto">
-                            <td class="bg-secondary text-light langKey" key="privacy_text">개인정보처리방침</td>
-                            <td><input type="text" class="form-control langValue" key="privacy_text" value="" placeholder="내용을 입력하세요" /></td>
+                            <td class="bg-secondary text-light langKey" key="privacy_text_auto">개인정보처리방침(자동이체)</td>
+                            <td><input type="text" class="form-control langValue" key="privacy_text_auto" value="" placeholder="내용을 입력하세요" /></td>
+                        </tr>
+                        <tr class="h-auto">
+                            <td class="bg-secondary text-light langKey" key="policy_text_service">개인정보처리방침(처음 로그인)</td>
+                            <td><input type="text" class="form-control langValue" key="policy_text_service" value="" placeholder="내용을 입력하세요" /></td>
+                        </tr>
+                        <tr class="h-auto">
+                            <td class="bg-secondary text-light langKey" key="privacy_text_service">개인정보처리방침(처음 로그인)</td>
+                            <td><input type="text" class="form-control langValue" key="privacy_text_service" value="" placeholder="내용을 입력하세요" /></td>
                         </tr>
                     </table>
                 </div>

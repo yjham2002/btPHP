@@ -224,9 +224,11 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <a class="dropdown-item" href="/admin/pages/siteManage/faqList.php">FAQ 관리</a>
 <!--                <a class="dropdown-item" href="/admin/pages/siteManage/adminList.php">관리자</a>-->
                 <a class="dropdown-item" href="/admin/pages/siteManage/languages.php">언어 및 문구</a>
+                <a class="dropdown-item" href="/admin/pages/siteManage/policies.php">정적 정보 설정</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/layoutSetting.php">레이아웃</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/imageSetting.php">레이아웃 이미지 설정</a>
                 <a class="dropdown-item" href="/admin/pages/siteManage/popup.php">메인 팝업 관리</a>
+
             </div>
         </li>
         <?}?>
