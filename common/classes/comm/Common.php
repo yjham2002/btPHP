@@ -499,6 +499,135 @@ if (! class_exists("Common"))
             $this->update($sql);
         }
 
+        function sendAuthrizeSubscription($subscriptionName, $startDate, $totalOccurrences, $trialOccurrences, $amount, $unit, $trialAmount, $cardNo, $cardExpiry,
+                                          $FirstName, $LastName, $intervalLength){
+            $refId = 'ref' . time();
+//            $params = Array(
+//                "ARBCreateSubscriptionRequest" => Array(
+//                    "merchantAuthentication" => Array(
+//                        "name" => "54W7Cxvt",
+//                        "transactionKey" => "62q47AUmd9qH4d35"
+//                    ),
+//                    "refId" => "$refId",
+//                    "subscription" => Array(
+//                        "name" => $subscriptionName,
+//                        "paymentSchedule" => Array(
+//                            "interval" => Array(
+//                                "length" => $intervalLength,
+//                                "unit" => $unit
+//                            ),
+//                            "startDate" => $startDate,
+//                            "totalOccurrences" => $totalOccurrences,
+//                            "trialOccurrences" => $trialOccurrences
+//                        ),
+//                        "amount" => $amount,
+//                        "trialAmount" => $trialAmount,
+//                        "payment" => Array(
+//                            "creditCard" => Array(
+//                                "cardNumber" => $cardNo,
+//                                "expirationDate" => $cardExpiry
+//                            )
+//                        ),
+//                        "billTo" => Array(
+//                            "firstName" => $FirstName,
+//                            "lastName" => $LastName
+//                        )
+//                    )
+//                )
+//            );
+
+            $params["ARBCreateSubscriptionRequest"] = Array(
+                "merchantAuthentication" => Array(
+                    "name" => "54W7Cxvt",
+                    "transactionKey" => "62q47AUmd9qH4d35"
+                ),
+                "refId" => "$refId",
+                "subscription" => Array(
+                    "name" => $subscriptionName,
+                    "paymentSchedule" => Array(
+                        "interval" => Array(
+                            "length" => $intervalLength,
+                            "unit" => $unit
+                        ),
+                        "startDate" => $startDate,
+                        "totalOccurrences" => $totalOccurrences
+                    ),
+                    "amount" => $amount,
+                    "payment" => Array(
+                        "creditCard" => Array(
+                            "cardNumber" => $cardNo,
+                            "expirationDate" => $cardExpiry
+                        )
+                    ),
+                    "billTo" => Array(
+                        "firstName" => $FirstName,
+                        "lastName" => $LastName,
+                        "address" => "Korea test",
+                        "city" => "Seoul",
+                        "state" => "Hello World",
+                        "zip" => "12502"
+                    )
+                )
+            );
+
+            echo json_encode($params);
+            $params = json_encode($params);
+
+
+            $postString = '';
+            foreach ($params as $key => $value)
+                $postString .= $key.'='.urlencode($value).'&';
+            $postString = trim($postString, '&');
+            $url = 'https://apitest.authorize.net/xml/v1/request.api';
+
+
+            $request = curl_init($url);
+//            curl_setopt($request, CURLOPT_HEADER, 0);
+//            curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
+//            curl_setopt($request, CURLOPT_POSTFIELDS, $postString);
+//            curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
+//            curl_setopt($request, CURLOPT_SSL_VERIFYHOST, false);
+
+            curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($request, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($request, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json;charset=UTF-8',
+                    'Content-Length: ' . strlen($params))
+            );
+
+            $postResponse = curl_exec($request);
+            curl_close($request);
+//            print_r($postResponse);
+
+            $response = explode('|', $postResponse);
+            echo json_encode($response);
+            if (!isset($response[7]) || !isset($response[3]) ||            !isset($response[9]))
+            {
+                $msg = 'Authorize.net returned a malformed response for cart';
+                if (isset($response[7]))
+                    $msg .= ' '.(int)$response[7];
+                die('Authorize.net returned a malformed response, aborted.');
+            }
+
+            $message = $response[3];
+
+            switch ($response[0]) // Response code
+            {
+                case 1: // Payment accepted
+                    print_r($response[1]);
+                    break;
+
+                case 4: // Hold for review
+                    print_r($response[4]);
+                    break;
+
+                default:
+                    echo $message;
+                exit;
+            }
+        }
+
         function makeFileName(){
             srand((double)microtime()*1000000) ;
             $Rnd = rand(1000000,2000000) ;

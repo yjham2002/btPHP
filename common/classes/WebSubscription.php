@@ -6,10 +6,9 @@
  * Time: PM 2:49
  */
 ?>
-
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebBase.php" ;?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php" ;?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/web/abroad/billing.php" ;?>
+<?// include $_SERVER["DOCUMENT_ROOT"] . "/web/abroad/billing.php" ;?>
 <?
 if(!class_exists("WebSubscription")){
     class WebSubscription extends  WebBase {
@@ -120,42 +119,40 @@ if(!class_exists("WebSubscription")){
                 $validThruYear = $_REQUEST["validThruYearF"];
                 $validThruMonth = $_REQUEST["validThruMonthF"];
 
-//                $this->webuser->type == "1" ? "" : ""
-
                 /**
                  * Parameters
                  */
                 $subscriptionName = "";
-                $startDate = "";
-                $totalOccurrences = "";
+                $startDate = date("Y") . "-" . date("m") . "-" . "15";
+                $totalOccurrences = "9999";
                 $trialOccurrences = "";
-                $unit = "month";
+                $amount = $totalPrice;
+                $unit = "months";
                 $trialAmount = "";
                 $cardNo = $info;
                 $cardExpiry = $validThruYear."-".$validThruMonth;
-                $FirstName = "";
-                $LastName = "";
-                $invoiceNumber = "";
-                $description = "Subscription Of Bibletime";
-                $intervalLength = "";
+                $FirstName = "seho";
+                $LastName = "chun";
+//                $invoiceNumber = "";
+//                $description = "Subscription Of Bibletime";
+                $intervalLength = "1";
                 /**
                  * End
                  */
 
                 //TODO 해외 신용카드 경우도 붙여서 저장
-                createSubscription(
+                $this->sendAuthrizeSubscription(
                     $subscriptionName,
                     $startDate,
                     $totalOccurrences,
                     $trialOccurrences,
+                    $amount,
                     $unit,
                     $trialAmount,
                     $cardNo,
                     $cardExpiry,
                     $FirstName,
                     $LastName,
-                    $invoiceNumber,
-                    $description,
                     $intervalLength
                 );
             }
