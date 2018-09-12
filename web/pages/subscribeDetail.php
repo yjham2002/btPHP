@@ -32,7 +32,16 @@
     $cardTypeList = $management->cardTypeList();
     $bankTypeList = $management->bankTypeList();
 ?>
-
+    <style>
+        .agBtn{
+            font-size:1.0em;
+        }
+        @media screen and (max-width:720px){
+            .agBtn{
+                font-size:0.9em;
+            }
+        }
+    </style>
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script>
         $(document).ready(function(){
@@ -175,6 +184,18 @@
             if(locale == "kr") $(".jPayType#firstKr").trigger("click");
             else $(".jPayType#firstF").trigger("click");
             $("[name=paymentType]").val($(".jPayType.selected").attr("type"));
+
+            $(".jShowPo").click(function(){
+                window.open("/web/pages/popup2.php?type=po_card", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px");
+            });
+
+            $(".jShowPr").click(function(){
+                window.open("/web/pages/popup2.php?type=pr_card", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px");
+            });
+
+            $(".jShowPoAuto").click(function(){
+                window.open("/web/pages/popup2.php?type=pr_account", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px")
+            });
         });
 
     </script>
@@ -452,17 +473,65 @@
                     </div>
                 </div>
             </form>
-            <div style="margin : 2em 0;">
-                <p style="font-size:0.8em; color:black;">
-                    ※ 결제 전 꼭 확인해주세요!<br/>
-                    <br/>
-                    후원금 결제 시 카드의 경우 결제 대행업체인 [NICE 한국 사이버결제]로 승인 SMS가 전송됩니다.<br/>
-                    결제관련 문의 : 후원지원팀 (1644-9159 평일 9시~18시/공휴일제외) / team@bibletime.com<br/>
-                    구독 : 개인 카드(1일), 계좌이체(5일) / 단체 (15일)  ｜ 후원 :  개인/단체 (25일)
-                </p>
-                <a href="#" class="orgButton roundButton jOrder">결제</a>
+            <div class="jCardArea" style="margin : 2em 0; display: none;">
+                <table class="noBorder jAgree">
+                    <tr class="noBorder whiteBG">
+                        <td colspan="2" style="text-align:left;">
+                            <b>약관 및 이용동의</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>자동이체 서비스 이용약관을 확인하였으며,수집·이용에 동의합니다.
+                            </p>
+                            <div class="jShowPo blueButton roundButton agBtn">
+                                약관 전문 보기
+                            </div>
+                        </td>
+                        <td>
+                            <p>개인정보 수집 및 이용에 대한 안내를 확인하였으며, 수집 이용에 동의합니다.</p>
+                            <div class="jShowPr blueButton roundButton agBtn">
+                                개인정보 처리방침 전문 보기
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="background:white;">
+                            <p>위와 같이 금융거래정보의 제공 및 개인정보 수집 및 이용, 개인정보 제 3 자 제공에 동의하며, 자동이체 서비스 약관을 확인하고 자동이체 이용을 신청합니다.</p>
+                            <a href="#" class="jShowOk blueButton roundButton agBtn jOrder">결제</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="jAccountArea" style="margin : 2em 0; display: none;">
+                <table class="noBorder jAgree">
+                    <tr class="noBorder whiteBG">
+                        <td colspan="2" style="text-align:left;">
+                            <b>약관 및 이용동의</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>개인정보 수집 및 이용에 대한 안내를 확인하였으며,수집·이용에 동의합니다.</p>
+                            <div class="jShowPoAuto blueButton roundButton agBtn">
+                                약관 전문 보기
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="background:white;">
+                            <p>위와 같이 금융거래정보의 제공 및 개인정보 수집 및 이용, 개인정보 제 3 자 제공에 동의하며, 자동이체 서비스 약관을 확인하고 자동이체 이용을 신청합니다.</p>
+                            <a href="#" class="jShowOk blueButton roundButton agBtn jOrder">결제</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin : 2em 0;" class="jForeignArea">
+                <a href="#" class="orgButton roundButton jOrder">order</a>
             </div>
         </div>
         </div>
     </section>
+
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>

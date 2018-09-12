@@ -21,6 +21,15 @@ switch ($_REQUEST["type"]){
     case "po":
         $cd = "policy_text_service";
         break;
+    case "po_card":
+        $cd = "policy_text_thebill";
+        break;
+    case "pr_card":
+        $cd = "privacy_text_thebill";
+        break;
+    case "pr_account":
+        $cd = "privacy_text_auto";
+        break;
 }
 
 ?>
