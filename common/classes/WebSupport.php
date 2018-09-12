@@ -69,8 +69,132 @@ if(!class_exists("WebSupport")){
             $totalPrice = $_REQUEST["totalPrice"];
             $message = $_REQUEST["message"];
 
+            ///////////
+            $paymentId = -1;
+
+            $paymentType = $_REQUEST["paymentType"];
+            $isOwner = $_REQUEST["isOwner"];
+            $ownerName = $_REQUEST["ownerName"];
+            $cardTypeId = $_REQUEST["cardType"] == "" ? -1 : $_REQUEST["cardType"];
+            $bankCode = $_REQUEST["bankType"];
+            $info = $_REQUEST["info"];
+            $validThruYear = $_REQUEST["validThruYear"];
+            $validThruMonth =  $_REQUEST["validThruMonth"];
+
+            $aSubsciptionId = "";
+            $aCustomerProfileId = "";
+            $paymentResult = 0;
+
+            if($paymentType == "CC"){
+                $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
+//                $paymentResult = 1;
+            }
+
+            if($paymentType == "FC"){
+                $info = $_REQUEST["cardForeign"];
+                $validThruYear = $_REQUEST["validThruYearF"];
+                $validThruMonth = $_REQUEST["validThruMonthF"];
+
+                /**
+                 * Parameters
+                 */
+                $subscriptionName = "";
+                $startDate = date("Y") . "-" . date("m") . "-" . "15";
+                $totalOccurrences = "9999";
+                $trialOccurrences = "";
+                $amount = $totalPrice;
+                $unit = "months";
+                $trialAmount = "";
+                $cardNo = $info;
+                $cardExpiry = $validThruYear."-".$validThruMonth;
+                $FirstName = $_REQUEST["firstName"];
+                $LastName = $_REQUEST["lastName"];
+                $intervalLength = "1";
+
+                $address = $_REQUEST["aAddr"];
+                $city = $_REQUEST["aCity"];
+                $state = $_REQUEST["aState"];
+                $zip = $_REQUEST["aZip"];
+
+                /**
+                 * End
+                 */
+                $payRes = $this->sendAuthrizeSubscription(
+                    $subscriptionName,
+                    $startDate,
+                    $totalOccurrences,
+                    $amount,
+                    $unit,
+                    $cardNo,
+                    $cardExpiry,
+                    $FirstName,
+                    $LastName,
+                    $intervalLength,
+                    $address,
+                    $city,
+                    $state,
+                    $zip
+                );
+
+                $returnCode = $payRes->messages->message[0]->code;
+
+                if($returnCode == "I00001"){
+                    $aSubsciptionId = $payRes->subscriptionId;
+                    $aCustomerProfileId = $payRes->profile->customerProfileId;
+                    $paymentResult = 1;
+                }
+                else{
+                    return $this->makeResultJson(-1, "payment failure");
+                }
+            }
+
             $sql = "
-                INSERT INTO tblSupport(`customerId`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `payMethodId`, `message`, `regDate`)
+              INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              VALUES(
+                'SUP',
+                '{$paymentType}',
+                '{$aSubsciptionId}',
+                '{$aCustomerProfileId}',
+                '{$paymentResult}',
+                NOW()
+              )
+            ";
+            $this->update($sql);
+            $paymentId = $this->mysql_insert_id();
+
+            $sql = "
+                INSERT INTO tblPayMethod(customerId, isOwner, cardTypeId, bankCode, ownerName, `type`, info, aFirstname, aLastname, aAddr, aCity, aState, aZip, validThruYear, validThruMonth, regDate)
+                VALUES(
+                  '{$customerId}',
+                  '{$isOwner}',
+                  '{$cardTypeId}',
+                  '{$bankCode}',
+                  '{$ownerName}',
+                  '{$paymentType}',
+                  '{$info}',
+                  '{$_REQUEST["firstName"]}',
+                  '{$_REQUEST["lastName"]}',
+                  '{$_REQUEST["aAddr"]}',
+                  '{$_REQUEST["aCity"]}',
+                  '{$_REQUEST["aState"]}',
+                  '{$_REQUEST["aZip"]}',
+                  '{$validThruYear}',
+                  '{$validThruMonth}',
+                  NOW()
+                )
+            ";
+
+            $this->update($sql);
+            $payMethodId = $this->mysql_insert_id();
+
+            $sql = "
+                UPDATE tblPayment SET payMethodId = '{$payMethodId}' WHERE `id` = {$paymentId}
+            ";
+            $this->update($sql);
+            ///////
+
+            $sql = "
+                INSERT INTO tblSupport(`customerId`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `paymentId`, `message`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$parentId}',
@@ -79,7 +203,7 @@ if(!class_exists("WebSupport")){
                   '{$name}',
                   '{$email}',
                   '{$phone}',
-                  1,
+                  '{$paymentId}',
                   '{$message}',
                   NOW()
                 )

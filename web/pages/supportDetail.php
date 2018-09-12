@@ -8,8 +8,10 @@
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSupport.php";?>
+<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $obj = new WebSupport($_REQUEST);
+    $management = new Management($_REQUEST);
     $item = $obj->supportDetail();
 
     if($_COOKIE["btLocale"] == "kr") {
@@ -20,6 +22,9 @@
         $currency = "$";
         $decimal = 2;
     }
+
+    $cardTypeList = $management->cardTypeList();
+    $bankTypeList = $management->bankTypeList();
 ?>
 <script>
     $(document).ready(function(){
@@ -28,6 +33,7 @@
         var currency = "<?=$currency?>";
         var decimal = "<?=$decimal?>";
         var emailCheck = "<?=$user->id == "" ? -1 : 1?>";
+        var locale = "<?=$_COOKIE["btLocale"]?>";
 
         setPrice(5);
         if(user > 1){
@@ -93,8 +99,27 @@
                 }
                 else alert("저장 실패");
             });
+        });
+
+        $(".jPayType").click(function(){
+            $("[name=paymentType]").val($(this).attr("type"));
+
+            $(".jPayType").removeClass("selected");
+            $(this).addClass("selected");
+            var target = $(this).attr("targ");
+            $(".jCardArea").hide();
+            $(".jAccountArea").hide();
+            $(".jForeignArea").hide();
+            $("." + target).fadeIn();
+
+            if($(this).attr("type") == "FC") $("[name=ownerName]").hide();
+            else $("[name=ownerName]").show();
 
         });
+
+        if(locale == "kr") $(".jPayType#firstKr").trigger("click");
+        else $(".jPayType#firstF").trigger("click");
+        $("[name=paymentType]").val($(".jPayType.selected").attr("type"));
     });
 </script>
 
@@ -117,6 +142,7 @@
             <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
             <input type="hidden" name="totalPrice" value="" />
             <input type="hidden" name="nationId" value="<?=$item["nationId"]?>"/>
+            <input type="hidden" name="paymentType" value=""/>
             <div class="row uniform" style="margin : 0 1em;">
                 <div class="6u 12u$(small)">
                     <div class="image fit">
@@ -173,63 +199,112 @@
                     <h2 class="nanumGothic">결제정보</h2>
                 </div>
                 <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
-                    <a href="#" class="selected grayButton roundButton innerButton lineButton">신용카드</a>
-                    <a href="#" class="grayButton roundButton innerButton lineButton">계좌이체</a>
-                    <a href="#" class="grayButton roundButton innerButton lineButton">해외신용카드</a>
+                    <?if($_COOKIE["btLocale"] == "kr"){?>
+                        <a class="resBtn grayButton roundButton innerButton lineButton jPayType" id="firstKr" targ="jCardArea" type="CC">신용카드</a>
+                        <a class="resBtn grayButton roundButton innerButton lineButton jPayType" targ="jAccountArea" type="BA">계좌이체</a>
+                    <?}else{?>
+                        <a class="resBtn grayButton roundButton innerButton lineButton jPayType" id="firstF" targ="jForeignArea" type="FC">해외신용카드</a>
+                    <?}?>
                 </div>
 
                 <div class="6u 12u$(small)" style="margin-top : 1em;">
-                    <h2 class="nanumGothic">카드주</h2>
+                    <h2 class="nanumGothic">카드/계좌주</h2>
                 </div>
                 <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
-                    <input type="radio" id="cardOwner-me" name="cardOwner" checked>
+                    <input type="radio" id="cardOwner-me" name="isOwner" value="1" checked>
                     <label for="cardOwner-me">본인</label>
-                    <input type="radio" id="cardOwner-other" name="cardOwner">
+                    <input type="radio" id="cardOwner-other" name="isOwner" value="0">
                     <label for="cardOwner-other">타인</label>
+
+                    <input class="smallTextBox" type="text" name="ownerName" placeholder="카드/계좌주 성함"/>
                 </div>
 
-                <div class="6u 12u$(small)">
-                    <h2 class="nanumGothic">카드번호</h2>
+                <div class="6u 12u$(small) jCardArea" style="display: none;">
+                    <h2 class="nanumGothic"></h2>
                 </div>
-                <div class="6u$ 12u$(small) align-left">
+
+                <div class="6u$ 12u$(small) align-left jCardArea" style="display: none;">
                     <div class="select-wrapper" style="width:30%; margin-bottom:1em;">
-                        <select name="category" id="category">
-                            <option value="">BC카드</option>
-                            <option value="">Visa카드</option>
-                            <option value="">Master카드</option>
+                        <select name="cardType">
+                            <option value="">선택</option>
+                            <?foreach($cardTypeList as $cardItem){?>
+                                <option value="<?=$cardItem["id"]?>"><?=$cardItem["desc"]?></option>
+                            <?}?>
                         </select>
                     </div>
-                    <input class="smallTextBox" type="text" placeholder="받는 분 성함" />
+
+                    <div class="flex flex-4 cardNumberBox">
+                        <input class="cardNumberBoxText" type="text" name="card1"/>
+                        <input class="cardNumberBoxText" type="text" name="card2"/>
+                        <input class="cardNumberBoxText" type="text" name="card3"/>
+                        <input class="cardNumberBoxText" type="text" name="card4"/>
+                    </div>
+
+                    <br/>
 
                     <div class="row">
                         <div class="select-wrapper" style="width:40%;">
-                            <!-- 현재 년도로 부터 10년 이내 -->
-                            <select name="category" id="category">
+                            <select name="validThruYear" id="category">
                                 <option value="">유효기간(년)</option>
-                                <option value="">2018</option>
-                                <option value="">2019</option>
-                                <option value="">2020</option>
-                                <option value="">2021</option>
-                                <option value="">2022</option>
-                                <option value="">2023</option>
-                                <option value="">2024</option>
+                                <?for($i=intval(date("Y")); $i<=intval(date("Y")) + 20; $i++){?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?}?>
                             </select>
                         </div>
                         <div class="select-wrapper" style="width:40%;">
-                            <select name="category" id="category">
+                            <select name="validThruMonth" id="category">
                                 <option value="">유효기간(월)</option>
-                                <option value="">01</option>
-                                <option value="">02</option>
-                                <option value="">03</option>
-                                <option value="">04</option>
-                                <option value="">05</option>
-                                <option value="">06</option>
-                                <option value="">07</option>
-                                <option value="">08</option>
-                                <option value="">09</option>
-                                <option value="">10</option>
-                                <option value="">11</option>
-                                <option value="">12</option>
+                                <?for($i=1; $i<=12; $i++){?>
+                                    <option value="<?=sprintf('%02d', $i)?>"><?=sprintf('%02d', $i)?></option>
+                                <?}?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="6u 12u$(small) jAccountArea" style="display: none;">
+                    <h2 class="nanumGothic"></h2>
+                </div>
+
+                <div class="6u$ 12u$(small) align-left jAccountArea" style="display: none;">
+                    <div class="select-wrapper" style="width:30%; margin-bottom:1em;">
+                        <select name="bankType">
+                            <option value="">선택</option>
+                            <?foreach($bankTypeList as $bankItem){?>
+                                <option value="<?=$bankItem["code"]?>"><?=$bankItem["desc"]?></option>
+                            <?}?>
+                        </select>
+                    </div>
+                    <input class="smallTextBox" type="text" name="info" placeholder="계좌번호"/>
+                </div>
+
+                <div class="6u 12u$(small) jForeignArea" style="display: none;">
+                    <h2 class="nanumGothic"></h2>
+                </div>
+
+                <div class="6u$ 12u$(small) align-left jForeignArea" style="display: none;">
+                    <input class="smallTextBox" type="text" name="firstName" placeholder="first name"/>
+                    <input class="smallTextBox" type="text" name="lastName" placeholder="last name"/>
+                    <input class="smallTextBox" type="text" name="aAddr" placeholder="address"/>
+                    <input class="smallTextBox" type="text" name="aCity" placeholder="city"/>
+                    <input class="smallTextBox" type="text" name="aState" placeholder="state"/>
+                    <input class="smallTextBox" type="text" name="aState" placeholder="zip"/>
+                    <input class="smallTextBox" type="text" name="cardForeign" placeholder="card number"/>
+                    <div class="row">
+                        <div class="select-wrapper" style="width:40%;">
+                            <select name="validThruYearF" id="category">
+                                <option value="">validThru(year)</option>
+                                <?for($i=intval(date("Y")); $i<=intval(date("Y")) + 20; $i++){?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?}?>
+                            </select>
+                        </div>
+                        <div class="select-wrapper" style="width:40%;">
+                            <select name="validThruMonthF" id="category">
+                                <option value="">validThru(month)</option>
+                                <?for($i=1; $i<=12; $i++){?>
+                                    <option value="<?=sprintf('%02d', $i)?>"><?=sprintf('%02d', $i)?></option>
+                                <?}?>
                             </select>
                         </div>
                     </div>

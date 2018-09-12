@@ -6216,9 +6216,9 @@ langCode</ColNames>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="1313" parent="404" name="payMethodId">
+    <column id="1313" parent="404" name="paymentId">
       <Position>10</Position>
-      <Comment>payMethod foreign key</Comment>
+      <Comment>payment foreign key</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>

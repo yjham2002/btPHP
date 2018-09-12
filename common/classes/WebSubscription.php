@@ -111,8 +111,15 @@ if(!class_exists("WebSubscription")){
             $validThruYear = $_REQUEST["validThruYear"];
             $validThruMonth =  $_REQUEST["validThruMonth"];
 
-            if($paymentType == "CC")
+            $aSubsciptionId = "";
+            $aCustomerProfileId = "";
+            $paymentResult = 0;
+
+            if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
+//                $paymentResult = 1;
+            }
+
 
             if($paymentType == "FC"){
                 $info = $_REQUEST["cardForeign"];
@@ -139,10 +146,10 @@ if(!class_exists("WebSubscription")){
                 $city = $_REQUEST["aCity"];
                 $state = $_REQUEST["aState"];
                 $zip = $_REQUEST["aZip"];
-
                 /**
                  * End
                  */
+
                 $payRes = $this->sendAuthrizeSubscription(
                     $subscriptionName,
                     $startDate,
@@ -166,25 +173,26 @@ if(!class_exists("WebSubscription")){
                 if($returnCode == "I00001"){
                     $aSubsciptionId = $payRes->subscriptionId;
                     $aCustomerProfileId = $payRes->profile->customerProfileId;
-                    //TODO
-                    $sql = "
-                        INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
-                        VALUES(
-                          'SUB',
-                          '{$paymentType}',
-                          '{$aSubsciptionId}',
-                          '{$aCustomerProfileId}',
-                          '1',
-                          NOW()
-                        )
-                    ";
-                    $this->update($sql);
-                    $paymentId = $this->mysql_insert_id();
+                    $paymentResult = 1;
                 }
                 else{
                     return $this->makeResultJson(-1, "payment failure");
                 }
             }
+
+            $sql = "
+              INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              VALUES(
+                'SUB',
+                '{$paymentType}',
+                '{$aSubsciptionId}',
+                '{$aCustomerProfileId}',
+                '{$paymentResult}',
+                NOW()
+              )
+            ";
+            $this->update($sql);
+            $paymentId = $this->mysql_insert_id();
 
             $sql = "
                 INSERT INTO tblPayMethod(customerId, isOwner, cardTypeId, bankCode, ownerName, `type`, info, aFirstname, aLastname, aAddr, aCity, aState, aZip, validThruYear, validThruMonth, regDate)

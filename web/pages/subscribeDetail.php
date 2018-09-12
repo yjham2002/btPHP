@@ -11,26 +11,26 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
-$obj = new WebSubscription($_REQUEST);
-$management = new Management($_REQUEST);
-$item = $obj->publicationDetail();
-if($item == ""){
-    echo "<script>alert('비정상적인 접근입니다.')</script>";
-    echo "<script>location.href='/web';</script>";
-}
-$list = $obj->publicationList();
+    $obj = new WebSubscription($_REQUEST);
+    $management = new Management($_REQUEST);
+    $item = $obj->publicationDetail();
+    if($item == ""){
+        echo "<script>alert('비정상적인 접근입니다.')</script>";
+        echo "<script>location.href='/web';</script>";
+    }
+    $list = $obj->publicationList();
 
-if($_COOKIE["btLocale"] == "kr") {
-    $currency = "₩";
-    $decimal = 0;
-}
-else{
-    $currency = "$";
-    $decimal = 2;
-}
+    if($_COOKIE["btLocale"] == "kr") {
+        $currency = "₩";
+        $decimal = 0;
+    }
+    else{
+        $currency = "$";
+        $decimal = 2;
+    }
 
-$cardTypeList = $management->cardTypeList();
-$bankTypeList = $management->bankTypeList();
+    $cardTypeList = $management->cardTypeList();
+    $bankTypeList = $management->bankTypeList();
 ?>
 
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -200,7 +200,6 @@ $bankTypeList = $management->bankTypeList();
                 <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>"/>
                 <input type="hidden" name="totalPrice" value=""/>
                 <input type="hidden" name="publicationName" value="<?=$item["name"]?>"/>
-
                 <input type="hidden" name="paymentType" value=""/>
 
                 <div class="row uniform" style="margin : 0 1em;">
