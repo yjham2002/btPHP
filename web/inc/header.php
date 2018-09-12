@@ -173,7 +173,7 @@
                     $langList = $expObj->getLocale();
                     ?>
                     <?foreach($langList as $listItem){?>
-                        <a class="langBtnEv" loc="<?=$listItem["code"]?>" href="#" style="margin:.5em 0em;color:white;text-decoration: none;"><?=strtoupper($listItem["code"])?></a><br/>
+                        <a class="langBtnEv" loc="<?=$listItem["code"]?>" href="#" style="margin:.5em 0em;color:white;text-decoration: none;"><?=$listItem["desc"] . " (" . strtoupper($listItem["code"]) . ")"?></a><br/>
                     <?}?>
                 </td>
             </tr>

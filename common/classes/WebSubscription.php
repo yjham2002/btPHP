@@ -131,34 +131,63 @@ if(!class_exists("WebSubscription")){
                 $trialAmount = "";
                 $cardNo = $info;
                 $cardExpiry = $validThruYear."-".$validThruMonth;
-                $FirstName = "seho";
-                $LastName = "chun";
-//                $invoiceNumber = "";
-//                $description = "Subscription Of Bibletime";
+                $FirstName = $_REQUEST["firstName"];
+                $LastName = $_REQUEST["lastName"];
                 $intervalLength = "1";
+
+                $address = $_REQUEST["aAddr"];
+                $city = $_REQUEST["aCity"];
+                $state = $_REQUEST["aState"];
+                $zip = $_REQUEST["aZip"];
+
                 /**
                  * End
                  */
-
-                //TODO 해외 신용카드 경우도 붙여서 저장
-                $this->sendAuthrizeSubscription(
+                $payRes = $this->sendAuthrizeSubscription(
                     $subscriptionName,
                     $startDate,
                     $totalOccurrences,
-                    $trialOccurrences,
                     $amount,
                     $unit,
-                    $trialAmount,
                     $cardNo,
                     $cardExpiry,
                     $FirstName,
                     $LastName,
-                    $intervalLength
+                    $intervalLength,
+                    $address,
+                    $city,
+                    $state,
+                    $zip
                 );
+
+                $returnCode = $payRes->messages->message[0]->code;
+                $paymentId = -1;
+
+                if($returnCode == "I00001"){
+                    $aSubsciptionId = $payRes->subscriptionId;
+                    $aCustomerProfileId = $payRes->profile->customerProfileId;
+                    //TODO
+                    $sql = "
+                        INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+                        VALUES(
+                          'SUB',
+                          '{$paymentType}',
+                          '{$aSubsciptionId}',
+                          '{$aCustomerProfileId}',
+                          '1',
+                          NOW()
+                        )
+                    ";
+                    $this->update($sql);
+                    $paymentId = $this->mysql_insert_id();
+                }
+                else{
+                    return $this->makeResultJson(-1, "payment failure");
+                }
             }
 
             $sql = "
-                INSERT INTO tblPayMethod(customerId, isOwner, cardTypeId, bankCode, ownerName, `type`, info, validThruYear, validThruMonth, regDate)
+                INSERT INTO tblPayMethod(customerId, isOwner, cardTypeId, bankCode, ownerName, `type`, info, aFirstname, aLastname, aAddr, aCity, aState, aZip, validThruYear, validThruMonth, regDate)
                 VALUES(
                   '{$customerId}',
                   '{$isOwner}',
@@ -167,6 +196,12 @@ if(!class_exists("WebSubscription")){
                   '{$ownerName}',
                   '{$paymentType}',
                   '{$info}',
+                  '{$_REQUEST["firstName"]}',
+                  '{$_REQUEST["lastName"]}',
+                  '{$_REQUEST["aAddr"]}',
+                  '{$_REQUEST["aCity"]}',
+                  '{$_REQUEST["aState"]}',
+                  '{$_REQUEST["aZip"]}',
                   '{$validThruYear}',
                   '{$validThruMonth}',
                   NOW()
@@ -174,6 +209,11 @@ if(!class_exists("WebSubscription")){
             ";
             $this->update($sql);
             $payMethodId = $this->mysql_insert_id();
+
+            $sql = "
+                UPDATE tblPayment SET payMethodId = '{$payMethodId}' WHERE `id` = {$paymentId}
+            ";
+            $this->update($sql);
 
             $publicationName = $_REQUEST["publicationName"];
             $curYear = intval(date("Y"));
@@ -219,7 +259,7 @@ if(!class_exists("WebSubscription")){
             if($publicationCnt >= 10) $shippingType = 1;
 
             $sql = "
-                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `shippingType`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `payMethodId`, `regDate`)
+                INSERT INTO tblSubscription(`customerId`, `publicationId`, `cnt`, `pYear`, `pMonth`, `totalPrice`, `shippingType`, `rName`, `rPhone`, `rZipcode`, `rAddr`, `rAddrDetail`, `paymentId`, `regDate`)
                 VALUES(
                   '{$customerId}',
                   '{$publicationId}',
@@ -233,7 +273,7 @@ if(!class_exists("WebSubscription")){
                   '{$rZipcode}',
                   '{$rAddr}',
                   '{$rAddrDetail}',
-                  '{$payMethodId}',
+                  '{$paymentId}',
                   NOW()
                 )
             ";

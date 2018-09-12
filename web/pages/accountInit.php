@@ -7,14 +7,26 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
     $obj = new WebUser($_REQUEST);
 ?>
+<style>
+    .agBtn{
+        font-size:1.0em;
+    }
+    @media screen and (max-width:720px){
+        .agBtn{
+            font-size:0.9em;
+        }
+    }
+</style>
 <script>
     $(document).ready(function(){
         var customerId = -1;
+
+        $(".jAgree").hide();
 
         $(".jAuthEmail").click(function(){
             $(".jImg").hide();
@@ -29,6 +41,14 @@
         $(".jAuthKakao").click(function(){
             $(".jImg").hide();
             $(".jKakao").fadeIn();
+        });
+
+        $(".jShowPo").click(function(){
+            window.open("/web/pages/popup2.php?type=po", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px");
+        });
+
+        $(".jShowPr").click(function(){
+            window.open("/web/pages/popup2.php?type=pr", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px");
         });
 
         $(".jSendEmail").click(function(){
@@ -91,12 +111,8 @@
             });
         });
 
-        $(".jAuth").click(function(){
+        $(".jShowOk").click(function(){
             var password = $("#password").val();
-            if(verifyPassword(password) === false){
-                alert("비밀번호 형식에 맞춰서 작성해 주시기 바랍니다.");
-                return;
-            }
 
             var params = new sehoMap()
                 .put("customerId", customerId)
@@ -117,6 +133,22 @@
                 }
             });
         });
+
+        $(".jAuth").click(function(){
+            var password = $("#password").val();
+            var pc = $("#passwordc").val();
+            if(verifyPassword(password) === false){
+                alert("비밀번호 형식에 맞춰서 작성해 주시기 바랍니다.");
+                return;
+            }
+            if(password != pc){
+                alert("재확인 비밀번호가 일치하지 않습니다.");
+                return;
+            }
+            $(".jAuthForm").hide();
+            $(".jAgree").fadeIn();
+        });
+
     });
 </script>
 
@@ -180,7 +212,7 @@
                             <td class="noBorder fcWrap">
                                 <input type="text" class="formCtrl" name="authText" id="authText" value="" placeholder="인증번호 입력" />
                             </td>
-                            <td rowspan="2" class="loginArea noBorder">
+                            <td rowspan="3" class="loginArea noBorder">
                                 <a href="#" class="jAuth confirmBtn roundButton">확인</a>
                             </td>
                         </tr>
@@ -189,10 +221,43 @@
                                 <input type="text" class="formCtrl" name="password" id="password" value="" placeholder="패스워드 입력" />
                             </td>
                         </tr>
+                        <tr class="noBorder">
+                            <td class="noBorder">
+                                <input type="text" class="formCtrl" name="passwordc" id="passwordc" value="" placeholder="패스워드 재확인" />
+                            </td>
+                        </tr>
                     </table>
+
+                <table class="noBorder jAgree">
+                    <tr class="noBorder whiteBG">
+                        <td colspan="2" style="text-align:left;">
+                            <b>약관 및 이용동의</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>이용약관을 확인하였으며, 바이블타임선교회 서비스 이용을 위해 이용약관에 동의합니다.</p>
+                            <div class="jShowPo blueButton roundButton agBtn">
+                                약관 전문 보기
+                            </div>
+                        </td>
+                        <td>
+                            <p>개인정보 수집 및 이용에 대한 안내를 확인하였으며, 수집 이용에 동의합니다.</p>
+                            <div class="jShowPr blueButton roundButton agBtn">
+                                개인정보 처리방침 전문 보기
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="background:white;">
+                            <p>이용 약관 및 개인 정보 이용 안내를 확인하였으며, 위 내용에 동의합니다.</p>
+                            <a href="#" class="jShowOk blueButton roundButton agBtn">확인</a>
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
     </div>
 </section>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/web/inc/footer.php"; ?>

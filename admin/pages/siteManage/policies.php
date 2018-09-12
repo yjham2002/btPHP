@@ -156,7 +156,7 @@
                             <td><input type="text" class="form-control langValue" key="privacy_text_auto" value="" placeholder="내용을 입력하세요" /></td>
                         </tr>
                         <tr class="h-auto">
-                            <td class="bg-secondary text-light langKey" key="policy_text_service">개인정보처리방침(처음 로그인)</td>
+                            <td class="bg-secondary text-light langKey" key="policy_text_service">사용약관(처음 로그인)</td>
                             <td><input type="text" class="form-control langValue" key="policy_text_service" value="" placeholder="내용을 입력하세요" /></td>
                         </tr>
                         <tr class="h-auto">

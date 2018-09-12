@@ -69,7 +69,7 @@ if(! class_exists("WebUser") ){
         function sendAuthEmail(){
             $email = $_REQUEST["email"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 LIMIT 1
+                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 AND `initFlag` = 0 LIMIT 1
             ";
             $row = $this->getRow($sql);
 
@@ -107,7 +107,7 @@ if(! class_exists("WebUser") ){
         function sendAuthKakao(){
             $email = $_REQUEST["email"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 LIMIT 1
+                SELECT * FROM tblCustomer WHERE `email` = '{$email}' AND `status` = 1 AND `initFlag` = 0 LIMIT 1
             ";
             $row = $this->getRow($sql);
 
@@ -147,7 +147,7 @@ if(! class_exists("WebUser") ){
         function sendAuthSms(){
             $phone = $_REQUEST["phone"];
             $sql = "
-                SELECT * FROM tblCustomer WHERE `phone` = '{$phone}' AND `status` = 1 LIMIT 1
+                SELECT * FROM tblCustomer WHERE `phone` = '{$phone}' AND `status` = 1 AND `initFlag` = 0 LIMIT 1
             ";
             $row = $this->getRow($sql);
 

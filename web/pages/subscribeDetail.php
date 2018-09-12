@@ -166,6 +166,10 @@ $bankTypeList = $management->bankTypeList();
                 $(".jAccountArea").hide();
                 $(".jForeignArea").hide();
                 $("." + target).fadeIn();
+
+                if($(this).attr("type") == "FC") $("[name=ownerName]").hide();
+                else $("[name=ownerName]").show();
+
             });
 
             if(locale == "kr") $(".jPayType#firstKr").trigger("click");
@@ -421,11 +425,17 @@ $bankTypeList = $management->bankTypeList();
                     </div>
 
                     <div class="6u$ 12u$(small) align-left jForeignArea" style="display: none;">
-                        <input class="smallTextBox" type="text" name="cardForeign" placeholder="카드번호"/>
+                        <input class="smallTextBox" type="text" name="firstName" placeholder="first name"/>
+                        <input class="smallTextBox" type="text" name="lastName" placeholder="last name"/>
+                        <input class="smallTextBox" type="text" name="aAddr" placeholder="address"/>
+                        <input class="smallTextBox" type="text" name="aCity" placeholder="city"/>
+                        <input class="smallTextBox" type="text" name="aState" placeholder="state"/>
+                        <input class="smallTextBox" type="text" name="aState" placeholder="zip"/>
+                        <input class="smallTextBox" type="text" name="cardForeign" placeholder="card number"/>
                         <div class="row">
                             <div class="select-wrapper" style="width:40%;">
                                 <select name="validThruYearF" id="category">
-                                    <option value="">유효기간(년)</option>
+                                    <option value="">validThru(year)</option>
                                     <?for($i=intval(date("Y")); $i<=intval(date("Y")) + 20; $i++){?>
                                         <option value="<?=$i?>"><?=$i?></option>
                                     <?}?>
@@ -433,7 +443,7 @@ $bankTypeList = $management->bankTypeList();
                             </div>
                             <div class="select-wrapper" style="width:40%;">
                                 <select name="validThruMonthF" id="category">
-                                    <option value="">유효기간(월)</option>
+                                    <option value="">validThru(month)</option>
                                     <?for($i=1; $i<=12; $i++){?>
                                         <option value="<?=sprintf('%02d', $i)?>"><?=sprintf('%02d', $i)?></option>
                                     <?}?>
