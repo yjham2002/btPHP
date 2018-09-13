@@ -161,7 +161,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">발송</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/kakaoList.php">카톡 발송 현황</a>
-                <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php">거래명세서 발송</a>
+                <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php?type=sub">거래명세서 발송</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>

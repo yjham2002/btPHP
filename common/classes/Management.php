@@ -544,5 +544,27 @@ if(!class_exists("Management")){
             ";
             return $this->getArray($sql);
         }
+
+        function transactionList(){
+            $type = $_REQUEST["type"];
+            $month = $_REQUEST["month"];
+            $customerType = $_REQUEST["customerType"];
+
+            if($month != "")
+                $where = " AND pMonth = '{$month}'";
+
+            if($type == "sub"){
+                $sql = "
+                    SELECT * FROM tblSubscription WHERE 1=1 {$where} ORDER BY regDate DESC
+                ";
+            }
+            else if($type == "sup"){
+                $sql = "
+                    SELECT * FROM tblSupport WHERE 1=1 {$where} ORDER BY regDate DESC
+                ";
+            }
+
+            return $this->getArray($sql);
+        }
     }
 }
