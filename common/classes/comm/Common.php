@@ -813,8 +813,34 @@ if (! class_exists("Common"))
             $this->connect_int_db();
         }
 
-        function addAgreeFile(){
-
+        function addAgreeFile($mem_inx, $ext_inx, $bank_code, $af_date, $af_kind, $af_filename, $apply_div){
+            $sql = "
+                INSERT INTO agreefile(
+                  mem_inx, 
+                  ext_inx, 
+                  bank_code, 
+                  account_no, 
+                  af_date, 
+                  af_kind, 
+                  af_filename, 
+                  apply_div, 
+                  send_stat
+                )
+                VALUES(
+                  '납부자번호(ain)',
+                  '외부참조키',
+                  '은행코드(3자리)',
+                  '계좌번호',
+                  '신청일자(YYYYMMDD)',
+                  '자료구분(하단 관련 설명 참조)',
+                  '파일명',
+                  '적용구분(1:납부자번호+외부참조키,2:외부참조키)',
+                  '1'
+                ) 
+            ";
+            $this->connect_ext_db();
+            $this->update($sql);
+            $this->connect_int_db();
         }
 
 

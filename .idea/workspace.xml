@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="stockList added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/inc/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/inc/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/salesManage/salesPrintFee.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/salesManage/salesPrintFee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/salesManage/salesPrints.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/salesManage/salesPrints.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/shipping/storeForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/shipping/storeForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Statistic.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Statistic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Uncallable.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Uncallable.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/classes/comm/Common.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/comm/Common.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/comm/DB.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/comm/DB.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +37,13 @@
         <item name="pickleCode" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="bibleTime_db: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="pickleCode" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="bibleTime_db: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="agreefile: table" type="98d5ac3d:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -88,14 +87,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="209" />
-          <entry key="php" value="20880" />
+          <entry key="php" value="21119" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="209" />
-          <entry key="PHP" value="20746" />
-          <entry key="SQL" value="134" />
+          <entry key="PHP" value="20960" />
+          <entry key="SQL" value="159" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.rename.constructor" />
@@ -197,20 +196,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common/classes/comm/Common.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="816" selection-start-line="816" selection-end-line="816" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="655">
-              <caret line="213" column="110" selection-start-line="213" selection-start-column="110" selection-end-line="213" selection-end-column="110" />
+            <state relative-caret-position="442">
+              <caret line="792" column="46" lean-forward="true" selection-start-line="792" selection-start-column="46" selection-end-line="792" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -321,8 +311,8 @@
         <option value="$PROJECT_DIR$/common/classes/comm/DB.php" />
         <option value="/private/var/folders/fk/fznpwh3s5g51s94ry5sl64jr0000gn/T/fz3temp-2/Constants.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/storeForm.php" />
-        <option value="$PROJECT_DIR$/common/classes/comm/Common.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" />
+        <option value="$PROJECT_DIR$/common/classes/comm/Common.php" />
       </list>
     </option>
   </component>
@@ -553,18 +543,18 @@
       <workItem from="1536206256785" duration="6374000" />
       <workItem from="1536234263935" duration="6166000" />
       <workItem from="1536294421033" duration="17089000" />
-      <workItem from="1536384790000" duration="45362000" />
+      <workItem from="1536384790000" duration="45948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="349951000" />
+    <option name="totallyTimeSpent" value="350537000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.16666667" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16666667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -584,7 +574,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.30625" />
+      <window_info active="true" anchor="right" id="Database" order="3" visible="true" weight="0.30625" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" weight="0.16666667" />
@@ -972,17 +962,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/classes/comm/Common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="816" selection-start-line="816" selection-end-line="816" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="655">
           <caret line="213" column="110" selection-start-line="213" selection-start-column="110" selection-end-line="213" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/classes/comm/Common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="792" column="46" lean-forward="true" selection-start-line="792" selection-start-column="46" selection-end-line="792" selection-end-column="46" />
         </state>
       </provider>
     </entry>
