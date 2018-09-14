@@ -61,20 +61,20 @@ if(!class_exists("Management")){
 
             $sql = "
                 SELECT 
-                  *, 
+                  S.*, PM.info, PM.type as pmType, 
                   (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$userInfo["langCode"]}' LIMIT 1) publicationName,
                   (SELECT COUNT(*) FROM tblShipping S WHERE S.subsciptionId = id) lostCnt
-                FROM tblSubscription 
-                WHERE `customerId` = '{$id}' 
-                ORDER BY regDate DESC
+                FROM tblSubscription S LEFT JOIN tblPayment P ON S.paymentId = P.id  LEFT JOIN tblPayMethod PM ON PM.id = P.payMethodId
+                WHERE S.customerId = '{$id}' 
+                ORDER BY S.regDate DESC
             ";
             $subscriptionInfo = $this->getArray($sql);
 
             $sql = "
-                SELECT *
-                FROM tblSupport
-                WHERE `customerId` = '{$id}'
-                ORDER BY regDate DESC
+                SELECT S.*, PM.info, PM.type as pmType, (SELECT `desc` FROM tblNationGroup WHERE `id` = (SELECT nationId FROM tblSupportParent WHERE `id` = S.parentId)) nation
+                FROM tblSupport S LEFT JOIN tblPayment P ON S.paymentId = P.id LEFT JOIN tblPayMethod PM ON PM.id = P.payMethodId
+                WHERE S.customerId = '{$id}'
+                ORDER BY S.regDate DESC
             ";
             $supportInfo = $this->getArray($sql);
             $retVal = Array(
@@ -143,6 +143,25 @@ if(!class_exists("Management")){
                 rAddr = '{$_REQUEST["rAddr"]}',
                 rAddrDetail = '{$_REQUEST["rAddrDetail"]}',
                 deliveryStatus = '{$_REQUEST["deliveryStatus"]}'
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function updateSupport(){
+            $id = $_REQUEST["id"];
+            $sql = "
+                UPDATE tblSupport SET
+                    supType = '{$_REQUEST["supType"]}',
+                    totalPrice = '{$_REQUEST["totalPrice"]}',
+                    rName = '{$_REQUEST["rName"]}',
+                    sYear = '{$_REQUEST["sYear"]}',
+                    sMonth = '{$_REQUEST["sMonth"]}',
+                    eYear = '{$_REQUEST["eYear"]}',
+                    eMonth = '{$_REQUEST["eMonth"]}',
+                    status = '{$_REQUEST["status"]}',
+                    assemblyName = '{$_REQUEST["assemblyName"]}'
+                WHERE `id` = '{$id}' 
             ";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");

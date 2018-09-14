@@ -193,10 +193,13 @@ if(!class_exists("WebSupport")){
             $this->update($sql);
             ///////
 
+            $sYear = date("Y");
+            $sMonth = date("m");
             $sql = "
-                INSERT INTO tblSupport(`customerId`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `paymentId`, `message`, `regDate`)
+                INSERT INTO tblSupport(`customerId`, `supType`, `parentId`, `cnt`, `totalPrice`, `rName`, `rEmail`, `rPhone`, `paymentId`, `message`, `sYear`, `sMonth`, `regDate`)
                 VALUES(
                   '{$customerId}',
+                  'BTG',
                   '{$parentId}',
                   '{$cnt}',
                   '{$totalPrice}',
@@ -205,6 +208,8 @@ if(!class_exists("WebSupport")){
                   '{$phone}',
                   '{$paymentId}',
                   '{$message}',
+                  '{$sYear}',
+                  '{$sMonth}',
                   NOW()
                 )
             ";

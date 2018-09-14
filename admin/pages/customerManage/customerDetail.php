@@ -159,8 +159,7 @@
             var index = $(".jSaveSub").index($(this));
             var customerId = "<?=$userInfo["id"]?>";
             var customerLang = "<?=$userInfo["langCode"]?>";
-            alert($("[name='sub_subType[]']").eq(index).val());
-            var ajax = new AjaxSender("/route.php?cmd=Management.updateSubscription", true, "json", new sehoMap()
+            var ajax = new AjaxSender("/route.php?cmd=Management.updateSubscription", false, "json", new sehoMap()
                 .put("id", id).put("customerId", customerId)
                 .put("customerLang", customerLang)
                 .put("rName", $("[name='sub_rName[]']").eq(index).val())
@@ -178,7 +177,28 @@
                 .put("eMonth", $("[name='eMonth[]']").eq(index).val())
                 .put("deliveryStatus", $("[name='deliveryStatus[]']").eq(index).val())
             );
-            console.log(ajax);
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("저장되었습니다.");
+                    location.reload();
+                }
+            });
+        });
+
+        $(".jSaveSup").click(function(){
+            var id = $(this).attr("id");
+            var index = $(".jSaveSup").index($(this));
+            var ajax = new AjaxSender("/route.php?cmd=Management.updateSupport", false, "json", new sehoMap()
+                .put("id", id).put("supType", $("[name='sup_supType[]']").eq(index).val())
+                .put("totalPrice", $("[name='sup_totalPrice[]']").eq(index).val())
+                .put("rName", $("[name='sup_rName[]']").eq(index).val())
+                .put("assemblyName", $("[name='sup_assemblyName[]']").eq(index).val())
+                .put("sYear", $("[name='sup_sYear[]']").eq(index).val())
+                .put("sMonth", $("[name='sup_sMonth[]']").eq(index).val())
+                .put("eYear", $("[name='sup_eYear[]']").eq(index).val())
+                .put("eMonth", $("[name='sup_eMonth[]']").eq(index).val())
+                .put("status", $("[name='sup_status[]']").eq(index).val())
+            );
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     alert("저장되었습니다.");
@@ -432,7 +452,16 @@
                                 </select>
                             </td>
                             <td>
-
+                                <?
+                                    if($subItem["pmType"] == "CC"){
+                                        echo "신용카드";
+                                    }else if($subItem["pmType"] == "BA"){
+                                        echo "계좌";
+                                    }else if($subItem["pmType"] == "FC"){
+                                        echo "해외신용";
+                                    }
+                                    echo "/ " . $subItem["info"];
+                                ?>
                             </td>
                             <td>
                                 <?=$subItem["lostCnt"]?>
@@ -460,19 +489,92 @@
                 <table class="table table-sm table-bordered jCTable" value="SUP" style="display: none;">
                     <thead>
                     <tr>
+                        <th>상태</th>
                         <th>후원자명</th>
-                        <th>시작한 날짜</th>
-                        <th>금액</th>
+                        <th>후원유형</th>
+                        <th>후원국가</th>
+                        <th>신청일자</th>
+                        <th>시작년월</th>
+                        <th>끝나는년월</th>
+                        <th>후원집회명</th>
+                        <th>가격</th>
                         <th>결제정보</th>
+                        <th>-</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?foreach($supportInfo as $supItem){?>
                         <tr>
-                            <td><?=$supItem["rName"]?></td>
+                            <td>
+                                <select class="form-control" name="sup_status[]">
+                                    <option value="">선택</option>
+                                    <option value="0" <?=$supItem["status"] == "0" ? "selected" : ""?>>정상</option>
+                                    <option value="1" <?=$supItem["status"] == "1" ? "selected" : ""?>>취소</option>
+                                </select>
+                            </td>
+                            <td><input type="text" class="form-control" name="sup_rName[]" value="<?=$supItem["rName"]?>"/></td>
+                            <td>
+                                <select class="form-control" name="sup_supType[]">
+                                    <option value="">선택</option>
+                                    <option value="BTG" <?=$supItem["supType"] == "BTG" ? "selected" : ""?>>BTG</option>
+                                    <option value="BTF" <?=$supItem["supType"] == "BTF" ? "selected" : ""?>>BTF</option>
+                                </select>
+                            </td>
+                            <td><?=$supItem["nation"]?></td>
                             <td><?=$supItem["regDate"]?></td>
-                            <td><?=$supItem["totalPrice"]?></td>
-                            <td></td>
+                            <td>
+                                <select class="form-control" name="sup_sYear[]">
+                                    <option value="">선택</option>
+                                    <?for($i=-50; $i<50; $i++){
+                                        $tmp = intval(date("Y")) + $i;
+                                        ?>
+                                        <option value="<?=$tmp?>" <?=$supItem["sYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                    <?}?>
+                                </select>
+                                <select class="form-control" name="sup_sMonth[]">
+                                    <option value="">선택</option>
+                                    <?for($i=1; $i<13; $i++){?>
+                                        <option value="<?=$i?>" <?=$supItem["sMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                    <?}?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="sup_eYear[]">
+                                    <option value="">선택</option>
+                                    <?for($i=-50; $i<50; $i++){
+                                        $tmp = intval(date("Y")) + $i;
+                                        ?>
+                                        <option value="<?=$tmp?>" <?=$supItem["eYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                    <?}?>
+                                </select>
+                                <select class="form-control" name="sup_eMonth[]">
+                                    <option value="">선택</option>
+                                    <?for($i=1; $i<13; $i++){?>
+                                        <option value="<?=$i?>" <?=$supItem["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                    <?}?>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sup_assemblyName[]" value="<?=$supItem["assemblyName"]?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="sup_totalPrice[]" value="<?=$supItem["totalPrice"]?>"/>
+                            </td>
+                            <td>
+                                <?
+                                if($supItem["pmType"] == "CC"){
+                                    echo "신용카드";
+                                }else if($supItem["pmType"] == "BA"){
+                                    echo "계좌";
+                                }else if($supItem["pmType"] == "FC"){
+                                    echo "해외신용";
+                                }
+                                echo "/ " . $supItem["info"];
+                                ?>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary jSaveSup" id="<?=$supItem["id"]?>">저장</button>
+                            </td>
                         </tr>
                     <?}?>
                     </tbody>

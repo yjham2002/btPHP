@@ -232,4 +232,23 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             </div>
         </li>
         <?}?>
+        <?if($userInfo->auth >= 2){?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>영업 관리</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">영업 관리</h6>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesGeneral.php">매출 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesPrintFee.php">인쇄비 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesPrints.php">인쇄 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesSubscribe.php">구독 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesNations.php">국가별 후원 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesShip.php">배송비 통계</a>
+                    <a class="dropdown-item" href="/admin/pages/salesManage/salesResend.php">재배송 통계</a>
+
+                </div>
+            </li>
+        <?}?>
     </ul>
