@@ -761,6 +761,63 @@ if (! class_exists("Common"))
             }
             return $str_head.$str_body.$str_tail;
         }
+
+        function addPrime($ext_inx, $username, $bank_code, $account_no, $account_name, $account_jumin, $start_date, $inday, $pay_monthdefault, $month_max){
+            $sql = "
+                INSERT INTO member(
+                    `m_index`, 
+                    `ext_inx`, 
+                    `username`, 
+                    `bank_code`, 
+                    `account_no`, 
+                    `account_name`, 
+                    `account_jumin`, 
+                    `start_date`, 
+                    `remove`, 
+                    `pay_nonpayment`, 
+                    `inday`, 
+                    `pay_monthdefault`, 
+                    `pay_agreement`, 
+                    `account_divide`, 
+                    `p_seday`, 
+                    `month_max`, 
+                    `send_stat`, 
+                    `in_time`
+                )
+                VALUES(
+                    '', # 고정값 : auto_increment값
+                    '{$ext_inx}', #a01 
+                    '{$username}',  # 고객명
+                    '{$bank_code}', # 0040000
+                    '{$account_no}',  # 계좌번호 특수문자 제외
+                    '{$account_name}', # 예금주명 
+                    '{$account_jumin}', # 생년월일만 입력하라고 필수사항으로 표시됨(주민번호 앞 6자리)
+                    '{$start_date}', # 2014-01 (혹시 몰라서 써놓는데 2001~현재+5 내에 입력이래요)
+                    '1', # 고정값 
+                    '0', # 정기결제시작년월이 되지 않아도 최대한 빨리 빼낼 금액 => 0 쓰면 될 듯, 만약 이체예정일을 3일로 했는데 오늘이 5일이면 뺄지 말지 결정해야 하니까 물어보고 정기결제 금액이랑 동일하게 하면 될듯
+                    '{$inday}', #  필히 2~25 사이의 값 - 월마다 결제될 일자(숫자) (위에는 년월만 있으니)
+                    '{$pay_monthdefault}', # 월마다 결제될 금액(숫자)
+                    '0', # 할부거래가 아니므로, 할부총액은 0원
+                    '1', # 1:월매출, 2: 수시매출, 3:할부매출, 4:기간매출, 5:월종량제 : 여기선 무제한이므로, 1로 설정
+                    '', # 다른 타입의 거래에서 사용되는 값 - 공백으로 처리
+                    '0', # 월청구제한 여부 0:제한X / 1이상:제한O : 예를 들어 이번달에 한번 연체했으면, 
+                    # 1이 입력될 경우 1(월청구제한) * 30000(매출예정액) = 30000  30000원이 한달 청구 제한 금액이 됨.
+                    # 2달이상 연체된 고객이여서 60000원의 미수금이 있다해도 해당월내에는 최대 30000원만 청구됨.
+                    '1', # 고정값 : 1로 박아두면 아인시스템이 확인하면 2로 변할거임
+                    '' # 고정값 : 아인시스템에서 알아서 넣는 regDate
+                )
+            ";
+
+            $this->connect_ext_db();
+            $this->update($sql);
+            $this->connect_int_db();
+        }
+
+        function addAgreeFile(){
+
+        }
+
+
 	}
 }
 ?>

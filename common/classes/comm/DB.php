@@ -19,25 +19,28 @@ if(! class_exists("DB") )
 
 		var $charset = "UTF8" ;
 			  
-		function __construct () 
-		{
-			$this->connect_db($this->dbHost, $this->dbUser, $this->dbPass,$this->dbName,$this->charset) ; 
+		function __construct (){
+			$this->connect_db($this->dbHost, $this->dbUser, $this->dbPass,$this->dbName,$this->charset) ;
 		}
-		
-		/*
-			터이터 베이스에 접속하는 함수
-		*/
-		function connect_db($db_host, $db_user, $db_pass, $db_name,$db_connection_set) 
-		{ 
-			$this->db = new mysqli($db_host, $db_user, $db_pass, $db_name); 
 
-			// 20091222 added by nukiboy
+		function connect_db($db_host, $db_user, $db_pass, $db_name,$db_connection_set){
+			$this->db = new mysqli($db_host, $db_user, $db_pass, $db_name);
 			$this->db->set_charset( $db_connection_set ) ;
-			
-			//접속실패시 메시지
 			$this->check_connect() ;
 		}
 
+		function connect_int_db(){
+            $this->db = new mysqli($this->dbHost, $this->dbUser, $this->dbPass,$this->dbName);
+            $this->db->set_charset($this->charset) ;
+            $this->check_connect() ;
+        }
+
+		function connect_ext_db(){
+            $this->db = new mysqli("219.255.134.104", "testupg", "testupgpw1234", "dtd_testupg");
+            $this->db->set_charset($this->charset) ;
+            print_r(mysqli_get_client_version($this->db));
+            $this->check_connect() ;
+        }
 
 		/* 
 			 db에서 select 쿼리를 실행하는 함수 
@@ -62,11 +65,9 @@ if(! class_exists("DB") )
 		/*
 			데이터 베이스 접속 체크
 		*/
-		function check_connect()
-		{
-			if( mysqli_connect_errno() ) 
-			{
-				$this->trace_error("Connect failed. db 접속이 유효하지 않습니다."); 
+		function check_connect(){
+			if( mysqli_connect_errno()) {
+				$this->trace_error("Invalid Connection.");
 				return false ;
 			}
 

@@ -6,7 +6,7 @@
  * Time: PM 3:08
  */
 ?>
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 
 <?
@@ -211,6 +211,8 @@
             <input type="text" class="form-control" name="buyer" value="<?=$item["buyer"]?>">
         </div>
 
+        <p style="font-size: 0.7em;">※ 수량 혹은 단가 항목에 숫자가 아닌 값이 입력되거나 공란이 1 항목 이상 존재할 경우, 통계가 정상적으로 집계되지 않을 수 있습니다.</p>
+
         <table class="table table-sm table-bordered text-center">
             <thead>
             <tr>
@@ -297,5 +299,5 @@
 </div>
 
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>
 

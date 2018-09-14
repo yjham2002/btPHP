@@ -533,6 +533,38 @@ if(!class_exists("Uncallable")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function getTypeList($type){
+            $sql = "SELECT * FROM tblTypeManage WHERE `type`='{$type}' ORDER BY `desc` DESC";
+            return $this->getArray($sql);
+        }
+
+        function getTypeListAjax(){
+            return $this->getTypeList($_REQUEST["type"]);
+        }
+
+        function upsertType($id, $type, $desc){
+            if($id == "") $id = 0;
+            $sql = "INSERT INTO tblTypeManage(`id`, `desc`, `type`) 
+                    VALUES('{$id}', '{$desc}', '{$type}')
+                    ON DUPLICATE KEY UPDATE `desc`='{$desc}', `type`='{$type}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function upsertTypeAjax(){
+            return $this->upsertType($_REQUEST["id"], $_REQUEST["type"], $_REQUEST["desc"]);
+        }
+
+        function deleteType($id){
+            $sql = "DELETE FROM tblTypeManage WHERE `id`='{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function deleteTypeAjax(){
+            return $this->deleteType($_REQUEST["id"]);
+        }
+
         function setPropertyOnlyValue($name, $loc, $value){
             $sql = "
             INSERT INTO tblProperty(propertyName, `lang`, `value`) VALUES('{$name}', '{$loc}', '{$value}')

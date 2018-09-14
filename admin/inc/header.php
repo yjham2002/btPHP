@@ -189,6 +189,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">배송 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/shipping/today.php">당일배송 추출</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/shipType.php">배송 타입 설정</a>
             </div>
         </li>
         <?}?>

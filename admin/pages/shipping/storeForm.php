@@ -10,10 +10,21 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
     $obj = new Management($_REQUEST);
     $obj2 = new AdminMain($_REQUEST);
+    $uc = new Uncallable($_REQUEST);
     $pList = $obj2->publicationList();
+    $typeList = $uc->getTypeList(0);
+
+//    $uc->connect_ext_db();
+//    $sql = "SELECT * from member LIMIT 1 ";
+//    var_dump($uc->getRow($sql));
+//    $uc->connect_int_db();
+//    $sql = "SELECT * FROM tblAdmin LIMIT 1";
+//    var_dump($uc->getRow($sql));
+
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -30,7 +41,6 @@
         });
 
         $(".jSave").click(function(){
-            //TODO table cell save procedure
             var ajax = new AjaxSubmit("/route.php?cmd=Management.storePublication", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
@@ -125,7 +135,15 @@
                         </select>
                     </td>
                     <td class="bg-secondary text-light">배송거래처</td>
-                    <td><input type="text" class="form-control" name="shippingCo" value=""/></td>
+                    <td>
+                        <select class="form-control" name="shippingCo">
+                            <option value="">선택</option>
+                            <?foreach($typeList as $typeItem){?>
+                                <option value="<?=$typeItem["id"]?>"><?=$typeItem["desc"]?></option>
+                            <?}?>
+                        </select>
+<!--                        <input type="text" class="form-control" name="shippingCo" value=""/>-->
+                    </td>
                 </tr>
                 <tr class="h-auto">
                     <td class="bg-secondary text-light">배송비</td>

@@ -86,8 +86,27 @@ if(!class_exists("Statistic")){
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $rangeArr = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+            $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
+                    FROM tblOrderform 
+                    WHERE 
+                    setDate BETWEEN 
+                    DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))";
 
+            $list = $this->getArray($sql);
+            $range = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+
+            $arr = array();
+
+            for($e = 0; $e < sizeof($list); $e++){
+                $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', nl2br($list[$e]["formJson"])), true);
+                $productArray = $F_VALUE["products"];
+                for($w = 0; $w < sizeof($productArray); $w++){
+                    $toUpt = intval($arr[$productArray[$w]["name"]][$list[$e]["legend"]]) + (intval($productArray[$w]["unit"]) * intval($productArray[$w]["quantity"]));
+                    $arr[$productArray[$w]["name"]][$list[$e]["legend"]] = $toUpt;
+                }
+            }
+
+            return $arr;
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정
@@ -97,8 +116,27 @@ if(!class_exists("Statistic")){
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $rangeArr = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+            $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
+                    FROM tblOrderform 
+                    WHERE 
+                    setDate BETWEEN 
+                    DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))";
 
+            $list = $this->getArray($sql);
+            $range = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+
+            $arr = array();
+
+            for($e = 0; $e < sizeof($list); $e++){
+                $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', nl2br($list[$e]["formJson"])), true);
+                $productArray = $F_VALUE["products"];
+                for($w = 0; $w < sizeof($productArray); $w++){
+                    $toUpt = intval($arr[$productArray[$w]["name"]][$list[$e]["legend"]]) + (intval($productArray[$w]["quantity"]));
+                    $arr[$productArray[$w]["name"]][$list[$e]["legend"]] = $toUpt;
+                }
+            }
+
+            return $arr;
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정
