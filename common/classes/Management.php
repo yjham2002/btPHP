@@ -106,6 +106,18 @@ if(!class_exists("Management")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function setCommercial(){
+            $id = $_REQUEST["id"];
+            $type = $_REQUEST["type"];
+            $check = $_REQUEST["check"];
+
+            $sql = "
+                UPDATE tblCustomer SET `commercial{$type}` = '{$check}' WHERE `id` = {$id}
+            ";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
         function updateSubscription(){
             $id = $_REQUEST["id"];
             $customerLang = $_REQUEST["customerLang"];

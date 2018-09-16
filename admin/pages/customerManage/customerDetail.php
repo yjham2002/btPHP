@@ -52,12 +52,15 @@
             }
         });
 
-        $(".monthPicker").focus(function(){
-            $(".ui-datepicker-calendar").hide();
-            $("#ui-datepicker-div").position({
-                my: "center top",
-                at: "center bottom",
-                of: $(this)
+        $(".jCommercial").change(function(){
+            var id = "<?=$_REQUEST["id"]?>";
+            var object = $(this).find('input');
+            var check = $(object).prop("checked") == true ? 1 : 0;
+            var ajax = new AjaxSender("/route.php?cmd=Management.setCommercial", true, "json", new sehoMap()
+                .put("id", id).put("type", object.attr("cType")).put("check", check));
+            ajax.send(function(data){
+                alert("변경되었습니다.");
+                location.reload();
             });
         });
 
@@ -314,6 +317,27 @@
                             <tr class="h-auto">
                                 <td class="bg-secondary text-light">가입일시</td>
                                 <td><?=$userInfo["regDate"]?></td>
+                            </tr>
+                            <tr class="h-auto">
+                                <td class="bg-secondary text-light">광고</td>
+                                <td>
+                                    <label class="form-check-label mr-4 jCommercial">
+                                        <input class="form-check-input" type="checkbox" cType="1" <?=$userInfo["commercial1"] == "1" ? "checked" : ""?>>
+                                        1도
+                                    </label>
+                                    <label class="form-check-label mr-4 jCommercial">
+                                        <input class="form-check-input" type="checkbox" cType="2" <?=$userInfo["commercial2"] == "1" ? "checked" : ""?>>
+                                        2도
+                                    </label>
+                                    <label class="form-check-label mr-4 jCommercial">
+                                        <input class="form-check-input" type="checkbox" cType="3" <?=$userInfo["commercial3"] == "1" ? "checked" : ""?>>
+                                        3도
+                                    </label>
+                                    <label class="form-check-label jCommercial">
+                                        <input class="form-check-input" type="checkbox" cType="4" <?=$userInfo["commercial4"] == "1" ? "checked" : ""?>>
+                                        4도
+                                    </label>
+                                </td>
                             </tr>
                         </table>
                     </div>
