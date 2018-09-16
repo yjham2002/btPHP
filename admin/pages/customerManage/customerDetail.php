@@ -19,7 +19,7 @@
     $paymentInfo = $item["paymentInfo"];
     $subscriptionInfo = $item["subscriptionInfo"];
     $supportInfo = $item["supportInfo"];
-
+    
     $localeList = $main->getLocale();
     $localeTxt = "";
     foreach($localeList as $localeItem)
@@ -345,7 +345,6 @@
                 <button type="button" class="btn btn-secondary jCmenu" value="SUP">후원</button>
                 <button type="button" class="btn btn-secondary jCmenu" value="PAY">결제</button>
             </div>
-            <!--        </form>-->
             <span class="badge badge-pill badge-primary float-right jDelivery">&nbsp;배송조회&nbsp;</span>
 
             <div style="width: 100%; height: 300px; overflow-y: scroll">
@@ -453,13 +452,9 @@
                             </td>
                             <td>
                                 <?
-                                    if($subItem["pmType"] == "CC"){
-                                        echo "신용카드";
-                                    }else if($subItem["pmType"] == "BA"){
-                                        echo "계좌";
-                                    }else if($subItem["pmType"] == "FC"){
-                                        echo "해외신용";
-                                    }
+                                    if($subItem["pmType"] == "CC") echo "신용카드";
+                                    else if($subItem["pmType"] == "BA") echo "계좌";
+                                    else if($subItem["pmType"] == "FC") echo "해외신용";
                                     echo "/ " . $subItem["info"];
                                 ?>
                             </td>
@@ -562,13 +557,9 @@
                             </td>
                             <td>
                                 <?
-                                if($supItem["pmType"] == "CC"){
-                                    echo "신용카드";
-                                }else if($supItem["pmType"] == "BA"){
-                                    echo "계좌";
-                                }else if($supItem["pmType"] == "FC"){
-                                    echo "해외신용";
-                                }
+                                if($supItem["pmType"] == "CC") echo "신용카드";
+                                else if($supItem["pmType"] == "BA") echo "계좌";
+                                else if($supItem["pmType"] == "FC") echo "해외신용";
                                 echo "/ " . $supItem["info"];
                                 ?>
                             </td>
@@ -583,35 +574,33 @@
                 <table class="table table-sm table-bordered jCTable" value="PAY" style="display: none;">
                     <thead>
                     <tr>
-                        <th>받는사람</th>
-                        <th>전화번호</th>
-                        <th>우편번호</th>
-                        <th>주소</th>
-                        <th>상태</th>
-                        <th>버전</th>
-                        <th>부수</th>
-                        <th>시작 월호</th>
-                        <th>끝나는 월호</th>
-                        <th>결제정보</th>
-                        <th>LOST 횟수</th>
-                        <th>상태</th>
+                        <th>타입</th>
+                        <th>결제수단</th>
+                        <th>금액</th>
+                        <th>결제 시작일</th>
+                        <th>정기 결제일</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?foreach($subscriptionInfo as $subItem){?>
+                    <?foreach($paymentInfo as $paymentItem){?>
                         <tr>
-                            <td><?=$subItem["rName"]?></td>
-                            <td><?=$subItem["rPhone"]?></td>
-                            <td><?=$subItem["rZipCode"]?></td>
-                            <td><?=$subItem["rAddr"] . " " . $subItem["rAddrDetail"]?></td>
-                            <td></td>
-                            <td><?=$subItem["publicationName"]?></td>
-                            <td><?=$subItem["cnt"]?></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <?
+                                    if($paymentItem["productType"] == "SUB") echo "구독";
+                                    else if($paymentItem["productType"] == "SUP") echo "후원";
+                                ?>
+                            </td>
+                            <td>
+                                <?
+                                    if($paymentItem["pmType"] == "CC") echo "신용카드";
+                                    else if($paymentItem["pmType"] == "BA") echo "계좌";
+                                    else if($paymentItem["pmType"] == "FC") echo "해외신용";
+                                    echo "/ " . $paymentItem["info"];
+                                ?>
+                            </td>
+                            <td><?=$paymentItem["totalPrice"]?></td>
+                            <td><?=$paymentItem["paymentDate"]?></td>
+                            <td><?=$paymentItem[""]?></td>
                         </tr>
                     <?}?>
                     </tbody>
@@ -654,15 +643,11 @@
 
                     </tbody>
                     <tbody id="historyAddArea">
-
                     </tbody>
                 </table>
             </div>
         </form>
-
-
     </div>
 </div>
-
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>

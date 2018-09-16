@@ -11,26 +11,26 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebSubscription.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
-    $obj = new WebSubscription($_REQUEST);
-    $management = new Management($_REQUEST);
-    $item = $obj->publicationDetail();
-    if($item == ""){
-        echo "<script>alert('비정상적인 접근입니다.')</script>";
-        echo "<script>location.href='/web';</script>";
-    }
-    $list = $obj->publicationList();
+$obj = new WebSubscription($_REQUEST);
+$management = new Management($_REQUEST);
+$item = $obj->publicationDetail();
+if($item == ""){
+    echo "<script>alert('비정상적인 접근입니다.')</script>";
+    echo "<script>location.href='/web';</script>";
+}
+$list = $obj->publicationList();
 
-    if($_COOKIE["btLocale"] == "kr") {
-        $currency = "₩";
-        $decimal = 0;
-    }
-    else{
-        $currency = "$";
-        $decimal = 2;
-    }
+if($_COOKIE["btLocale"] == "kr") {
+    $currency = "₩";
+    $decimal = 0;
+}
+else{
+    $currency = "$";
+    $decimal = 2;
+}
 
-    $cardTypeList = $management->cardTypeList();
-    $bankTypeList = $management->bankTypeList();
+$cardTypeList = $management->cardTypeList();
+$bankTypeList = $management->bankTypeList();
 ?>
     <style>
         .agBtn{
@@ -40,17 +40,161 @@
             .agBtn{
                 font-size:0.9em;
             }
-        }
+        }.ui-datepicker select{display: inline!important;}
     </style>
+
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <!--[if IE]><script src="/web/assets/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+    <script src="/web/assets/js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/assets/js/canvasToBlob.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script>
         $(document).ready(function(){
+            $(".datepicker").datepicker({
+                yearRange: "-100:",
+                showMonthAfterYear:true,
+                inline: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat : 'yymmdd',
+                dayNamesMin:['일', '월', '화', '수', '목', '금', ' 토'],
+                monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
+                monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+            });
             var user = "<?=$user->id?>";
             var type = "<?=$_REQUEST["type"]?>"
             var currency = "<?=$currency?>";
             var decimal = "<?=$decimal?>";
             var emailCheck = "<?=$user->id == "" ? -1 : 1?>";
             var locale = "<?=$_COOKIE["btLocale"]?>";
+
+            /**
+             * Canvas Start
+             */
+            var canvas = document.getElementById("canvas");
+            if(typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas);}
+            context = canvas.getContext("2d");
+            var canvasWidth = $("#canvas").parent().parent().width() - ($("#canvas").parent().parent().innerWidth() - $("#canvas").parent().parent().width());
+            canvas.setAttribute('width', canvasWidth);
+
+            $('#canvas').mousedown(function(e){
+                var mouseX = e.pageX - this.offsetLeft;
+                var mouseY = e.pageY - this.offsetTop;
+                paint = true;
+                addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+                redraw();
+            });
+            $('#canvas').mousemove(function(e){
+                if(paint){
+                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    redraw();
+                }
+            });
+            $('#canvas').mouseup(function(e){
+                paint = false;
+            });
+            $('#canvas').mouseleave(function(e){
+                paint = false;
+            });
+
+            $(".jRedraw").click(function(){
+                clickX = [];
+                clickY = [];
+                clickDrag = [];
+                redraw();
+            });
+
+            $(".jOrderAlter").click(function(){
+                if(emailCheck != 1){
+                    alert("이메일 중복 체크를 해주시길 바랍니다.");
+                    return;
+                }
+                if($("[name=phone]").val() == ""){
+                    alert("휴대전화번호는 필수 입력 항목입니다.");
+                    return;
+                }
+
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+                ctx.font = "30px arial";
+                context.fillStyle = "black";
+                var name = $("[name=ownerName]").val();
+                var birth = $("[name=birth]").val();
+                var account = $("[name=info]").val();
+                var bankType = $(".jBtype:selected").attr("desc");
+                ctx.fillText(name, 20, 50);
+                ctx.fillText(birth, 20, 80);
+                ctx.fillText(account, 20, 110);
+                ctx.fillText(bankType, 20, 140);
+
+                canvas.toBlob(function(blob) {
+                    var fd = new FormData($("#form")[0]);
+                    fd.append("signatureFile", blob);
+                    if(confirm("저장하시겠습니까?")){
+                        $.ajax({
+                            url: "/route.php?cmd=WebSubscription.setSubscriptionInfo",
+                            type : "post",
+                            method : "post",
+                            cache : false,
+                            data : fd,
+                            contentType : false,
+                            processData : false,
+                            dataType : "json",
+                            success : function(data){
+                                console.log(data);
+                                if(data.returnCode === 1){
+                                    redraw();
+                                    alert("구독신청이 완료되었습니다.");
+                                    location.href = "/web";
+                                }
+                                else alert("구독 신청에 실패하였습니다.");
+                            },
+                            error : function(req, res, error){
+                                alert(req+res+error);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            var clickX = new Array();
+            var clickY = new Array();
+            var clickDrag = new Array();
+            var paint;
+
+            function addClick(x, y, dragging) {
+                clickX.push(x);
+                clickY.push(y);
+                clickDrag.push(dragging);
+            }
+
+            function redraw(){
+                context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+                context.fillStyle = "white";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                context.strokeStyle = "#222222";
+                context.lineJoin = "round";
+                context.lineWidth = 5;
+
+                for(var i=0; i < clickX.length; i++) {
+                    context.beginPath();
+                    if(clickDrag[i] && i){
+                        context.moveTo(clickX[i-1], clickY[i-1]);
+                    }else{
+                        context.moveTo(clickX[i]-1, clickY[i]);
+                    }
+                    context.lineTo(clickX[i], clickY[i]);
+                    context.closePath();
+                    context.stroke();
+                }
+            }
+            /**
+             * Canvas End
+             */
 
             setPrice($("#jCnt").val());
 
@@ -429,15 +573,21 @@
                     </div>
 
                     <div class="6u$ 12u$(small) align-left jAccountArea" style="display: none;">
+                        <input class="smallTextBox datepicker" type="text" name="birth" id="birth" placeholder="생년월일"/>
                         <div class="select-wrapper" style="width:30%; margin-bottom:1em;">
                             <select name="bankType">
                                 <option value="">선택</option>
                                 <?foreach($bankTypeList as $bankItem){?>
-                                    <option value="<?=$bankItem["code"]?>"><?=$bankItem["desc"]?></option>
+                                    <option class="jBtype" value="<?=$bankItem["code"]?>" desc="<?=$bankItem["desc"]?>"><?=$bankItem["desc"]?></option>
                                 <?}?>
                             </select>
                         </div>
                         <input class="smallTextBox" type="text" name="info" placeholder="계좌번호"/>
+                        <p style="margin:0;">서명</p>
+                        <div class="smallTextBox">
+                            <canvas style="border: 1px solid black;" height="300px" id="canvas"></canvas>
+                        </div>
+                        <a class="resBtn grayButton roundButton innerButton lineButton jRedraw">서명 지우기</a>
                     </div>
 
                     <div class="6u 12u$(small) jForeignArea" style="display: none;">
@@ -522,7 +672,8 @@
                     <tr>
                         <td colspan="2" style="background:white;">
                             <p>위와 같이 금융거래정보의 제공 및 개인정보 수집 및 이용, 개인정보 제 3 자 제공에 동의하며, 자동이체 서비스 약관을 확인하고 자동이체 이용을 신청합니다.</p>
-                            <a href="#" class="jShowOk blueButton roundButton agBtn jOrder">결제</a>
+<!--                            <a href="#" class="jShowOk blueButton roundButton agBtn jOrder">결제</a>-->
+                            <a href="#" class="jShowOk blueButton roundButton agBtn jOrderAlter">결제(서명포함)</a>
                         </td>
                     </tr>
                 </table>

@@ -66,7 +66,7 @@
         $(".headerMenu").each(function(){
             $(this).removeClass("selected");
             var match = $(this).attr("match");
-            if(url.includes(match)) $(this).addClass("selected");
+            if(url.indexOf(match) != -1) $(this).addClass("selected");
         });
 
         if(url === "/web/pages/") $(".headerMenu").eq(0).addClass("selected");

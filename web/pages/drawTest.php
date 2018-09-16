@@ -10,18 +10,24 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
-    $obj = new WebUser($_REQUEST);
+$obj = new WebUser($_REQUEST);
 ?>
+
+<!--[if IE]><script src="/web/assets/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+<script src="/web/assets/js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/assets/js/canvasToBlob.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
 
     $(document).ready(function(){
 
-        var canvasDiv = document.getElementById('canvasDiv');
-        canvas = document.createElement('canvas');
-        canvas.setAttribute('width', $(window).width());
-        canvas.setAttribute('height', $(window).width());
-        canvas.setAttribute('id', 'canvas');
-        canvasDiv.appendChild(canvas);
+        var canvas = document.getElementById("canvas");
+//        var canvasDiv = document.getElementById('canvasDiv');
+//        canvas = document.createElement('canvas');
+//        canvas.setAttribute('width', $(window).width());
+//        canvas.setAttribute('height', $(window).width());
+//        canvas.setAttribute('id', 'canvas');
+//        canvasDiv.appendChild(canvas);
         if(typeof G_vmlCanvasManager != 'undefined') {
             canvas = G_vmlCanvasManager.initElement(canvas);
         }
@@ -59,13 +65,25 @@
 
         $(".jSaveSig").click(function(){
             var canvas = document.getElementById("canvas");
-            var imgData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var ctx = canvas.getContext("2d");
+            ctx.font = "30px arial";
+            context.fillStyle = "black";
+            ctx.fillText("Line 01", 20, 50);
+            ctx.fillText("Line 02", 20, 80);
+            ctx.fillText("Line 03", 20, 110);
+            ctx.fillText("Line 04", 20, 140);
 
-            var link = document.createElement("a");
-            link.href = imgData;
-            link.download = "test.png";
+            canvas.toBlob(function(blob) {
+                saveAs(blob, "pretty image.png");
+            });
 
-            link.click();
+//            var imgData = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+//
+//            var link = document.createElement("a");
+//            link.href = imgData;
+//            link.download = "test.jpg";
+//
+//            link.click();
 
         });
 
@@ -82,6 +100,9 @@
 
         function redraw(){
             context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
 
             context.strokeStyle = "#222222";
             context.lineJoin = "round";
@@ -109,7 +130,8 @@
             <div class="empLineT"></div>
         </header>
 
-        <div id="canvasDiv" style="border: 1px solid black;">
+        <div id="canvasDiv" >
+            <canvas style="border: 1px solid black;" width="300px" height="300px" id="canvas"></canvas>
         </div>
 
         <br/>

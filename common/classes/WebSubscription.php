@@ -115,12 +115,24 @@ if(!class_exists("WebSubscription")){
             $aCustomerProfileId = "";
             $paymentResult = 0;
 
+            $primeJumin = $_REQUEST["birth"];
+            $primeSigPath = "";
+            $primeIndex = -1;
+
             if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
 //                $paymentResult = 1;
             }
-
-
+            if($paymentType == "BA"){
+                $check = file_exists($_FILES['signatureFile']['tmp_name']);
+                if($check !== false){
+                    $fName = $this->makeFileName() . "." . "jpg";
+                    $targetDir = $_SERVER["DOCUMENT_ROOT"]."/uploadFiles/" . $fName;
+                    $fileName = $fName;
+                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)) $primeSigPath = $fName;
+                    else return $this->makeResultJson(-22, "signature upload fail");
+                }
+            }
             if($paymentType == "FC"){
                 $info = $_REQUEST["cardForeign"];
                 $validThruYear = $_REQUEST["validThruYearF"];
@@ -175,16 +187,17 @@ if(!class_exists("WebSubscription")){
                     $aCustomerProfileId = $payRes->profile->customerProfileId;
                     $paymentResult = 1;
                 }
-                else{
-                    return $this->makeResultJson(-1, "payment failure");
-                }
+                else return $this->makeResultJson(-1, "payment failure");
             }
 
             $sql = "
-              INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              INSERT INTO tblPayment(`buyType`, `type`, primeJumin, primeSigPath, primeIndex, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
               VALUES(
                 'SUB',
                 '{$paymentType}',
+                '{$primeJumin}',
+                '{$primeSigPath}',
+                '{$primeIndex}',
                 '{$aSubsciptionId}',
                 '{$aCustomerProfileId}',
                 '{$paymentResult}',
