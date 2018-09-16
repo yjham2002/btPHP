@@ -261,9 +261,9 @@
         <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
             <button type="button" class="float-right btn btn-danger mr-5 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
             <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
-            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>
+<!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
             <button type="button" class="btn btn-secondary mr-2">LOST</button>
-            <button type="button" class="btn btn-secondary jSave">적용</button>
+<!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
         </div>
 
         <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
@@ -600,7 +600,7 @@
                             </td>
                             <td><?=$paymentItem["totalPrice"]?></td>
                             <td><?=$paymentItem["paymentDate"]?></td>
-                            <td><?=$paymentItem[""]?></td>
+                            <td><?=$paymentItem["monthlyDate"]?></td>
                         </tr>
                     <?}?>
                     </tbody>
@@ -627,8 +627,8 @@
                     <label for="hOption5">기타</label>
                 </div>
                 <button type="button" class="btn btn-secondary ml-4 jAddHistory">+</button>
+                <button type="button" class="btn btn-secondary ml-5 jSave">저장</button>
             </div>
-
             <div style="width: 100%; height: 500px; overflow-y: scroll">
                 <table class="table table-sm table-bordered">
                     <thead>

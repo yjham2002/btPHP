@@ -92,13 +92,14 @@ if(!class_exists("WebSubscription")){
             $rAddr = $_REQUEST["rAddr"];
             $rAddrDetail = $_REQUEST["rAddrDetail"];
             $totalPrice = $_REQUEST["totalPrice"];
-
+            $monthlyDate = 5;
             if($type == "2"){
                 $rName = $name;
                 $rPhone = $phone;
                 $rZipcode = $zipcode;
                 $rAddr = $addr;
                 $rAddrDetail = $addrDetail;
+                $monthlyDate = 15;
             }
 
             //TODO paymethod/payment info insert
@@ -119,6 +120,8 @@ if(!class_exists("WebSubscription")){
             $primeSigPath = "";
             $primeIndex = -1;
 
+
+
             if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
 //                $paymentResult = 1;
@@ -137,7 +140,7 @@ if(!class_exists("WebSubscription")){
                 $info = $_REQUEST["cardForeign"];
                 $validThruYear = $_REQUEST["validThruYearF"];
                 $validThruMonth = $_REQUEST["validThruMonthF"];
-
+                $monthlyDate = 15;
                 /**
                  * Parameters
                  */
@@ -191,10 +194,11 @@ if(!class_exists("WebSubscription")){
             }
 
             $sql = "
-              INSERT INTO tblPayment(`buyType`, `type`, primeJumin, primeSigPath, primeIndex, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              INSERT INTO tblPayment(`buyType`, `type`, monthlyDate, primeJumin, primeSigPath, primeIndex, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
               VALUES(
                 'SUB',
                 '{$paymentType}',
+                '{$monthlyDate}',
                 '{$primeJumin}',
                 '{$primeSigPath}',
                 '{$primeIndex}',

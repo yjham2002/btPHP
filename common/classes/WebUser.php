@@ -268,6 +268,9 @@ if(! class_exists("WebUser") ){
             $cName = $_REQUEST["cName"];
             $cPhone = $_REQUEST["cPhone"];
 
+            $sql = "SELECT addr, addrDetail FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
+            $old = $this->getRow($sql);
+
             $sql = "
                     UPDATE tblCustomer
                     SET
@@ -279,10 +282,26 @@ if(! class_exists("WebUser") ){
                       `cName` = '{$cName}',
                       `cPhone` = '{$cPhone}',
                       `notiFlag` = '{$notiFlag}',
-                      `birth` = '{$birth}'``
+                      `birth` = '{$birth}'
                     WHERE `id` = '{$id}'
                 ";
             $this->update($sql);
+
+            echo json_encode($old);
+
+            if($addr != $old["addr"] || $addrDetail != $old["addrDetail"]){
+                echo "asd";
+                $sql = "
+                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    VALUES(
+                      '고객',
+                      'etc',
+                      '주소 변경: {$addr} {$addrDetail}',
+                      NOW()
+                    )
+                ";
+                $this->update($sql);
+            }
             return $this->makeResultJson(1, "succ");
         }
 

@@ -68,7 +68,8 @@ if(!class_exists("WebSupport")){
             $cnt = $_REQUEST["cnt"];
             $totalPrice = $_REQUEST["totalPrice"];
             $message = $_REQUEST["message"];
-
+            $monthlyDate = 5;
+            if($type == "2") $monthlyDate = 15;
             ///////////
             $paymentId = -1;
 
@@ -85,16 +86,29 @@ if(!class_exists("WebSupport")){
             $aCustomerProfileId = "";
             $paymentResult = 0;
 
+            $primeJumin = $_REQUEST["birth"];
+            $primeSigPath = "";
+            $primeIndex = -1;
+
             if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
 //                $paymentResult = 1;
             }
-
+            if($paymentType == "BA"){
+                $check = file_exists($_FILES['signatureFile']['tmp_name']);
+                if($check !== false){
+                    $fName = $this->makeFileName() . "." . "jpg";
+                    $targetDir = $_SERVER["DOCUMENT_ROOT"]."/uploadFiles/" . $fName;
+                    $fileName = $fName;
+                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)) $primeSigPath = $fName;
+                    else return $this->makeResultJson(-22, "signature upload fail");
+                }
+            }
             if($paymentType == "FC"){
                 $info = $_REQUEST["cardForeign"];
                 $validThruYear = $_REQUEST["validThruYearF"];
                 $validThruMonth = $_REQUEST["validThruMonthF"];
-
+                $monthlyDate = 15;
                 /**
                  * Parameters
                  */
@@ -149,10 +163,11 @@ if(!class_exists("WebSupport")){
             }
 
             $sql = "
-              INSERT INTO tblPayment(`buyType`, `type`, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              INSERT INTO tblPayment(`buyType`, `type`, monthlyDate, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
               VALUES(
                 'SUP',
                 '{$paymentType}',
+                '{$monthlyDate}',
                 '{$aSubsciptionId}',
                 '{$aCustomerProfileId}',
                 '{$paymentResult}',
