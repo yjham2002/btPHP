@@ -130,6 +130,7 @@
                         template = template.replace("#{regDate}", row.regDate);
                         template = template.replace("#{id}", row.id);
                         // template = template.replace("#{type}", row.type);
+                        template = template.replace("#{modifier}", row.modifier == null ? "" : row.modifier);
                         template = template.replace("#{content}", row.content);
                         $("#historyArea").append(template);
                         $("#historyArea").find("[name='hType[]']").eq(i).val(row.type);
@@ -213,9 +214,11 @@
     <tbody class="historyTemplate">
     <tr>
         <td><input type="text" class="form-control" value="#{regDate}"/></td>
-        <td><input type="text" class="form-control" name="historyId[]" value="#{id}"/></td>
         <td>
-<!--            <input type="text" class="form-control" name="hType" value="#{type}"/>-->
+            <input type="hidden" class="form-control" name="historyId[]" value="#{id}"/>
+            <input type="text" class="form-control" name="modifier[]" value="#{modifier}"/>
+        </td>
+        <td>
             <select class="form-control" name="hType[]">
                 <option value="">선택</option>
                 <option value="sub">구독</option>
@@ -233,7 +236,10 @@
     <tbody class="newHistoryTemplate">
     <tr>
         <td><input type="text" class="form-control" readonly/></td>
-        <td><input type="text" class="form-control" name="historyId[]" readonly></td>
+        <td>
+            <input type="hidden" class="form-control" name="historyId[]" readonly/>
+            <input type="text" class="form-control" name="modifier[]"/>
+        </td>
         <td>
             <select class="form-control" name="hType[]">
                 <option value="">선택</option>

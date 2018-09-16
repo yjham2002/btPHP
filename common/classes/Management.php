@@ -117,6 +117,8 @@ if(!class_exists("Management")){
             else
                 $totalPrice = $publication["discounted"] * $_REQUEST["cnt"];
 
+            $sql = "SELECT rName, rPhone, rZipCode, rAddr, rAddrDetail, publicationId, cnt, subType, shippingType, pYear, pMonth, eYear, eMonth, deliveryStatus FROM tblSubscription WHERE id='{$id}' LIMIT 1";
+            $old = $this->getRow($sql);
             $sql = "
                 INSERT INTO tblSubscription(id, customerId, publicationId, cnt, pYear, pMonth, eYear, eMonth, totalPrice, subType, shippingType, rName, rPhone, rZipCode, rAddr, rAddrDetail, deliveryStatus, regDate) 
                 VALUES(
@@ -157,11 +159,99 @@ if(!class_exists("Management")){
                 deliveryStatus = '{$_REQUEST["deliveryStatus"]}'
             ";
             $this->update($sql);
+
+            foreach(json_decode(json_encode($old), true) as $key => $value){
+                if($value != $_REQUEST[$key]){
+                    $tmp = "";
+                    $result = "";
+                    if($key == "rName") $tmp = "받는사람 변경";
+                    if($key == "rPhone") $tmp = "받는사람 변경";
+                    switch($key){
+                        case "rName":
+                            $tmp = "받는사람";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "rPhone":
+                            $tmp = "전화번호";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "rZipCode":
+                            $tmp = "우편번호";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "rAddr":
+                            $tmp = "주소";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "rAddrDetail":
+                            $tmp = "상세주소";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "publicationId":
+                            $tmp = "버전";
+                            $sql = "SELECT `desc` FROM tblPublication WHERE id = '{$_REQUEST[$key]}'";
+                            $result = $this->getValue($sql, "desc");
+                            break;
+                        case "cnt":
+                            $tmp = "부수";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "subType":
+                            $tmp = "유형";
+                            if($_REQUEST[$key] == "0") $result = "개인";
+                            else if($_REQUEST[$key] == "1") $result = "단체";
+                            else if($_REQUEST[$key] == "2") $result = "묶음배송";
+                            else if($_REQUEST[$key] == "3") $result = "표지광고";
+                            break;
+                        case "shippingType":
+                            $tmp = "배송";
+                            $shippingType = $_REQUEST[$key];
+                            $result = $_REQUEST[$key] == 0 ? "우편" : "택배";
+                            break;
+                        case "pYear":
+                            $tmp = "시작월호(년)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "pMonth":
+                            $tmp = "시작월호(월)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "eYear":
+                            $tmp = "끝나는월호(년)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "eMonth":
+                            $tmp = "끝나는월호(월)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "deliveryStatus":
+                            $tmp = "상태";
+                            if($_REQUEST[$key] == "0") $result = "정상";
+                            if($_REQUEST[$key] == "1") $result = "취소";
+                            if($_REQUEST[$key] == "2") $result = "발송보류";
+                            break;
+                    }
+
+                    $sql = "
+                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    VALUES(
+                      '{$this->admUser->account}',
+                      'sub',
+                      '{$tmp} 변경: {$result}',
+                      NOW()
+                    )
+                ";
+                    $this->update($sql);
+                }
+            }
             return $this->makeResultJson(1, "succ");
         }
 
         function updateSupport(){
             $id = $_REQUEST["id"];
+            $sql = "SELECT `status`, rName, supType, sYear, sMonth, eYear, eMonth, assemblyName, totalPrice FROM tblSupport WHERE id='{$id}' LIMIT 1";
+            $old = $this->getRow($sql);
+
             $sql = "
                 UPDATE tblSupport SET
                     supType = '{$_REQUEST["supType"]}',
@@ -176,6 +266,64 @@ if(!class_exists("Management")){
                 WHERE `id` = '{$id}' 
             ";
             $this->update($sql);
+
+            foreach(json_decode(json_encode($old), true) as $key => $value){
+                if($value != $_REQUEST[$key]){
+                    $tmp = "";
+                    $result = "";
+                    if($key == "rName") $tmp = "받는사람 변경";
+                    if($key == "rPhone") $tmp = "받는사람 변경";
+                    switch($key){
+                        case "status":
+                            $tmp = "상태";
+                            if($_REQUEST[$key] == "0") $result = "정상";
+                            if($_REQUEST[$key] == "1") $result = "취소";
+                            break;
+                        case "rName":
+                            $tmp = "후원자명";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "supType":
+                            $tmp = "후원유형";
+                            if($_REQUEST[$key] == "BTG") $result = "BTG";
+                            else if($_REQUEST[$key] == "BTF") $result = "BTF";
+                            break;
+                        case "sYear":
+                            $tmp = "시작년월(년)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "sMonth":
+                            $tmp = "시작년월(월)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "eYear":
+                            $tmp = "끝나는년월(년)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "eMonth":
+                            $tmp = "끝나는년월(월)";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "assemblyName":
+                            $tmp = "후원집회명";
+                            $result = $_REQUEST[$key];
+                            break;
+                        case "totalPrice":
+                            $tmp = "가격";
+                            $result = $_REQUEST[$key];
+                    }
+                    $sql = "
+                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    VALUES(
+                      '{$this->admUser->account}',
+                      'sup',
+                      '{$tmp} 변경: {$result}',
+                      NOW()
+                    )
+                ";
+                    $this->update($sql);
+                }
+            }
             return $this->makeResultJson(1, "succ");
         }
 
@@ -190,7 +338,7 @@ if(!class_exists("Management")){
                 }
                 $where .= ")";
             }
-            $sql = "SELECT * FROM tblCustomerHistory WHERE {$where} ORDER BY regDate ASC";
+            $sql = "SELECT * FROM tblCustomerHistory WHERE {$where} ORDER BY id DESC";
             return $this->makeResultJson(1, succ, $this->getArray($sql));
         }
 
@@ -198,28 +346,26 @@ if(!class_exists("Management")){
             $historyIdArr = $_REQUEST["historyId"];
             $historyTypeArr = $_REQUEST["hType"];
             $historyContentArr = $_REQUEST["historyContent"];
-
-//            echo json_encode($historyIdArr);
-//            echo json_encode($historyTypeArr);
-//            echo json_encode($historyContentArr);
+            $historyModifierArr = $_REQUEST["modifier"];
 
             for($i=0; $i<sizeof($historyIdArr); $i++){
                 $tmpId = $historyIdArr[$i] == "" ? "0" : $historyIdArr[$i];
                 $sql = "
-                    INSERT INTO tblCustomerHistory(`id`, `type`, `content`, `regDate`)
+                    INSERT INTO tblCustomerHistory(`id`, modifier, `type`, `content`, `regDate`)
                     VALUES(
                       '{$tmpId}',
+                      '{$historyModifierArr[$i]}',
                       '{$historyTypeArr[$i]}',
                       '{$historyContentArr[$i]}',
                       NOW()
                     )
                     ON DUPLICATE KEY UPDATE
                     `type` = '{$historyTypeArr[$i]}',
+                    `modifier` = '{$historyModifierArr[$i]}',
                     `content` = '{$historyContentArr[$i]}'
                 ";
                 $this->update($sql);
             }
-
             return $this->makeResultJson(1, "succ");
         }
 

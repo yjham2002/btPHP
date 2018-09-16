@@ -287,10 +287,7 @@ if(! class_exists("WebUser") ){
                 ";
             $this->update($sql);
 
-            echo json_encode($old);
-
             if($addr != $old["addr"] || $addrDetail != $old["addrDetail"]){
-                echo "asd";
                 $sql = "
                     INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
                     VALUES(
