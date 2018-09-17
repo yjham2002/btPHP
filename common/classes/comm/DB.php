@@ -38,7 +38,7 @@ if(! class_exists("DB") )
 		function connect_ext_db(){
             $this->db = new mysqli("219.255.134.104", "testupg", "testupgpw1234", "dtd_testupg");
             $this->db->set_charset($this->charset) ;
-            print_r(mysqli_get_client_version($this->db));
+//            print_r(mysqli_get_client_version($this->db));
             $this->check_connect() ;
         }
 

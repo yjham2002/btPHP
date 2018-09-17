@@ -29,8 +29,31 @@
         $(".jDetailSearch").click(function(){
             //TODO 상세검색
         });
+
+        $(".jUploadExcel").click(function(){
+            $("[name=docFile]").click();
+        });
+
+        $("[name=docFile]").change(function(){
+            if($(this).val() != ""){
+                var ajax = new AjaxSubmit("/route.php?cmd=ExcelParser.parseCustomerList", "post", true, "json", "#form");
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                    }else if(data.returnCode == -1){
+                        var err = data.entity;
+                        if(err == null || err == "") err = "#";
+                        alert("파일을 읽는 중 오류가 발생하였습니다. (" + err + ")");
+                    }
+                });
+            }
+        });
     });
 </script>
+
+<form id="form">
+    <input type="file" name="docFile" style="display: none;"/>
+</form>
 
 <div id="content-wrapper">
     <div class="container-fluid">
@@ -58,7 +81,8 @@
                 <input type="text" class="form-control mr-2" name="searchText" value="<?=$_REQUEST["searchText"]?>">
                 <div class="btn-group float-right" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary mr-2 jSearch">검색</button>
-                    <button type="button" class="btn btn-secondary jTranscendanceExcel">Excel</button>
+                    <button type="button" class="btn btn-secondary mr-2 jTranscendanceExcel"><i class="fas fa-download fa-fw"></i>Excel</button>
+                    <button type="button" class="btn btn-secondary mr-2 jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>
                 </div>
             </div>
         </form>

@@ -97,10 +97,40 @@ if(!class_exists("WebSupport")){
             if($paymentType == "BA"){
                 $check = file_exists($_FILES['signatureFile']['tmp_name']);
                 if($check !== false){
-                    $fName = $this->makeFileName() . "." . "jpg";
+                    $fName = "bt" . $this->makeFileName() . "." . "jpg";
                     $targetDir = $_SERVER["DOCUMENT_ROOT"]."/uploadFiles/" . $fName;
                     $fileName = $fName;
-                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)) $primeSigPath = $fName;
+                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)){
+                        $tmpTimestamp  = "bt" . $this->makeFileName();
+                        $tmpSdate = date("Y") . "-" . date("m");
+                        $primeIndex = $this->addPrime(
+                            $tmpTimestamp,
+                            $_REQUEST["name"],
+                            $_REQUEST["bankType"] . "0000",
+                            $_REQUEST["info"],
+                            $_REQUEST["name"],
+                            $primeJumin,
+                            $tmpSdate,
+                            $monthlyDate,
+                            $totalPrice
+                        );
+                        $primeIndex = str_pad($primeIndex, 10, '0', STR_PAD_LEFT);
+
+                        $this->ftpUpload($fName);
+
+                        $tmpSdate = date("Y").date("m").date("d");
+                        $this->addAgreeFile(
+                            $primeIndex,
+                            $tmpTimestamp,
+                            $_REQUEST["bankType"],
+                            $_REQUEST["info"],
+                            $tmpSdate,
+                            1,
+                            $fName,
+                            1
+                        );
+                        $primeSigPath = $fName;
+                    }
                     else return $this->makeResultJson(-22, "signature upload fail");
                 }
             }
@@ -163,11 +193,14 @@ if(!class_exists("WebSupport")){
             }
 
             $sql = "
-              INSERT INTO tblPayment(`buyType`, `type`, monthlyDate, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
+              INSERT INTO tblPayment(`buyType`, `type`, monthlyDate, primeJumin, primeSigPath, primeIndex, `aSubscriptionId`, `aCustomerProfileId`, paymentResult, regDate)
               VALUES(
                 'SUP',
                 '{$paymentType}',
                 '{$monthlyDate}',
+                '{$primeJumin}',
+                '{$primeSigPath}',
+                '{$primeIndex}',
                 '{$aSubsciptionId}',
                 '{$aCustomerProfileId}',
                 '{$paymentResult}',

@@ -149,7 +149,7 @@ if(!class_exists("WebSubscription")){
                             $monthlyDate,
                             $totalPrice
                             );
-
+                        $primeIndex = str_pad($primeIndex, 10, '0', STR_PAD_LEFT);
                         $this->ftpUpload($fName);
 
                         $tmpSdate = date("Y").date("m").date("d");

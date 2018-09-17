@@ -273,7 +273,6 @@ if(!class_exists("Uncallable")){
             $filePath = $_REQUEST["filePath"];
 
             if($check !== false){
-                echo "::::::";
                 $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION);
                 $targetDir = $this->filePath . $fName;
                 $fileName = $_FILES["docFile"]["name"];
