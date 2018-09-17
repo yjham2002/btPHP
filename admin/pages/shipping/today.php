@@ -61,30 +61,19 @@
                 $(".jShip").prop("checked", false);
         });
 
-
-        // 아래로 참조용 소스
-        $(".jDel").click(function(){
+        $(".jWarehose").click(function(){
             var noArr = new Array();
-            var noCount = $(".jStage:checked").length;
+            var noCount = $(".jShip:checked").length;
             if(noCount == 0){
-                alert("삭제할 항목을 하나 이상 선택해주세요.");
+                alert("출고처리할 항목을 하나 이상 선택해주세요.");
                 return false;
             }
-            if(confirm("삭제하시겠습니까?")){
-                for(var i = 0; i < noCount; i++ ) noArr[i] = $(".jStage:checked:eq(" + i + ")").val();
-                deleteStage(noArr);
+            if(confirm("출고처리 하시겠습니까?")){
+                for(var i = 0; i < noCount; i++ ) noArr[i] = $(".jShip:checked:eq(" + i + ")").attr("id");
+                alert(JSON.stringify(noArr));
+
             }
         });
-
-        function deleteStage(noArr){
-            var ajax = new AjaxSender("/action_front.php?cmd=AdminMain.deleteStage", false, "json", new sehoMap().put("no", noArr));
-            ajax.send(function(data){
-                if(data.returnCode == 1){
-                    alert("삭제되었습니다");
-                    location.reload();
-                }
-            });
-        }
     });
 </script>
 
@@ -101,6 +90,9 @@
         <button type="button" target="0" class="jTab btn-secondary btn mb-2">우편</button>
         <button type="button" target="1" class="jTab btn mb-2">택배</button>
         <button type="button" class="btn <?=$flag == 0 ? "btn-secondary" : "btn-primary"?> float-right mb-2 jTog">자동등록 <?=$flag == 0 ? "OFF" : "ON"?></button>
+        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jWarehose">출고 처리</button>
+        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jTranscendanceExcel">Excel</button>
+
 
         <table class="table table-hover table-bordered">
             <thead>
@@ -120,7 +112,7 @@
             <tbody class="jType0">
             <?foreach($list0 as $item0){?>
                 <tr>
-                    <td><input type="checkbox" class="jShip"></td>
+                    <td><input type="checkbox" class="jShip" id="<?=$item0["id"]?>"></td>
                     <td><?=$item0["rName"]?></td>
                     <td><?=$item0["phone"]?></td>
                     <td><?=$item0["addr"] . $item0["addrDetail"]?></td>
@@ -134,7 +126,7 @@
             <tbody class="jType1" style="display: none;">
             <?foreach($list1 as $item1){?>
                 <tr>
-                    <td><input type="checkbox" class="jShip"></td>
+                    <td><input type="checkbox" class="jShip" id="<?=$item1["id"]?>"></td>
                     <td><?=$item1["rName"]?></td>
                     <td><?=$item1["phone"]?></td>
                     <td><?=$item1["addr"] . $item1["addrDetail"]?></td>

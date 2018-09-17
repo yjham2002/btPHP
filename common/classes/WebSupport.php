@@ -86,7 +86,7 @@ if(!class_exists("WebSupport")){
             $aCustomerProfileId = "";
             $paymentResult = 0;
 
-            $primeJumin = $_REQUEST["birth"];
+            $primeJumin = $_REQUEST["birth"] != "" ? substr($_REQUEST["birth"], 2, 6) : "";
             $primeSigPath = "";
             $primeIndex = -1;
 

@@ -116,11 +116,9 @@ if(!class_exists("WebSubscription")){
             $aCustomerProfileId = "";
             $paymentResult = 0;
 
-            $primeJumin = $_REQUEST["birth"];
+            $primeJumin = $_REQUEST["birth"] != "" ? substr($_REQUEST["birth"], 2, 6) : "";
             $primeSigPath = "";
             $primeIndex = -1;
-
-
 
             if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];

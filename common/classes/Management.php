@@ -755,5 +755,64 @@ if(!class_exists("Management")){
 
             return $this->getArray($sql);
         }
+
+        function lostList(){
+            $id = $_REQUEST["id"];
+
+            $sql = "
+                SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = S.publicationId AND langCode = 'kr' LIMIT 1) publicationName 
+                FROM tblSubscription S
+                WHERE `customerId` = '{$id}' 
+                ORDER BY regDate DESC
+            ";
+            return $this->getArray($sql);
+        }
+
+        function setLost(){
+            $type = $_REQUEST["type"];
+            $noArr = $_REQUEST["noArr"];
+            $ymArr = $_REQUEST["ymArr"];
+            $noStr = implode(',', $noArr);
+            $sql = "SELECT * FROM tblSubscription WHERE `id` IN ({$noStr})";
+
+            $targetArr = $this->getArray($sql);
+            $retArr = array();
+
+            for($w = 0; $w < sizeof($noArr); $w++){
+                for($e = 0; $e < sizeof($targetArr); $e++){
+                    if($noArr[$w] == $targetArr[$e]["id"]) array_push($retArr, $targetArr[$e]);
+                }
+            }
+
+            $index = 0;
+            foreach($retArr as $item){
+                $ym = json_decode($ymArr[$index]);
+                $pYear = $ym->pYear;
+                $pMonth = $ym->pMonth;
+                $sql = "
+                    INSERT INTO tblShipping(`customerId`, `subsciptionId`, `type`, `rName`, `zipcode`, `phone`, `addr`, `addrDetail`, `publicationId`, `cnt`, `pYear`, `pMonth`, `shippingType`, `manager`, `regDate`)
+                    VALUES(
+                      '{$item["customerId"]}',
+                      '{$item["id"]}',
+                      '1',
+                      '{$item["rName"]}',
+                      '{$item["rZipCode"]}',
+                      '{$item["rPhone"]}',
+                      '{$item["rAddr"]}',
+                      '{$item["rAddrDetail"]}',
+                      '{$item["publicationId"]}',
+                      '{$item["cnt"]}',
+                      '{$pYear}',
+                      '{$pMonth}',
+                      '{$type}',
+                      'SYSTEM',
+                      NOW()
+                    )
+                ";
+                $this->update($sql);
+                $index++;
+            }
+            return $this->makeResultJson(1, "succ");
+        }
     }
 }

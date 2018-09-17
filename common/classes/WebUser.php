@@ -335,7 +335,6 @@ if(! class_exists("WebUser") ){
             }
 
             $index = 0;
-            //TODO pYear, pMonth 직접입력으로 변경
             foreach($retArr as $item){
                 $ym = json_decode($ymArr[$index]);
                 $pYear = $ym->pYear;

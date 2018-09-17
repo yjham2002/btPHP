@@ -52,6 +52,8 @@
             }
         });
 
+        $(".jLost").click(function(){location.href = "/admin/pages/customerManage/Lost.php?id=<?=$_REQUEST["id"]?>"});
+
         $(".jCommercial").change(function(){
             var id = "<?=$_REQUEST["id"]?>";
             var object = $(this).find('input');
@@ -271,7 +273,7 @@
             <button type="button" class="float-right btn btn-danger mr-5 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
             <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
 <!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
-            <button type="button" class="btn btn-secondary mr-2">LOST</button>
+            <button type="button" class="btn btn-secondary mr-2 jLost">LOST</button>
 <!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
         </div>
 
