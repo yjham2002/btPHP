@@ -127,7 +127,7 @@ if(!class_exists("WebSupport")){
                             $tmpSdate,
                             1,
                             $fName,
-                            1
+                            2
                         );
                         $primeSigPath = $fName;
                     }

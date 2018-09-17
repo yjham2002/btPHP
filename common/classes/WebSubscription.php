@@ -161,7 +161,7 @@ if(!class_exists("WebSubscription")){
                             $tmpSdate,
                             1,
                             $fName,
-                            1
+                            2
                         );
 
                         $primeSigPath = $fName;
