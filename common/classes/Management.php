@@ -712,9 +712,16 @@ if(!class_exists("Management")){
 
         function shippingList($type){
             $sql = "
-                SELECT *, (SELECT `desc` FROM tblPublication WHERE id = publicationId) publicationName
-                FROM tblShipping 
-                WHERE shippingType = '{$type}' 
+                SELECT 
+                  S.*, 
+                  (SELECT `desc` FROM tblPublication WHERE id = S.publicationId) publicationName,
+                  (SELECT COUNT(*) FROM tblShipping WHERE subsciptionId = S.subsciptionId) lostCnt,
+                  SUB.pYear,
+                  SUB.pMonth,
+                  SUB.eYear,
+                  SUB.eMonth
+                FROM tblShipping S JOIN tblSubscription SUB ON S.subsciptionId = SUB.id
+                WHERE S.shippingType = '{$type}' AND `status` = '1' 
                 ORDER BY regDate DESC
             ";
             return $this->getArray($sql);

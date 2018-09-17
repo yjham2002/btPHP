@@ -106,7 +106,7 @@
             <li class="breadcrumb-item">
                 <a>배송</a>
             </li>
-            <li class="breadcrumb-item active">입고 입력</li>
+            <li class="breadcrumb-item active">입/출고 입력</li>
         </ol>
         <button type="button" class="btn btn-primary float-right mb-3 jSave">입력</button>
         <form method="post" id="form" action="#" enctype="multipart/form-data">

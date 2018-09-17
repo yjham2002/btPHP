@@ -24,7 +24,9 @@
 <link rel="stylesheet" href="/admin/scss/smSheet.css">
 <script>
     $(document).ready(function(){
-        var selected;
+        var selected = 0;
+        var listType0 = '<?=json_encode($list0)?>';
+        var listType1 = '<?=json_encode($list1)?>';
 
         $(".jTab").click(function(){
             $(".jTab").removeClass("btn-secondary");
@@ -62,17 +64,7 @@
         });
 
         $(".jWarehose").click(function(){
-            var noArr = new Array();
-            var noCount = $(".jShip:checked").length;
-            if(noCount == 0){
-                alert("출고처리할 항목을 하나 이상 선택해주세요.");
-                return false;
-            }
-            if(confirm("출고처리 하시겠습니까?")){
-                for(var i = 0; i < noCount; i++ ) noArr[i] = $(".jShip:checked:eq(" + i + ")").attr("id");
-                alert(JSON.stringify(noArr));
-
-            }
+            alert(selected);
         });
     });
 </script>
@@ -90,16 +82,15 @@
         <button type="button" target="0" class="jTab btn-secondary btn mb-2">우편</button>
         <button type="button" target="1" class="jTab btn mb-2">택배</button>
         <button type="button" class="btn <?=$flag == 0 ? "btn-secondary" : "btn-primary"?> float-right mb-2 jTog">자동등록 <?=$flag == 0 ? "OFF" : "ON"?></button>
-        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jWarehose">출고 처리</button>
-        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jTranscendanceExcel">Excel</button>
+        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jTranscendanceExcel jWarehose">Excel / 출고 처리</button>
 
 
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>
-                    <input type="checkbox" id="jCheckAll">
-                </th>
+<!--                <th>-->
+<!--                    <input type="checkbox" id="jCheckAll">-->
+<!--                </th>-->
                 <th>이름</th>
                 <th>연락처</th>
                 <th>주소</th>
@@ -112,28 +103,40 @@
             <tbody class="jType0">
             <?foreach($list0 as $item0){?>
                 <tr>
-                    <td><input type="checkbox" class="jShip" id="<?=$item0["id"]?>"></td>
+<!--                    <td><input type="checkbox" class="jShip" id="--><?//=$item0["id"]?><!--"></td>-->
                     <td><?=$item0["rName"]?></td>
                     <td><?=$item0["phone"]?></td>
                     <td><?=$item0["addr"] . $item0["addrDetail"]?></td>
                     <td><?=$item0["publicationName"]?></td>
                     <td><?=$item0["manager"]?></td>
                     <td><?=$item0["type"] == "0" ? "신규배송" : "재배송"?></td>
-                    <td><?=$item0["publicationName"]?></td>
+                    <td>
+                        <?=$item0["lostCnt"]?>
+                        /
+                        <?=$item0["eYear"] != "" && $item0["eMonth"] != "" ?
+                            (intval($item0["eYear"]) - intval($item0["pYear"])) * 12 + (intval($item0["eMonth"]) - intval($item0["pMonth"])) : "-"
+                        ?>
+                    </td>
                 </tr>
             <?}?>
             </tbody>
             <tbody class="jType1" style="display: none;">
             <?foreach($list1 as $item1){?>
                 <tr>
-                    <td><input type="checkbox" class="jShip" id="<?=$item1["id"]?>"></td>
+<!--                    <td><input type="checkbox" class="jShip" id="--><?//=$item1["id"]?><!--"></td>-->
                     <td><?=$item1["rName"]?></td>
                     <td><?=$item1["phone"]?></td>
                     <td><?=$item1["addr"] . $item1["addrDetail"]?></td>
                     <td><?=$item1["publicationName"]?></td>
                     <td><?=$item1["manager"]?></td>
                     <td><?=$item1["type"] == "0" ? "신규배송" : "재배송"?></td>
-                    <td><?=$item1["publicationName"]?></td>
+                    <td>
+                        <?=$item1["lostCnt"]?>
+                        /
+                        <?=$item1["eYear"] != "" && $item1["eMonth"] != "" ?
+                            (intval($item1["eYear"]) - intval($item1["pYear"])) * 12 + (intval($item1["eMonth"]) - intval($item1["pMonth"])) : "-"
+                        ?>
+                    </td>
                 </tr>
             <?}?>
             </tbody>
