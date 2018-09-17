@@ -30,6 +30,8 @@
         $(".jLost").click(function(){
             var type = $(this).attr("sType");
             var noArr = new Array();
+            var ymArr = new Array();
+
             var noCnt = $(".jSub:checked").length;
             if(noCnt == 0){
                 alert("항목을 하나 이상 선택해주세요.");
@@ -37,7 +39,19 @@
             }
             if(confirm("신청하시겠습니까?")){
                 for(var i=0; i<noCnt; i++) noArr.push($(".jSub:checked:eq(" + i + ")").val());
-                var ajax = new AjaxSender("/route.php?cmd=WebUser.setLost", false, "json", new sehoMap().put("type", type).put("noArr", noArr));
+
+                $.each(noArr, function(index, item){
+                    console.log(index + ":" + item);
+                    var pYear = $("[name='pYear" + item + "']").val();
+                    var pMonth = $("[name='pMonth" + item + "']").val();
+                    console.log(pYear + "::" + pMonth);
+                    ymArr.push('{"pYear":"' + pYear +'", "pMonth":"' + pMonth +'"}');
+                });
+
+                console.log(JSON.stringify(ymArr));
+                // return;
+
+                var ajax = new AjaxSender("/route.php?cmd=WebUser.setLost", false, "json", new sehoMap().put("type", type).put("noArr", noArr).put("ymArr", ymArr));
                 ajax.send(function(data){
                     if(data.returnCode === 1){
                         alert("신청되었습니다!");
@@ -66,6 +80,7 @@
                 <th>상세주소</th>
                 <th>버전</th>
                 <th>수량</th>
+                <th>신청월호</th>
                 <th>시작한 날짜</th>
                 <th>재발송 요청</th>
             </tr>
@@ -92,6 +107,22 @@
                     </td>
                     <td>
                         <?=$subscriptionInfo[$i]["cnt"]?>
+                    </td>
+                    <td>
+                        <select name="pYear<?=$subscriptionInfo[$i]["id"]?>">
+                            <option value="">년도</option>
+                            <?for($y=-50; $y<50; $y++){
+                                $tmp = intval(date("Y")) + $y;
+                                ?>
+                                <option value="<?=$tmp?>"><?=$tmp?></option>
+                            <?}?>
+                        </select>
+                        <select name="pMonth<?=$subscriptionInfo[$i]["id"]?>">
+                            <option value="">월호</option>
+                            <?for($m=1; $m<13; $m++){?>
+                                <option value="<?=$m?>"><?=$m?></option>
+                            <?}?>
+                        </select>
                     </td>
                     <td>
                         <?=$subscriptionInfo[$i]["regDate"]?>

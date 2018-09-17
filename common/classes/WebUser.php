@@ -321,11 +321,25 @@ if(! class_exists("WebUser") ){
         function setLost(){
             $type = $_REQUEST["type"];
             $noArr = $_REQUEST["noArr"];
+            $ymArr = $_REQUEST["ymArr"];
             $noStr = implode(',', $noArr);
             $sql = "SELECT * FROM tblSubscription WHERE `id` IN ({$noStr})";
-            $targetArr = $this->getArray($sql);
 
-            foreach($targetArr as $item){
+            $targetArr = $this->getArray($sql);
+            $retArr = array();
+
+            for($w = 0; $w < sizeof($noArr); $w++){
+                for($e = 0; $e < sizeof($targetArr); $e++){
+                    if($noArr[$w] == $targetArr[$e]["id"]) array_push($retArr, $targetArr[$e]);
+                }
+            }
+
+            $index = 0;
+            //TODO pYear, pMonth 직접입력으로 변경
+            foreach($retArr as $item){
+                $ym = json_decode($ymArr[$index]);
+                $pYear = $ym->pYear;
+                $pMonth = $ym->pMonth;
                 $sql = "
                     INSERT INTO tblShipping(`customerId`, `subsciptionId`, `type`, `rName`, `zipcode`, `phone`, `addr`, `addrDetail`, `publicationId`, `cnt`, `pYear`, `pMonth`, `shippingType`, `manager`, `regDate`)
                     VALUES(
@@ -339,14 +353,15 @@ if(! class_exists("WebUser") ){
                       '{$item["rAddrDetail"]}',
                       '{$item["publicationId"]}',
                       '{$item["cnt"]}',
-                      '{$item["pYear"]}',
-                      '{$item["pMonth"]}',
+                      '{$pYear}',
+                      '{$pMonth}',
                       '{$type}',
                       '고객',
                       NOW()
                     )
                 ";
                 $this->update($sql);
+                $index++;
             }
             return $this->makeResultJson(1, "succ");
         }
