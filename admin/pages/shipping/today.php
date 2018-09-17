@@ -118,7 +118,7 @@
             </tr>
             </thead>
             <tbody class="jType0">
-            <?foreach($list0 as $item0){ echo json_encode($item0);?>
+            <?foreach($list0 as $item0){?>
                 <tr>
                     <td><input type="checkbox" class="jShip"></td>
                     <td><?=$item0["rName"]?></td>
