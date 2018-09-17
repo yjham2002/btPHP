@@ -21,8 +21,12 @@ if(! class_exists("Constants") )
 //
         //MAC Local path
 //        var $filePath               = "/usr/local/var/BibleTime/uploadFiles/";
+
         //Windows Local path
-        var $filePath               = "D:/workspace_integrated/WebstormProjects/BibleTime/uploadFiles/";
+//        var $filePath               = "D:/workspace_integrated/WebstormProjects/BibleTime/uploadFiles/";
+
+        //Pickle Local path
+        var $filePath                = "/var/www/html/uploadFiles/";
 
         var $fileShowPath           = "/uploadFiles/";
 

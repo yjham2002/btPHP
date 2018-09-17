@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/web/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/WebUser.php";?>
 <?
     $obj = new WebUser($_REQUEST);
@@ -47,7 +47,7 @@
 
         <div class="">
             <form method="post" action="#">
-                <div class="formWrap">
+                <div class="formWrap loginWW">
                     <table class="noBorder">
 <!--                        <tr class="noBorder whiteBG">-->
 <!--                            <td colspan="2" style="text-align:left;">-->
@@ -57,22 +57,22 @@
 <!--                        </tr>-->
                         <tr class="noBorder whiteBG">
                             <td class="noBorder fcWrap">
-                                <input type="email" class="formCtrl" name="userId" id="userId" value="" placeholder="이메일 입력" />
+                                <input type="email" class="formCtrl loginTT" name="userId" id="userId" value="" placeholder="이메일 입력" />
                             </td>
-                            <td rowspan="2" class="loginArea noBorder">
-                                <a href="#" class="jLogin confirmBtn roundButton">확인</a>
+                            <td rowspan="2" class="loginArea noBorder loginAA">
+                                <a href="#" class="jLogin confirmBtn roundButton loginBB">확인</a>
                             </td>
                         </tr>
                         <tr class="noBorder">
                             <td class="noBorder">
-                                <input type="password" class="formCtrl" name="userPW" id="userPW" value="" placeholder="패스워드 입력" />
+                                <input type="password" class="formCtrl loginTT" name="userPW" id="userPW" value="" placeholder="패스워드 입력" />
                             </td>
 
                         </tr>
 
                         <a id="kakao-login-btn"></a>
                         <tr class="noBorder">
-                            <td colspan="2" style="text-align:left; color:white;">
+                            <td colspan="2" class="loginOO" style="text-align:left; color:white;">
                                 <a href="#" class="optionLink jInit">처음 로그인</a> |
                                 <a href="#" class="optionLink">아이디 찾기</a> |
                                 <a href="#" class="optionLink jInit">비밀번호 찾기</a>
@@ -91,4 +91,4 @@
 
     </div>
 </section>
-<? include_once $_SERVER['DOCUMENT_ROOT']."/web/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/web/inc/footer.php"; ?>

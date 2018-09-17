@@ -1,20 +1,15 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: sayho
- * Date: 2018. 7. 30.
- * Time: PM 2:54
- */
+<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+<?
+    $uc = new Uncallable($_REQUEST);
+    $list = $uc->getTransList();
 ?>
 
-
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <script>
     $(document).ready(function(){
         $(".jPage").click(function(){
-            $("[name=page]").val($(this).attr("page"));
-            form.submit();
+            var page = $(this).attr("page");
+            reloadPage(page);
         });
 
         $(".jView").click(function(){
@@ -26,17 +21,73 @@
             $("[name=type]").val(target);
             form.submit();
         });
+
+        $(".jOpt").change(function(){
+            reloadPage($("#page").val());
+        });
+
+        $(".jExcel").click(function(){
+            exportToExcel();
+        });
+
+        function exportToExcel(){
+            var divToPrint=document.getElementById("toPrint");
+            var optionCss = "";//"#toPrint{width : 210mm;}";
+            var htmls = $("#styleCss").prop("outerHTML") + "<style>" + optionCss + "</style>" + divToPrint.outerHTML;
+
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>{table}</table></body></html>';
+            var base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            };
+
+            var format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            };
+
+//            htmls = "YOUR HTML AS TABLE"
+
+            var ctx = {
+                worksheet : 'Worksheet',
+                table : htmls
+            }
+
+            var link = document.createElement("a");
+            link.download = "export.xls";
+            link.href = uri + base64(format(template, ctx));
+            link.click();
+        }
+
+        function reloadPage(page){
+            var year = $("#jYear").val();
+            var month = $("#jMonth").val();
+            var memType = $("#memType").val();
+            location.href = "/admin/pages/customerManage/transactionDetailsSend.php?" +
+                "year=" + year + "&" +
+                "month=" + month + "&" +
+                "type=" + memType + "&" +
+                "page=" + page;
+        }
+
+        if("<?=$_REQUEST["type"]?>" == "" || "<?=$_REQUEST["year"]?>" == "" || "<?=$_REQUEST["month"]?>" == ""){
+            reloadPage($("#page").val());
+        }
+
     });
 </script>
+
+<input type="hidden" id="page" value="<?=$_REQUEST["page"] == "" ? "1" : $_REQUEST["page"]?>" />
 
 <div id="content-wrapper">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a>직원서비스</a>
+                <a>고객 관리</a>
             </li>
-            <li class="breadcrumb-item active">스케쥴</li>
+            <li class="breadcrumb-item active">거래명세서 발송</li>
         </ol>
 
         <form id="form">
@@ -45,23 +96,23 @@
             <input type="hidden" name="month" value="<?=$_REQUEST["month"]?>"
         </form>
 
-        <button type="button" class="btn btn-secondary float-right mb-2 jExcel">Excel</button>
-
-        <div class="float-left col-xl-12 col-sm-12 mb-3">
-            <!-- Spacer -->
+        <div class="float-right">
+            <button type="button" class="btn btn-secondary mb-2 jPrint">인쇄</button>
+            <button type="button" class="btn btn-secondary mb-2 jEmail">Email</button>
+            <button type="button" class="btn btn-secondary mb-2 jExcel">Excel</button>
         </div>
 
-        <button type="button" target="sub" class="jTab btn mb-2 <?=$_REQUEST["type"] == "sub" ? "btn-secondary" : ""?>">구독</button>
-        <button type="button" target="sup" class="jTab btn mb-2 <?=$_REQUEST["type"] == "sup" ? "btn-secondary" : ""?>">후원</button>
-
-        <br/>
-
-        <select class="custom-select" id="jYear" style="width: 20%">
+        <select class="custom-select jOpt" id="memType" style="width: 20%">
+            <option value="A" <?=$_REQUEST["type"]=="A" ? "SELECTED" : ""?>>전체</option>
+            <option value="P" <?=$_REQUEST["type"]=="P" ? "SELECTED" : ""?>>개인</option>
+            <option value="T" <?=$_REQUEST["type"]=="T" ? "SELECTED" : ""?>>단체</option>
+        </select>
+        <select class="custom-select jOpt" id="jYear" style="width: 20%">
             <?for($e = 1950; $e < intval(date("Y")) + 50; $e++){?>
                 <option value="<?=$e?>" <?=intval(date("Y")) == $e ? "SELECTED" : ""?>><?=$e?>년</option>
             <?}?>
         </select>
-        <select class="custom-select" id="jMonth" style="width: 20%">
+        <select class="custom-select jOpt" id="jMonth" style="width: 20%">
             <?for($e = 1; $e <= 12; $e++){?>
                 <option value="<?=$e < 10 ? "0".$e : $e?>" <?=intval(date("m")) == $e ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
             <?}?>
@@ -70,65 +121,36 @@
         <br/>
         <br/>
 
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="toPrint">
             <thead>
             <tr>
+                <th>No.</th>
                 <th>체크</th>
                 <th>거래처명</th>
                 <th>품명 및 규격</th>
                 <th>금액</th>
-                <th>상세</th>
                 <th>비고</th>
                 <th>인쇄</th>
             </tr>
             </thead>
             <tbody>
-            <?foreach($list as $item){?>
+            <?
+            $vnum = $uc->virtualNum;
+            foreach($list as $item){?>
                 <tr>
+                    <td><?=$vnum--?></td>
                     <td><?=$item["country"]?></td>
                     <td><?=$item["language"]?></td>
                     <td><?=$item["nd"]?></td>
                     <td><?=$item["year"]?></td>
                     <td><?=$item["startMonth"] . " ~ " . $item["endMonth"]?></td>
                     <td><?=$item["deliveryCharge"] + $item["printCharge"]?></td>
-                    <td>
-                        <button type="button" class="btn btn-sm <?
-                        switch($item["paymentFlag"]){
-                            case "0":
-                                echo "btn-primary";
-                                break;
-                            case "-1":
-                                echo "btn-danger";
-                                break;
-                            case "1":
-                                echo "btn-success";
-                                break;
-                        }
-                        ?> dropdown-toggle" data-toggle="dropdown">
-                            <?
-                            switch($item["paymentFlag"]){
-                                case "0":
-                                    echo "처리중";
-                                    break;
-                                case "-1":
-                                    echo "미결제";
-                                    break;
-                                case "1":
-                                    echo "완료";
-                                    break;
-                            }
-                            ?>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item jChange" id="<?=$item["id"]?>" flag="0">처리중</a>
-                            <a class="dropdown-item jChange" id="<?=$item["id"]?>" flag="-1">미결제</a>
-                            <a class="dropdown-item jChange" id="<?=$item["id"]?>" flag="1">완료</a>
-                        </div>
-                    </td>
                 </tr>
             <?}?>
             </tbody>
         </table>
+
+        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
 
     </div>
 </div>

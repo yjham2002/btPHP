@@ -114,7 +114,7 @@
                 </button>
 
                 <div class="btn-group float-right ml-5">
-                    <button type="button" class="btn btn-secondary float-right jExcel">Excel</button>
+                    <button type="button" class="btn btn-secondary float-right jTranscendanceExcel">Excel</button>
                 </div>
             </div>
         </form>

@@ -6,7 +6,7 @@
  * Time: PM 2:45
  */
 ?>
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $obj = new Management($_REQUEST);
@@ -58,7 +58,7 @@
                 <input type="text" class="form-control mr-2" name="searchText" value="<?=$_REQUEST["searchText"]?>">
                 <div class="btn-group float-right" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary mr-2 jSearch">검색</button>
-                    <button type="button" class="btn btn-secondary">Excel</button>
+                    <button type="button" class="btn btn-secondary jTranscendanceExcel">Excel</button>
                 </div>
             </div>
         </form>
@@ -72,6 +72,7 @@
                 <th>핸드폰번호</th>
                 <th>주소</th>
                 <th>등록일시</th>
+                <th style="display: none;">숨어이쪄</th>
             </tr>
             </thead>
             <tbody>
@@ -83,12 +84,13 @@
                     <td><?=$item["phone"]?></td>
                     <td><?=$item["addr"] . " " . $item["addrDetail"]?></td>
                     <td><?=$item["regDate"]?></td>
+                    <td style="display: none;">뀨?</td>
                 </tr>
             <?}?>
             </tbody>
         </table>
-        <?include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
+        <? include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
     </div>
 </div>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>

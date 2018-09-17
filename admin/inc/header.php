@@ -73,6 +73,39 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 if(data.returnCode === 1) location.href = "/admin";
             });
         });
+
+        $(".jTranscendanceExcel").click(function(){
+            var target = $("table");
+            if($(".alterTarget").length > 0) target = $(".alterTarget").eq(0);
+            if(target.length < 1) alert("출력 대상이 없습니다.");
+            var divToPrint= target.eq(0);
+            var optionCss = "";//"#toPrint{width : 210mm;}";
+            var htmls = "<style>" + optionCss + "</style>" + divToPrint.prop("outerHTML");
+
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>{table}</table></body></html>';
+            var base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            };
+
+            var format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            };
+
+//            htmls = "YOUR HTML AS TABLE"
+
+            var ctx = {
+                worksheet : 'Worksheet',
+                table : htmls
+            }
+
+            var link = document.createElement("a");
+            link.download = "export.xls";
+            link.href = uri + base64(format(template, ctx));
+            link.click();
+        });
     });
 
     function replaceAll(str, searchStr, replaceStr) {
@@ -161,7 +194,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">발송</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/kakaoList.php">카톡 발송 현황</a>
-                <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php?type=sub">거래명세서 발송</a>
+                <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php">거래명세서 발송</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>

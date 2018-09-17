@@ -129,10 +129,43 @@ if(!class_exists("WebSubscription")){
             if($paymentType == "BA"){
                 $check = file_exists($_FILES['signatureFile']['tmp_name']);
                 if($check !== false){
-                    $fName = $this->makeFileName() . "." . "jpg";
+                    $fName = "bt" . $this->makeFileName() . "." . "jpg";
                     $targetDir = $_SERVER["DOCUMENT_ROOT"]."/uploadFiles/" . $fName;
                     $fileName = $fName;
-                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)) $primeSigPath = $fName;
+                    if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)){
+                        //TODO prime member row add
+                        //TODO prime agreefile row add
+
+                        $tmpTimestamp  = "bt" . $this->makeFileName();
+                        $tmpSdate = date("Y") . "-" . date("m");
+                        $primeIndex = $this->addPrime(
+                            $tmpTimestamp,
+                            $_REQUEST["rName"],
+                            $_REQUEST["bankType"] . "0000",
+                            $_REQUEST["info"],
+                            $_REQUEST["rName"],
+                            $primeJumin,
+                            $tmpSdate,
+                            $monthlyDate,
+                            $totalPrice
+                            );
+
+                        $this->ftpUpload($fName);
+
+                        $tmpSdate = date("Y").date("m").date("d");
+                        $this->addAgreeFile(
+                            $primeIndex,
+                            $tmpTimestamp,
+                            $_REQUEST["bankType"],
+                            $_REQUEST["info"],
+                            $tmpSdate,
+                            1,
+                            $fName,
+                            1
+                        );
+
+                        $primeSigPath = $fName;
+                    }
                     else return $this->makeResultJson(-22, "signature upload fail");
                 }
             }

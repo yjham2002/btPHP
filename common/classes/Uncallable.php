@@ -425,6 +425,24 @@ if(!class_exists("Uncallable")){
             return $this->getRow($sql);
         }
 
+        function getTransList(){
+//            $this->rowPerPage = 100;
+            $this->initPage();
+
+            $where = "WHERE 1=1";
+
+            $sqlNum = "SELECT COUNT(*) AS rn FROM tblSubscription {$where}";
+            $this->rownum = $this->getValue($sqlNum, "rn");
+            $this->setPage($this->rownum);
+            $sql = "
+            SELECT
+            *
+            FROM tblSubscription {$where}
+            ORDER BY regDate DESC LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
+
         function getNations($id){
             $sql = "SELECT * FROM tblNationGroup WHERE `fContinent` = '{$id}' ORDER BY `desc` ASC";
             return $this->getArray($sql);

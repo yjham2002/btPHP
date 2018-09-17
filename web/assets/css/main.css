@@ -726,6 +726,12 @@
 	background:#F39C12;
 }
 
+@media screen and (max-width:340px){
+	.detailSubscribe{
+		font-size: 1.0em;
+	}
+}
+
 .detailWrapper{
 	padding : 0;
 }
@@ -2914,6 +2920,33 @@
 				margin: 0em;
 			}
 
+			#jLangPop{
+				border:2px white solid;
+				display: none;
+				padding:0em 1.0em 1.0em 1.0em;
+				vertical-align:middle;
+				text-align:center;
+				border-radius:5px;
+				z-index: 999;
+				position: fixed;
+				top : 28%;
+				left:calc(50% - 15vw);
+				background: #3a3a3a;
+				width : 30vw;
+			}
+
+			@media screen and (max-width:480px){
+				.box.person .image {
+					margin: 0em 3.0em;
+				}
+
+				#jLangPop{
+					top : 14% !important;
+					width : 60vw !important;
+					left : calc(50% - 30vw) !important;
+				}
+			}
+
 			.box.person .image p {
 				margin : 0;
 				padding : 10px;
@@ -2927,6 +2960,28 @@
 				.box.person .image img {
 					max-width: 100%;
 				}
+
+@media screen and (max-width:480px){
+	.loginOO{
+		font-size: 0.8em;
+	}
+
+	.loginWW{
+		padding : 1em 1em;
+	}
+
+	.loginAA{
+		width : 5em !important;
+	}
+
+	.loginBB{
+		padding : 1.8em 1em !important;
+	}
+
+	.loginTT{
+		font-size : 0.8em !important;
+	}
+}
 
 
 /* baseAlign */

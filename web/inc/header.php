@@ -149,20 +149,7 @@
 <!-- Header -->
 <header id="header">
 
-    <div id="jLangPop" style="
-      border:2px white solid;
-      display: none;
-      padding:0em 1.0em 1.0em 1.0em;
-      vertical-align:middle;
-      text-align:center;
-      border-radius:5px;
-      z-index: 999;
-      position: fixed;
-      top : 28%;
-      left:calc(50% - 15vw);
-      background: #3a3a3a;
-      width : 30vw;
-      ">
+    <div id="jLangPop" style="">
         <a href="#" style="float:right;margin:1.0em;color:white;text-decoration: none;">
             <span class="fa fa-close jCloseLangPop"></span>
         </a>

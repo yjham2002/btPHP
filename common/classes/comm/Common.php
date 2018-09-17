@@ -762,7 +762,7 @@ if (! class_exists("Common"))
             return $str_head.$str_body.$str_tail;
         }
 
-        function addPrime($ext_inx, $username, $bank_code, $account_no, $account_name, $account_jumin, $start_date, $inday, $pay_monthdefault, $month_max){
+        function addPrime($ext_inx, $username, $bank_code, $account_no, $account_name, $account_jumin, $start_date, $inday, $pay_monthdefault){
             $sql = "
                 INSERT INTO member(
                     `m_index`, 
@@ -810,10 +810,12 @@ if (! class_exists("Common"))
 
             $this->connect_ext_db();
             $this->update($sql);
+            $index = $this->mysql_insert_id();
             $this->connect_int_db();
+            return $index;
         }
 
-        function addAgreeFile($mem_inx, $ext_inx, $bank_code, $af_date, $af_kind, $af_filename, $apply_div){
+        function addAgreeFile($mem_inx, $ext_inx, $bank_code, $account_no, $af_date, $af_kind, $af_filename, $apply_div){
             $sql = "
                 INSERT INTO agreefile(
                   mem_inx, 
@@ -827,14 +829,14 @@ if (! class_exists("Common"))
                   send_stat
                 )
                 VALUES(
-                  '납부자번호(ain)',
-                  '외부참조키',
-                  '은행코드(3자리)',
-                  '계좌번호',
-                  '신청일자(YYYYMMDD)',
-                  '자료구분(하단 관련 설명 참조)',
-                  '파일명',
-                  '적용구분(1:납부자번호+외부참조키,2:외부참조키)',
+                  '{$mem_inx}',
+                  '{$ext_inx}',
+                  '{$bank_code}',
+                  '{$account_no}',
+                  '{$af_date}',
+                  '{$af_kind}',
+                  '{$af_filename}',
+                  '{$apply_div}',
                   '1'
                 ) 
             ";
@@ -843,7 +845,26 @@ if (! class_exists("Common"))
             $this->connect_int_db();
         }
 
+        function ftpUpload($file_name){
+            $ftp_host = "219.255.134.104";   // ftp host명
+            $ftp_id = "agree_testupg";         // ftp 아이디
+            $ftp_pw = "agree_testupgpw1234";  // ftp 비밀번호
+            $ftp_port = "21";           // ftp 포트
 
+            $server_path = "/agree_testupg/";
+            if(!($fc = ftp_connect($ftp_host, $ftp_port))) die("$ftp_host : $ftp_port - 연결에 실패하였습니다.");
+            if(!ftp_login($fc, $ftp_id, $ftp_pw)) die("$ftp_id - 로그인에 실패하였습니다.");
+            ftp_pasv($fc, true) or die("Unable switch to passive mode");
+            ftp_chdir($fc, $server_path);
+            $source_file = $this->filePath . $file_name;
+            $destination_file = $file_name;
+
+            if(!ftp_put($fc, $destination_file, $source_file, FTP_ASCII)){
+                echo" <script> window.alert ('파일을 지정한 디렉토리로 복사 하는 데 실패했습니다.');</script>";
+                exit;
+            }
+            ftp_quit($fc);
+        }
 	}
 }
 ?>
