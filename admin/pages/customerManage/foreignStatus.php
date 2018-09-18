@@ -166,7 +166,7 @@
             </form>
         </div>
         <div class="btn-group float-right mb-2" role="group">
-            <button type="button" class="btn btn-secondary mr-2">Excel</button>
+<!--            <button type="button" class="btn btn-secondary mr-2">Excel</button>-->
             <button type="button" class="btn btn-secondary jAdd">추가</button>
         </div>
 
