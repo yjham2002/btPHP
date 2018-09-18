@@ -25,6 +25,7 @@ if(! class_exists("HomeFrm") )	{
 
 		var	$rowPerPage		= 20 ;
 		var $rowPerPageDevice = 6;
+		var $rowPerPageMassive = 100;
 		var	$pagePerBlock	= 10 ;
 		var $rownum			= 0	 ;
 		var $startBlock		= 1 ;
@@ -77,6 +78,17 @@ if(! class_exists("HomeFrm") )	{
 			$this->startBlock = $blockNum + 1 ;
 			$this->endBlock = ( $blockNum + $this->pagePerBlock < $totalBlock ) ? $blockNum + $this->pagePerBlock : $totalBlock ;
 		}
+
+		function setPageMassive($rownum){
+		    $this->virtualNum = $rownum - ($this->startNum - 0);
+		    $this->rownum = $rownum;
+		    $this->endPage = ($rownum%$this->rowPerPageMassive) > 0 ? floor($rownum/$this->rowPerPageMassive) + 1 : floor($rownum/$this->rowPerPageMassive);
+		    $blockNum = (floor(($this->req["page"] - 1) / $this->pagePerBlock) * $this->pagePerBlock);
+		    $totalBlock = floor(($this->rownum - 1) / $this->rowPerPageMassive) + 1;
+
+		    $this->startBlock = $blockNum + 1;
+		    $this->endBlock = ($blockNum + $this->pagePerBlock < $totalBlock) ? $blockNum + $this->pagePerBlock : $totalBlock;
+        }
 		
 		//디바이스용 페이지 설정
 		function setPageForDevice($rownum)

@@ -64,7 +64,56 @@
         });
 
         $(".jWarehose").click(function(){
-            alert(selected);
+            var targList = "";
+            if(selected == 0) targList = listType0;
+            else targList = listType1;
+
+            $.ajax({
+                url : "/route.php?cmd=Management.setWarehousing",
+                async : false,
+                type : 'post',
+                data : {
+                    type: selected,
+                    list : targList
+                },
+                success : function(data){
+                    alert("출고처리 되었습니다.");
+                    location.reload();
+                }
+            });
+        });
+
+        $(".jExcel").click(function(){
+            if(selected == 0) $(".jType1").empty();
+            else if(selected == 1) $(".jType0").empty();
+
+            var target = $("table");
+            if($(".alterTarget").length > 0) target = $(".alterTarget").eq(0);
+            if(target.length < 1) alert("출력 대상이 없습니다.");
+            var divToPrint= target.eq(0);
+            var optionCss = "";//"#toPrint{width : 210mm;}";
+            var htmls = "<style>" + optionCss + "</style>" + divToPrint.prop("outerHTML");
+
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>{table}</table></body></html>';
+            var base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            };
+
+            var format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            };
+            var ctx = {
+                worksheet : 'Worksheet',
+                table : htmls
+            }
+
+            var link = document.createElement("a");
+            link.download = "export.xls";
+            link.href = uri + base64(format(template, ctx));
+            link.click();
         });
     });
 </script>
@@ -82,15 +131,12 @@
         <button type="button" target="0" class="jTab btn-secondary btn mb-2">우편</button>
         <button type="button" target="1" class="jTab btn mb-2">택배</button>
         <button type="button" class="btn <?=$flag == 0 ? "btn-secondary" : "btn-primary"?> float-right mb-2 jTog">자동등록 <?=$flag == 0 ? "OFF" : "ON"?></button>
-        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jTranscendanceExcel jWarehose">Excel / 출고 처리</button>
+        <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jWarehose jExcel">Excel / 출고 처리</button>
 
 
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-<!--                <th>-->
-<!--                    <input type="checkbox" id="jCheckAll">-->
-<!--                </th>-->
                 <th>이름</th>
                 <th>연락처</th>
                 <th>주소</th>
@@ -103,9 +149,8 @@
             <tbody class="jType0">
             <?foreach($list0 as $item0){?>
                 <tr>
-<!--                    <td><input type="checkbox" class="jShip" id="--><?//=$item0["id"]?><!--"></td>-->
                     <td><?=$item0["rName"]?></td>
-                    <td><?=$item0["phone"]?></td>
+                    <td style='mso-number-format:"\@"'><?=$item0["phone"]?></td>
                     <td><?=$item0["addr"] . $item0["addrDetail"]?></td>
                     <td><?=$item0["publicationName"]?></td>
                     <td><?=$item0["manager"]?></td>
@@ -123,9 +168,8 @@
             <tbody class="jType1" style="display: none;">
             <?foreach($list1 as $item1){?>
                 <tr>
-<!--                    <td><input type="checkbox" class="jShip" id="--><?//=$item1["id"]?><!--"></td>-->
                     <td><?=$item1["rName"]?></td>
-                    <td><?=$item1["phone"]?></td>
+                    <td style='mso-number-format:"\@"'><?=$item1["phone"]?></td>
                     <td><?=$item1["addr"] . $item1["addrDetail"]?></td>
                     <td><?=$item1["publicationName"]?></td>
                     <td><?=$item1["manager"]?></td>

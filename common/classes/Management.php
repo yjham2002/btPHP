@@ -821,5 +821,38 @@ if(!class_exists("Management")){
             }
             return $this->makeResultJson(1, "succ");
         }
+
+        function setWarehousing(){
+            $type = $_REQUEST["type"];
+            $list = json_decode($_REQUEST["list"], true);
+            $sPrice = 0;
+            if($type == "1") $sPrice = 2000;
+            foreach($list as $item){
+                $cnt = intval($item["cnt"]) * -1;
+                $sql = "
+                    INSERT INTO tblWarehousing(`publicationId`, `adminId`, `shippingType`, `shippingCo`, `shippingPrice`, `type`, `cnt`, `pYear`, `pMonth`, `content`, `regDate`)
+                    VALUES(
+                      '{$item["publicationId"]}',
+                      '{$this->admUser->id}',
+                      '{$type}',
+                      '',
+                      '{$sPrice}',
+                      '1',
+                      '{$cnt}',
+                      '{$item["pYear"]}',
+                      '{$item["pMonth"]}',
+                      '',
+                      NOW()
+                    )
+                ";
+                $this->update($sql);
+
+                $sql = "
+                    UPDATE tblShipping SET `status` = 0 WHERE id = '{$item["id"]}'
+                ";
+                $this->update($sql);
+            }
+            return $this->makeResultJson(1, "succ");
+        }
     }
 }
