@@ -855,6 +855,31 @@ if(!class_exists("Management")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function processFC(){
+            $sql = "
+                SELECT * FROM tblPayment
+                WHERE `type` = 'FC'
+            ";
+            $target = $this->getArray($sql);
+
+            foreach($target as $item){
+                $res = $this->getAuthorizeStatus($item["aSubscriptionId"]);
+                $retStatus = $res->status;
+                $retCode = $res->messages->message[0]->code;
+
+                if($retStatus != "active" || $retCode != "I00001"){
+                    $sql = "
+                        UPDATE tblPayment SET paymentResult = '0' WHERE `id` = '{$item["id"]}'
+                    ";
+                    $this->update($sql);
+                }
+            }
+        }
+
+        function processCC(){
+
+        }
+
         function paymentList(){
             $type = $_REQUEST["type"];
 

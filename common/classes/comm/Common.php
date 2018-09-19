@@ -567,6 +567,47 @@ if (! class_exists("Common"))
             return $response;
         }
 
+        function getAuthorizeStatus($subscriptionId){
+            $refId = 'ref' . time();
+            $params["ARBGetSubscriptionStatusRequest"] = Array(
+                "merchantAuthentication" => Array(
+                    "name" => "54W7Cxvt",
+                    "transactionKey" => "62q47AUmd9qH4d35"
+                ),
+                "refId" => $refId,
+                "subscriptionId" => $subscriptionId
+            );
+            $params = json_encode($params);
+
+
+            $postString = '';
+            foreach ($params as $key => $value)
+                $postString .= $key.'='.urlencode($value).'&';
+            $postString = trim($postString, '&');
+            $url = 'https://apitest.authorize.net/xml/v1/request.api';
+
+
+            $request = curl_init($url);
+            curl_setopt($request, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($request, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($request, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json;charset=UTF-8',
+                    'Content-Length: ' . strlen($params))
+            );
+
+            $postResponse = curl_exec($request);
+            curl_close($request);
+
+            if(substr($postResponse, 0, 3) == "\xef\xbb\xbf"){
+                $postResponse = substr($postResponse, 3, strlen($postResponse));
+            }
+            $response = json_decode($postResponse);
+            $returnCode = $response->messages->message[0]->code;
+
+            return $response;
+        }
+
         function makeFileName(){
             srand((double)microtime()*1000000) ;
             $Rnd = rand(1000000,2000000) ;

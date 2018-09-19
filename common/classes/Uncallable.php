@@ -424,6 +424,29 @@ if(!class_exists("Uncallable")){
             return $this->getRow($sql);
         }
 
+        function getHangleMoney($number){
+
+            $num = array('', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구');
+            $unit4 = array('', '만', '억', '조', '경');
+            $unit1 = array('', '십', '백', '천');
+
+            $res = array();
+
+            $number = str_replace(',','',$number);
+            $split4 = str_split(strrev((string)$number),4);
+
+            for($i=0;$i<count($split4);$i++){
+                $temp = array();
+                $split1 = str_split((string)$split4[$i], 1);
+                for($j=0;$j<count($split1);$j++){
+                    $u = (int)$split1[$j];
+                    if($u > 0) $temp[] = $num[$u].$unit1[$j];
+                }
+                if(count($temp) > 0) $res[] = implode('', array_reverse($temp)).$unit4[$i];
+            }
+            return implode('', array_reverse($res));
+        }
+
         function getTransList(){
             $this->initPage();
             $where = "WHERE DATE_FORMAT(`regDate`,'%Y-%m') = '{$_REQUEST["year"]}-{$_REQUEST["month"]}'";
@@ -440,6 +463,18 @@ if(!class_exists("Uncallable")){
             ";
 
             return $this->getArray($sql);
+        }
+        
+        function sendTrans(){
+            $body = $_REQUEST["content"];
+
+            $mail = new GEmail();
+            $mail->setMailBody($body);
+            $mail->setSubject("거래명세서");
+            $mail->addReceiveEmail("yjham2002@gmail.com", "테스트");
+            $flag = $mail->sendMail();
+
+            return $this->makeResultJson(1, $flag);
         }
 
         function getNations($id){

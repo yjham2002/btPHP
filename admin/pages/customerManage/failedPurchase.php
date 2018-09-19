@@ -12,6 +12,7 @@
 <?
     $obj = new Management($_REQUEST);
     $list = $obj->paymentList();
+    $obj->processFC();
     $type = $_REQUEST["type"];
 //    echo json_encode($list);
 ?>
@@ -68,7 +69,7 @@
                         <tr>
                             <td><?=$item["ownerName"]?></td>
                             <td><?=$item["bankDesc"]?></td>
-                            <td><?=$item["info"]?></td>
+                            <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
                             <td><?=$item["primeIndex"]?></td>
                             <td><?=$item["monthlyDate"]?></td>
                             <td><?=$item["totalPrice"]?></td>
@@ -130,7 +131,7 @@
                         <tr>
                             <td><?=$item["ownerName"]?></td>
                             <td><?=$item["cardDesc"]?></td>
-                            <td><?=$item["info"]?></td>
+                            <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
                             <td><?=$item["validThruMonth"] . " / " . $item["validThruYear"]?></td>
                             <td><?=$item["monthlyDate"]?></td>
                             <td><?=$item["totalPrice"]?></td>
@@ -190,7 +191,7 @@
                     <?foreach($list as $item){?>
                         <tr>
                             <td><?=$item["aFirstname"] . " " . $item["aLastname"]?></td>
-                            <td><?=$item["info"]?></td>
+                            <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
                             <td><?=$item["validThruMonth"] . " / " . $item["validThruYear"]?></td>
                             <td><?=$item["monthlyDate"]?></td>
                             <td><?=$item["totalPrice"]?></td>

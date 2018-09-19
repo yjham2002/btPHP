@@ -30,6 +30,38 @@
             exportToExcel();
         });
 
+        function sendMail(formId){
+            $.ajax({
+                url : "/admin/writable/receipt_template.php",
+                dataType : "HTML",
+                data : {
+                    "id" : formId
+                },
+                success : function(dt){
+                    $.ajax({
+                        url : "/route.php?cmd=Uncallable.sendTrans",
+                        dataType : "json",
+                        async : true,
+                        type : "post",
+                        data : {
+                            "content": dt
+                        },
+                        success : function(data){
+                            if(data.returnCode === 1){
+                            } else{
+                                alert("전송에 실패하였습니다.");
+                            }
+                            globalCnt--;
+                            if(globalCnt == 0){
+                                $("#spinner").fadeOut();
+                                alert("전송되었습니다.");
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
         function exportToExcel(){
             var divToPrint=document.getElementById("toPrint");
             var optionCss = "";//"#toPrint{width : 210mm;}";
@@ -71,6 +103,32 @@
                 "page=" + page;
         }
 
+        $(".jPrint").click(function(){
+            var id = $(this).attr("sid");
+            window.open("/admin/writable/receipt_template.php?id=" + id + "&redirect=true", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes");
+        });
+
+        var globalCnt = 0;
+
+        $(".jEmail").click(function(){
+            var arr = $(".scheck:checked");
+            if(arr.length <= 0){
+                alert("발송할 항목을 선택하세요.");
+                return;
+            }
+
+            globalCnt = arr.length;
+
+            $("#spinner").fadeIn();
+            for(var e = 0; e < arr.length; e++){
+                var num = arr.eq(e).attr("sid");
+                sendMail(num);
+            }
+            $(".scheck").prop("checked", false);
+        });
+
+        $("#spinner").hide();
+
         if("<?=$_REQUEST["type"]?>" == "" || "<?=$_REQUEST["year"]?>" == "" || "<?=$_REQUEST["month"]?>" == ""){
             reloadPage($("#page").val());
         }
@@ -79,6 +137,11 @@
 </script>
 
 <input type="hidden" id="page" value="<?=$_REQUEST["page"] == "" ? "1" : $_REQUEST["page"]?>" />
+
+<div id="spinner" style="display: none;z-index:9999;position:fixed;top:0;left:0;width:100vw;height:100vh;background: rgba(52, 58, 64, 0.5); text-align: center;">
+    <img style="margin-top:calc(50vh - 50px);" src="./spinner.gif" width="100px" height="100px" />
+    <h3 style="color:white;margin-top: 30px;">처리 중입니다</h3>
+</div>
 
 <div id="content-wrapper">
     <div class="container-fluid">
@@ -130,7 +193,7 @@
                 <th>품명 및 규격</th>
                 <th>금액</th>
                 <th>비고</th>
-                <th width="80px">인쇄</th>
+                <th width="130px">-</th>
             </tr>
             </thead>
             <tbody>
@@ -139,7 +202,7 @@
             foreach($list as $item){?>
                 <tr>
                     <td>
-                        <input class="form-control-sm" type="checkbox" sid="<?=$item["id"]?>" />
+                        <input class="form-control-sm scheck" type="checkbox" sid="<?=$item["id"]?>" />
                     </td>
                     <td><?=$vnum--?></td>
                     <td><?=$item["rName"]?></td>
@@ -158,6 +221,7 @@
                     <td><?=$toShow?></td>
                     <td>
                         <button type="button" class="btn-secondary mb-2 jPrint btn-sm" sid="<?=$item["id"]?>">인쇄</button>
+                        <button type="button" class="btn-secondary mb-2 jDetail btn-sm" sid="<?=$item["id"]?>">상세</button>
                     </td>
                 </tr>
             <?}?>
