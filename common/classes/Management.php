@@ -854,5 +854,27 @@ if(!class_exists("Management")){
             }
             return $this->makeResultJson(1, "succ");
         }
+
+        function paymentList(){
+            $type = $_REQUEST["type"];
+
+            $sql = "
+                SELECT 
+                *, 
+                (SELECT `desc` FROM tblCardType WHERE id = PM.cardTypeId) cardDesc,
+                (SELECT `desc` FROM tblBankType WHERE code = PM.bankCode) bankDesc,
+                P.regDate pRegDate,
+                P.id as idx,
+                CASE P.buyType
+                    WHEN 'SUB' THEN (SELECT totalPrice FROM tblSubscription SUB WHERE SUB.paymentId = P.id)
+                    WHEN 'SUP' THEN (SELECT totalPrice FROM tblSupport SUP WHERE SUP.paymentId = P.id)
+                END AS totalPrice
+                FROM tblPayment P JOIN tblPayMethod PM ON P.payMethodId = PM.id JOIN tblCustomer C ON PM.customerId = C.id
+                WHERE P.type = '{$type}'
+                ORDER BY P.regDate DESC
+            ";
+
+            return $this->getArray($sql);
+        }
     }
 }

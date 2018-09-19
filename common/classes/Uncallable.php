@@ -425,20 +425,20 @@ if(!class_exists("Uncallable")){
         }
 
         function getTransList(){
-//            $this->rowPerPage = 100;
             $this->initPage();
-
-            $where = "WHERE 1=1";
+            $where = "WHERE DATE_FORMAT(`regDate`,'%Y-%m') = '{$_REQUEST["year"]}-{$_REQUEST["month"]}'";
 
             $sqlNum = "SELECT COUNT(*) AS rn FROM tblSubscription {$where}";
             $this->rownum = $this->getValue($sqlNum, "rn");
-            $this->setPage($this->rownum);
+            $this->setPageMassive($this->rownum);
             $sql = "
             SELECT
-            *
+            *, (SELECT `desc` FROM tblPublication WHERE `id`=`publicationId` LIMIT 1) as pbName
+            , (SELECT CONCAT(commercial1, commercial2, commercial3, commercial4) FROM tblCustomer WHERE `id`=`customerId` LIMIT 1) AS cm
             FROM tblSubscription {$where}
             ORDER BY regDate DESC LIMIT {$this->startNum}, {$this->endNum};
             ";
+
             return $this->getArray($sql);
         }
 

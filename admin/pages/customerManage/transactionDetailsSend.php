@@ -1,8 +1,8 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
-    $uc = new Uncallable($_REQUEST);
-    $list = $uc->getTransList();
+    $obj = new Uncallable($_REQUEST);
+    $list = $obj->getTransList();
 ?>
 
 <script>
@@ -97,9 +97,9 @@
         </form>
 
         <div class="float-right">
-            <button type="button" class="btn btn-secondary mb-2 jPrint">인쇄</button>
+            <button type="button" class="btn btn-secondary mb-2 jTranscendancePrint">인쇄</button>
             <button type="button" class="btn btn-secondary mb-2 jEmail">Email</button>
-            <button type="button" class="btn btn-secondary mb-2 jExcel">Excel</button>
+            <button type="button" class="btn btn-secondary mb-2 jTranscendanceExcel">Excel</button>
         </div>
 
         <select class="custom-select jOpt" id="memType" style="width: 20%">
@@ -109,42 +109,56 @@
         </select>
         <select class="custom-select jOpt" id="jYear" style="width: 20%">
             <?for($e = 1950; $e < intval(date("Y")) + 50; $e++){?>
-                <option value="<?=$e?>" <?=intval(date("Y")) == $e ? "SELECTED" : ""?>><?=$e?>년</option>
+                <option value="<?=$e?>" <?=$e == intval($_REQUEST["year"]) ? "SELECTED" : ""?>><?=$e?>년</option>
             <?}?>
         </select>
         <select class="custom-select jOpt" id="jMonth" style="width: 20%">
             <?for($e = 1; $e <= 12; $e++){?>
-                <option value="<?=$e < 10 ? "0".$e : $e?>" <?=intval(date("m")) == $e ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
+                <option value="<?=$e < 10 ? "0".$e : $e?>" <?=$e == intval($_REQUEST["month"]) ? "SELECTED" : ""?>><?=$e < 10 ? "0".$e : $e?>월</option>
             <?}?>
         </select>
 
         <br/>
         <br/>
 
-        <table class="table table-bordered" id="toPrint">
+        <table border=1 class="table table-bordered" id="toPrint">
             <thead>
             <tr>
-                <th>No.</th>
-                <th>체크</th>
+                <th width="20px">-</th>
+                <th width="25px">No.</th>
                 <th>거래처명</th>
                 <th>품명 및 규격</th>
                 <th>금액</th>
                 <th>비고</th>
-                <th>인쇄</th>
+                <th width="80px">인쇄</th>
             </tr>
             </thead>
             <tbody>
             <?
-            $vnum = $uc->virtualNum;
+            $vnum = $obj->virtualNum;
             foreach($list as $item){?>
                 <tr>
+                    <td>
+                        <input class="form-control-sm" type="checkbox" sid="<?=$item["id"]?>" />
+                    </td>
                     <td><?=$vnum--?></td>
-                    <td><?=$item["country"]?></td>
-                    <td><?=$item["language"]?></td>
-                    <td><?=$item["nd"]?></td>
-                    <td><?=$item["year"]?></td>
-                    <td><?=$item["startMonth"] . " ~ " . $item["endMonth"]?></td>
-                    <td><?=$item["deliveryCharge"] + $item["printCharge"]?></td>
+                    <td><?=$item["rName"]?></td>
+                    <td><?=$item["pbName"]?></td>
+                    <td><?=$item["totalPrice"]?></td>
+                    <?
+                        $tempCursor = 0;
+                        $tempArr = array();
+                    if($item["subType"] == "2") $tempArr[$tempCursor++] = "묶음배송";
+                    if($item["cm"][0] == "1") $tempArr[$tempCursor++] = "1도";
+                    if($item["cm"][1] == "1") $tempArr[$tempCursor++] = "2도";
+                    if($item["cm"][2] == "1") $tempArr[$tempCursor++] = "3도";
+                    if($item["cm"][3] == "1") $tempArr[$tempCursor++] = "4도";
+                    $toShow = implode("/", $tempArr);
+                    ?>
+                    <td><?=$toShow?></td>
+                    <td>
+                        <button type="button" class="btn-secondary mb-2 jPrint btn-sm" sid="<?=$item["id"]?>">인쇄</button>
+                    </td>
                 </tr>
             <?}?>
             </tbody>

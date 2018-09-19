@@ -74,6 +74,18 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             });
         });
 
+        $(".jTranscendancePrint").click(function(){
+            var target = $("table");
+            var divToPrint= target.eq(0);
+            newWin= window.open("");
+            newWin.document.write("<style>table{width:100%;}</style>");
+            newWin.document.write(divToPrint.prop("outerHTML"));
+            newWin.document.close();
+            newWin.focus();
+            newWin.print();
+            newWin.close();
+        });
+
         $(".jTranscendanceExcel").click(function(){
             var target = $("table");
             if($(".alterTarget").length > 0) target = $(".alterTarget").eq(0);
@@ -190,11 +202,12 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <h6 class="dropdown-header">고객 관리</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/customerList.php">고객정보</a>
                 <?if($userInfo->auth >= 2){?>
-                <a class="dropdown-item" href="/admin/pages/customerManage/failedPurchase.php">결제실패</a>
+                <a class="dropdown-item" href="/admin/pages/customerManage/failedPurchase.php?type=BA">결제관리</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">발송</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/kakaoList.php">카톡 발송 현황</a>
-                <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php">거래명세서 발송</a>
+                    <a class="dropdown-item" href="/admin/pages/customerManage/signatures.php">명세서 정적정보</a>
+                    <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php?year=<?=intval(date("Y"))?>&month=<?=date("m")?>&type=A&page=1">거래명세서 발송</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>
@@ -211,7 +224,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">발주서</h6>
-                <a class="dropdown-item" href="/admin/pages/shipping/signatures.php">발주서 정적 데이터</a>
+                <a class="dropdown-item" href="/admin/pages/shipping/signatures.php">발주서 정적정보</a>
                 <a class="dropdown-item" href="/admin/pages/shipping/purchaseOrderList.php">발주서 입력 / 조회</a>
                 <a class="dropdown-item" href="/admin/pages/shipping/formList.php">발주 보고서</a>
                 <div class="dropdown-divider"></div>

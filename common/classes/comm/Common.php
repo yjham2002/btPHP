@@ -851,7 +851,8 @@ if (! class_exists("Common"))
             $ftp_pw = "agree_testupgpw1234";  // ftp 비밀번호
             $ftp_port = "21";           // ftp 포트
 
-            $server_path = "/agree_testupg/";
+//            $server_path = "/agree_testupg/";
+            $server_path = "/";
             if(!($fc = ftp_connect($ftp_host, $ftp_port))) die("$ftp_host : $ftp_port - 연결에 실패하였습니다.");
             if(!ftp_login($fc, $ftp_id, $ftp_pw)) die("$ftp_id - 로그인에 실패하였습니다.");
             ftp_pasv($fc, true) or die("Unable switch to passive mode");

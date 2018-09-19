@@ -89,6 +89,7 @@ if(!class_exists("WebSupport")){
             $primeJumin = $_REQUEST["birth"] != "" ? substr($_REQUEST["birth"], 2, 6) : "";
             $primeSigPath = "";
             $primeIndex = -1;
+            $primeExternal = "";
 
             if($paymentType == "CC"){
                 $info = $_REQUEST["card1"] . $_REQUEST["card2"] .$_REQUEST["card3"] .$_REQUEST["card4"];
@@ -129,6 +130,7 @@ if(!class_exists("WebSupport")){
                             $fName,
                             2
                         );
+                        $primeExternal = $tmpTimestamp;
                         $primeSigPath = $fName;
                     }
                     else return $this->makeResultJson(-22, "signature upload fail");
@@ -200,7 +202,7 @@ if(!class_exists("WebSupport")){
                 '{$monthlyDate}',
                 '{$primeJumin}',
                 '{$primeSigPath}',
-                '{$primeIndex}',
+                '{$primeExternal}',
                 '{$aSubsciptionId}',
                 '{$aCustomerProfileId}',
                 '{$paymentResult}',
