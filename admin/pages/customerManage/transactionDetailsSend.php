@@ -12,8 +12,9 @@
             reloadPage(page);
         });
 
-        $(".jView").click(function(){
-            location.href = "/admin/pages/customerManage/transactionDetailView.php";
+        $(".jDetail").click(function(){
+            var id = $(this).attr("sid");
+            location.href = "/admin/pages/customerManage/transactionDetailView.php?id=" + id;
         });
 
         $(".jTab").click(function(){
@@ -32,7 +33,7 @@
 
         function sendMail(formId){
             $.ajax({
-                url : "/admin/writable/receipt_template.php",
+                url : "/admin/writable/receipt_template.php?raw=true",
                 dataType : "HTML",
                 data : {
                     "id" : formId

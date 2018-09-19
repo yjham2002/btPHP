@@ -267,6 +267,10 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
 
             });
 
+            if("<?=$_REQUEST["redirect"]?>" == "true"){
+                printData();
+            }
+
         });
     </script>
 
@@ -281,10 +285,10 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
                 <td rowspan="2" width="390" valign="middle" style='border-left:none;border-right:none;border-top:none;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
     <P STYLE='text-align:center;'><span STYLE='font-size:19.0pt;line-height:140%;'>거래명세서</span></P>
     </td>
-    <td rowspan="4" width="20" height="105" valign="middle" style='border-left:none;border-right:solid #000000 1px;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td rowspan="5" width="20" height="105" valign="middle" style='border-left:none;border-right:solid #000000 1px;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P><span STYLE='font-size:5.0pt;line-height:140%;'>&nbsp;</span></P>
     </td>
-    <td rowspan="4" width="57" height="105" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td rowspan="5" width="57" height="105" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공</span></P>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>급</span></P>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>자</span></P>
@@ -317,7 +321,7 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
         </td>
     </tr>
     <tr>
-        <td rowspan="2" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+        <td rowspan="3" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["title_box"]?></span></P>
         </td>
         <td width="76" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -330,6 +334,14 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
     <tr>
         <td width="76" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>주소</span></P>
+        </td>
+        <td colspan="3" width="247" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["supply_addr"]?></span></P>
+        </td>
+    </tr>
+    <tr>
+        <td width="76" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>입금계좌</span></P>
         </td>
         <td colspan="3" width="247" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["supply_addr"]?></span></P>
@@ -355,7 +367,7 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>일자</span></P>
     </td>
     <td width="315" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명[규격]</span></P>
+        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명 및 규격</span></P>
     </td>
     <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량<br/>(단위포함)</span></P>
@@ -618,10 +630,10 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
                 <td width="41" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
     </td>
-    <td width="101" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_quantity"]?></span></P>
     </td>
-    <td width="71" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td width="75" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공급가액</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -647,17 +659,19 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
     </td>
     </tr>
     </table></P>
-    
+
+    <hr/>
+
     <P>
         <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
             <tr>
                 <td rowspan="2" width="390" valign="middle" style='border-left:none;border-right:none;border-top:none;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
     <P STYLE='text-align:center;'><span STYLE='font-size:19.0pt;line-height:140%;'>거래명세서</span></P>
     </td>
-    <td rowspan="4" width="20" height="105" valign="middle" style='border-left:none;border-right:solid #000000 1px;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td rowspan="5" width="20" height="105" valign="middle" style='border-left:none;border-right:solid #000000 1px;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P><span STYLE='font-size:5.0pt;line-height:140%;'>&nbsp;</span></P>
     </td>
-    <td rowspan="4" width="57" height="105" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td rowspan="5" width="57" height="105" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공</span></P>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>급</span></P>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>자</span></P>
@@ -690,7 +704,7 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
         </td>
     </tr>
     <tr>
-        <td rowspan="2" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+        <td rowspan="3" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["title_box"]?></span></P>
         </td>
         <td width="76" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -708,27 +722,22 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
             <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["supply_addr"]?></span></P>
         </td>
     </tr>
+    <tr>
+        <td width="76" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>입금계좌</span></P>
+        </td>
+        <td colspan="3" width="247" height="38" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["supply_addr"]?></span></P>
+        </td>
+    </tr>
     </table></P>
-
-    <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
-        <tr>
-            <td width="370" height="30" valign="middle" style='border-left:solid #000000 1.7pt;border-right:none;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
-                <P STYLE='text-align:left;'><span STYLE='font-size:12.0pt;line-height:140%;'>금액 : <?=$F_VALUE["total_literal"]?></span></P>
-            </td>
-            <td width="370" height="30" valign="middle" style='border-left:none;border-right:solid #000000 1.7pt;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
-                <P STYLE='text-align:right;'><span STYLE='font-size:12.0pt;line-height:140%;'>(\ <?=$F_VALUE["total_number"]?>)</span></P>
-            </td>
-        </tr>
-    </table>
-
-    <P>
         <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
             <tr>
                 <td width="118" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>일자</span></P>
     </td>
     <td width="315" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명[규격]</span></P>
+        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명 및 규격</span></P>
     </td>
     <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량<br/>(단위포함)</span></P>
@@ -991,10 +1000,10 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
                 <td width="41" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
     </td>
-    <td width="101" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_quantity"]?></span></P>
     </td>
-    <td width="71" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+    <td width="75" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공급가액</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -1022,7 +1031,7 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
     </table></P>
 </div>
 <!-- ************************************************************************** -->
-
+<?if($_REQUEST["raw"] != "true"){?>
 <p><b>※ 인쇄 시 Chrome 브라우저 사용 권장. (타 브라우저 사용 시 셀 배경 등 미적용)</b></p>
 
 <div style="position:absolute; right:0; padding: 20px;">
@@ -1031,6 +1040,7 @@ $sign3 = $uc->getProperty($CONST_PREFIX_IMAGE."03");
 <a href="#" class="jDownload jRounded" >다운로드</a>
 <a href="#" class="jClose jRounded" >닫기</a>
 </div>
+<?}?>
 
 </body>
 

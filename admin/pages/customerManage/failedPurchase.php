@@ -22,6 +22,60 @@
             var type = $(this).val();
             location.href = "/admin/pages/customerManage/failedPurchase.php?type=" + type;
         });
+
+        $(document).on("click", ".jChange", function(){
+            var id = $(this).attr("id");
+            var res = $(this).attr("flag");
+            var ajax = new AjaxSender("/route.php?cmd=Management.changePaymentStatus", true, "json", new sehoMap().put("id", id).put("res", res));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    alert("변경되었습니다.");
+                    location.reload();
+                }
+            })
+        });
+
+        $(".jAlterExcel").click(exportExcel);
+
+        function exportExcel(){
+
+            var target = $("table");
+            var tmp = $(".jsss").html();
+            $(".jsss").empty();
+
+            if($(".alterTarget").length > 0) target = $(".alterTarget").eq(0);
+            if(target.length < 1) alert("출력 대상이 없습니다.");
+            var divToPrint= target.eq(0);
+            var optionCss = "";//"#toPrint{width : 210mm;}";
+            var htmls = "<style>" + optionCss + "</style>" + divToPrint.prop("outerHTML");
+
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>{table}</table></body></html>';
+            var base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            };
+
+            var format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            };
+
+//            htmls = "YOUR HTML AS TABLE"
+
+            var ctx = {
+                worksheet : 'Worksheet',
+                table : htmls
+            }
+
+            var link = document.createElement("a");
+            link.download = "export.xls";
+            link.href = uri + base64(format(template, ctx));
+            link.click();
+
+            $(".jsss").append(tmp);
+        }
+
     });
 </script>
 
@@ -43,7 +97,7 @@
             </div>
 
             <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary jTranscendanceExcel">Excel</button>
+                <button type="button" class="btn btn-secondary jAlterExcel">Excel</button>
             </div>
         </form>
 
@@ -102,7 +156,7 @@
                                     }
                                     ?>
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu jsss">
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="0">미결제</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="1">완료</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>
@@ -164,7 +218,7 @@
                                     }
                                     ?>
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu jsss">
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="0">미결제</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="1">완료</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>
@@ -224,7 +278,7 @@
                                     }
                                     ?>
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu jsss">
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="0">미결제</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="1">완료</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>

@@ -8,14 +8,11 @@
 ?>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 
 <script>
     $(document).ready(function(){
-        $(".jPage").click(function(){
-            $("[name=page]").val($(this).attr("page"));
-            form.submit();
-        });
+
     });
 </script>
 
@@ -24,9 +21,10 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a href="index.html">고객 관리</a>
             </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item">거래명세서 발송</li>
+            <li class="breadcrumb-item active">거래명세서 상세</li>
         </ol>
 
         <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
