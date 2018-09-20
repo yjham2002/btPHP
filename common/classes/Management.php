@@ -37,7 +37,11 @@ if(!class_exists("Management")){
             }
 
             $this->initPage();
-            $sql = "SELECT COUNT(*) cnt FROM tblCustomer WHERE `status` = 1 AND {$where}";
+            $sql = "
+              SELECT COUNT(*) cnt 
+              FROM tblCustomer 
+              WHERE `status` = 1 AND {$where}
+            ";
             $this->rownum = $this->getValue($sql, "cnt");
             $this->setPage($this->rownum);
 
