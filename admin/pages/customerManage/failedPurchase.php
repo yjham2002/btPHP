@@ -16,6 +16,7 @@
     $list = $obj->paymentList();
     $type = $_REQUEST["type"];
 ?>
+<link rel="stylesheet" href="/admin/scss/smSheet.css">
 <script>
     $(document).ready(function(){
         $(".jType").click(function(){
@@ -123,6 +124,8 @@
                     <thead>
                     <tr>
                         <th>이름</th>
+                        <th>회원상태</th>
+                        <th>CMS상태</th>
                         <th>은행</th>
                         <th>계좌번호</th>
                         <th>외부참조키</th>
@@ -136,6 +139,12 @@
                     <?foreach($list as $item){?>
                         <tr>
                             <td><?=$item["ownerName"]?></td>
+                            <td><?=$item["primeRes"]["userstat_kind"] == "1" ? "정상" : "해지"?></td>
+                            <td>
+                                <?
+                                    if($item["primeRes"][""])
+                                ?>
+                            </td>
                             <td><?=$item["bankDesc"]?></td>
                             <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
                             <td><?=$item["primeIndex"]?></td>

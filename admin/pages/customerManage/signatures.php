@@ -23,6 +23,8 @@ $static_addr = $uc->getProperty("STATIC_R_ADDR");
 $static_reg = $uc->getProperty("STATIC_R_REG");
 $static_trade = $uc->getProperty("STATIC_R_TRADE");
 $static_phone = $uc->getProperty("STATIC_R_PHONE");
+$static_name = $uc->getProperty("STATIC_R_NAME");
+$static_account = $uc->getProperty("STATIC_R_ACCOUNT");
 
 ?>
 
@@ -113,6 +115,20 @@ $static_phone = $uc->getProperty("STATIC_R_PHONE");
                 </div>
                 <input type="text" class="form-control" pr="STATIC_R_PHONE" name="setDate" value="<?=$static_phone?>" placeholder="내용을 입력하세요" />
                 <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_R_PHONE">저장</a>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">성명</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_R_NAME" name="setDate" value="<?=$static_name?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_R_NAME">저장</a>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">계좌</span>
+                </div>
+                <input type="text" class="form-control" pr="STATIC_R_ACCOUNT" name="setDate" value="<?=$static_account?>" placeholder="내용을 입력하세요" />
+                <a href="#" class="jSaveStatic btn btn-secondary" pr="STATIC_R_ACCOUNT">저장</a>
             </div>
 
             <br/>

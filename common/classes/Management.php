@@ -888,6 +888,7 @@ if(!class_exists("Management")){
                     SELECT
                         (SELECT send_stat FROM member WHERE ext_inx = '{$primeIndex}') as memberStat, 
                         (SELECT send_stat FROM agreefile WHERE ext_inx = '{$primeIndex}') as agreeStat,
+                        (SELECT userstat_kind FROM file_ea14 WHERE ext_inx = '[$primeIndex}') as memberStatus,
                         (SELECT result FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveRes,
                         (SELECT send_stat FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveStat,
                         (SELECT result FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeRes,
@@ -900,7 +901,7 @@ if(!class_exists("Management")){
                 $res = $this->getRow($sql);
 
                 $this->connect_int_db();
-                if($res["memberStat"] != 4 || $res["agreeStat"] != 4 || $res["reserveRes"] != 1 || $res["chargeRes"] != 1 || $res["bankRes"] != 1){
+                if($res["memberStat"] != 4 || $res["agreeStat"] != 4 || $res["reserveRes"] != 1 || $res["chargeRes"] != 1 || $res["bankRes"] != 1 || $res["userstat_kind"] != 1){
                     $sql = "
                         UPDATE tblPayment SET `paymentResult` = '0'
                         WHERE `id` = '{$item["id"]}'
@@ -930,26 +931,27 @@ if(!class_exists("Management")){
                 ORDER BY P.regDate DESC
             ";
             $res = $this->getArray($sql);
-//            if($type == "BA"){
-//                $this->connect_ext_db();
-//                for($i=0; $i < sizeof($res); $i++){
-//                    $primeIndex = $res[$i]["primeIndex"];
-//                    $sql = "
-//                        SELECT
-//                            (SELECT send_stat FROM member WHERE ext_inx = '{$primeIndex}') as memberStat,
-//                            (SELECT send_stat FROM agreefile WHERE ext_inx = '{$primeIndex}') as agreeStat,
-//                            (SELECT result FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveRes,
-//                            (SELECT send_stat FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveStat,
-//                            (SELECT result FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeRes,
-//                            (SELECT send_stat FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeStat,
-//                            (SELECT result FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankRes,
-//                            (SELECT send_stat FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankStat
-//                        FROM DUAL;
-//                    ";
-//                    $res[$i]["primeRes"] = $this->getRow($sql);
-//                }
-//                $this->connect_int_db();
-//            }
+            if($type == "BA"){
+                $this->connect_ext_db();
+                for($i=0; $i < sizeof($res); $i++){
+                    $primeIndex = $res[$i]["primeIndex"];
+                    $sql = "
+                        SELECT
+                            (SELECT send_stat FROM member WHERE ext_inx = '{$primeIndex}') as memberStat,
+                            (SELECT send_stat FROM agreefile WHERE ext_inx = '{$primeIndex}') as agreeStat,
+                            (SELECT userstat_kind FROM file_ea14 WHERE ext_inx = '[$primeIndex}') as memberStatus,
+                            (SELECT result FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveRes,
+                            (SELECT send_stat FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveStat,
+                            (SELECT result FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeRes,
+                            (SELECT send_stat FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeStat,
+                            (SELECT result FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankRes,
+                            (SELECT send_stat FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankStat
+                        FROM DUAL;
+                    ";
+                    $res[$i]["primeRes"] = $this->getRow($sql);
+                }
+                $this->connect_int_db();
+            }
             return $res;
         }
 

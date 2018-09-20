@@ -845,7 +845,7 @@ if (! class_exists("Common"))
                     # 1이 입력될 경우 1(월청구제한) * 30000(매출예정액) = 30000  30000원이 한달 청구 제한 금액이 됨.
                     # 2달이상 연체된 고객이여서 60000원의 미수금이 있다해도 해당월내에는 최대 30000원만 청구됨.
                     '1', # 고정값 : 1로 박아두면 아인시스템이 확인하면 2로 변할거임
-                    '' # 고정값 : 아인시스템에서 알아서 넣는 regDate
+                    NOW() # 고정값 : 아인시스템에서 알아서 넣는 regDate
                 )
             ";
 
@@ -901,7 +901,7 @@ if (! class_exists("Common"))
             $source_file = $this->filePath . $file_name;
             $destination_file = $file_name;
 
-            if(!ftp_put($fc, $destination_file, $source_file, FTP_ASCII)){
+            if(!ftp_put($fc, $destination_file, $source_file, FTP_BINARY)){
                 echo" <script> window.alert ('파일을 지정한 디렉토리로 복사 하는 데 실패했습니다.');</script>";
                 exit;
             }

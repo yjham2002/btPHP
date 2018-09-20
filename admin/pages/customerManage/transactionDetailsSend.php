@@ -31,7 +31,7 @@
             exportToExcel();
         });
 
-        function sendMail(formId){
+        function sendMail(formId, email){
             $.ajax({
                 url : "/admin/writable/receipt_template.php?raw=true",
                 dataType : "HTML",
@@ -45,7 +45,8 @@
                         async : true,
                         type : "post",
                         data : {
-                            "content": dt
+                            "content": dt,
+                            "email" : email
                         },
                         success : function(data){
                             if(data.returnCode === 1){
@@ -123,7 +124,8 @@
             $("#spinner").fadeIn();
             for(var e = 0; e < arr.length; e++){
                 var num = arr.eq(e).attr("sid");
-                sendMail(num);
+                var mail = arr.eq(e).attr("email");
+                sendMail(num, mail);
             }
             $(".scheck").prop("checked", false);
         });
@@ -203,7 +205,7 @@
             foreach($list as $item){?>
                 <tr>
                     <td>
-                        <input class="form-control-sm scheck" type="checkbox" sid="<?=$item["id"]?>" />
+                        <input class="form-control-sm scheck" type="checkbox" sid="<?=$item["id"]?>" email="<?=$item["pEmail"]?>" />
                     </td>
                     <td><?=$vnum--?></td>
                     <td><?=$item["rName"]?></td>

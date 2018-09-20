@@ -457,6 +457,7 @@ if(!class_exists("Uncallable")){
             $sql = "
             SELECT
             *, (SELECT `desc` FROM tblPublication WHERE `id`=`publicationId` LIMIT 1) as pbName
+            , (SELECT email FROM tblCustomer WHERE `id`=`customerId` LIMIT 1) AS pEmail 
             , (SELECT CONCAT(commercial1, commercial2, commercial3, commercial4) FROM tblCustomer WHERE `id`=`customerId` LIMIT 1) AS cm
             FROM tblSubscription {$where}
             ORDER BY regDate DESC LIMIT {$this->startNum}, {$this->endNum};
@@ -468,10 +469,12 @@ if(!class_exists("Uncallable")){
         function sendTrans(){
             $body = $_REQUEST["content"];
 
+            $email = $_REQUEST["email"];
+
             $mail = new GEmail();
             $mail->setMailBody($body);
             $mail->setSubject("거래명세서");
-            $mail->addReceiveEmail("yjham2002@gmail.com", "테스트");
+            $mail->addReceiveEmail($email, "고객님");
             $flag = $mail->sendMail();
 
             return $this->makeResultJson(1, $flag);

@@ -120,6 +120,7 @@
                 var birth = $("[name=birth]").val();
                 var account = $("[name=info]").val();
                 var bankType = $(".jBtype:selected").attr("desc");
+
                 ctx.fillText(name, 20, 50);
                 ctx.fillText(birth, 20, 80);
                 ctx.fillText(account, 20, 110);
@@ -442,7 +443,7 @@
                         <select name="bankType">
                             <option value="">선택</option>
                             <?foreach($bankTypeList as $bankItem){?>
-                                <option value="<?=$bankItem["code"]?>"><?=$bankItem["desc"]?></option>
+                                <option class="jBtype" value="<?=$bankItem["code"]?>" desc="<?=$bankItem["desc"]?>"><?=$bankItem["desc"]?></option>
                             <?}?>
                         </select>
                     </div>
