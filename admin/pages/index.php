@@ -38,6 +38,10 @@
             events: "/route.php?cmd=ScheduleLoader.getMonthlySchedule&type=g" // 주소를 입력 시 파싱됨 : 예제 json은 fc_picklecode.js 참조
         });
 
+        $(".jSearch").click(function(){
+            location.href = "/admin/pages/customerManage/customerList.php?" + $("#cSearch").serialize();
+        });
+
     });
 
 </script>
@@ -58,6 +62,7 @@
         <div class="row">
             <div class="col-xl-12 col-sm-12 mb-3">
                 <div class="card text-white bg-danger o-hidden h-100">
+                    <form id="cSearch">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fas fa-fw fa-search"></i>
@@ -66,19 +71,21 @@
                         <div class="mr-5">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <select class="custom-select" id="inputGroupSelect01">
-                                        <option selected>전체</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="custom-select" id="inputGroupSelect01" name="searchType">
+                                        <option value="">선택</option>
+                                        <option value="name" <?=$_REQUEST["searchType"] == "name" ? "selected" : ""?>>이름</option>
+                                        <?if(false){?><option value="BO" <?=$_REQUEST["searchType"] == "BO" ? "selected" : ""?>>뱅크오너</option><?}?>
+                                        <option value="phone" <?=$_REQUEST["searchType"] == "phone" ? "selected" : ""?>>전화번호</option>
+                                        <option value="email" <?=$_REQUEST["searchType"] == "email" ? "selected" : ""?>>이메일</option>
+                                        <option value="addr" <?=$_REQUEST["searchType"] == "addr" ? "selected" : ""?>>주소</option>
                                     </select>
                                 </div>
-                                <input type="text" class="form-control jStart"
-                                       placeholder="검색어를 입력하세요" />
+                                <input type="text" class="form-control jStart" name="searchText" placeholder="검색어를 입력하세요" />
                                 <button type="button" class="btn btn-secondary jSearch">검색</button>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
 

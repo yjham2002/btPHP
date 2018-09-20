@@ -33,6 +33,12 @@ if(!class_exists("AdminMain")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function getCustomerExcelList(){
+            $sql = "SELECT * FROM tblCustomer;";
+
+            return $this->getArray($sql);
+        }
+
         function getLangList(){
             $sql = "SELECT * FROM tblLang ORDER BY `order` ASC;";
             return $this->getArray($sql);

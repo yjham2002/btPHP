@@ -11,21 +11,21 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
-    $obj = new Management($_REQUEST);
-    $main = new AdminMain($_REQUEST);
+$obj = new Management($_REQUEST);
+$main = new AdminMain($_REQUEST);
 
-    $item = $obj->customerInfo();
-    $userInfo = $item["userInfo"];
-    $paymentInfo = $item["paymentInfo"];
-    $subscriptionInfo = $item["subscriptionInfo"];
-    $supportInfo = $item["supportInfo"];
-    
-    $localeList = $main->getLocale();
-    $localeTxt = "";
-    foreach($localeList as $localeItem)
-        if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
+$item = $obj->customerInfo();
+$userInfo = $item["userInfo"];
+$paymentInfo = $item["paymentInfo"];
+$subscriptionInfo = $item["subscriptionInfo"];
+$supportInfo = $item["supportInfo"];
 
-    $publicationList = $main->publicationList();
+$localeList = $main->getLocale();
+$localeTxt = "";
+foreach($localeList as $localeItem)
+    if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
+
+$publicationList = $main->publicationList();
 ?>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -273,9 +273,9 @@
         <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
             <button type="button" class="float-right btn btn-danger mr-5 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
             <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
-<!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
+            <!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
             <button type="button" class="btn btn-secondary mr-2 jLost">LOST</button>
-<!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
+            <!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
         </div>
 
         <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
@@ -485,10 +485,10 @@
                             </td>
                             <td>
                                 <?
-                                    if($subItem["pmType"] == "CC") echo "신용카드";
-                                    else if($subItem["pmType"] == "BA") echo "계좌";
-                                    else if($subItem["pmType"] == "FC") echo "해외신용";
-                                    echo "/ " . $subItem["info"];
+                                if($subItem["pmType"] == "CC") echo "신용카드";
+                                else if($subItem["pmType"] == "BA") echo "계좌";
+                                else if($subItem["pmType"] == "FC") echo "해외신용";
+                                echo "/ " . $subItem["info"];
                                 ?>
                             </td>
                             <td>
@@ -619,16 +619,16 @@
                         <tr>
                             <td>
                                 <?
-                                    if($paymentItem["productType"] == "SUB") echo "구독";
-                                    else if($paymentItem["productType"] == "SUP") echo "후원";
+                                if($paymentItem["productType"] == "SUB") echo "구독";
+                                else if($paymentItem["productType"] == "SUP") echo "후원";
                                 ?>
                             </td>
                             <td>
                                 <?
-                                    if($paymentItem["pmType"] == "CC") echo "신용카드";
-                                    else if($paymentItem["pmType"] == "BA") echo "계좌";
-                                    else if($paymentItem["pmType"] == "FC") echo "해외신용";
-                                    echo "/ " . $paymentItem["info"];
+                                if($paymentItem["pmType"] == "CC") echo "신용카드";
+                                else if($paymentItem["pmType"] == "BA") echo "계좌";
+                                else if($paymentItem["pmType"] == "FC") echo "해외신용";
+                                echo "/ " . $paymentItem["info"];
                                 ?>
                             </td>
                             <td><?=$paymentItem["totalPrice"]?></td>
