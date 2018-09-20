@@ -13,6 +13,7 @@
     $obj = new Management($_REQUEST);
     $list = $obj->paymentList();
     $obj->processFC();
+    $obj->processBA();
     $type = $_REQUEST["type"];
 //    echo json_encode($list);
 ?>
