@@ -874,6 +874,7 @@ if(!class_exists("Management")){
                     $this->update($sql);
                 }
             }
+            return $this->makeResultJson(1, "succ");
         }
 
         function processBA(){
@@ -895,9 +896,10 @@ if(!class_exists("Management")){
                         (SELECT send_stat FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankStat
                     FROM DUAL;
                 ";
+                $this->connect_ext_db();
                 $res = $this->getRow($sql);
 
-
+                $this->connect_int_db();
                 if($res["memberStat"] != 4 || $res["agreeStat"] != 4 || $res["reserveRes"] != 1 || $res["chargeRes"] != 1 || $res["bankRes"] != 1){
                     $sql = "
                         UPDATE tblPayment SET `paymentResult` = '0'
@@ -906,7 +908,7 @@ if(!class_exists("Management")){
                     $this->update($sql);
                 }
             }
-
+            return $this->makeResultJson(1, "succ");
         }
 
         function paymentList(){
@@ -927,8 +929,28 @@ if(!class_exists("Management")){
                 WHERE P.type = '{$type}'
                 ORDER BY P.regDate DESC
             ";
-
-            return $this->getArray($sql);
+            $res = $this->getArray($sql);
+//            if($type == "BA"){
+//                $this->connect_ext_db();
+//                for($i=0; $i < sizeof($res); $i++){
+//                    $primeIndex = $res[$i]["primeIndex"];
+//                    $sql = "
+//                        SELECT
+//                            (SELECT send_stat FROM member WHERE ext_inx = '{$primeIndex}') as memberStat,
+//                            (SELECT send_stat FROM agreefile WHERE ext_inx = '{$primeIndex}') as agreeStat,
+//                            (SELECT result FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveRes,
+//                            (SELECT send_stat FROM file_ea14 WHERE ext_inx = '{$primeIndex}') as reserveStat,
+//                            (SELECT result FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeRes,
+//                            (SELECT send_stat FROM file_ea22 WHERE ext_inx = '{$primeIndex}') as chargeStat,
+//                            (SELECT result FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankRes,
+//                            (SELECT send_stat FROM file_ea11 WHERE ext_inx = '{$primeIndex}') as bankStat
+//                        FROM DUAL;
+//                    ";
+//                    $res[$i]["primeRes"] = $this->getRow($sql);
+//                }
+//                $this->connect_int_db();
+//            }
+            return $res;
         }
 
         function changePaymentStatus(){

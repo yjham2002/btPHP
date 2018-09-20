@@ -11,11 +11,10 @@
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $obj = new Management($_REQUEST);
+//    $obj->processFC();
+//    $obj->processBA();
     $list = $obj->paymentList();
-    $obj->processFC();
-    $obj->processBA();
     $type = $_REQUEST["type"];
-//    echo json_encode($list);
 ?>
 <script>
     $(document).ready(function(){
@@ -62,8 +61,6 @@
                 })
             };
 
-//            htmls = "YOUR HTML AS TABLE"
-
             var ctx = {
                 worksheet : 'Worksheet',
                 table : htmls
@@ -76,6 +73,21 @@
 
             $(".jsss").append(tmp);
         }
+
+        $(".jRefresh").click(function(){
+            var ajax = new AjaxSender("/route.php?cmd=Management.processBA", false, "json", new sehoMap());
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    var innerAjax = new AjaxSender("/route.php?cmd=Management.processFC", false, "json", new sehoMap());
+                    ajax.send(function(data){
+                        if(data.returnCode === 1){
+                            alert("갱신되었습니다.");
+                            location.reload();
+                        }
+                    });
+                }
+            })
+        });
 
     });
 </script>
@@ -98,6 +110,7 @@
             </div>
 
             <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary jRefresh">자동이체/해외카드 새로고침</button>
                 <button type="button" class="btn btn-secondary jAlterExcel">Excel</button>
             </div>
         </form>
@@ -292,7 +305,6 @@
             <?}?>
         </div>
     </div>
-    <!-- /.container-fluid -->
 </div>
 
 
