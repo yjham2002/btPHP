@@ -20,6 +20,53 @@ if(!class_exists("Management")){
             parent::__construct($req);
         }
 
+        function customerListDetail(){
+            $sql = "
+            SELECT * FROM tblCustomer
+            #프로젝션 전체 컬럼 
+            WHERE 1=1 
+            #기본 항진 조건 지정자
+            AND `email` LIKE '%email%'
+            #이메일
+            AND `phone` LIKE '%phone%'
+            #전화번호
+            AND `name` LIKE '%name%'
+            #성명
+            AND CONCAT(`addr`, ' ', `addrDetail`) LIKE '%address%'
+            #주소
+            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `pYear`='2018' AND `pMonth`='1')
+            #시작월호
+            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `eYear`='2018' AND `eMonth`='1')
+            #종료월호
+            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `shippingType` = '0')
+            #배송방식
+            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `publicationId` = '0')
+            #버전
+            AND (
+               `id` IN (SELECT `customerId` FROM tblSubscription WHERE `deliveryStatus` = '0')
+               OR
+               `id` IN (SELECT `customerId` FROM tblSupport WHERE `status` = '0')
+            )
+            #상태
+            AND (
+               `id` IN (SELECT `customerId` FROM tblSubscription WHERE DATE_FORMAT(`regDate`,'%Y-%m')='2018-09')
+               OR
+               `id` IN (SELECT `customerId` FROM tblSupport WHERE DATE_FORMAT(`regDate`,'%Y-%m')='2018-09')
+            )
+            #신청년월
+            AND `id` IN (SELECT `customerId` FROM tblSupport WHERE `assemblyName` LIKE '%name%') 
+            #후원집회명
+            AND `id` IN (SELECT (SELECT customerId FROM tblPayMethod WHERE `id`=`payMethodId`) AS cid FROM tblPayment WHERE `primeIndex` LIKE '%bt%') 
+            #코드
+            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `subType` = 'BTG') 
+            #후원방법
+            ORDER BY `regDate`
+            #정렬방식
+            ";
+
+            return $this->getArray($sql);
+        }
+
         function customerList(){
             $searchType = $_REQUEST["searchType"];
             $searchText = $_REQUEST["searchText"];
@@ -249,8 +296,9 @@ if(!class_exists("Management")){
                     }
 
                     $sql = "
-                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    INSERT INTO tblCustomerHistory(customerId, modifier,`type`, content, regDate)
                     VALUES(
+                      '{$_REQUEST["customerId"]}',
                       '{$this->admUser->account}',
                       'sub',
                       '{$tmp} 변경: {$result}',
@@ -329,8 +377,9 @@ if(!class_exists("Management")){
                             $result = $_REQUEST[$key];
                     }
                     $sql = "
-                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    INSERT INTO tblCustomerHistory(customerId, modifier,`type`, content, regDate)
                     VALUES(
+                      '{$_REQUEST["customerId"]}',
                       '{$this->admUser->account}',
                       'sup',
                       '{$tmp} 변경: {$result}',
@@ -344,8 +393,9 @@ if(!class_exists("Management")){
         }
 
         function historyData(){
+            $id = $_REQUEST["id"];
             $typeArr = $_REQUEST["typeArr"];
-            $where = "1=1";
+            $where = "1=1 AND customerId = '{$id}'";
             if($typeArr[0] != "all"){
                 $where .= " AND(";
                 foreach($typeArr as $item) {
@@ -367,9 +417,10 @@ if(!class_exists("Management")){
             for($i=0; $i<sizeof($historyIdArr); $i++){
                 $tmpId = $historyIdArr[$i] == "" ? "0" : $historyIdArr[$i];
                 $sql = "
-                    INSERT INTO tblCustomerHistory(`id`, modifier, `type`, `content`, `regDate`)
+                    INSERT INTO tblCustomerHistory(`id`, `customerId`, modifier, `type`, `content`, `regDate`)
                     VALUES(
                       '{$tmpId}',
+                      '{$_REQUEST["id"]}',
                       '{$historyModifierArr[$i]}',
                       '{$historyTypeArr[$i]}',
                       '{$historyContentArr[$i]}',

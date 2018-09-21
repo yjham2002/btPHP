@@ -289,8 +289,9 @@ if(! class_exists("WebUser") ){
 
             if($addr != $old["addr"] || $addrDetail != $old["addrDetail"]){
                 $sql = "
-                    INSERT INTO tblCustomerHistory(modifier,`type`, content, regDate)
+                    INSERT INTO tblCustomerHistory(customerId, modifier,`type`, content, regDate)
                     VALUES(
+                      '{$this->webUser->id}',
                       '고객',
                       'etc',
                       '주소 변경: {$addr} {$addrDetail}',

@@ -1,686 +1,260 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: 전세호
- * Date: 2018-07-31
- * Time: 오후 11:31
+ * User: sayho
+ * Date: 2018. 7. 27.
+ * Time: PM 2:45
  */
 ?>
-
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
-<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
-<? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
 $obj = new Management($_REQUEST);
 $main = new AdminMain($_REQUEST);
-
-$item = $obj->customerInfo();
-$userInfo = $item["userInfo"];
-$paymentInfo = $item["paymentInfo"];
-$subscriptionInfo = $item["subscriptionInfo"];
-$supportInfo = $item["supportInfo"];
-
-$localeList = $main->getLocale();
-$localeTxt = "";
-foreach($localeList as $localeItem)
-    if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
-
-$publicationList = $main->publicationList();
+$list = $obj->customerList();
+// $obj->customerListDetail();
+$pubList = $main->publicationList();
 ?>
+    <script>
+        $(document).ready(function(){
+//            $(".jPage").click(function(){
+//                $("[name=page]").val($(this).attr("page"));
+//                form.submit();
+//            });
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/admin/scss/smSheet.css">
-<script>
-    $(document).ready(function(){
-        var notiFlag = "<?=$userInfo["notiFlag"]?>";
-        if(notiFlag == 1) $(".jNoti[value=1]").show();
-        else $(".jNoti[value=0]").show();
-
-        $(".monthPicker").datepicker({
-            showMonthAfterYear:true,
-            dateFormat: 'yy-mm',
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
-            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-            onClose: function(dateText, inst) {
-                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                $(this).datepicker('setDate', new Date(year, month, 1));
-            }
-        });
-
-        $(".jLost").click(function(){location.href = "/admin/pages/customerManage/Lost.php?id=<?=$_REQUEST["id"]?>"});
-
-        $(".jCommercial").change(function(){
-            var id = "<?=$_REQUEST["id"]?>";
-            var object = $(this).find('input');
-            var check = $(object).prop("checked") == true ? 1 : 0;
-            var ajax = new AjaxSender("/route.php?cmd=Management.setCommercial", true, "json", new sehoMap()
-                .put("id", id).put("type", object.attr("cType")).put("check", check));
-            ajax.send(function(data){
-                alert("변경되었습니다.");
-                location.reload();
+            $(".jView").click(function(){
+                var id = $(this).attr("id");
+                location.href = "/admin/pages/customerManage/customerDetail.php?id=" + id;
             });
-        });
 
-        $(".jNoti").click(function(){
-            var id = "<?=$userInfo["id"]?>";
-            var currentFlag = $(this).val();
-            var flag = -1;
-            if(currentFlag == 1) flag = 0;
-            else flag = 1;
-            var ajax = new AjaxSender("/route.php?cmd=Management.setNotiFlag", true, "json", new sehoMap().put("id", id).put("flag", flag));
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    alert("변경되었습니다");
-                    location.reload();
+            $(".jSearch").click(function(){
+                form.submit();
+            });
+
+            $(".jReset").click(function(){
+                location.href="/admin/pages/customerManage/customerSearch.php";
+            });
+
+            function exportToExcel(htmls){
+
+                var uri = 'data:application/vnd.ms-excel;base64,';
+                var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>{table}</table></body></html>';
+                var base64 = function(s) {
+                    return window.btoa(unescape(encodeURIComponent(s)))
+                };
+
+                var format = function(s, c) {
+                    return s.replace(/{(\w+)}/g, function(m, p) {
+                        return c[p];
+                    })
+                };
+
+//            htmls = "YOUR HTML AS TABLE"
+
+                var ctx = {
+                    worksheet : 'Worksheet',
+                    table : htmls
                 }
-            });
-        });
 
-        $(".jCmenu").click(function(){
-            $(".jCmenu").removeClass("btn-primary");
-            $(".jCmenu").addClass("btn-secondary");
+                var link = document.createElement("a");
+                link.download = "export.xls";
+                link.href = uri + base64(format(template, ctx));
+                link.click();
 
-            $(this).removeClass("btn-secondary");
-            $(this).addClass("btn-primary");
-
-            console.log($(this).val());
-
-            $(".jCTable").hide();
-            $(".jCTable[value='" + $(this).val() + "']").fadeIn();
-        });
-
-        $(".jDelivery").click(function(){
-            //TODO 배송조회
-            location.href = "/admin/pages/customterManage/deliveryList.php";
-        });
-
-        $(document).on("click", "[name=historyType]", function(){
-            var currentType = $(this).val();
-            var typeArr = new Array();
-            if(currentType === "all"){
-                console.log("length = 0");
-                $("[name=historyType]").each(function(){
-                    $(this).prop("checked", false);
-                });
-                $(this).prop("checked", true);
-            }else{
-                $("[name=historyType][value=all]").prop("checked", false);
+                window.close();
             }
 
-            if($("[name=historyType]:checked").length === 0){
-                $("[name=historyType][value=all]").prop("checked", true);
-            }
-
-            $("[name=historyType]:checked").each(function(){
-                typeArr.push($(this).val());
-            });
-            initHistoryTable(typeArr);
-        });
-
-        $("[name=historyType][value=all]").trigger("click");
-
-        function initHistoryTable(typeArr){
-            var ajax = new AjaxSender("/route.php?cmd=Management.historyData", true, "json", new sehoMap().put("typeArr", typeArr));
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    $("#historyArea").html("");
-                    var arr = data.entity;
-                    for(var i=0; i<arr.length; i++){
-                        var row = arr[i];
-                        var template = $(".historyTemplate").html();
-                        template = template.replace("#{regDate}", row.regDate);
-                        template = template.replace("#{id}", row.id);
-                        // template = template.replace("#{type}", row.type);
-                        template = template.replace("#{modifier}", row.modifier == null ? "" : row.modifier);
-                        template = template.replace("#{content}", row.content);
-                        $("#historyArea").append(template);
-                        $("#historyArea").find("[name='hType[]']").eq(i).val(row.type);
+            $(".jDownExcel").click(function(){
+                var id = $(this).attr("id");
+                $.ajax({
+                    url : "/admin/pages/customerManage/customerExcel.php?id=" + id,
+                    async : true,
+                    type : "get",
+                    dataType : "html",
+                    success : function(data){
+                        exportToExcel(data);
+                    },
+                    error : function(){
+                        alert("데이터를 불러오는 중 오류가 발생했습니다.");
                     }
-                }else alert("데이터 불러오기 실패!");
+                });
             });
-        }
 
-        $(".jAddHistory").click(function(){
-            var template = $(".newHistoryTemplate").html();
-            $("#historyAddArea").append(template);
         });
+    </script>
 
-        $(".jSave").click(function(){
-            var ajax = new AjaxSubmit("/route.php?cmd=Management.upsertCustomer", "post", true, "json", "#form");
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    location.reload();
-                } else {
-                    alert("레이아웃 이미지 저장 중 오류가 발생하였습니다.");
-                }
-            });
-        });
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a>고객관리</a>
+                </li>
+                <li class="breadcrumb-item active">고객정보</li>
+            </ol>
 
-        $(".jSaveSub").click(function(){
-            var id = $(this).attr("id");
-            var index = $(".jSaveSub").index($(this));
-            var customerId = "<?=$userInfo["id"]?>";
-            var customerLang = "<?=$userInfo["langCode"]?>";
-            var ajax = new AjaxSender("/route.php?cmd=Management.updateSubscription", false, "json", new sehoMap()
-                .put("id", id).put("customerId", customerId)
-                .put("customerLang", customerLang)
-                .put("rName", $("[name='sub_rName[]']").eq(index).val())
-                .put("rPhone", $("[name='sub_rPhone[]']").eq(index).val())
-                .put("rZipCode", $("[name='sub_rZipCode[]']").eq(index).val())
-                .put("rAddr", $("[name='sub_rAddr[]']").eq(index).val())
-                .put("rAddrDetail", $("[name='sub_rAddrDetail[]']").eq(index).val())
-                .put("publicationId", $("[name='sub_publicationId[]']").eq(index).val())
-                .put("cnt", $("[name='sub_cnt[]']").eq(index).val())
-                .put("subType", $("[name='sub_subType[]']").eq(index).val())
-                .put("shippingType", $("[name='sub_shippingType[]']").eq(index).val())
-                .put("pYear", $("[name='pYear[]']").eq(index).val())
-                .put("pMonth", $("[name='pMonth[]']").eq(index).val())
-                .put("eYear", $("[name='eYear[]']").eq(index).val())
-                .put("eMonth", $("[name='eMonth[]']").eq(index).val())
-                .put("deliveryStatus", $("[name='deliveryStatus[]']").eq(index).val())
-            );
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    alert("저장되었습니다.");
-                    location.reload();
-                }
-            });
-        });
+            <h3>고객 상세 검색</h3>
 
-        $(".jSaveSup").click(function(){
-            var id = $(this).attr("id");
-            var index = $(".jSaveSup").index($(this));
-            var ajax = new AjaxSender("/route.php?cmd=Management.updateSupport", false, "json", new sehoMap()
-                .put("id", id).put("supType", $("[name='sup_supType[]']").eq(index).val())
-                .put("totalPrice", $("[name='sup_totalPrice[]']").eq(index).val())
-                .put("rName", $("[name='sup_rName[]']").eq(index).val())
-                .put("assemblyName", $("[name='sup_assemblyName[]']").eq(index).val())
-                .put("sYear", $("[name='sup_sYear[]']").eq(index).val())
-                .put("sMonth", $("[name='sup_sMonth[]']").eq(index).val())
-                .put("eYear", $("[name='sup_eYear[]']").eq(index).val())
-                .put("eMonth", $("[name='sup_eMonth[]']").eq(index).val())
-                .put("status", $("[name='sup_status[]']").eq(index).val())
-            );
-            ajax.send(function(data){
-                if(data.returnCode === 1){
-                    alert("저장되었습니다.");
-                    location.reload();
-                }
-            });
-        });
-    });
-</script>
-
-<table  style="display: none;">
-    <tbody class="historyTemplate">
-    <tr>
-        <td><input type="text" class="form-control" value="#{regDate}"/></td>
-        <td>
-            <input type="hidden" class="form-control" name="historyId[]" value="#{id}"/>
-            <input type="text" class="form-control" name="modifier[]" value="#{modifier}"/>
-        </td>
-        <td>
-            <select class="form-control" name="hType[]">
-                <option value="">선택</option>
-                <option value="sub">구독</option>
-                <option value="sup">후원</option>
-                <option value="pay">결제</option>
-                <option value="etc">기타</option>
-            </select>
-        </td>
-        <td><input type="text" class="form-control" name="historyContent[]" value="#{content}"/></td>
-    </tr>
-    </tbody>
-</table>
-
-<table style="display: none;">
-    <tbody class="newHistoryTemplate">
-    <tr>
-        <td><input type="text" class="form-control" readonly/></td>
-        <td>
-            <input type="hidden" class="form-control" name="historyId[]" readonly/>
-            <input type="text" class="form-control" name="modifier[]"/>
-        </td>
-        <td>
-            <select class="form-control" name="hType[]">
-                <option value="">선택</option>
-                <option value="sub">구독</option>
-                <option value="sup">후원</option>
-                <option value="pay">결제</option>
-                <option value="etc">기타</option>
-            </select>
-        </td>
-        <td><input type="text" class="form-control" name="historyContent[]"></td>
-    </tr>
-    </tbody>
-</table>
-
-<div id="content-wrapper">
-    <div class="container-fluid">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a>고객관리</a>
-            </li>
-            <li class="breadcrumb-item active">고객정보</li>
-            <li class="breadcrumb-item active">고객정보 상세</li>
-        </ol>
-
-        <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
-            <button type="button" class="float-right btn btn-danger mr-5 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
-            <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
-            <!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
-            <button type="button" class="btn btn-secondary mr-2 jLost">LOST</button>
-            <!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
-        </div>
-
-        <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
-
-        <form method="post" id="form" action="#" enctype="multipart/form-data">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <table class="table table-sm table-bordered w-auto text-center">
-                            <colgroup>
-                                <col width="30%"/>
-                                <col width="70%"/>
-                            </colgroup>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">ID(이메일주소)</td>
-                                <td><?=$userInfo["email"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">유형</td>
-                                <td><?=$userInfo["type"] == "1" ? "개인" : "단체"?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">언어</td>
-                                <td><?=$localeTxt?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">생년월일</td>
-                                <td><?=$userInfo["birth"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">전화번호</td>
-                                <td><?=$userInfo["phone"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">우편번호</td>
-                                <td><?=$userInfo["zipcode"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">주소</td>
-                                <td><?=$userInfo["addr"] . "<br>" . $userInfo["addrDetail"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">가입일시</td>
-                                <td><?=$userInfo["regDate"]?></td>
-                            </tr>
-                            <tr class="h-auto">
-                                <td class="bg-secondary text-light">광고</td>
-                                <td>
-                                    <label class="form-check-label mr-4 jCommercial">
-                                        <input class="form-check-input" type="checkbox" cType="1" <?=$userInfo["commercial1"] == "1" ? "checked" : ""?>>
-                                        1도
-                                    </label>
-                                    <label class="form-check-label mr-4 jCommercial">
-                                        <input class="form-check-input" type="checkbox" cType="2" <?=$userInfo["commercial2"] == "1" ? "checked" : ""?>>
-                                        2도
-                                    </label>
-                                    <label class="form-check-label mr-4 jCommercial">
-                                        <input class="form-check-input" type="checkbox" cType="3" <?=$userInfo["commercial3"] == "1" ? "checked" : ""?>>
-                                        3도
-                                    </label>
-                                    <label class="form-check-label jCommercial">
-                                        <input class="form-check-input" type="checkbox" cType="4" <?=$userInfo["commercial4"] == "1" ? "checked" : ""?>>
-                                        4도
-                                    </label>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-sm">
-                        <?if($userInfo["type"] == "2"){?>
-                            <table class="table table-sm table-bordered w-auto text-center">
-                                <colgroup>
-                                    <col width="30%"/>
-                                    <col width="70%"/>
-                                </colgroup>
-                                <tr class="h-auto">
-                                    <td class="bg-secondary text-light">담당자이름</td>
-                                    <td><?=$userInfo["name"]?></td>
-                                </tr>
-                                <tr class="h-auto">
-                                    <td class="bg-secondary text-light">담당자 휴대폰</td>
-                                    <td><?=$userInfo["phone"]?></td>
-                                </tr>
-                                <tr class="h-auto">
-                                    <td class="bg-secondary text-light">담당자 직분</td>
-                                    <td><?=$userInfo["rank"]?></td>
-                                </tr>
-                            </table>
-                        <?}?>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-
-            <input type="hidden" name="page" />
-            <div class="btn-group float-left" role="group">
-                <button type="button" class="btn btn-primary jCmenu" value="SUB">구독</button>
-                <button type="button" class="btn btn-secondary jCmenu" value="SUP">후원</button>
-                <button type="button" class="btn btn-secondary jCmenu" value="PAY">결제</button>
-            </div>
-            <span class="badge badge-pill badge-primary float-right jDelivery">&nbsp;배송조회&nbsp;</span>
-
-            <div style="width: 100%; height: 300px; overflow-y: scroll">
-                <table class="table table-sm table-bordered jCTable" value="SUB">
-                    <thead>
-                    <tr>
-                        <th width="4%">받는사람</th>
-                        <th width="5%">전화번호</th>
-                        <th width="3%">우편번호</th>
-                        <th width="12%">주소</th>
-                        <th width="6%">상세주소</th>
-                        <th width="5%">버전</th>
-                        <th width="3%">부수</th>
-                        <th width="6%">유형</th>
-                        <th width="6%">배송</th>
-                        <th width="9%">신청일</th>
-                        <th width="4%">시작 월호</th>
-                        <th width="4%">끝나는 월호</th>
-                        <th width="6%">결제정보</th>
-                        <th width="6%">발송현황</th>
-                        <th width="5%">상태</th>
-                        <th width="6%">-</th>
-                    </tr>
-                    </thead>
+            <form id="form">
+                <table class="mb-2 table table-sm table-bordered">
                     <tbody>
-                    <?foreach($subscriptionInfo as $subItem){?>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" name="sub_rName[]" value="<?=$subItem["rName"]?>"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sub_rPhone[]" value="<?=$subItem["rPhone"]?>"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sub_rZipCode[]" value="<?=$subItem["rZipCode"]?>"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sub_rAddr[]" value="<?=$subItem["rAddr"]?>"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sub_rAddrDetail[]" value="<?=$subItem["rAddrDetail"]?>"/>
-                            </td>
-                            <td>
-                                <select class="form-control" name="sub_publicationId[]">
-                                    <?foreach($publicationList as $pubItem){?>
-                                        <option value="<?=$pubItem["id"]?>" <?=$pubItem["id"] == $subItem["publicationId"] ? "selected" : ""?>>
-                                            <?=$pubItem["desc"]?>
-                                        </option>
-                                    <?}?>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sub_cnt[]" value="<?=$subItem["cnt"]?>"/>
-                            </td>
-                            <td>
-                                <select class="form-control" name="sub_subType[]">
-                                    <option value="">선택</option>
-                                    <option value="0" <?=$subItem["subType"] == "0" ? "selected" : ""?>>개인</option>
-                                    <option value="1" <?=$subItem["subType"] == "1" ? "selected" : ""?>>단체</option>
-                                    <option value="2" <?=$subItem["subType"] == "2" ? "selected" : ""?>>묶음배송</option>
-                                    <option value="3" <?=$subItem["subType"] == "3" ? "selected" : ""?>>표지광고</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" name="sub_shippingType[]">
-                                    <option value="">선택</option>
-                                    <option value="0" <?=$subItem["shippingType"] == "0" ? "selected" : ""?>>우편</option>
-                                    <option value="1" <?=$subItem["shippingType"] == "1" ? "selected" : ""?>>택배</option>
-                                </select>
-                            </td>
-                            <td>
-                                <?=$subItem["regDate"]?>
-                            </td>
-                            <td>
-                                <select class="form-control" name="pYear[]">
-                                    <option value="">선택</option>
-                                    <?for($i=-50; $i<50; $i++){
-                                        $tmp = intval(date("Y")) + $i;
-                                        ?>
-                                        <option value="<?=$tmp?>" <?=$subItem["pYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
-                                    <?}?>
-                                </select>
-                                <select class="form-control" name="pMonth[]">
-                                    <option value="">선택</option>
-                                    <?for($i=1; $i<13; $i++){?>
-                                        <option value="<?=$i?>" <?=$subItem["pMonth"] == $i ? "selected" : ""?>><?=$i?></option>
-                                    <?}?>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" name="eYear[]">
-                                    <option value="">선택</option>
-                                    <?for($i=-50; $i<50; $i++){
-                                        $tmp = intval(date("Y")) + $i;
-                                        ?>
-                                        <option value="<?=$tmp?>" <?=$subItem["eYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
-                                    <?}?>
-                                </select>
-                                <select class="form-control" name="eMonth[]">
-                                    <option value="">선택</option>
-                                    <?for($i=1; $i<13; $i++){?>
-                                        <option value="<?=$i?>" <?=$subItem["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
-                                    <?}?>
-                                </select>
-                            </td>
-                            <td>
-                                <?
-                                if($subItem["pmType"] == "CC") echo "신용카드";
-                                else if($subItem["pmType"] == "BA") echo "계좌";
-                                else if($subItem["pmType"] == "FC") echo "해외신용";
-                                echo "/ " . $subItem["info"];
-                                ?>
-                            </td>
-                            <td>
-                                <?=$subItem["lostCnt"]?>
-                                /
-                                <?=$subItem["eYear"] != "" && $subItem["eMonth"] != "" ?
-                                    (intval($subItem["eYear"]) - intval($subItem["pYear"])) * 12 + (intval($subItem["eMonth"]) - intval($subItem["pMonth"])) : "-"
-                                ?>
-                            </td>
-                            <td>
-                                <select class="form-control" name="deliveryStatus[]">
-                                    <option value="">선택</option>
-                                    <option value="0" <?=$subItem["deliveryStatus"] == "0" ? "selected" : ""?>>정상</option>
-                                    <option value="1" <?=$subItem["deliveryStatus"] == "1" ? "selected" : ""?>>취소</option>
-                                    <option value="2" <?=$subItem["deliveryStatus"] == "2" ? "selected" : ""?>>발송보류</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-secondary jSaveSub" id="<?=$subItem["id"]?>">저장</button>
-                            </td>
-                        </tr>
-                    <?}?>
-                    </tbody>
-                </table>
-
-                <table class="table table-sm table-bordered jCTable" value="SUP" style="display: none;">
-                    <thead>
+                    <tr>
+                        <th width="15%">코드</th>
+                        <td width="35%" colspan="2"><input type="text" class="form-control" name="code" /></td>
+                        <th width="15%">성명</th>
+                        <td colspan="35%"><input type="text" class="form-control" name="name" /></td>
+                    </tr>
+                    <tr>
+                        <th>시작 월호</th>
+                        <td>
+                            <select class="custom-select" name="pYear">
+                                <option value="" >전체</option>
+                                <?for($i=-50; $i<50; $i++){ $tmp = intval(date("Y")) + $i; ?>
+                                    <option value="<?=$tmp?>" <?=$_REQUEST["pYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="pMonth">
+                                <option value="" >전체</option>
+                                <?for($i=1; $i<13; $i++){ ?>
+                                    <option value="<?=$i < 10 ? "0".$i : $i?>" <?=$_REQUEST["pMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                        <th>종료 월호</th>
+                        <td>
+                            <select class="custom-select" name="eYear">
+                                <option value="" >전체</option>
+                                <?for($i=-50; $i<50; $i++){ $tmp = intval(date("Y")) + $i; ?>
+                                    <option value="<?=$tmp?>" <?=$_REQUEST["eYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="eMonth">
+                                <option value="" >전체</option>
+                                <?for($i=1; $i<13; $i++){ ?>
+                                    <option value="<?=$i < 10 ? "0".$i : $i?>" <?=$_REQUEST["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>신청년월</th>
+                        <td>
+                            <select class="custom-select" name="rYear">
+                                <option value="" >전체</option>
+                                <?for($i=-50; $i<50; $i++){ $tmp = intval(date("Y")) + $i; ?>
+                                    <option value="<?=$tmp?>" <?=$_REQUEST["rYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="rMonth">
+                                <option value="" >전체</option>
+                                <?for($i=1; $i<13; $i++){ ?>
+                                    <option value="<?=$i < 10 ? "0".$i : $i?>" <?=$_REQUEST["rMonth"] == $i ? "selected" : ""?>><?=$i?></option>
+                                <?}?>
+                            </select>
+                        </td>
+                        <th>E-Mail</th>
+                        <td colspan="2"><input type="text" class="form-control" name="email" /></td>
+                    </tr>
                     <tr>
                         <th>상태</th>
-                        <th>후원자명</th>
-                        <th>후원유형</th>
-                        <th>후원국가</th>
-                        <th>신청일자</th>
-                        <th>시작년월</th>
-                        <th>끝나는년월</th>
+                        <td colspan="2">
+                            <select class="custom-select" name="status">
+                                <option value="" >전체</option>
+                                <option value="0" >정상</option>
+                                <option value="1" >취소</option>
+                                <option value="2" >발송보류</option>
+                            </select>
+                        </td>
+                        <th>전화번호</th>
+                        <td colspan="2"><input type="text" class="form-control" name="phone" /></td>
+                    </tr>
+                    <tr>
+                        <th>후원방법</th>
+                        <td colspan="2">
+                            <select class="custom-select" name="sMethod">
+                                <option value="" >전체</option>
+                                <option value="BTG" >BTG</option>
+                                <option value="BTF" >BTF</option>
+                            </select>
+                        </td>
                         <th>후원집회명</th>
-                        <th>가격</th>
-                        <th>결제정보</th>
-                        <th>-</th>
+                        <td colspan="2"><input type="text" class="form-control" name="sName" /></td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?foreach($supportInfo as $supItem){?>
-                        <tr>
-                            <td>
-                                <select class="form-control" name="sup_status[]">
-                                    <option value="">선택</option>
-                                    <option value="0" <?=$supItem["status"] == "0" ? "selected" : ""?>>정상</option>
-                                    <option value="1" <?=$supItem["status"] == "1" ? "selected" : ""?>>취소</option>
-                                </select>
-                            </td>
-                            <td><input type="text" class="form-control" name="sup_rName[]" value="<?=$supItem["rName"]?>"/></td>
-                            <td>
-                                <select class="form-control" name="sup_supType[]">
-                                    <option value="">선택</option>
-                                    <option value="BTG" <?=$supItem["supType"] == "BTG" ? "selected" : ""?>>BTG</option>
-                                    <option value="BTF" <?=$supItem["supType"] == "BTF" ? "selected" : ""?>>BTF</option>
-                                </select>
-                            </td>
-                            <td><?=$supItem["nation"]?></td>
-                            <td><?=$supItem["regDate"]?></td>
-                            <td>
-                                <select class="form-control" name="sup_sYear[]">
-                                    <option value="">선택</option>
-                                    <?for($i=-50; $i<50; $i++){
-                                        $tmp = intval(date("Y")) + $i;
-                                        ?>
-                                        <option value="<?=$tmp?>" <?=$supItem["sYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
-                                    <?}?>
-                                </select>
-                                <select class="form-control" name="sup_sMonth[]">
-                                    <option value="">선택</option>
-                                    <?for($i=1; $i<13; $i++){?>
-                                        <option value="<?=$i?>" <?=$supItem["sMonth"] == $i ? "selected" : ""?>><?=$i?></option>
-                                    <?}?>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" name="sup_eYear[]">
-                                    <option value="">선택</option>
-                                    <?for($i=-50; $i<50; $i++){
-                                        $tmp = intval(date("Y")) + $i;
-                                        ?>
-                                        <option value="<?=$tmp?>" <?=$supItem["eYear"] == $tmp ? "selected" : ""?>><?=$tmp?></option>
-                                    <?}?>
-                                </select>
-                                <select class="form-control" name="sup_eMonth[]">
-                                    <option value="">선택</option>
-                                    <?for($i=1; $i<13; $i++){?>
-                                        <option value="<?=$i?>" <?=$supItem["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
-                                    <?}?>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sup_assemblyName[]" value="<?=$supItem["assemblyName"]?>"/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="sup_totalPrice[]" value="<?=$supItem["totalPrice"]?>"/>
-                            </td>
-                            <td>
-                                <?
-                                if($supItem["pmType"] == "CC") echo "신용카드";
-                                else if($supItem["pmType"] == "BA") echo "계좌";
-                                else if($supItem["pmType"] == "FC") echo "해외신용";
-                                echo "/ " . $supItem["info"];
-                                ?>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-secondary jSaveSup" id="<?=$supItem["id"]?>">저장</button>
-                            </td>
-                        </tr>
-                    <?}?>
-                    </tbody>
-                </table>
-
-                <table class="table table-sm table-bordered jCTable" value="PAY" style="display: none;">
-                    <thead>
                     <tr>
-                        <th>타입</th>
-                        <th>결제수단</th>
-                        <th>금액</th>
-                        <th>결제 시작일</th>
-                        <th>정기 결제일</th>
+                        <th>주소</th>
+                        <td colspan="2"><input type="text" class="form-control" name="addr" /></td>
+                        <th>버전</th>
+                        <td colspan="2">
+                            <select class="custom-select" name="version">
+                                <option value="" >전체</option>
+                                <?foreach($pubList as $pubItem){?>
+                                    <option value="<?=$pubItem["id"]?>" ><?=$pubItem["desc"]?></option>
+                                <?}?>
+                            </select>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?foreach($paymentInfo as $paymentItem){?>
-                        <tr>
-                            <td>
-                                <?
-                                if($paymentItem["productType"] == "SUB") echo "구독";
-                                else if($paymentItem["productType"] == "SUP") echo "후원";
-                                ?>
-                            </td>
-                            <td>
-                                <?
-                                if($paymentItem["pmType"] == "CC") echo "신용카드";
-                                else if($paymentItem["pmType"] == "BA") echo "계좌";
-                                else if($paymentItem["pmType"] == "FC") echo "해외신용";
-                                echo "/ " . $paymentItem["info"];
-                                ?>
-                            </td>
-                            <td><?=$paymentItem["totalPrice"]?></td>
-                            <td><?=$paymentItem["paymentDate"]?></td>
-                            <td><?=$paymentItem["monthlyDate"]?></td>
-                        </tr>
-                    <?}?>
+                    <tr>
+                        <th>배송방식</th>
+                        <td colspan="2">
+                            <select class="custom-select" name="shippingType">
+                                <option value="" >전체</option>
+                                <option value="0" >우편</option>
+                                <option value="1" >택배</option>
+                            </select>
+                        </td>
+                        <th></th>
+                        <td colspan="2">
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <hr>
-            <h3>History</h3>
-            <div class="input-group mb-3 float-right">
-                <div class="input-group-text">
-                    <input type="checkbox" name="historyType" id="hOption1" value="all">
-                    <label for="hOption1">전체</label>
-                    &nbsp;&nbsp;
-                    <input type="checkbox" name="historyType" id="hOption2" value="sub">
-                    <label for="hOption1">구독</label>
-                    &nbsp;&nbsp;
-                    <input type="checkbox" name="historyType" id="hOption3" value="sup">
-                    <label for="hOption1">후원</label>
-                    &nbsp;&nbsp;
-                    <input type="checkbox" name="historyType" id="hOption4" value="pay">
-                    <label for="hOption1">결제</label>
-                    &nbsp;&nbsp;
-                    <input type="checkbox" name="historyType" id="hOption5" value="etc">
-                    <label for="hOption5">기타</label>
+                <div class="float-right">
+                    <input type="reset" class="btn btn-secondary jReset" value="초기화" />
+                    <button type="button" class="btn btn-secondary jSearch">조회</button>
                 </div>
-                <button type="button" class="btn btn-secondary ml-4 jAddHistory">+</button>
-                <button type="button" class="btn btn-secondary ml-5 jSave">저장</button>
+            </form>
+
+            <br/>
+            <br/>
+            <hr/>
+            <h3>조회 결과</h3>
+            <div class="float-right mb-2" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary jTranscendanceExcel" data-toggle="dropdown">
+                    <i class="fas fa-download fa-fw"></i>Excel
+                </button>
             </div>
-            <div style="width: 100%; height: 500px; overflow-y: scroll">
-                <table class="table table-sm table-bordered">
-                    <thead>
-                    <tr>
-                        <th style="width: 25%">등록일시</th>
-                        <th style="width: 10%">상담ID</th>
-                        <th style="width: 10%">상담유형</th>
-                        <th style="width: 55%">내용</th>
+            <table class="table table-hover table-bordered mt-2 alterTarget">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>구분</th>
+                    <th>이름</th>
+                    <th>핸드폰번호</th>
+                    <th>주소</th>
+                    <th>등록일시</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?foreach($list as $item){?>
+                    <tr class="jView" id="<?=$item["id"]?>">
+                        <td><?=$item["email"]?></td>
+                        <td><?=$item["type"] == "1" ? "개인" : "단체"?></td>
+                        <td><?=$item["name"]?></td>
+                        <td><?=$item["phone"]?></td>
+                        <td><?=$item["addr"] . " " . $item["addrDetail"]?></td>
+                        <td><?=$item["regDate"]?></td>
                     </tr>
-                    </thead>
-                    <tbody id="historyArea">
-
-                    </tbody>
-                    <tbody id="historyAddArea">
-                    </tbody>
-                </table>
-            </div>
-        </form>
+                <?}?>
+                </tbody>
+            </table>
+            <? // include $_SERVER["DOCUMENT_ROOT"] . "/admin/inc/pageNavigator.php";?>
+        </div>
     </div>
-</div>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>

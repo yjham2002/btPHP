@@ -125,7 +125,7 @@
         $("[name=historyType][value=all]").trigger("click");
 
         function initHistoryTable(typeArr){
-            var ajax = new AjaxSender("/route.php?cmd=Management.historyData", true, "json", new sehoMap().put("typeArr", typeArr));
+            var ajax = new AjaxSender("/route.php?cmd=Management.historyData", true, "json", new sehoMap().put("id", "<?=$_REQUEST["id"]?>").put("typeArr", typeArr));
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     $("#historyArea").html("");
@@ -196,6 +196,7 @@
             var id = $(this).attr("id");
             var index = $(".jSaveSup").index($(this));
             var ajax = new AjaxSender("/route.php?cmd=Management.updateSupport", false, "json", new sehoMap()
+                .put("customerId", "<?=$_REQUEST["id"]?>")
                 .put("id", id).put("supType", $("[name='sup_supType[]']").eq(index).val())
                 .put("totalPrice", $("[name='sup_totalPrice[]']").eq(index).val())
                 .put("rName", $("[name='sup_rName[]']").eq(index).val())
@@ -281,6 +282,7 @@
         <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?=$_REQUEST["id"]?>"/>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">

@@ -86,6 +86,7 @@
 
         $("[name=docFile]").change(function(){
             if($(this).val() != ""){
+                $("#spinner").fadeIn();
                 var ajax = new AjaxSubmit("/route.php?cmd=ExcelParser.parseCustomerList", "post", true, "json", "#form");
                 ajax.send(function(data){
                     if(data.returnCode === 1){
@@ -95,11 +96,17 @@
                         if(err == null || err == "") err = "#";
                         alert("파일을 읽는 중 오류가 발생하였습니다. (" + err + ")");
                     }
+                    $("#spinner").fadeOut();
                 });
             }
         });
     });
 </script>
+
+    <div id="spinner" style="display: none;z-index:9999;position:fixed;top:0;left:0;width:100vw;height:100vh;background: rgba(52, 58, 64, 0.5); text-align: center;">
+        <img style="margin-top:calc(50vh - 50px);" src="./spinner.gif" width="100px" height="100px" />
+        <h3 style="color:white;margin-top: 30px;">처리 중입니다</h3>
+    </div>
 
 <div id="content-wrapper">
     <div class="container-fluid">

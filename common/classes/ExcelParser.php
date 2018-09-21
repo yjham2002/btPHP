@@ -26,7 +26,6 @@ if(!class_exists("ExcelParser")){
             $objPHPExcel = new PHPExcel();
 
             $filename = $targetDir;
-
             $lastRead = 0;
 
             try {
@@ -48,13 +47,97 @@ if(!class_exists("ExcelParser")){
 
                 $data = array();
 
-                for ($i = 1 ; $i <= $maxRow ; $i++) {
-                    $a = $objWorksheet->getCell('A' . $i)->getValue(); // A열
-                    $b = $objWorksheet->getCell('B' . $i)->getValue(); // B열
-                    $c = $objWorksheet->getCell('C' . $i)->getValue(); // C열
-                    $d = $objWorksheet->getCell('D' . $i)->getValue(); // D열
+                for ($i = 3 ; $i <= $maxRow ; $i++) {
+                    $name = $objWorksheet->getCell('D' . $i)->getValue();
+                    $phone = $objWorksheet->getCell('E' . $i)->getValue();
+                    $email = $objWorksheet->getCell('F' . $i)->getValue();
+                    $zipcode = $objWorksheet->getCell('G' . $i)->getValue();
+                    $addr = $objWorksheet->getCell('H' . $i)->getValue() . " " . $objWorksheet->getCell('I' . $i)->getValue();
+                    $addrDetail = $objWorksheet->getCell('J' . $i)->getValue();
+                    $history = $objWorksheet->getCell('W' . $i)->getValue();
 
-                    echo $a."/".$b."/".$c."<br/>";
+                    $sql = "
+                        SELECT * FROM tblCustomer WHERE email = '{$email}'
+                    ";
+                    $mem = $this->getRow($sql);
+                    if($mem == ""){
+                        $sql = "
+                            INSERT INTO tblCustomer(`type`, name, phone, email, zipcode, addr, addrDetail, regDate)
+                            VALUES(
+                              '1',
+                              '{$name}',
+                              '{$phone}',
+                              '{$email}',
+                              '{$zipcode}',
+                              '{$addr}',
+                              '{$addrDetail}',
+                              NOW()
+                            )
+                        ";
+                        $this->update($sql);
+                        $customerId = $this->mysql_insert_id();
+
+                        $history = explode("\n", $history);
+                        $tmp = Array();
+
+                        for($t=0; $t<sizeof($history); $t++){
+                            if($history[$t] != "") array_push($tmp, $history[$t]);
+                        }
+
+
+                        for($t=0; $t<sizeof($tmp); $t++){
+                            $target = $tmp[$t];
+                            $time = trim(substr($target, 0, strpos($target,"(")));
+
+                            // 2018/4/25 PM 5:04:27
+                            $tempArr1 = explode(" ", $time);
+                            $dateArr = explode("/", $tempArr1[0]);
+                            if(sizeof($dateArr) < 3) $dateArr = explode("-", $tempArr1[0]);
+                            $timeArr = explode(":", $tempArr1[2]);
+
+                            $postfixHour = $tempArr1[1] == "오후" ? 12 : 0;
+
+                            $year = $dateArr[0];
+                            $month = str_pad($dateArr[1], 2, "0", STR_PAD_LEFT);
+                            $day = str_pad($dateArr[2], 2, "0", STR_PAD_LEFT);
+                            $hour = str_pad((intval($timeArr[0]) + $postfixHour) % 24, 2, "0", STR_PAD_LEFT);
+                            $min = str_pad($timeArr[1], 2, "0", STR_PAD_LEFT);
+                            $sec = str_pad($timeArr[2], 2, "0", STR_PAD_LEFT);
+
+                            $name = substr($target, strpos($target,"(") + 1, strpos($target,")") - strpos($target, "(") - 1);
+                            $content = $target;
+//                            $content = trim(substr($target, strpos($target,") - ") + 4));
+                            $content = mysql_escape_string($content);
+
+//
+//                            echo $year."-".$month."-".$day." ".$hour.":".$min.":".$sec;
+//                            echo "time:".$time ."\n";
+//                            echo "name:".$name."\n";
+//                            echo "content:".$content."\n";
+//                            echo "-------------------------------\n";
+
+                            if($name == "" || $content == "" || $time == ""){
+                                continue;
+                            }
+
+                            $time = $year."-".$month."-".$day." ".$hour.":".$min.":".$sec;
+
+                            $sql = "
+                                INSERT INTO tblCustomerHistory(customerId, modifier, type, content, regDate)
+                                VALUES(
+                                  '{$customerId}',
+                                  '{$name}',
+                                  'etc',
+                                  '{$content}',
+                                  '{$time}'
+                                )
+                            ";
+
+//                            echo $sql;
+                            $this->update($sql);
+                        }
+
+                    }
                 }
 
             }
