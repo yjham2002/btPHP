@@ -96,7 +96,7 @@
 
         $(".jDelivery").click(function(){
             //TODO 배송조회
-            location.href = "/admin/pages/customterManage/deliveryList.php";
+            location.href = "/admin/pages/customerManage/deliveryList.php?id=<?=$_REQUEST["id"]?>";
         });
 
         $(document).on("click", "[name=historyType]", function(){

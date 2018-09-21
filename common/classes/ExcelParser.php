@@ -65,6 +65,79 @@ if(!class_exists("ExcelParser")){
             return $this->makeResultJson(1, "File Parsed Successfully.", $lastRead);
         }
 
+        function parseDeliveryHistory(){
+            $id = $_REQUEST["id"];
+            $check = file_exists($_FILES['docFile']['tmp_name']);
+            $targetDir = "";
+
+            if($check !== false){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION);
+                if(pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION) == "xls" || pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION) == "xlsx"){
+                    $targetDir = $_SERVER["DOCUMENT_ROOT"] . "/uploadFiles/" . $fName;
+                    if(!move_uploaded_file($_FILES["docFile"]["tmp_name"], $targetDir)) return $this->makeResultJson(-1, "Failed to read the file.");
+                }else{
+                    return $this->makeResultJson(-1, "Unexpected Extension of the file.");
+                }
+            }
+
+            $objPHPExcel = new PHPExcel();
+
+            $filename = $targetDir;
+
+            $lastRead = 0;
+
+            try {
+                $objReader = PHPExcel_IOFactory::createReaderForFile($filename);
+                $objReader->setReadDataOnly(true);
+                $objExcel = $objReader->load($filename);
+
+                $objExcel->setActiveSheetIndex(0); // Select First Sheet
+
+                $objWorksheet = $objExcel->getActiveSheet();
+                $rowIterator = $objWorksheet->getRowIterator();
+
+                foreach ($rowIterator as $row) { // For All the rows
+                    $cellIterator = $row->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(false);
+                }
+
+                $maxRow = $objWorksheet->getHighestRow();
+
+                $data = array();
+
+                for ($i = 2 ; $i <= $maxRow ; $i++) {
+                    $name = $objWorksheet->getCell('A' . $i)->getValue(); // A열
+                    $shippingDate = $objWorksheet->getCell('B' . $i)->getValue(); // B열
+                    $info = $objWorksheet->getCell('C' . $i)->getValue(); // C열
+                    $cnt = $objWorksheet->getCell('D' . $i)->getValue(); // D열
+                    $addr = $objWorksheet->getCell('E' . $i)->getValue(); // D열
+
+//                    echo $name . "//" . $shippingDate . "//" .$info ."//" . $cnt ."//" . $addr;
+//                    if(gettype($cnt) != "integer") continue;
+
+                    $sql = "
+                        INSERT INTO tblCustomerDeliveryHistory(customerId, name, shippingDate, info, cnt, addr, regDate)
+                        VALUES(
+                          '{$id}',
+                          '{$name}',
+                          '{$shippingDate}',
+                          '{$info}',
+                          '{$cnt}',
+                          '{$addr}',
+                          NOW()
+                        )
+                    ";
+                    $this->update($sql);
+                }
+
+            }
+            catch (exception $e) {
+                return $this->makeResultJson(-1, "Failed to parse.", $lastRead);
+            }
+
+            return $this->makeResultJson(1, "File Parsed Successfully.", $lastRead);
+        }
+
     }
 
 }

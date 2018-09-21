@@ -1,0 +1,802 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Worksheet</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="utf-8"></head><body><table>
+<table border="1" id="toPrint">
+    <tr>
+        <th>타입</th>
+        <th>구독/후원 시작월</th>
+        <th>구독/후원끝나는월</th>
+        <th>간행물</th>
+        <th>부수</th>
+        <th>가격</th>
+        <th>구독유형</th>
+        <th>후원유형</th>
+        <th>배송방식</th>
+        <th>받는분 이름</th>
+        <th>받는분 이메일</th>
+        <th>받는분 핸드폰</th>
+        <th>받는분 우편번호</th>
+        <th>받는분 주소</th>
+        <th>후원집회명</th>
+        <th>신청일</th>
+        <th>회원 아이디</th>
+        <th>회원 유형</th>
+        <th>결제 유형</th>
+        <th>월 결제일</th>
+        <th>계좌이체 외부참조키</th>
+        <th>Authorize.net 구독키</th>
+        <th>Authorize.net 회원키</th>
+        <th>카드사</th>
+        <th>은행</th>
+        <th>카드/계좌번호</th>
+        <th>카드 유효월</th>
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809200900451294536</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386222</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809200848401855432</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386222</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809200845001088958</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>카카오뱅크</td>
+        <td style='mso-number-format:"\@"'>1002945387867</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809200839511013209</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386233</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809200834001511894</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945387652</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>bt201809190803501744969</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945286232</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>417</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386239</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>416</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945384746</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>415</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386267</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>414</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386222</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>413</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386244</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>412</td>
+        <td></td>
+        <td></td>
+        <td>광주카드</td>
+        <td>국민은행</td>
+        <td style='mso-number-format:"\@"'>1002945384757</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>X3_NT*</td>
+        <td>10</td>
+        <td>13000</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            택배        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호1111</td>
+        <td></td>
+        <td>2018-08-20 18:07:21</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>411</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>농협단위조합</td>
+        <td style='mso-number-format:"\@"'>1002945386222</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>X3_NT*</td>
+        <td>1</td>
+        <td>1500</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            우편        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호1111</td>
+        <td></td>
+        <td>2018-08-20 18:07:21</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>5</td>
+        <td>410</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386233</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2005/3        </td>
+        <td style='mso-number-format:"\@"'>2007/9</td>
+        <td>X2</td>
+        <td>111</td>
+        <td>166500</td>
+        <td>
+            묶음배송        </td>
+        <td>
+                    </td>
+        <td>
+            택배        </td>
+        <td>전1세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>0110294846481</td>
+        <td>1135971</td>
+        <td>경1기 성남시 분당구 내정로 1851 2102동 1401호1</td>
+        <td></td>
+        <td>2018-08-08 15:48:50</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>15</td>
+        <td>402</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386232</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>X3_NT*</td>
+        <td>1</td>
+        <td>1500</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            우편        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호</td>
+        <td></td>
+        <td>2018-08-20 18:07:21</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>15</td>
+        <td>401</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386232</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>X3_NT*</td>
+        <td>1</td>
+        <td>1500</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            우편        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호</td>
+        <td></td>
+        <td>2018-08-20 18:07:21</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            계좌이체        </td>
+        <td>15</td>
+        <td>400</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>우리은행</td>
+        <td style='mso-number-format:"\@"'>1002945386232</td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/09        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td></td>
+        <td></td>
+        <td>10000</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>배경윤</td>
+        <td>kyungyoon.bae@bibletime.org</td>
+        <td style='mso-number-format:"\@"'>01094852734</td>
+        <td></td>
+        <td> </td>
+        <td></td>
+        <td></td>
+        <td>kyungyoon.bae@bibletime.org</td>
+        <td>개인</td>
+        <td>
+                    </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style='mso-number-format:"\@"'></td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            2005/5        </td>
+        <td style='mso-number-format:"\@"'>2061/7</td>
+        <td></td>
+        <td></td>
+        <td>1000011</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호11</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td>test집회111</td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            신용카드        </td>
+        <td>25</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>현대카드</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>3453234223452346</td>
+        <td>04/2021</td>
+
+    </tr>
+        <tr>
+        <td>후원        </td>
+        <td style='mso-number-format:"\@"'>
+            1968/3        </td>
+        <td style='mso-number-format:"\@"'>1975/4</td>
+        <td></td>
+        <td></td>
+        <td>100001</td>
+        <td>
+            개인        </td>
+        <td>
+            BTG        </td>
+        <td>
+                    </td>
+        <td>전세호1</td>
+        <td>fishcreek@naver.com</td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td></td>
+        <td> </td>
+        <td>1wefw</td>
+        <td></td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            신용카드        </td>
+        <td>25</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>현대카드</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>4028571144327319</td>
+        <td>04/2022</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>X3_NT*</td>
+        <td>1</td>
+        <td>1500</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            우편        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호</td>
+        <td></td>
+        <td>2018-08-20 18:07:21</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+                    </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style='mso-number-format:"\@"'></td>
+        <td>/</td>
+
+    </tr>
+        <tr>
+        <td>구독        </td>
+        <td style='mso-number-format:"\@"'>
+            2018/10        </td>
+        <td style='mso-number-format:"\@"'>/</td>
+        <td>publication1</td>
+        <td>1</td>
+        <td>11</td>
+        <td>
+            개인        </td>
+        <td>
+                    </td>
+        <td>
+            우편        </td>
+        <td>전세호</td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>01029484648</td>
+        <td>13597</td>
+        <td>경기 성남시 분당구 내정로 185 202동 1401호</td>
+        <td></td>
+        <td>2018-08-08 14:11:53</td>
+        <td>fishcreek@naver.com</td>
+        <td>개인</td>
+        <td>
+            해외신용카드        </td>
+        <td>15</td>
+        <td></td>
+        <td>5336010</td>
+        <td>1505242742</td>
+        <td></td>
+        <td></td>
+        <td style='mso-number-format:"\@"'>4028571144327319</td>
+        <td>04/2022</td>
+
+    </tr>
+    </table></table></body></html>

@@ -974,5 +974,18 @@ if(!class_exists("Management")){
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }
+
+        function deliveryHistory(){
+            $id = $_REQUEST["id"];
+            $this->initPage();
+            $sql = "SELECT COUNT(*) cnt FROM tblCustomerDeliveryHistory WHERE customerId ='{$id}'";
+            $this->rownum = $this->getValue($sql, "cnt");
+            $this->setPage($this->rownum);
+
+            $sql = "
+                SELECT * FROM tblCustomerDeliveryHistory WHERE customerId ='{$id}' ORDER BY regDate DESC LIMIT {$this->startNum}, {$this->endNum};
+            ";
+            return $this->getArray($sql);
+        }
     }
 }

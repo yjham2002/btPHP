@@ -112,6 +112,7 @@
 
         <form id="form">
             <input type="hidden" name="page"/>
+            <input type="file" name="docFile" style="display: none;"/>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-secondary mr-lg-5 jDetailSearch"><i class="fas fa-search fa-fw"></i>상세검색</button>
