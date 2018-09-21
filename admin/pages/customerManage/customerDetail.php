@@ -385,20 +385,21 @@
                     <thead>
                     <tr>
                         <th width="4%">받는사람</th>
-                        <th width="5%">전화번호</th>
+                        <th width="8%">전화번호</th>
                         <th width="3%">우편번호</th>
                         <th width="12%">주소</th>
-                        <th width="6%">상세주소</th>
-                        <th width="5%">버전</th>
+                        <th width="8%">상세주소</th>
+                        <th width="8%">버전</th>
                         <th width="3%">부수</th>
                         <th width="6%">유형</th>
                         <th width="6%">배송</th>
-                        <th width="9%">신청일</th>
-                        <th width="4%">시작 월호</th>
-                        <th width="4%">끝나는 월호</th>
-                        <th width="6%">결제정보</th>
-                        <th width="6%">발송현황</th>
-                        <th width="5%">상태</th>
+                        <th width="7%">신청일</th>
+                        <th width="6%">시작 월호</th>
+                        <th width="6%">끝나는 월호</th>
+                        <th width="4%">가격</th>
+                        <th width="2%">결제정보</th>
+                        <th width="5%">발송현황</th>
+                        <th width="6%">상태</th>
                         <th width="6%">-</th>
                     </tr>
                     </thead>
@@ -482,6 +483,9 @@
                                         <option value="<?=$i?>" <?=$subItem["eMonth"] == $i ? "selected" : ""?>><?=$i?></option>
                                     <?}?>
                                 </select>
+                            </td>
+                            <td>
+                                <?=$subItem["totalPrice"]?>
                             </td>
                             <td>
                                 <?

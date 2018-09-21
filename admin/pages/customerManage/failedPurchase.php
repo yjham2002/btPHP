@@ -80,7 +80,7 @@
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     var innerAjax = new AjaxSender("/route.php?cmd=Management.processFC", false, "json", new sehoMap());
-                    ajax.send(function(data){
+                    innerAjax.send(function(data){
                         if(data.returnCode === 1){
                             alert("갱신되었습니다.");
                             location.reload();
@@ -97,7 +97,7 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">고객관리</a>
+                <a>고객관리</a>
             </li>
             <li class="breadcrumb-item active">결제관리</li>
         </ol>
@@ -139,10 +139,12 @@
                     <?foreach($list as $item){?>
                         <tr>
                             <td><?=$item["ownerName"]?></td>
-                            <td><?=$item["primeRes"]["userstat_kind"] == "1" ? "정상" : "해지"?></td>
+                            <td><?=$item["primeRes"]["memberStatus"] == "1" ? "정상" : "해지"?></td>
                             <td>
                                 <?
-                                    if($item["primeRes"][""])
+                                    if($item["primeRes"]["chargeRes"] != 1) echo "출금불능";
+                                    else echo "<br>출금완료";
+                                    if($item["primeRes"]["bankRes"] != 1) echo "<br>해지";
                                 ?>
                             </td>
                             <td><?=$item["bankDesc"]?></td>

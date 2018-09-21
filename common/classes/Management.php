@@ -877,6 +877,12 @@ if(!class_exists("Management")){
                     ";
                     $this->update($sql);
                 }
+                else if($retStatus == "active" && $retCode == "I00001"){
+                    $sql = "
+                        UPDATE tblPayment SET paymentResult = '1' WHERE `id` = '{$item["id"]}'
+                    ";
+                    $this->update($sql);
+                }
             }
             return $this->makeResultJson(1, "succ");
         }
