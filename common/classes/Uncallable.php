@@ -38,6 +38,27 @@ if(!class_exists("Uncallable")){
             return $this->makeResultJson(1, "succ");
         }
 
+        function updateReceiptJson(){
+            $id = $_REQUEST["id"];
+            $vat = $_REQUEST["vat"];
+            $check = $_REQUEST["check"];
+            $formJson = $_REQUEST["formJson"];
+
+            $formJson = mb_decode_numericentity($formJson, array(0x80, 0xffff, 0, 0xffff), 'UTF-8');
+
+            $sql = "
+              INSERT INTO tblReceipt(`id`, `formJson`, `regDate`, `vat`, `check`) 
+              VALUES ('{$id}', '{$formJson}', NOW(), '{$vat}', '{$check}')
+              ON DUPLICATE KEY UPDATE 
+                `formJson`='{$formJson}',
+                `vat` = '{$vat}',
+                `check` = '{$check}'
+            ";
+            $this->update($sql);
+
+            return $this->makeResultJson(1, $sql);
+        }
+
         function updateOrderJson(){
             $id = $_REQUEST["id"];
             $formJson = $_REQUEST["formJson"];
@@ -60,6 +81,24 @@ if(!class_exists("Uncallable")){
         function getOrderForm(){
             $id = $_REQUEST["id"];
             $sql = "SELECT * FROM tblOrderform WHERE `id`='{$id}'";
+            return $this->getRow($sql);
+        }
+
+        function getReceipt(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT * FROM tblReceipt WHERE `id`='{$id}'";
+            return $this->getRow($sql);
+        }
+
+        function getSub(){
+            $id = $_REQUEST["id"];
+            $sql = "SELECT *,
+                    DATE_FORMAT(`regDate`,'%m/%d') AS ftd,
+                    (SELECT `desc` FROM tblPublication WHERE `id`=publicationId) AS puName,
+                    (SELECT `name` FROM tblCustomer WHERE `id`=customerId) AS cuName,
+                    (SELECT `phone` FROM tblCustomer WHERE `id`=customerId) AS cuPhone,
+                    (SELECT CONCAT(addr, ' ', addrDetail) FROM tblCustomer WHERE `id`=customerId) AS fAddr  
+                    FROM tblSubscription WHERE `id`='{$id}'";
             return $this->getRow($sql);
         }
 

@@ -207,7 +207,7 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 <h6 class="dropdown-header">발송</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/kakaoList.php">카톡 발송 현황</a>
                     <a class="dropdown-item" href="/admin/pages/customerManage/signatures.php">명세서 정적정보</a>
-                    <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php?year=<?=intval(date("Y"))?>&month=<?=date("m")?>&type=A&page=1">거래명세서 발송</a>
+                    <a class="dropdown-item" href="/admin/pages/customerManage/transactionDetailsSend.php?year=<?=intval(date("Y"))?>&month=<?=date("m")?>&type=-1&page=1">거래명세서 발송</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">해외</h6>
                 <a class="dropdown-item" href="/admin/pages/customerManage/foreignStatus.php">해외진행 현황</a>

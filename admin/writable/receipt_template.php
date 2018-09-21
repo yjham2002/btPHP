@@ -1,6 +1,7 @@
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <?
 $uc = new Uncallable($_REQUEST);
+
 $CONST_PREFIX_IMAGE = "S_RECEIPT_";
 $sign1 = $uc->getProperty($CONST_PREFIX_IMAGE."01");
 
@@ -11,131 +12,33 @@ $static_phone = $uc->getProperty("STATIC_R_PHONE");
 $static_name = $uc->getProperty("STATIC_R_NAME");
 $static_account = $uc->getProperty("STATIC_R_ACCOUNT");
 
+$subscribe = $uc->getSub();
+
 if($_REQUEST["id"] == ""){
     echo "<script>alert('비정상적인 접근입니다.'); window.close();</script>";
 }
 
-$formData = $uc->getOrderForm();
+$formData = $uc->getReceipt();
 $formJson = $formData["formJson"];
-?>
-<?
-    $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', nl2br($formJson)), true);
-?>
-<?
-    $F_VALUE = array(
-        "supply_number" => "2018-08-24 - 1_#", // 일련번호
-        "supply_tel" => "1566-5333_#", // TEL
-        "supply_reg" => "123-12-12345_#", // 사업자등록번호
-        "supply_name" => "김신래_#", // 성명
-        "supply_trade" => "(주)가장많이쓰는 이카운트 ERP_#", // 상호
-        "supply_addr" => "서울특별시 구로구 구로동 222-14 에이스하이엔드타워2차 603호_#", // 주소
-        "title_box" => "이카건설 貴中<br/>충남 당진군 대호지면 매송리 8325-9852번지<br/>☎ 1566-5333_#", // 좌측 상단 박스
-        "total_literal" => "팔백구십일만원 정_#", // 금액(한글)
-        "total_number" => "8,910,000_#", // 금액
-        "total_quantity" => "1,500_#", // 총 수량
-        "total_supply" => "8,100,000_#", // 총 공급가액
-        "total_vat" => "810,000_#", // 총 VAT
-        "total_check" => "_#", // 인수
+$F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', $formJson), true);
 
-        "list_01" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_02" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_03" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_04" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_05" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_06" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_07" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_08" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_09" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_10" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_11" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        ),
-        "list_12" => array( // 품목 리스트
-            "date" => "08/24_#",
-            "name" => "품목명_#",
-            "quantity" => "100EA_#",
-            "price" => "1,000_#",
-            "supply" => "900,000_#",
-            "vat" => "100,000_#"
-        )
-    );
+$totalPrice = 0;
+$totalQuan = 0;
 
-    $F_VALUE = json_decode(json_encode($F_VALUE), true);
+$check = $formData["check"];
+$vat = $formData["vat"];
+
+for($w = 0; $w < sizeof($F_VALUE); $w++){
+    $totalPrice += intval($F_VALUE[$w]["supply"]);
+    $totalQuan += intval($F_VALUE[$w]["quantity"]);
+}
+
+$supplyPrice = $totalPrice;
+$totalPrice += $vat;
+
+$totalLiteral = $uc->getHangleMoney($totalPrice);
+if($totalLiteral == "") $totalLiteral = "영";
+
 ?>
 
 <?if($_REQUEST["raw"] != "true"){?>
@@ -156,6 +59,15 @@ $formJson = $formData["formJson"];
             margin: 0;
         }
         @media print {
+
+            td input[type=text], td textarea {
+                border : none;
+                width: 100%;
+                height: 100%;
+                font-size: 1.0em !important;
+                padding : 0 !important;
+            }
+
             #toPrint {
                 margin: 5mm 10mm 8mm 10mm;
                 border: initial;
@@ -166,7 +78,12 @@ $formJson = $formData["formJson"];
                 background: initial;
                 page-break-after: always;
             }
-            
+            .darkBg{
+                background:#C0C0C0 !important;
+                background-color: #C0C0C0 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
         }
 
         body,div,table,thead,tbody,tfoot,tr,th,td,p {  font-size:13px; }
@@ -179,18 +96,22 @@ $formJson = $formData["formJson"];
             padding : 5px 30px 5px 30px;
             text-decoration: none;
         }
+
+        td{
+            color : black !important;
+        }
+
+        input{
+            color : black !important;
+        }
     </style>
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/writable/jspdf/jspdf.min.js"></script>
-<!--    <script src="/admin/writable/jspdf/plugins/from_html.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/split_text_to_size.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/standard_fonts_metrics.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/addhtml.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/cell.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/addimage.js"></script>-->
-<!--    <script src="/admin/writable/jspdf/plugins/png_support.js"></script>-->
     <script src="/admin/writable/jspdf/libs/html2canvas/dist/html2canvas.js"></script>
     <script>
+        var formJson = <?=preg_replace('/[\x00-\x1F\x7F]/', '', $formJson)?>;
+        var currentId = "<?=$_REQUEST["id"]?>";
+
         function exportToExcel(){
             var divToPrint=document.getElementById("toPrint");
             var optionCss = "#toPrint{width : 210mm;}";
@@ -198,23 +119,11 @@ $formJson = $formData["formJson"];
 
             var uri = 'data:application/vnd.ms-excel;base64,';
             var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
-            var base64 = function(s) {
-                return window.btoa(unescape(encodeURIComponent(s)))
-            };
 
-            var format = function(s, c) {
-                return s.replace(/{(\w+)}/g, function(m, p) {
-                    return c[p];
-                })
-            };
+            var base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))); };
+            var format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p];});};
 
-//            htmls = "YOUR HTML AS TABLE"
-
-            var ctx = {
-                worksheet : 'Worksheet',
-                table : htmls
-            }
-
+            var ctx = { worksheet : 'Worksheet', table : htmls};
             var link = document.createElement("a");
             link.download = "export.xls";
             link.href = uri + base64(format(template, ctx));
@@ -239,7 +148,7 @@ $formJson = $formData["formJson"];
                     onrendered: function(canvas) {
                         var imgData = canvas.toDataURL("image/png");
                         var pdf = new jsPDF('p', 'mm', [297, 210]);
-                        var leftMargin = 30;
+                        var leftMargin = 20;
                         var topMargin = 10;
                         pdf.addImage(imgData, 'PNG',
                             leftMargin, topMargin, 210 - (leftMargin * 2), 297 - (topMargin * 2));
@@ -268,20 +177,53 @@ $formJson = $formData["formJson"];
                 return today;
             }
 
+            $("input, textarea").change(function(){
+                process();
+                console.log(JSON.stringify(formJson));
+                if(currentId == ""){
+
+                }else{
+
+                }
+
+            });
+
+            var processed = false;
+
+            function process(){
+                processed = true;
+                var objs = $("input, textarea");
+                for(var e = 0; e < objs.length;  e++){
+                    var name = objs.eq(e).attr("name");
+                    var content = objs.eq(e).val();
+                    var spName = name.split("-");
+                    var pointer = "formJson";
+                    if(!formJson.hasOwnProperty(spName[0])) continue;
+                    for(var w = 0; w < spName.length; w++){
+                        pointer = pointer + "['" + spName[w] + "']";
+                    }
+                    eval(pointer + " = content");
+                }
+            }
+
             $(".jPrint").click(function(){
-                printData();
+                if(processed){
+                    alert("변경사항이 있습니다. 저장 후 인쇄가 가능합니다.");
+                }else{
+                    printData();
+                }
             });
 
             $(".jModify").click(function(){
 
             });
 
-            $(".jDownload").click(function(){
-                exportToPdf("거래명세서_" + getDate());
+            $(".jClose").click(function(){
+                updateFormJson(JSON.stringify(formJson), currentId);
             });
 
-            $(".jClose").click(function(){
-
+            $(".jDownload").click(function(){
+                exportToPdf("거래명세서_" + getDate());
             });
 
             if("<?=$_REQUEST["redirect"]?>" == "true"){
@@ -340,7 +282,11 @@ $formJson = $formData["formJson"];
     </tr>
     <tr>
         <td rowspan="3" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["title_box"]?></span></P>
+            <?
+            $tempName = $subscribe["cuName"];
+            if($subscribe["cName"] != "") $tempName .= "(".$subscribe["cName"].")";
+            ?>
+            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$tempName?> 貴中<br/><?=$subscribe["fAddr"]?><br/>☎ <?=$subscribe["cuPhone"]?></span></P>
         </td>
         <td width="76" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>상호</span></P>
@@ -370,10 +316,10 @@ $formJson = $formData["formJson"];
     <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
         <tr>
             <td width="370" height="30" valign="middle" style='border-left:solid #000000 1.7pt;border-right:none;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
-                <P STYLE='text-align:left;'><span STYLE='font-size:12.0pt;line-height:140%;'>금액 : <?=$F_VALUE["total_literal"]?></span></P>
+                <P STYLE='text-align:left;'><span STYLE='font-size:12.0pt;line-height:140%;'>금액 : <?=$totalLiteral?>원정</span></P>
             </td>
             <td width="370" height="30" valign="middle" style='border-left:none;border-right:solid #000000 1.7pt;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
-                <P STYLE='text-align:right;'><span STYLE='font-size:12.0pt;line-height:140%;'>(\ <?=$F_VALUE["total_number"]?>)</span></P>
+                <P STYLE='text-align:right;'><span STYLE='font-size:12.0pt;line-height:140%;'>(\ <?=$totalPrice?>)</span></P>
             </td>
         </tr>
     </table>
@@ -388,7 +334,7 @@ $formJson = $formData["formJson"];
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명 및 규격</span></P>
     </td>
     <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량<br/>(단위포함)</span></P>
+        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
     </td>
     <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>단가</span></P>
@@ -400,246 +346,31 @@ $formJson = $formData["formJson"];
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>적요</span></P>
     </td>
     </tr>
+    <?for($e = 0; $e < sizeof($F_VALUE) ; $e++){
+        $item = $F_VALUE[$e];
+        ?>
     <tr>
         <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["date"]?></span></P>
+            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["date"]?></span></P>
         </td>
         <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["name"]?></span></P>
+            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["name"]?></span></P>
         </td>
         <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["quantity"]?></span></P>
+            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["quantity"]?></span></P>
         </td>
         <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["price"]?></span></P>
+            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["price"]?></span></P>
         </td>
         <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["supply"]?></span></P>
+            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["supply"]?></span></P>
         </td>
         <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["vat"]?></span></P>
+            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["vat"]?></span></P>
         </td>
     </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["vat"]?></span></P>
-        </td>
-    </tr>
+    <?}?>
+
     </table></P>
 
     <P>
@@ -649,31 +380,31 @@ $formJson = $formData["formJson"];
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_quantity"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$totalQuan?></span></P>
     </td>
     <td width="75" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공급가액</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_supply"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$supplyPrice?></span></P>
     </td>
     <td width="37" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>VAT</span></P>
     </td>
     <td width="101" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_vat"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$vat?></span></P>
     </td>
     <td width="45" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>합계</span></P>
     </td>
     <td width="90" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_number"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$totalPrice?></span></P>
     </td>
     <td width="41" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>인수</span></P>
     </td>
     <td width="86" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_check"]?> 인</span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$check?></span></P>
     </td>
     </tr>
     </table></P>
@@ -723,7 +454,11 @@ $formJson = $formData["formJson"];
     </tr>
     <tr>
         <td rowspan="3" height="54" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["title_box"]?></span></P>
+            <?
+            $tempName = $subscribe["cuName"];
+            if($subscribe["cName"] != "") $tempName .= "(".$subscribe["cName"].")";
+            ?>
+            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$tempName?> 貴中<br/><?=$subscribe["fAddr"]?><br/>☎ <?=$subscribe["cuPhone"]?></span></P>
         </td>
         <td width="76" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
             <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>상호</span></P>
@@ -749,6 +484,19 @@ $formJson = $formData["formJson"];
         </td>
     </tr>
     </table></P>
+
+    <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
+        <tr>
+            <td width="370" height="30" valign="middle" style='border-left:solid #000000 1.7pt;border-right:none;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
+                <P STYLE='text-align:left;'><span STYLE='font-size:12.0pt;line-height:140%;'>금액 : <?=$totalLiteral?>원정</span></P>
+            </td>
+            <td width="370" height="30" valign="middle" style='border-left:none;border-right:solid #000000 1.7pt;border-top:solid #000000 1.7pt;border-bottom:solid #000000 1.7pt;padding:1.4pt 14.2pt 1.4pt 14.2pt'>
+                <P STYLE='text-align:right;'><span STYLE='font-size:12.0pt;line-height:140%;'>(\ <?=$totalPrice?>)</span></P>
+            </td>
+        </tr>
+    </table>
+
+    <P>
         <table border="1" width="100%" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
             <tr>
                 <td width="118" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -758,7 +506,7 @@ $formJson = $formData["formJson"];
                     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>품목명 및 규격</span></P>
                 </td>
                 <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-                    <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량<br/>(단위포함)</span></P>
+                    <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
                 </td>
                 <td width="69" height="29" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
                     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>단가</span></P>
@@ -770,246 +518,30 @@ $formJson = $formData["formJson"];
                     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>적요</span></P>
                 </td>
     </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_01"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_02"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_03"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_04"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_05"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_06"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_07"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_08"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_09"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_10"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_11"]["vat"]?></span></P>
-        </td>
-    </tr>
-    <tr>
-        <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["date"]?></span></P>
-        </td>
-        <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["name"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["quantity"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["price"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["supply"]?></span></P>
-        </td>
-        <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-            <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["list_12"]["vat"]?></span></P>
-        </td>
-    </tr>
+            <?for($e = 0; $e < sizeof($F_VALUE) ; $e++){
+                $item = $F_VALUE[$e];
+                ?>
+                <tr>
+                    <td width="118" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["date"]?></span></P>
+                    </td>
+                    <td width="315" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["name"]?></span></P>
+                    </td>
+                    <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["quantity"]?></span></P>
+                    </td>
+                    <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["price"]?></span></P>
+                    </td>
+                    <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["supply"]?></span></P>
+                    </td>
+                    <td width="69" height="19" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+                        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$item["vat"]?></span></P>
+                    </td>
+                </tr>
+            <?}?>
     </table></P>
 
     <P>
@@ -1019,31 +551,31 @@ $formJson = $formData["formJson"];
     <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>수량</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_quantity"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$totalQuan?></span></P>
     </td>
     <td width="75" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>공급가액</span></P>
     </td>
     <td width="97" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_supply"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$supplyPrice?></span></P>
     </td>
     <td width="37" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>VAT</span></P>
     </td>
     <td width="101" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_vat"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$vat?></span></P>
     </td>
     <td width="45" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>합계</span></P>
     </td>
     <td width="90" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_number"]?></span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$totalPrice?></span></P>
     </td>
     <td width="41" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>인수</span></P>
     </td>
     <td width="86" height="23" valign="middle" style='border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 1.1pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$F_VALUE["total_check"]?> 인</span></P>
+        <P STYLE='text-align:right;'><span STYLE='font-size:9.0pt;line-height:140%;'><?=$check?></span></P>
     </td>
     </tr>
     </table></P>

@@ -14,7 +14,8 @@
 
         $(".jDetail").click(function(){
             var id = $(this).attr("sid");
-            location.href = "/admin/pages/customerManage/transactionDetailView.php?id=" + id;
+            location.href="/admin/pages/customerManage/transactionDetailView.php?id=" + id;
+//            window.open("/admin/writable/receipt_template.php?id=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes");
         });
 
         $(".jTab").click(function(){
