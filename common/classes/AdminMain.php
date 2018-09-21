@@ -34,7 +34,81 @@ if(!class_exists("AdminMain")){
         }
 
         function getCustomerExcelList(){
-            $sql = "SELECT * FROM tblCustomer;";
+            $id = $_REQUEST["id"];
+            $where = "1=1";
+            if($id != "") $where .= " AND tmp.publicationId = '{$id}'";
+            $sql = "
+                SELECT 
+                  *,
+                  C.type as customerType,
+                  PM.type as paymentType,
+                  (SELECT `desc` FROM tblCardType WHERE `id` = cardTypeId) as cardDesc,
+                  (SELECT `desc` FROM tblBankType WHERE `code` = bankCode) as bankDesc
+                FROM(
+                	SELECT
+                		'-1' as supportId,
+                		id as subscriptionId, 
+                		customerId,
+                		publicationId,
+                		cnt,
+                		pYear,
+                		pMonth,
+                		'' as sYear,
+                		'' as sMonth,
+                		eYear,
+                		eMonth,
+                		`type` as productType,
+                		totalprice,
+                		subType,
+                		'' as supType,
+                		shippingType,
+                		rName,
+                		'' as rEmail,
+                		rPhone,
+                		rZipCode,
+                		rAddr,
+                		rAddrDetail,
+                		paymentId,
+                		'' as assemblyName,
+       					deliveryStatus,
+       					regDate
+                	FROM tblSubscription SUB
+                	UNION ALL
+                	SELECT
+                		id as supportId,
+                		'-1' as subscriptionId, 
+                		customerId,
+                		'-1' as publicationId,
+                		'' as cnt,
+                		'' as pYear,
+                		'' as pMonth,
+                		sYear,
+                		sMonth,
+                		eYear,
+                		eMonth,
+                		`type` as productType,
+                		totalprice,
+                		'' as subType,
+                		supType,
+                		'-1' as shippingType,
+                		rName,
+                		rEmail,
+                		rPhone,
+                		'' as rZipCode,
+                		'' as rAddr,
+                		'' as rAddrDetail,
+                		paymentId,
+                		assemblyName,
+       					'-1' as deliveryStatus,
+       					regDate
+                	FROM tblSupport SUP
+                ) tmp JOIN tblCustomer C ON C.id = tmp.`customerId` 
+                LEFT JOIN tblPayment P ON P.id = tmp.`paymentId` 
+                LEFT JOIN tblPayMethod PM ON PM.id = P.`payMethodId`
+                LEFT JOIN tblPublication PUB ON PUB.id = tmp.publicationId
+                WHERE {$where}
+                ORDER BY tmp.regDate DESC;
+            ";
 
             return $this->getArray($sql);
         }

@@ -8,9 +8,12 @@
 ?>
 <? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
     $obj = new Management($_REQUEST);
+    $main = new AdminMain($_REQUEST);
     $list = $obj->customerList();
+    $pubList = $main->publicationList();
 ?>
 <script>
     $(document).ready(function(){
@@ -66,8 +69,9 @@
         }
 
         $(".jDownExcel").click(function(){
+            var id = $(this).attr("id");
             $.ajax({
-                url : "/admin/pages/customerManage/customerExcel.php",
+                url : "/admin/pages/customerManage/customerExcel.php?id=" + id,
                 async : true,
                 type : "get",
                 dataType : "html",
@@ -123,8 +127,17 @@
                 <input type="text" class="form-control mr-2" name="searchText" value="<?=$_REQUEST["searchText"]?>">
                 <div class="btn-group float-right" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary mr-2 jSearch">검색</button>
-                    <button type="button" class="btn btn-secondary mr-2 jDownExcel"><i class="fas fa-download fa-fw"></i>Excel</button>
+<!--                    <button type="button" class="btn btn-secondary mr-2 jDownExcel"><i class="fas fa-download fa-fw"></i>Excel</button>-->
                     <button type="button" class="btn btn-secondary mr-2 jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-download fa-fw"></i>Excel
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item jDownExcel" id="">전체</a>
+                        <?foreach($pubList as $pubItem){?>
+                            <a class="dropdown-item jDownExcel" id="<?=$pubItem["id"]?>"><?=$pubItem["desc"]?></a>
+                        <?}?>
+                    </div>
                 </div>
             </div>
         </form>

@@ -169,9 +169,9 @@
         </div>
 
         <select class="custom-select jOpt" id="memType" style="width: 20%">
-            <option value="A" <?=$_REQUEST["type"]=="A" ? "SELECTED" : ""?>>전체</option>
-            <option value="P" <?=$_REQUEST["type"]=="P" ? "SELECTED" : ""?>>개인</option>
-            <option value="T" <?=$_REQUEST["type"]=="T" ? "SELECTED" : ""?>>단체</option>
+            <option value="-1" <?=$_REQUEST["type"]=="-1" ? "SELECTED" : ""?>>전체</option>
+            <option value="1" <?=$_REQUEST["type"]=="1" ? "SELECTED" : ""?>>개인</option>
+            <option value="2" <?=$_REQUEST["type"]=="2" ? "SELECTED" : ""?>>단체</option>
         </select>
         <select class="custom-select jOpt" id="jYear" style="width: 20%">
             <?for($e = 1950; $e < intval(date("Y")) + 50; $e++){?>

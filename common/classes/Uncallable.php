@@ -451,6 +451,13 @@ if(!class_exists("Uncallable")){
             $this->initPage();
             $where = "WHERE DATE_FORMAT(`regDate`,'%Y-%m') = '{$_REQUEST["year"]}-{$_REQUEST["month"]}'";
 
+//            if($_REQUEST["type"] != "-1"){
+//                $where .= " AND `subType`='{$_REQUEST["type"]}'";
+//            }
+            if($_REQUEST["type"] != "-1"){
+                $where .= " AND (SELECT `type` FROM tblCustomer WHERE `id`=customerId) = '{$_REQUEST["type"]}'";
+            }
+
             $sqlNum = "SELECT COUNT(*) AS rn FROM tblSubscription {$where}";
             $this->rownum = $this->getValue($sqlNum, "rn");
             $this->setPageMassive($this->rownum);
@@ -465,6 +472,8 @@ if(!class_exists("Uncallable")){
 
             return $this->getArray($sql);
         }
+
+
         
         function sendTrans(){
             $body = $_REQUEST["content"];
