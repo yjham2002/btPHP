@@ -987,5 +987,20 @@ if(!class_exists("Management")){
             ";
             return $this->getArray($sql);
         }
+
+        function getStock(){
+            $sql = "
+                SELECT 
+                	*, 
+                	SUM(cnt) AS summation,
+                	(SELECT `desc` FROM tblPublication WHERE id = publicationId) as publicationName,
+                	(SELECT SUM(cnt) FROM tblWarehousing WHERE publicationId = P.publicationId AND `type` = 0) as aStock,
+                	(SELECT SUM(cnt) FROM tblWarehousing WHERE publicationId = P.publicationId AND `type` = 1) as kStock,
+                	(SELECT SUM(cnt) FROM tblWarehousing WHERE publicationId = P.publicationId AND `type` = 2) as pStock
+                FROM tblWarehousing P
+                GROUP BY publicationId;
+            ";
+            return $this->getArray($sql);
+        }
     }
 }

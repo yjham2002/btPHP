@@ -10,12 +10,16 @@
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <?
     $uncallable = new Uncallable($_REQUEST);
     $overview = $uncallable->getOverviews();
     $notices = $uncallable->getNoticesForMain();
     $todayL = $uncallable->getNowSchedule("l");
     $todayG = $uncallable->getNowSchedule("g");
+
+    $management = new Management($_REQUEST);
+    $stock = $management->getStock();
 ?>
 
 <script>
@@ -195,22 +199,24 @@
                             <th>합계</th>
                         </tr>
                         </thead>
-<!--                        <tfoot>-->
-<!--                        <tr>-->
-<!--                            <td colspan=5>-->
-<!--                                <a href="#" >더보기</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tfoot>-->
                         <tbody>
-                        <tr>
-                            <td>NT</td>
-                            <td>100권</td>
-                            <td>50권</td>
-                            <td>10권</td>
-                            <td>160권</td>
-                        </tr>
+                        <?foreach($stock as $stockItem){?>
+                            <tr>
+                                <td><?=$stockItem["publicationName"]?></td>
+                                <td><?=$stockItem["aStock"] == "" ? "0" : $stockItem["aStock"]?>권</td>
+                                <td><?=$stockItem["kStock"] == "" ? "0" : $stockItem["kStock"]?>권</td>
+                                <td><?=$stockItem["pStock"] == "" ? "0" : $stockItem["pStock"]?>권</td>
+                                <td><?=$stockItem["summation"] == "" ? "0" : $stockItem["summation"]?>권</td>
+                            </tr>
+                        <?}?>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan=5>
+                                <a href="/admin/pages/shipping/stockList.php">더보기</a>
+                            </td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
