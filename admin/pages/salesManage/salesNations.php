@@ -179,7 +179,7 @@
 
         <hr/>
 
-        <h4>매출 통계</h4>
+        <h4>국가별 후원 통계</h4>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
     </div>

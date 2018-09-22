@@ -133,6 +133,8 @@
         <button type="button" class="btn <?=$flag == 0 ? "btn-secondary" : "btn-primary"?> float-right mb-2 jTog">자동등록 <?=$flag == 0 ? "OFF" : "ON"?></button>
         <button type="button" class="btn btn-secondary mb-2 mr-2 float-right jWarehose jExcel">Excel / 출고 처리</button>
 
+        <br/>
+        <p class="mt-2">※ 엑셀 추출을 통한 출고 시 배송사 입력 과정이 없기에 통계에 집계될 수 없습니다.</p>
 
         <table class="table table-hover table-bordered">
             <thead>

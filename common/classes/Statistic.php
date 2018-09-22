@@ -86,7 +86,7 @@ if(!class_exists("Statistic")){
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
+            $sql = "SELECT formJson, setDate, CONCAT(`year`, '-', `month`) AS legend
                     FROM tblOrderform 
                     WHERE 
                     DATE(CONCAT(`year`, '-', `month`, '-01')) BETWEEN 
@@ -116,7 +116,7 @@ if(!class_exists("Statistic")){
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
+            $sql = "SELECT formJson, setDate, CONCAT(`year`, '-', `month`) AS legend
                     FROM tblOrderform 
                     WHERE 
                     DATE(CONCAT(`year`, '-', `month`, '-01')) BETWEEN 
@@ -140,25 +140,110 @@ if(!class_exists("Statistic")){
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정
-        function getResend(){
+        function getResendForTable(){
             $startYear = $_REQUEST["startYear"] == "" ? date("Y") : $_REQUEST["startYear"];
             $startMonth = $_REQUEST["startMonth"] == "" ? date("m") : $_REQUEST["startMonth"];
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $rangeArr = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+            $sql = "
+                SELECT SUM(cnt) AS cnt, shippingType, publicationId, DATE_FORMAT(regDate,'%Y-%m') AS legend
+                FROM tblShipping
+                WHERE `type` = '1' AND `regDate` BETWEEN DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))
+                GROUP BY publicationId, shippingType
+                ORDER BY regDate DESC;
+            ";
 
+            $list = $this->getArray($sql);
+
+            $pubs = $this->getPublications();
+
+            $arr = array();
+
+            for($e = 0; $e < sizeof($list); $e++){
+                $arr[$pubs[$list[$e]["publicationId"]]][$list[$e]["legend"]][$list[$e]["shippingType"]] = $list[$e]["cnt"];
+            }
+
+            return $arr;
+        }
+
+        function getResendForGraph(){
+            $startYear = $_REQUEST["startYear"] == "" ? date("Y") : $_REQUEST["startYear"];
+            $startMonth = $_REQUEST["startMonth"] == "" ? date("m") : $_REQUEST["startMonth"];
+            $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
+            $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
+
+            $sql = "
+                SELECT SUM(cnt) AS cnt, shippingType, publicationId, DATE_FORMAT(regDate,'%Y-%m') AS legend
+                FROM tblShipping
+                WHERE `type` = '1' AND `regDate` BETWEEN DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))
+                GROUP BY publicationId, shippingType
+                ORDER BY regDate DESC;
+            ";
+
+            $list = $this->getArray($sql);
+
+            $arr = array();
+            for($e = 0; $e < sizeof($list); $e++){
+                $arr[$list[$e]["shippingType"]][$list[$e]["legend"]] = $arr[$list[$e]["shippingType"]][$list[$e]["legend"]] + $list[$e]["cnt"];
+            }
+
+            return $arr;
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정
-        function getShip(){
+        function getShipForTable(){
             $startYear = $_REQUEST["startYear"] == "" ? date("Y") : $_REQUEST["startYear"];
             $startMonth = $_REQUEST["startMonth"] == "" ? date("m") : $_REQUEST["startMonth"];
             $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
             $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $rangeArr = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+            $sql = "SELECT CONCAT(pYear, '-', LPAD(pMonth, 2, '0')) AS legend, SUM(shippingPrice) AS cnt, shippingCo 
+               FROM tblWarehousing 
+               WHERE 
+               shippingCo IS NOT NULL 
+               AND shippingCo != '' 
+               AND cnt < 0 
+               AND DATE(CONCAT(`pYear`, '-', `pMonth`, '-01')) BETWEEN DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))
+               GROUP BY shippingCo, CONCAT(pYear, '-', LPAD(pMonth, 2, '0'))";
 
+            $list = $this->getArray($sql);
+            $pubs = $this->getIndexedShippingCo();
+
+            $arr = array();
+
+            for($e = 0; $e < sizeof($list); $e++){
+                $arr[$pubs[$list[$e]["shippingCo"]]][$list[$e]["legend"]] = $list[$e]["cnt"];
+            }
+
+            return $arr;
+        }
+
+        function getShipForGraph(){
+            $startYear = $_REQUEST["startYear"] == "" ? date("Y") : $_REQUEST["startYear"];
+            $startMonth = $_REQUEST["startMonth"] == "" ? date("m") : $_REQUEST["startMonth"];
+            $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
+            $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
+
+            $sql = "SELECT CONCAT(pYear, '-', LPAD(pMonth, 2, '0')) AS legend, SUM(shippingPrice) AS cnt, shippingCo 
+               FROM tblWarehousing 
+               WHERE 
+               shippingCo IS NOT NULL 
+               AND shippingCo != '' 
+               AND cnt < 0 
+               AND DATE(CONCAT(`pYear`, '-', `pMonth`, '-01')) BETWEEN DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))
+               GROUP BY shippingCo, CONCAT(pYear, '-', LPAD(pMonth, 2, '0'))";
+
+            $list = $this->getArray($sql);
+            $pubs = $this->getIndexedShippingCo();
+
+            $arr = array();
+
+            for($e = 0; $e < sizeof($list); $e++){
+                $arr[$pubs[$list[$e]["shippingCo"]]][$list[$e]["legend"]] = $list[$e]["cnt"];
+            }
+
+            return $arr;
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정
@@ -181,7 +266,7 @@ if(!class_exists("Statistic")){
 
             $arr = array();
             for($e = 0; $e < sizeof($list); $e++){
-                $arr[$list[$e]["subType"]][$list[$e]["legend"]] = $list[$e]["cnt"];
+                $arr[$list[$e]["shippingCo"]][$list[$e]["legend"]] = $list[$e]["cnt"];
             }
 
             return $arr;
@@ -203,6 +288,7 @@ if(!class_exists("Statistic")){
                     WHERE 
                     `regDate` BETWEEN DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))
                     GROUP BY `publicationId`, `subType`, DATE_FORMAT(`regDate`,'%Y-%m')";
+
             $list = $this->getArray($sql);
             $pubs = $this->getPublications();
 
@@ -258,6 +344,21 @@ if(!class_exists("Statistic")){
          */
         function getPublications(){
             $sql = "SELECT * FROM tblPublication;";
+            $list = $this->getArray($sql);
+            $arr = array();
+            for($i = 0; $i < sizeof($list); $i++){
+                $arr[$list[$i]["id"]] = $list[$i]["desc"];
+            }
+            return $arr;
+        }
+
+        function getShippingCo(){
+            $sql = "SELECT * FROM tblTypeManage WHERE `type`=0 ORDER BY `desc` ASC";
+            return $this->getArray($sql);
+        }
+
+        function getIndexedShippingCo(){
+            $sql = "SELECT * FROM tblTypeManage WHERE `type`=0";
             $list = $this->getArray($sql);
             $arr = array();
             for($i = 0; $i < sizeof($list); $i++){

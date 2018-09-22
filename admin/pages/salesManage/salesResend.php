@@ -12,8 +12,8 @@
 <?
 $obj = new Statistic($_REQUEST);
 
-$tableData = $obj->getSubscribeForTable();
-$graphData = $obj->getSubscribeForGraph();
+$tableData = $obj->getResendForTable();
+$graphData = $obj->getResendForGraph();
 $rangeData = $obj->getRangeAsArrayFromRequest();
 
 ?>
@@ -33,7 +33,7 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 {
                     type: "stackedColumn",
                     showInLegend: true,
-                    name: "<?=$key == 0 ? "개인" : "단체"?>",
+                    name: "<?=$key == 0 ? "우편" : "택배"?>",
                     dataPoints: [
                         <?foreach($value as $dateKey => $dateValue){?>
                         { y: <?=$dateValue?>, x: new Date("<?=$dateKey?>") },
@@ -153,8 +153,8 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 </tr>
                 <tr>
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th style="background: #EEE; font-size: 12px;">개인</th>
-                        <th style="background: #EEE; font-size: 12px;">단체</th>
+                        <th style="background: #EEE; font-size: 12px;">택배</th>
+                        <th style="background: #EEE; font-size: 12px;">우편</th>
                     <?}?>
                 </tr>
                 </thead>
@@ -189,7 +189,7 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
 
         <hr/>
 
-        <h4>매출 통계</h4>
+        <h4>재배송 통계</h4>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
     </div>

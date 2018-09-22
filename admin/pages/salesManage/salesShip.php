@@ -12,8 +12,8 @@
 <?
 $obj = new Statistic($_REQUEST);
 
-$tableData = $obj->getSubscribeForTable();
-$graphData = $obj->getSubscribeForGraph();
+$tableData = $obj->getShipForTable();
+$graphData = $obj->getShipForGraph();
 $rangeData = $obj->getRangeAsArrayFromRequest();
 
 ?>
@@ -33,7 +33,7 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 {
                     type: "stackedColumn",
                     showInLegend: true,
-                    name: "<?=$key == 0 ? "개인" : "단체"?>",
+                    name: "<?=$key?>",
                     dataPoints: [
                         <?foreach($value as $dateKey => $dateValue){?>
                         { y: <?=$dateValue?>, x: new Date("<?=$dateKey?>") },
@@ -148,13 +148,7 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 <tr>
                     <th rowspan="2">구분</th>
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th colspan="2" style="font-size: 12px;"><?=$rangeData[$i]?></th>
-                    <?}?>
-                </tr>
-                <tr>
-                    <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th style="background: #EEE; font-size: 12px;">개인</th>
-                        <th style="background: #EEE; font-size: 12px;">단체</th>
+                        <th style="font-size: 12px;"><?=$rangeData[$i]?></th>
                     <?}?>
                 </tr>
                 </thead>
@@ -166,21 +160,17 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                     <tr style="height: 10px;">
                         <th><?=$key?></th>
                         <?for($i = 0; $i < sizeof($rangeData); $i++){
-                            $col1 = $tableData[$key][$rangeData[$i]]["0"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["0"];
-                            $col2 = $tableData[$key][$rangeData[$i]]["1"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["1"];
-                            $total[$rangeData[$i]]["0"] += $col1;
-                            $total[$rangeData[$i]]["1"] += $col2;
+                            $col1 = $tableData[$key][$rangeData[$i]] == "" ? 0 : $tableData[$key][$rangeData[$i]];
+                            $total[$rangeData[$i]] += $col1;
                             ?>
                             <td style="font-size: 12px;"><?=$col1?></td>
-                            <td style="font-size: 12px;"><?=$col2?></td>
                         <?}?>
                     </tr>
                 <?}?>
                 <tr>
                     <th>합계</th>
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["0"]?></td>
-                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["1"]?></td>
+                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]?></td>
                     <?}?>
                 </tr>
                 </tbody>
@@ -189,7 +179,7 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
 
         <hr/>
 
-        <h4>매출 통계</h4>
+        <h4>배송비 통계</h4>
         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
     </div>
