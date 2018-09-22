@@ -12,10 +12,38 @@
 <?
 $obj = new Statistic($_REQUEST);
 
-$tableData = $obj->getSubscribeForTable();
-$graphData = $obj->getSubscribeForGraph();
-$rangeData = $obj->getRangeAsArrayFromRequest();
+$tableData = $obj->getGeneral();
 
+$subTable = array();
+$supTable = array();
+
+for($i=1; $i<=2; $i++){
+    $subscription = $tableData["subscription"][$i];
+    $support = $tableData["support"][$i];
+    foreach($subscription as $sItem){
+        if ($sItem["flag"] == 0) {
+            $subTable[$i][$sItem["type"]]["totalCnt"] += intval($sItem["cnt"]);
+            $subTable[$i][$sItem["type"]]["totalPrice"] += intval($sItem["total"]);
+        }
+        if ($sItem["paymentResult"] == 1) {
+            $subTable[$i][$sItem["type"]]["succCnt"] += intval($sItem["cnt"]);
+            $subTable[$i][$sItem["type"]]["succPrice"] += intval($sItem["total"]);
+        }
+    }
+    foreach($support as $sItem){
+        if ($sItem["flag"] == 0) {
+            $supTable[$i][$sItem["type"]]["totalCnt"] += intval($sItem["cnt"]);
+            $supTable[$i][$sItem["type"]]["totalPrice"] += intval($sItem["total"]);
+        }
+        if ($sItem["paymentResult"] == 1) {
+            $supTable[$i][$sItem["type"]]["succCnt"] += intval($sItem["cnt"]);
+            $supTable[$i][$sItem["type"]]["succPrice"] += intval($sItem["total"]);
+        }
+    }
+}
+
+$support = $tableData["support"];
+$rangeData = $obj->getRangeAsArrayFromRequest();
 ?>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -23,42 +51,6 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
 <script src="/admin/js/canvasjs.min.js"></script>
 <script>
     $(document).ready(function(){
-        var chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            axisX: { interval: 0, intervalType: "month", valueFormatString: "YYYY-MM"},
-            axisY:{ valueFormatString:"#0", gridColor: "#B6B1A8", tickColor: "#B6B1A8"},
-            toolTip: { shared: true, content: toolTipContent},
-            data: [
-                <?foreach($graphData as $key => $value){?>
-                {
-                    type: "stackedColumn",
-                    showInLegend: true,
-                    name: "<?=$key == 0 ? "개인" : "단체"?>",
-                    dataPoints: [
-                        <?foreach($value as $dateKey => $dateValue){?>
-                        { y: <?=$dateValue?>, x: new Date("<?=$dateKey?>") },
-                        <?}?>
-                    ]
-                },
-                <?}?>
-            ]
-        });
-        chart.render();
-
-        function toolTipContent(e) {
-            var str = "";
-            var total = 0;
-            var str2, str3;
-            for (var i = 0; i < e.entries.length; i++){
-                var  str1 = "<br/>"+e.entries[i].dataSeries.name+": "+e.entries[i].dataPoint.y;
-                total = e.entries[i].dataPoint.y + total;
-                str = str.concat(str1);
-            }
-            total = Math.round(total * 100) / 100;
-            str3 = "<br/>합계: "+total;
-            return "상세정보" + str.concat(str3);
-        }
-
         function validateRange(startYear, startMonth, endYear, endMonth){
             if(startYear == "" || startMonth == "" || endYear == "" || endMonth == ""){
                 return false;
@@ -70,6 +62,16 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
             }
             return true;
         }
+
+        function fillZero(){
+            var tds = $("td");
+            for(var e = 0; e < tds.length; e++){
+                if(tds.eq(e).text() == "") tds.eq(e).text("0");
+                else if(tds.eq(e).text() == "%") tds.eq(e).text("0%");
+            }
+        }
+
+        fillZero();
 
         $(".jSearch").click(function(){
             var startYear = $("#startYear").val();
@@ -127,57 +129,112 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
         </div>
 
         <div class="mb-2">
+            <h3>구독</h3>
             <table class="table table-sm table-bordered text-center">
                 <thead>
                 <tr>
-                    <th rowspan="2">구분</th>
-                    <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th colspan="2" style="font-size: 12px;"><?=$rangeData[$i]?></th>
-                    <?}?>
+                    <th rowspan="2" width="100px"></th>
+                    <th rowspan="2" width="100px">구분</th>
+                    <th colspan="3" style="font-size: 12px;">건</th>
+                    <th colspan="3" style="font-size: 12px;">금액</th>
                 </tr>
                 <tr>
-                    <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th style="background: #EEE; font-size: 12px;">개인</th>
-                        <th style="background: #EEE; font-size: 12px;">단체</th>
-                    <?}?>
+                    <th style="background: #EEE; font-size: 12px;">대상</th>
+                    <th style="background: #EEE; font-size: 12px;">입금</th>
+                    <th style="background: #EEE; font-size: 12px;">비율</th>
+                    <th style="background: #EEE; font-size: 12px;">대상</th>
+                    <th style="background: #EEE; font-size: 12px;">입금</th>
+                    <th style="background: #EEE; font-size: 12px;">비율</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?
-                $total = array();
-                ?>
-                <?foreach ($tableData as $key => $value){?>
+                <?for($j=1; $j<=2; $j++){?>
                     <tr style="height: 10px;">
-                        <th><?=$key?></th>
-                        <?for($i = 0; $i < sizeof($rangeData); $i++){
-                            $col1 = $tableData[$key][$rangeData[$i]]["0"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["0"];
-                            $col2 = $tableData[$key][$rangeData[$i]]["1"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["1"];
-                            $total[$rangeData[$i]]["0"] += $col1;
-                            $total[$rangeData[$i]]["1"] += $col2;
-                            ?>
-                            <td style="font-size: 12px;"><?=$col1?></td>
-                            <td style="font-size: 12px;"><?=$col2?></td>
-                        <?}?>
+                        <th rowspan="3"><?=$j==1 ? "개인" : "단체"?></th>
+                        <th style="background: #EEE; font-size: 12px;">카드</th>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["CC"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["CC"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["CC"]["succCnt"]) / $subTable[$j]["CC"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["CC"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["CC"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["CC"]["succPrice"]) / $subTable[$j]["CC"]["totalPrice"] * 100?>%</td>
+                    </tr>
+                    <tr>
+                        <th style="background: #EEE; font-size: 12px;">CMS</th>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["BA"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["BA"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["BA"]["succCnt"]) / $subTable[$j]["BA"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["BA"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["BA"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["BA"]["succPrice"]) / $subTable[$j]["BA"]["totalPrice"] * 100?>%</td>
+                    </tr>
+                    <tr>
+                        <th style="background: #EEE; font-size: 12px;">해외카드</th>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["FC"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["FC"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["FC"]["succCnt"]) / $subTable[$j]["FC"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$subTable[$j]["FC"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["FC"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($subTable[$j]["FC"]["succPrice"]) / $subTable[$j]["FC"]["totalPrice"] * 100?>%</td>
                     </tr>
                 <?}?>
+                </tbody>
+            </table>
+
+
+            <h3>후원</h3>
+            <table class="table table-sm table-bordered text-center">
+                <thead>
                 <tr>
-                    <th>합계</th>
-                    <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["0"]?></td>
-                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["1"]?></td>
-                    <?}?>
+                    <th rowspan="2" width="100px"></th>
+                    <th rowspan="2" width="100px">구분</th>
+                    <th colspan="3" style="font-size: 12px;">건</th>
+                    <th colspan="3" style="font-size: 12px;">금액</th>
                 </tr>
+                <tr>
+                    <th style="background: #EEE; font-size: 12px;">대상</th>
+                    <th style="background: #EEE; font-size: 12px;">입금</th>
+                    <th style="background: #EEE; font-size: 12px;">비율</th>
+                    <th style="background: #EEE; font-size: 12px;">대상</th>
+                    <th style="background: #EEE; font-size: 12px;">입금</th>
+                    <th style="background: #EEE; font-size: 12px;">비율</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?for($j=1; $j<=2; $j++){?>
+                    <tr style="height: 10px;">
+                        <th rowspan="3"><?=$j==1 ? "BTF" : "BTG"?></th>
+                        <th style="background: #EEE; font-size: 12px;">카드</th>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["CC"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["CC"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["CC"]["succCnt"]) / $supTable[$j]["CC"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["CC"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["CC"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["CC"]["succPrice"]) / $supTable[$j]["CC"]["totalPrice"] * 100?>%</td>
+                    </tr>
+                    <tr>
+                        <th style="background: #EEE; font-size: 12px;">CMS</th>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["BA"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["BA"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["BA"]["succCnt"]) / $supTable[$j]["BA"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["BA"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["BA"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["BA"]["succPrice"]) / $supTable[$j]["BA"]["totalPrice"] * 100?>%</td>
+                    </tr>
+                    <tr>
+                        <th style="background: #EEE; font-size: 12px;">해외카드</th>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["FC"]["totalCnt"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["FC"]["succCnt"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["FC"]["succCnt"]) / $supTable[$j]["FC"]["totalCnt"] * 100?>%</td>
+                        <td style="font-size: 12px;"><?=$supTable[$j]["FC"]["totalPrice"]?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["FC"]["succPrice"])?></td>
+                        <td style="font-size: 12px;"><?=intval($supTable[$j]["FC"]["succPrice"]) / $supTable[$j]["FC"]["totalPrice"] * 100?>%</td>
+                    </tr>
+                <?}?>
                 </tbody>
             </table>
         </div>
-
-        <hr/>
-
-        <h4>매출 통계</h4>
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
     </div>
-    <!-- /.container-fluid -->
 </div>
 
 <? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>

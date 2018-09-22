@@ -285,12 +285,23 @@ if(!class_exists("WebSupport")){
             return $this->makeResultJson(1, "succ");
         }
 
-        function getSummation($id){
+        function getCurrentSummation($parentId){
             $sql = "
-                SELECT SUM(`totalPrice`) total FROM tblSupport WHERE `parentId` = '{$id}'
+                SELECT SUM(totalPrice) AS summ 
+                FROM tblSupport S JOIN tblSupportParent P ON P.`id`=S.`parentId` WHERE nationId=(SELECT nationId FROM tblSupportParent WHERE `id`='{$parentId}' LIMIT 1)
             ";
 
-            return $this->getValue($sql, "total");
+            return $this->getValue($sql, "summ");
+        }
+
+        function getSummation($parentId, $loc){
+            $sql = "
+                SELECT SUM(`goal`) AS summ 
+                FROM tblSupportArticle JOIN tblSupportParent ON `id`=`parentId` 
+                WHERE `nationId`=(SELECT nationId FROM tblSupportParent WHERE `id`='{$parentId}' LIMIT 1) AND locale='{$loc}'
+            ";
+
+            return $this->getValue($sql, "summ");
         }
     }
 }

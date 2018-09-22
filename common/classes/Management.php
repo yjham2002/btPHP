@@ -1016,12 +1016,20 @@ if(!class_exists("Management")){
             return $res;
         }
 
+        function changePaymentFlag(){
+            $id = $_REQUEST["id"];
+            $res = $_REQUEST["res"];
+            $sql = "
+                UPDATE tblPayment SET `flag` = '{$res}' WHERE `id` = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
         function changePaymentStatus(){
             $id = $_REQUEST["id"];
             $res = $_REQUEST["res"];
             $sql = "
-                UPDATE tblPayment SET paymentResult = '{$res}' WHERE `id` = $id
-            ";
+                UPDATE tblPayment SET paymentResult = '{$res}' WHERE `id` = '{$id}'";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }

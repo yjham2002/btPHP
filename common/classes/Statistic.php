@@ -11,11 +11,72 @@ if(!class_exists("Statistic")){
         function getGeneral(){
             $startYear = $_REQUEST["startYear"] == "" ? date("Y") : $_REQUEST["startYear"];
             $startMonth = $_REQUEST["startMonth"] == "" ? date("m") : $_REQUEST["startMonth"];
-            $endYear = $_REQUEST["endYear"] == "" ? date("Y") : $_REQUEST["endYear"];
-            $endMonth = $_REQUEST["endMonth"] == "" ? date("m") : $_REQUEST["endMonth"];
 
-            $rangeArr = $this->getRangeAsArray($startYear, $startMonth, $endYear, $endMonth);
+            $sql = "
+                SELECT
+                	P.`type`,
+                	P.`flag`,
+                	P.`paymentResult`,
+                	SUM(1) as cnt ,
+					SUM(totalPrice) as total
+                FROM
+                tblSubscription S JOIN tblCustomer C ON C.id = S.`customerId` 
+                LEFT JOIN tblPayment P ON P.id = S.`paymentId` 
+                LEFT JOIN tblPayMethod PM ON PM.id = P.`payMethodId`
+                WHERE C.`type` = '1' AND P.`type` IS NOT NULL AND S.regDate <= LAST_DAY(DATE('$startYear-$startMonth-01'))
+                GROUP BY P.`type`, P.flag, P.`paymentResult`
+            ";
+            $res["subscription"][1] = $this->getArray($sql);
 
+            $sql = "
+                SELECT
+                	P.`type`,
+                	P.`flag`,
+                	P.`paymentResult`,
+                	SUM(1) as cnt ,
+					SUM(totalPrice) as total
+                FROM
+                tblSubscription S JOIN tblCustomer C ON C.id = S.`customerId` 
+                LEFT JOIN tblPayment P ON P.id = S.`paymentId` 
+                LEFT JOIN tblPayMethod PM ON PM.id = P.`payMethodId`
+                WHERE C.`type` = '2' AND P.`type` IS NOT NULL AND S.regDate <= LAST_DAY(DATE('$startYear-$startMonth-01'))
+                GROUP BY P.`type`, P.flag, P.`paymentResult`
+            ";
+            $res["subscription"][2] = $this->getArray($sql);
+
+            $sql = "
+                SELECT
+                	P.`type`,
+                	P.`flag`,
+                	P.`paymentResult`,
+                	SUM(1) as cnt ,
+					SUM(totalPrice) as total
+                FROM
+                tblSupport S JOIN tblCustomer C ON C.id = S.`customerId` 
+                LEFT JOIN tblPayment P ON P.id = S.`paymentId` 
+                LEFT JOIN tblPayMethod PM ON PM.id = P.`payMethodId`
+                WHERE S.`supType` = 'BTF' AND P.`type` IS NOT NULL AND S.regDate <= LAST_DAY(DATE('$startYear-$startMonth-01'))
+                GROUP BY P.`type`, P.flag, P.`paymentResult`
+            ";
+            $res["support"][1] = $this->getArray($sql);
+
+            $sql = "
+                SELECT
+                	P.`type`,
+                	P.`flag`,
+                	P.`paymentResult`,
+                	SUM(1) as cnt ,
+					SUM(totalPrice) as total
+                FROM
+                tblSupport S JOIN tblCustomer C ON C.id = S.`customerId` 
+                LEFT JOIN tblPayment P ON P.id = S.`paymentId` 
+                LEFT JOIN tblPayMethod PM ON PM.id = P.`payMethodId`
+                WHERE S.`supType` = 'BTG' AND P.`type` IS NOT NULL AND S.regDate <= LAST_DAY(DATE('$startYear-$startMonth-01'))
+                GROUP BY P.`type`, P.flag, P.`paymentResult`
+            ";
+            $res["support"][2] = $this->getArray($sql);
+
+            return $res;
         }
 
         // TODO 쿼리 검증 혹은 기준 정보 수정

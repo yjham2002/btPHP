@@ -36,13 +36,25 @@
             })
         });
 
+        $(document).on("click", ".jFlag", function(){
+            var id = $(this).attr("id");
+            var res = $(this).attr("flag");
+            var ajax = new AjaxSender("/route.php?cmd=Management.changePaymentFlag", true, "json", new sehoMap().put("id", id).put("res", res));
+            ajax.send(function(data){
+                if(data.returnCode === 1){
+                    // alert("변경되었습니다.");
+                    location.reload();
+                }
+            })
+        });
+
         $(".jAlterExcel").click(exportExcel);
 
         function exportExcel(){
 
             var target = $("table");
-            var tmp = $(".jsss").html();
             $(".jsss").empty();
+            $(".jssss").empty();
 
             if($(".alterTarget").length > 0) target = $(".alterTarget").eq(0);
             if(target.length < 1) alert("출력 대상이 없습니다.");
@@ -72,7 +84,7 @@
             link.href = uri + base64(format(template, ctx));
             link.click();
 
-            $(".jsss").append(tmp);
+            location.reload();
         }
 
         $(".jRefresh").click(function(){
@@ -102,6 +114,8 @@
             <li class="breadcrumb-item active">결제관리</li>
         </ol>
 
+        <p class="mt-2">※ 취소여부는 관리 편의 및 통계 집계를 위한 것으로 타 데이터 및 결제사와 연동되지 않습니다.</p>
+
         <form id="form">
             <input type="hidden" name="page" />
             <div class="btn-group float-left" role="group">
@@ -115,8 +129,6 @@
                 <button type="button" class="btn btn-secondary jAlterExcel">Excel</button>
             </div>
         </form>
-
-
 
         <div style="width: 100%; height: 600px; overflow-y: scroll">
             <?if($type == "BA"){?>
@@ -133,6 +145,7 @@
                         <th>출금금액</th>
                         <th>등록일시</th>
                         <th>처리현황</th>
+                        <th>취소여부</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -187,6 +200,33 @@
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>
                                 </div>
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-sm <?
+                                switch($item["flag"]){
+                                    case "1":
+                                        echo "btn-danger";
+                                        break;
+                                    case "0":
+                                        echo "btn-success";
+                                        break;
+                                }
+                                ?> dropdown-toggle" data-toggle="dropdown">
+                                    <?
+                                    switch($item["flag"]){
+                                        case "0":
+                                            echo "정상";
+                                            break;
+                                        case "1":
+                                            echo "취소됨";
+                                            break;
+                                    }
+                                    ?>
+                                </button>
+                                <div class="dropdown-menu jFlag">
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="0">정상</a>
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="1">취소됨</a>
+                                </div>
+                            </td>
                         </tr>
                     <?}?>
                     </tbody>
@@ -203,6 +243,7 @@
                         <th>출금금액</th>
                         <th>등록일시</th>
                         <th>처리현황</th>
+                        <th>취소여부</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -249,6 +290,33 @@
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>
                                 </div>
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-sm <?
+                                switch($item["flag"]){
+                                    case "1":
+                                        echo "btn-danger";
+                                        break;
+                                    case "0":
+                                        echo "btn-success";
+                                        break;
+                                }
+                                ?> dropdown-toggle" data-toggle="dropdown">
+                                    <?
+                                    switch($item["flag"]){
+                                        case "0":
+                                            echo "정상";
+                                            break;
+                                        case "1":
+                                            echo "취소됨";
+                                            break;
+                                    }
+                                    ?>
+                                </button>
+                                <div class="dropdown-menu jFlag">
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="0">정상</a>
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="1">취소됨</a>
+                                </div>
+                            </td>
                         </tr>
                     <?}?>
                     </tbody>
@@ -264,6 +332,7 @@
                         <th>출금금액</th>
                         <th>등록일시</th>
                         <th>처리현황</th>
+                        <th>취소여부</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -307,6 +376,33 @@
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="0">미결제</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="1">완료</a>
                                     <a class="dropdown-item jChange" id="<?=$item["idx"]?>" flag="2">처리중</a>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm <?
+                                switch($item["flag"]){
+                                    case "1":
+                                        echo "btn-danger";
+                                        break;
+                                    case "0":
+                                        echo "btn-success";
+                                        break;
+                                }
+                                ?> dropdown-toggle" data-toggle="dropdown">
+                                    <?
+                                    switch($item["flag"]){
+                                        case "0":
+                                            echo "정상";
+                                            break;
+                                        case "1":
+                                            echo "취소됨";
+                                            break;
+                                    }
+                                    ?>
+                                </button>
+                                <div class="dropdown-menu jssss">
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="0">정상</a>
+                                    <a class="dropdown-item jFlag" id="<?=$item["idx"]?>" flag="1">취소됨</a>
                                 </div>
                             </td>
                         </tr>

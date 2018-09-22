@@ -26,10 +26,42 @@
     $lastList = $uc->getLastStories($nationSelected, $country_code);
 
     $messageList = $obj2->getSupportMessage($current);
-    $total = $obj2->getSummation($current);
-    $per = intval($total / $article["goal"] * 100);
+    $total = $obj2->getSummation($article["parentId"], $country_code);
+    $curtotal = $obj2->getCurrentSummation($article["parentId"]);
+    $per = intval($curtotal / $total * 100);
+
+    if($per > 100) $per = 100;
 
 ?>
+
+<style>
+    .mapObj{
+        margin : 0 auto;
+    }
+
+    .checks{
+        padding : 0.5em 0 !important;
+    }
+
+    @media screen and (min-width:1280px){
+        .mapObj{
+            margin : 0 15em !important;
+        }
+    }
+
+    @media screen and (max-width:900px){
+        tspan{
+            font-size: 2em !important;
+        }
+    }
+
+    @media screen and (max-width:400px){
+        tspan{
+            font-size: 2.4em !important;
+        }
+    }
+
+</style>
 
 <!-- 분리 영역 시작 -->
 <link rel="stylesheet" href="/web/assets/css/w3.css" />
@@ -83,14 +115,11 @@
     });
 </script>
 <!-- 분리 영역 종료 -->
-
 		<!-- Two -->
-			<section class="wrapper special books">
+    <div id="map" class="mapObj" style="" ></div>
+			<section class="wrapper special books checks">
 				<div class="inner">
 					<header>
-						<div class="mapWrap">
-							<div id="map" ></div>
-						</div>
 					</header>
 					
 					<div class="row mapWrap">
@@ -113,9 +142,7 @@
     <section class="wrapper special books" style="padding : 0 !important;">
         <div class="inner">
             <header>
-                <div class="mapWrap">
-                    <div id="map" ></div>
-                </div>
+
             </header>
             <div class="row">
                 <!-- Break -->
