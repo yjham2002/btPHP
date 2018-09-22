@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="stockList added">
-      <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customerManage/customerDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/customerList.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customerManage/customerList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/customerSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customerManage/customerSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/ExcelParser.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/ExcelParser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Management.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Management.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/WebUser.php" afterDir="false" />
-    </list>
+    <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="stockList added" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +63,7 @@
     <session id="1339674168">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="5" />
           <entry key="project.open.time.13" value="2" />
@@ -252,8 +245,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="381" column="50" selection-start-line="381" selection-start-column="50" selection-end-line="381" selection-end-column="50" />
+            <state relative-caret-position="390">
+              <caret line="282" column="46" lean-forward="true" selection-start-line="282" selection-start-column="46" selection-end-line="282" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -607,12 +600,12 @@
       <workItem from="1537156797538" duration="14860000" />
       <workItem from="1537242144264" duration="15388000" />
       <workItem from="1537420089478" duration="6979000" />
-      <workItem from="1537505207749" duration="19792000" />
+      <workItem from="1537505207749" duration="19995000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="425591000" />
+    <option name="totallyTimeSpent" value="425794000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1001,8 +994,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/Management.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="381" column="50" selection-start-line="381" selection-start-column="50" selection-end-line="381" selection-end-column="50" />
+        <state relative-caret-position="390">
+          <caret line="282" column="46" lean-forward="true" selection-start-line="282" selection-start-column="46" selection-end-line="282" selection-end-column="46" />
         </state>
       </provider>
     </entry>

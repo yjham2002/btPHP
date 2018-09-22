@@ -120,22 +120,6 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                     <option value="<?=$i < 10 ? "0".$i : $i?>" <?=$_REQUEST["startMonth"] == $i ? "selected" : $alter?>><?=$i?></option>
                 <?}?>
             </select>
-            <b class="mr-3">~</b>
-            <select class="custom-select mr-2 col-2" name="endYear" id="endYear">
-                <?for($i=-50; $i<50; $i++){
-                    $tmp = intval(date("Y")) + $i;
-                    $alter = $_REQUEST["endYear"] == "" && date("Y")== $tmp ? "selected" : "";
-                    ?>
-                    <option value="<?=$tmp?>" <?=$_REQUEST["endYear"] == $tmp ? "selected" : $alter?>><?=$tmp?></option>
-                <?}?>
-            </select>
-            <select class="custom-select mr-2 col-2" name="endMonth" id="endMonth">
-                <?for($i=1; $i<13; $i++){
-                    $alter = $_REQUEST["endMonth"] == "" && date("m")== $i ? "selected" : "";
-                    ?>
-                    <option value="<?=$i < 10 ? "0".$i : $i?>" <?=$_REQUEST["endMonth"] == $i ? "selected" : $alter?>><?=$i?></option>
-                <?}?>
-            </select>
             <button type="button" class="btn btn-secondary ml-2 jSearch">
                 <i class="fas fa-search fa-fw"></i>
             </button>

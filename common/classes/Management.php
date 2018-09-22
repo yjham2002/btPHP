@@ -20,49 +20,49 @@ if(!class_exists("Management")){
             parent::__construct($req);
         }
 
+        function conditionalQuery($destination, $elem, $sql){
+            if($elem != "" && $elem != null){
+                $destination .= " " . $sql;
+            }
+            return $destination;
+        }
+
+        function appendByReq($dest, $idx, $sql){
+            return $this->conditionalQuery($dest, $_REQUEST[$idx], $sql);
+        }
+
         function customerListDetail(){
-            $sql = "
-            SELECT * FROM tblCustomer
-            #프로젝션 전체 컬럼 
-            WHERE 1=1 
-            #기본 항진 조건 지정자
-            AND `email` LIKE '%email%'
-            #이메일
-            AND `phone` LIKE '%phone%'
-            #전화번호
-            AND `name` LIKE '%name%'
-            #성명
-            AND CONCAT(`addr`, ' ', `addrDetail`) LIKE '%address%'
-            #주소
-            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `pYear`='2018' AND `pMonth`='1')
-            #시작월호
-            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `eYear`='2018' AND `eMonth`='1')
-            #종료월호
-            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `shippingType` = '0')
-            #배송방식
-            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `publicationId` = '0')
-            #버전
-            AND (
-               `id` IN (SELECT `customerId` FROM tblSubscription WHERE `deliveryStatus` = '0')
-               OR
-               `id` IN (SELECT `customerId` FROM tblSupport WHERE `status` = '0')
-            )
-            #상태
-            AND (
-               `id` IN (SELECT `customerId` FROM tblSubscription WHERE DATE_FORMAT(`regDate`,'%Y-%m')='2018-09')
-               OR
-               `id` IN (SELECT `customerId` FROM tblSupport WHERE DATE_FORMAT(`regDate`,'%Y-%m')='2018-09')
-            )
-            #신청년월
-            AND `id` IN (SELECT `customerId` FROM tblSupport WHERE `assemblyName` LIKE '%name%') 
-            #후원집회명
-            AND `id` IN (SELECT (SELECT customerId FROM tblPayMethod WHERE `id`=`payMethodId`) AS cid FROM tblPayment WHERE `primeIndex` LIKE '%bt%') 
-            #코드
-            AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `subType` = 'BTG') 
-            #후원방법
-            ORDER BY `regDate`
-            #정렬방식
-            ";
+            $pMonth = intval($_REQUEST["pMonth"]);
+            $eMonth = intval($_REQUEST["eMonth"]);
+
+            $where = "WHERE 1=1";
+            $orderBy = "ORDER BY `regDate` DESC";
+
+            $where = $this->appendByReq($where, "email", "AND `email` LIKE '%{$_REQUEST["email"]}%'");
+            $where = $this->appendByReq($where, "phone", "AND `phone` LIKE '%{$_REQUEST["phone"]}%'");
+            $where = $this->appendByReq($where, "name", "AND `name` LIKE '%{$_REQUEST["name"]}%'");
+            $where = $this->appendByReq($where, "code", "AND `id` IN (SELECT (SELECT customerId FROM tblPayMethod WHERE `id`=`payMethodId`) AS cid FROM tblPayment WHERE `primeIndex` LIKE '%{$_REQUEST["code"]}%')");
+            $where = $this->appendByReq($where, "sMethod", "AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `subType` = '{$_REQUEST["sMethod"]}')");
+            $where = $this->appendByReq($where, "sName", "AND `id` IN (SELECT `customerId` FROM tblSupport WHERE `assemblyName` LIKE '%{$_REQUEST["sName"]}%')");
+            $where = $this->appendByReq($where, "addr", "AND CONCAT(`addr`, ' ', `addrDetail`) LIKE '%{$_REQUEST["addr"]}%'");
+
+            if($_REQUEST["pYear"] != "" && $_REQUEST["pMonth"] != "") $where .= " AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `pYear`='{$_REQUEST["pYear"]}' AND `pMonth`='{$pMonth}')";
+            if($_REQUEST["eYear"] != "" && $_REQUEST["eMonth"] != "") $where .= " AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `eYear`='{$_REQUEST["eYear"]}' AND `eMonth`='{$eMonth}')";
+
+            $where = $this->appendByReq($where, "shippingType", "AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `shippingType` = '{$_REQUEST["shippingType"]}')");
+            $where = $this->appendByReq($where, "version", "AND `id` IN (SELECT `customerId` FROM tblSubscription WHERE `publicationId` = '{$_REQUEST["version"]}')");
+            $where = $this->appendByReq($where, "status", "AND (`id` IN (SELECT `customerId` FROM tblSubscription WHERE `deliveryStatus` = '{$_REQUEST["status"]}')
+                                                                          OR
+                                                                            `id` IN (SELECT `customerId` FROM tblSupport WHERE `status` = '{$_REQUEST["status"]}')
+                                                                            )");
+
+            if($_REQUEST["rYear"] != "" && $_REQUEST["rMonth"] != ""){
+                $where .= " AND (
+               `id` IN (SELECT `customerId` FROM tblSubscription WHERE DATE_FORMAT(`regDate`,'%Y-%m')='{$_REQUEST["rYear"]}-{$_REQUEST["rMonth"]}') 
+               OR `id` IN (SELECT `customerId` FROM tblSupport WHERE DATE_FORMAT(`regDate`,'%Y-%m')='{$_REQUEST["rYear"]}-{$_REQUEST["rMonth"]}'))";
+            }
+
+            $sql = "SELECT * FROM tblCustomer {$where} {$orderBy}";
 
             return $this->getArray($sql);
         }

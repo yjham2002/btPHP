@@ -89,7 +89,7 @@ if(!class_exists("Statistic")){
             $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
                     FROM tblOrderform 
                     WHERE 
-                    setDate BETWEEN 
+                    DATE(CONCAT(`year`, '-', `month`, '-01')) BETWEEN 
                     DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))";
 
             $list = $this->getArray($sql);
@@ -119,7 +119,7 @@ if(!class_exists("Statistic")){
             $sql = "SELECT formJson, setDate, DATE_FORMAT(setDate,'%Y-%m') AS legend
                     FROM tblOrderform 
                     WHERE 
-                    setDate BETWEEN 
+                    DATE(CONCAT(`year`, '-', `month`, '-01')) BETWEEN 
                     DATE('$startYear-$startMonth-01') AND LAST_DAY(DATE('$endYear-$endMonth-01'))";
 
             $list = $this->getArray($sql);

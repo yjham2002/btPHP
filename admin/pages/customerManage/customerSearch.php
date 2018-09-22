@@ -12,8 +12,7 @@
 <?
 $obj = new Management($_REQUEST);
 $main = new AdminMain($_REQUEST);
-$list = $obj->customerList();
-// $obj->customerListDetail();
+$list = $obj->customerListDetail();
 $pubList = $main->publicationList();
 ?>
     <script>
@@ -100,9 +99,9 @@ $pubList = $main->publicationList();
                     <tbody>
                     <tr>
                         <th width="15%">코드</th>
-                        <td width="35%" colspan="2"><input type="text" class="form-control" name="code" /></td>
+                        <td width="35%" colspan="2"><input type="text" class="form-control" name="code" value="<?=$_REQUEST["code"]?>" /></td>
                         <th width="15%">성명</th>
-                        <td colspan="35%"><input type="text" class="form-control" name="name" /></td>
+                        <td colspan="35%"><input type="text" class="form-control" name="name" value="<?=$_REQUEST["name"]?>" /></td>
                     </tr>
                     <tr>
                         <th>시작 월호</th>
@@ -159,42 +158,42 @@ $pubList = $main->publicationList();
                             </select>
                         </td>
                         <th>E-Mail</th>
-                        <td colspan="2"><input type="text" class="form-control" name="email" /></td>
+                        <td colspan="2"><input type="text" class="form-control" name="email" value="<?=$_REQUEST["email"]?>" /></td>
                     </tr>
                     <tr>
                         <th>상태</th>
                         <td colspan="2">
                             <select class="custom-select" name="status">
                                 <option value="" >전체</option>
-                                <option value="0" >정상</option>
-                                <option value="1" >취소</option>
-                                <option value="2" >발송보류</option>
+                                <option value="0" <?=$_REQUEST["status"] == "0" ? "SELECTED" : ""?>>정상</option>
+                                <option value="1" <?=$_REQUEST["status"] == "1" ? "SELECTED" : ""?>>취소</option>
+                                <option value="2" <?=$_REQUEST["status"] == "2" ? "SELECTED" : ""?>>발송보류</option>
                             </select>
                         </td>
                         <th>전화번호</th>
-                        <td colspan="2"><input type="text" class="form-control" name="phone" /></td>
+                        <td colspan="2"><input type="text" class="form-control" name="phone" value="<?=$_REQUEST["phone"]?>" /></td>
                     </tr>
                     <tr>
                         <th>후원방법</th>
                         <td colspan="2">
                             <select class="custom-select" name="sMethod">
                                 <option value="" >전체</option>
-                                <option value="BTG" >BTG</option>
-                                <option value="BTF" >BTF</option>
+                                <option value="BTG" <?=$_REQUEST["sMethod"] == "BTG" ? "SELECTED" : ""?>>BTG</option>
+                                <option value="BTF" <?=$_REQUEST["sMethod"] == "BTF" ? "SELECTED" : ""?>>BTF</option>
                             </select>
                         </td>
                         <th>후원집회명</th>
-                        <td colspan="2"><input type="text" class="form-control" name="sName" /></td>
+                        <td colspan="2"><input type="text" class="form-control" name="sName" value="<?=$_REQUEST["sName"]?>" /></td>
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="2"><input type="text" class="form-control" name="addr" /></td>
+                        <td colspan="2"><input type="text" class="form-control" name="addr" value="<?=$_REQUEST["addr"]?>" /></td>
                         <th>버전</th>
                         <td colspan="2">
                             <select class="custom-select" name="version">
                                 <option value="" >전체</option>
                                 <?foreach($pubList as $pubItem){?>
-                                    <option value="<?=$pubItem["id"]?>" ><?=$pubItem["desc"]?></option>
+                                    <option value="<?=$pubItem["id"]?>" <?=$_REQUEST["version"] == $pubItem["id"] ? "SELECTED" : ""?>><?=$pubItem["desc"]?></option>
                                 <?}?>
                             </select>
                         </td>
@@ -204,8 +203,8 @@ $pubList = $main->publicationList();
                         <td colspan="2">
                             <select class="custom-select" name="shippingType">
                                 <option value="" >전체</option>
-                                <option value="0" >우편</option>
-                                <option value="1" >택배</option>
+                                <option value="0" <?=$_REQUEST["shippingType"] == "0" ? "SELECTED" : ""?>>우편</option>
+                                <option value="1" <?=$_REQUEST["shippingType"] == "1" ? "SELECTED" : ""?>>택배</option>
                             </select>
                         </td>
                         <th></th>

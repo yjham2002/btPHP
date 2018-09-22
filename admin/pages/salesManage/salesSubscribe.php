@@ -33,7 +33,17 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 {
                     type: "stackedColumn",
                     showInLegend: true,
-                    name: "<?=$key == 0 ? "개인" : "단체"?>",
+                    <?
+                        $indicate = "";
+                        switch ($key){
+                            case 0: $indicate = "개인"; break;
+                            case 1: $indicate = "단체"; break;
+                            case 2: $indicate = "묶음배송"; break;
+                            case 3: $indicate = "표지광고"; break;
+                            default : $indicate = "오류"; break;
+                        }
+                    ?>
+                    name: "<?=$indicate?>",
                     dataPoints: [
                         <?foreach($value as $dateKey => $dateValue){?>
                         { y: <?=$dateValue?>, x: new Date("<?=$dateKey?>") },
@@ -148,13 +158,15 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                 <tr>
                     <th rowspan="2">구분</th>
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
-                        <th colspan="2" style="font-size: 12px;"><?=$rangeData[$i]?></th>
+                        <th colspan="4" style="font-size: 12px;"><?=$rangeData[$i]?></th>
                     <?}?>
                 </tr>
                 <tr>
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
                         <th style="background: #EEE; font-size: 12px;">개인</th>
                         <th style="background: #EEE; font-size: 12px;">단체</th>
+                        <th style="background: #EEE; font-size: 12px;">묶음배송</th>
+                        <th style="background: #EEE; font-size: 12px;">표지광고</th>
                     <?}?>
                 </tr>
                 </thead>
@@ -168,11 +180,17 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                         <?for($i = 0; $i < sizeof($rangeData); $i++){
                             $col1 = $tableData[$key][$rangeData[$i]]["0"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["0"];
                             $col2 = $tableData[$key][$rangeData[$i]]["1"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["1"];
+                            $col3 = $tableData[$key][$rangeData[$i]]["2"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["2"];
+                            $col4 = $tableData[$key][$rangeData[$i]]["3"] == "" ? 0 : $tableData[$key][$rangeData[$i]]["3"];
                             $total[$rangeData[$i]]["0"] += $col1;
                             $total[$rangeData[$i]]["1"] += $col2;
+                            $total[$rangeData[$i]]["2"] += $col3;
+                            $total[$rangeData[$i]]["3"] += $col4;
                             ?>
                             <td style="font-size: 12px;"><?=$col1?></td>
                             <td style="font-size: 12px;"><?=$col2?></td>
+                            <td style="font-size: 12px;"><?=$col3?></td>
+                            <td style="font-size: 12px;"><?=$col4?></td>
                         <?}?>
                     </tr>
                 <?}?>
@@ -181,6 +199,8 @@ $rangeData = $obj->getRangeAsArrayFromRequest();
                     <?for($i = 0; $i < sizeof($rangeData); $i++){?>
                         <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["0"]?></td>
                         <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["1"]?></td>
+                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["2"]?></td>
+                        <td style="font-size: 12px;"><?=$total[$rangeData[$i]]["3"]?></td>
                     <?}?>
                 </tr>
                 </tbody>
