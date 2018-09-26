@@ -67,7 +67,7 @@
             var newPW = $("#newPW").val();
             var newPWC = $("#newPWC").val();
 
-            if(verifyPassword(newPW) === false){
+            if(newPW != null && newPW != "" && verifyPassword(newPW) === false){
                 alert("비밀번호 형식에 맞춰서 작성해 주시기 바랍니다.");
                 return;
             }
@@ -79,7 +79,7 @@
                     return;
                 }
                 else{
-                    if(newPW !== newPWC){
+                    if(newPW != null && newPW !== newPWC){
                         alert("새로운 비밀번호가 일치하지 않습니다.");
                         return;
                     } else saveOperation();

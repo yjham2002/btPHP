@@ -257,7 +257,7 @@ if(! class_exists("WebUser") ){
         function updateCustomerInfo(){
             $type = $_REQUEST["type"];
             $id = $_REQUEST["id"];
-            $password = md5($_REQUEST["password"]);
+            $password = $_REQUEST["password"];
             $phone = $_REQUEST["phone"];
             $zipcode = $_REQUEST["zipcode"];
             $addr = $_REQUEST["addr"];
@@ -271,7 +271,9 @@ if(! class_exists("WebUser") ){
             $sql = "SELECT addr, addrDetail FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $old = $this->getRow($sql);
 
-            $sql = "
+            if($password != ""){
+                $password = md5($_REQUEST["password"]);
+                $sql = "
                     UPDATE tblCustomer
                     SET
                       `password` = '{$password}',
@@ -285,7 +287,25 @@ if(! class_exists("WebUser") ){
                       `birth` = '{$birth}'
                     WHERE `id` = '{$id}'
                 ";
-            $this->update($sql);
+                $this->update($sql);
+            }
+            else{
+                $sql = "
+                    UPDATE tblCustomer
+                    SET
+                      `phone` = '{$phone}',
+                      `zipcode` = '{$zipcode}',
+                      `addr` = '{$addr}',
+                      `addrDetail` = '{$addrDetail}',
+                      `cName` = '{$cName}',
+                      `cPhone` = '{$cPhone}',
+                      `notiFlag` = '{$notiFlag}',
+                      `birth` = '{$birth}'
+                    WHERE `id` = '{$id}'
+                ";
+                $this->update($sql);
+            }
+
 
             if($addr != $old["addr"] || $addrDetail != $old["addrDetail"]){
                 $sql = "
