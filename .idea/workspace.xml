@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="953164ab-ba23-43a2-afe9-6d67381cac5b" name="Default" comment="stockList added">
-      <change beforePath="$PROJECT_DIR$/admin/pages/customerManage/failedPurchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/customerManage/failedPurchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pages/salesManage/salesGeneral.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/salesManage/salesGeneral.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Management.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Management.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/Statistic.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/Statistic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/classes/WebSupport.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/classes/WebSupport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/donationDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/donationDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pages/siteManage/languages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/inc/language.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/inc/language.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/subscribeDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/subscribeDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/pages/supportDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/supportDetail.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +84,7 @@
           <entry key="css" value="1" />
           <entry key="jpg" value="1" />
           <entry key="js" value="1" />
-          <entry key="php" value="231" />
+          <entry key="php" value="236" />
           <entry key="sql" value="1" />
           <entry key="tblCustomer" value="1" />
           <entry key="tblPayMethod" value="1" />
@@ -99,20 +97,20 @@
           <entry key="Database Element" value="3" />
           <entry key="Image" value="1" />
           <entry key="JavaScript" value="1" />
-          <entry key="PHP" value="231" />
+          <entry key="PHP" value="236" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="209" />
-          <entry key="php" value="40832" />
+          <entry key="php" value="42869" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="209" />
-          <entry key="PHP" value="40498" />
+          <entry key="PHP" value="42535" />
           <entry key="SQL" value="334" />
         </counts>
       </usages-collector>
@@ -176,71 +174,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/admin/pages/salesManage/salesGeneral.php">
+        <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/languages.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
-              <folding>
-                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#2;n#tr#1;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#5;n#tr#1;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#thead#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#2;n#tr#1;n#thead#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#5;n#tr#1;n#thead#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#0;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#1;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="6279">
+              <caret line="634" column="105" lean-forward="true" selection-start-line="634" selection-start-column="105" selection-end-line="634" selection-end-column="105" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/classes/Statistic.php">
+        <entry file="file://$PROJECT_DIR$/web/inc/language.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="715">
-              <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+            <state relative-caret-position="526">
+              <caret line="167" column="54" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/supportDetail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="504">
+              <caret line="299" column="71" selection-start-line="299" selection-start-column="71" selection-end-line="299" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/subscribeDetail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="569">
+              <caret line="406" column="131" selection-start-line="406" selection-start-column="89" selection-end-line="406" selection-end-column="131" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/pages/subscription.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="543">
+              <caret line="45" column="51" lean-forward="true" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -294,8 +267,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/pages/customerManage/foreignHistory.php" />
-        <option value="$PROJECT_DIR$/web/assets/css/main.css" />
         <option value="$PROJECT_DIR$/web/abroad/credit.php" />
         <option value="$PROJECT_DIR$/web/abroad/constants/SampleCodeConstants.php" />
         <option value="$PROJECT_DIR$/web/abroad/billing.php" />
@@ -306,7 +277,6 @@
         <option value="/private/var/folders/fk/fznpwh3s5g51s94ry5sl64jr0000gn/T/fz3temp-2/Constants.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php" />
         <option value="$PROJECT_DIR$/web/pages/mypage.php" />
-        <option value="$PROJECT_DIR$/web/pages/subscribeDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/comm/Constants.php" />
         <option value="$PROJECT_DIR$/admin/pages/shipping/stockList.php" />
         <option value="$PROJECT_DIR$/common/classes/comm/DB.php" />
@@ -318,7 +288,6 @@
         <option value="$PROJECT_DIR$/admin/pages/shipping/stockDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/WebSupport.php" />
         <option value="$PROJECT_DIR$/common/classes/WebSubscription.php" />
-        <option value="$PROJECT_DIR$/web/pages/supportDetail.php" />
         <option value="$PROJECT_DIR$/common/classes/comm/Common.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/customerExcel.php" />
         <option value="$PROJECT_DIR$/admin/pages/customerManage/paymentStatus.php" />
@@ -345,6 +314,10 @@
         <option value="$PROJECT_DIR$/admin/pages/customerManage/failedPurchase.php" />
         <option value="$PROJECT_DIR$/common/classes/Statistic.php" />
         <option value="$PROJECT_DIR$/admin/pages/salesManage/salesGeneral.php" />
+        <option value="$PROJECT_DIR$/web/pages/subscribeDetail.php" />
+        <option value="$PROJECT_DIR$/web/inc/language.php" />
+        <option value="$PROJECT_DIR$/web/pages/supportDetail.php" />
+        <option value="$PROJECT_DIR$/admin/pages/siteManage/languages.php" />
       </list>
     </option>
   </component>
@@ -491,7 +464,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mariadb" />
-    <property name="SearchEverywhereHistoryKey" value="Sta&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Statistic.php&#10;salesG&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesGeneral.php&#10;manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;genera&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesGeneral.php&#10;salesPrintF&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesPrintFee.php&#10;salesPrin&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesPrints.php&#10;today&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/today.php&#10;salesR&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesResend.php&#10;WebUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;mypage&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/mypage.php&#10;customerDet&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerSearch.php&#10;cus&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;ExcelP&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/ExcelParser.php&#10;customerList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;stockL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockList.php&#10;mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;index&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/index.php&#10;Uncal&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;transaction&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/transactionDetailView.php&#10;tran&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/transactionDetailsSend.php&#10;deliver&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/deliveryList.php&#10;ExcelPar&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/ExcelParser.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;paymentS&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/paymentStatus.php&#10;failedP&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/failedPurchase.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;customerDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;index.php&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/index.php&#10;order_te&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/writable/order_template.php&#10;customer&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;webSupport&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;subsc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscribeDetail.php&#10;supportDe&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;unc&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;Common&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Common.php&#10;webSup&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;webSu&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;webSub&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;Mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;GEmail&#9;null&#9;null&#10;failed&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/failedPurchase.php&#10;stockD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockDetail.php&#10;foreign&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/foreignStatus.php&#10;Uncall&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;storeF&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/storeForm.php&#10;Manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;webS&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;customerD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php" />
+    <property name="SearchEverywhereHistoryKey" value="supportD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;subscription&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscription.php&#10;language&#9;FILE&#9;file:///usr/local/var/BibleTime/web/inc/language.php&#10;subscribeD&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscribeDetail.php&#10;languages&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/siteManage/languages.php&#10;Sta&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Statistic.php&#10;salesG&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesGeneral.php&#10;manage&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;header&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/inc/header.php&#10;genera&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesGeneral.php&#10;salesPrintF&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesPrintFee.php&#10;salesPrin&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesPrints.php&#10;today&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/today.php&#10;salesR&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/salesManage/salesResend.php&#10;WebUser&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebUser.php&#10;mypage&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/mypage.php&#10;customerDet&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;custo&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerSearch.php&#10;cus&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;ExcelP&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/ExcelParser.php&#10;customerList&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;stockL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockList.php&#10;mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;index&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/index.php&#10;Uncal&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;transaction&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/transactionDetailView.php&#10;tran&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/transactionDetailsSend.php&#10;deliver&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/deliveryList.php&#10;ExcelPar&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/ExcelParser.php&#10;customerL&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerList.php&#10;paymentS&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/paymentStatus.php&#10;failedP&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/failedPurchase.php&#10;adminM&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/AdminMain.php&#10;customerDetail&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;index.php&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/index.php&#10;order_te&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/writable/order_template.php&#10;customer&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/customerDetail.php&#10;webSupport&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;subsc&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/subscribeDetail.php&#10;supportDe&#9;FILE&#9;file:///usr/local/var/BibleTime/web/pages/supportDetail.php&#10;unc&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Uncallable.php&#10;Common&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/comm/Common.php&#10;webSup&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;webSu&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSupport.php&#10;webSub&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/WebSubscription.php&#10;Mana&#9;FILE&#9;file:///usr/local/var/BibleTime/common/classes/Management.php&#10;GEmail&#9;null&#9;null&#10;failed&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/failedPurchase.php&#10;stockD&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/shipping/stockDetail.php&#10;foreign&#9;FILE&#9;file:///usr/local/var/BibleTime/admin/pages/customerManage/foreignStatus.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -587,18 +560,18 @@
       <workItem from="1537242144264" duration="15388000" />
       <workItem from="1537420089478" duration="6979000" />
       <workItem from="1537505207749" duration="19995000" />
-      <workItem from="1537594012216" duration="8487000" />
+      <workItem from="1537594012216" duration="13499000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="434281000" />
+    <option name="totallyTimeSpent" value="439293000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19791667" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.19791667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -632,19 +605,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="stockList added" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/pages/shipping/purchaseOrderDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="213" column="110" selection-start-line="213" selection-start-column="110" selection-end-line="213" selection-end-column="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadFiles/201809160447321561768.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadFiles/201809160505441815155.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/comm/Constants.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -738,20 +698,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/uploadFiles/bt201809200842291900440.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/subscribeDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="580" column="119" selection-start-line="580" selection-start-column="90" selection-end-line="580" selection-end-column="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/pages/supportDetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="129" column="57" lean-forward="true" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/classes/WebSupport.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -968,8 +914,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/pages/salesManage/salesGeneral.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="133" column="23" lean-forward="true" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+        <state relative-caret-position="103">
+          <caret line="125" column="51" lean-forward="true" selection-start-line="125" selection-start-column="51" selection-end-line="125" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#1;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1022,6 +968,41 @@
             <element signature="n#style#0;n#td#4;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#5;n#tr#2;n#tbody#0;n#table#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/subscription.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="45" column="51" lean-forward="true" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/subscribeDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="406" column="131" selection-start-line="406" selection-start-column="89" selection-end-line="406" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/inc/language.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="167" column="54" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/pages/supportDetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="299" column="71" selection-start-line="299" selection-start-column="71" selection-end-line="299" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pages/siteManage/languages.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6279">
+          <caret line="634" column="105" lean-forward="true" selection-start-line="634" selection-start-column="105" selection-end-line="634" selection-end-column="105" />
         </state>
       </provider>
     </entry>

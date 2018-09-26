@@ -297,7 +297,7 @@
 <section class="wrapper special books" style="padding-bottom:0 !important;">
     <div class="inner">
         <header>
-            <h2 class="pageTitle">후원 신청/결제</h2>
+            <h2 class="pageTitle"><?=$SUPPORT_ELEMENTS["detail"]["title"]?></h2>
             <div class="empLineT"></div>
         </header>
     </div>
@@ -336,7 +336,7 @@
 
                     <br/>
                     <div class="row">
-                        <div style="color:black;" class="nanumGothic 3u 12u$(small)">결제유형</div>
+                        <div style="color:black;" class="nanumGothic 3u 12u$(small)"><?=$SUBSCRIBE_ELEMENTS["detail"]["type"]?></div>
                         <div style="color:black;" class="nanumGothic 6u 12u$(small)">정기후원</div>
                     </div>
                     <br/>
@@ -351,23 +351,23 @@
 
             <div class="row" style="margin-top : 1em;">
                 <div class="6u 12u$(small)">
-                    <h2 class="nanumGothic">신청자 정보</h2>
+                    <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["buyerInfo"]?></h2>
                 </div>
                 <div class="6u$ 12u$(small) align-left">
 
-                    <input class="smallTextBox" type="text" name="name" placeholder="보내는 분 성함" value="<?=$user->name?>"/>
-                    <input class="smallTextBox" type="text" name="email" placeholder="이메일" value="<?=$user->email?>"/>
+                    <input class="smallTextBox" type="text" name="name" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["name"]?>" value="<?=$user->name?>"/>
+                    <input class="smallTextBox" type="text" name="email" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["email"]?>" value="<?=$user->email?>"/>
                     <?if($user->id == ""){?>
-                        <a href="#" class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                        <a href="#" class="grayButton roundButton innerButton jCheckEmail"><?=$SUBSCRIBE_ELEMENTS["detail"]["emailCheck"]?></a>
                         <br/><br/>
                     <?}?>
                     <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
-                    <input class="smallTextBox" type="text" name="phone" placeholder="휴대폰 번호 (-없이 입력)" value="<?=$user->phone?>"/>
+                    <input class="smallTextBox" type="text" name="phone" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["phone"]?>" value="<?=$user->phone?>"/>
                     <input class="smallTextBox" type="text" name="message" placeholder="응원글을 입력해 주세요"/>
                 </div>
 
                 <div class="6u 12u$(small)" style="margin-top : 1em;">
-                    <h2 class="nanumGothic">결제정보</h2>
+                    <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["paymentInfo"]?></h2>
                 </div>
                 <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
                     <?if($_COOKIE["btLocale"] == "kr"){?>
@@ -379,13 +379,13 @@
                 </div>
 
                 <div class="6u 12u$(small)" style="margin-top : 1em;">
-                    <h2 class="nanumGothic">카드/계좌주</h2>
+                    <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["owner"]?></h2>
                 </div>
                 <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
                     <input type="radio" id="cardOwner-me" name="isOwner" value="1" checked>
-                    <label for="cardOwner-me">본인</label>
+                    <label for="cardOwner-me"><?=$SUBSCRIBE_ELEMENTS["detail"]["mine"]?></label>
                     <input type="radio" id="cardOwner-other" name="isOwner" value="0">
-                    <label for="cardOwner-other">타인</label>
+                    <label for="cardOwner-other"><?=$SUBSCRIBE_ELEMENTS["detail"]["notMine"]?></label>
 
                     <input class="smallTextBox" type="text" name="ownerName" placeholder="카드/계좌주 성함"/>
                 </div>

@@ -131,7 +131,31 @@
     );
 
     $SUBSCRIBE_ELEMENTS = Array(
-        "title" => $langJson->subscribe_title
+        "title" => $langJson->subscribe_title,
+        "detail" => Array(
+            "title" => $langJson->subscribe_detail_title,
+            "subTitle" => $langJson->subscribe_detail_subTitle,
+            "type" => $langJson->subscribe_detail_type,
+            "buyerInfo" => $langJson->subscribe_detail_buyerInfo,
+            "name" => $langJson->subscribe_detail_name,
+            "email" => $langJson->subscribe_detail_email,
+            "emailCheck" => $langJson->subscribe_detail_emailCheck,
+            "phone" => $langJson->subscribe_detail_phone,
+            "zipcode" => $langJson->subscribe_detail_zipcode,
+            "addr" => $langJson->subscribe_detail_addr,
+            "addrDetail" => $langJson->subscribe_detail_addrDetail,
+            "shippingInfo" => $langJson->subscribe_detail_shippingInfo,
+            "same" => $langJson->subscribe_detail_same,
+            "rName" => $langJson->subscribe_detail_rName,
+            "rPhone" => $langJson->subscribe_detail_rPhone,
+            "rZipcode" => $langJson->subscribe_detail_rZipcode,
+            "rAddr" => $langJson->subscribe_detail_rAddr,
+            "rAddrDetail" => $langJson->subscribe_detail_rAddrDetail,
+            "paymentInfo" => $langJson->subscribe_detail_paymentInfo,
+            "owner" => $langJson->subscribe_detail_owner,
+            "mine" => $langJson->subscribe_detail_mine,
+            "notMine" => $langJson->subscribe_detail_notMine
+        )
     );
 
     $SUPPORT_ELEMENTS = Array(
@@ -139,7 +163,10 @@
             "title" => $langJson->support_articleTitle,
             "text" => $langJson->support_articleText
         ),
-        "phrase" => $langJson->support_phrase
+        "phrase" => $langJson->support_phrase,
+        "detail" => Array(
+            "title" => $langJson->support_detail_title
+        )
     );
 
     $SHARE_ELEMENTS = Array(

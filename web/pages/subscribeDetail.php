@@ -340,6 +340,15 @@ $bankTypeList = $management->bankTypeList();
             $(".jShowPoAuto").click(function(){
                 window.open("/web/pages/popup2.php?type=pr_account", "_blank", "toolbar=yes,scrollbars=yes,resizable=no,width=500px,height=600px")
             });
+
+            if(locale !== "kr"){
+                $(".jAddress").hide();
+                $("[name=addr]").attr("readonly", false);
+                $("[name=zipcode]").attr("readonly", false);
+                $(".jRAddress").hide();
+                $("[name=rAddr]").attr("readonly", false);
+                $("[name=rZipcode]").attr("readonly", false);
+            }
         });
 
     </script>
@@ -347,9 +356,9 @@ $bankTypeList = $management->bankTypeList();
     <section class="wrapper special books" style="padding-bottom:0 !important;">
         <div class="inner">
             <header>
-                <h2 class="pageTitle">주문/결제</h2>
+                <h2 class="pageTitle"><?=$SUBSCRIBE_ELEMENTS["detail"]["title"]?></h2>
                 <div class="empLineT"></div>
-                <p>25일 이전에 주문하시면, 다음달 BibleTime을 만나볼 수 있습니다.</p>
+                <p><?=$SUBSCRIBE_ELEMENTS["detail"]["subTitle"]?></p>
             </header>
         </div>
     </section>
@@ -395,7 +404,7 @@ $bankTypeList = $management->bankTypeList();
                         <!--<h2 class="nanumGothic" style="color:black; font-size:1.5em;">BibleTime 선물하기</h2>-->
                         <br/>
                         <div class="row">
-                            <div style="color:black;" class="nanumGothic 3u 12u$(small)">결제유형</div>
+                            <div style="color:black;" class="nanumGothic 3u 12u$(small)"><?=$SUBSCRIBE_ELEMENTS["detail"]["type"]?></div>
                             <div style="color:black;" class="nanumGothic 6u 12u$(small)">정기구독</div>
                         </div>
                         <br/>
@@ -415,49 +424,49 @@ $bankTypeList = $management->bankTypeList();
                 <div class="row" style="margin-top : 1em;">
                     <?if($_REQUEST["type"] == "1"){?>
                         <div class="6u 12u$(small)">
-                            <h2 class="nanumGothic">구매정보</h2>
+                            <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["buyerInfo"]?></h2>
                         </div>
 
                         <div class="6u$ 12u$(small) align-left">
-                            <input class="smallTextBox" type="text" name="name" placeholder="성함" value="<?=$user->name?>" />
-                            <input class="smallTextBox" type="text" name="email" placeholder="이메일" value="<?=$user->email?>"/>
+                            <input class="smallTextBox" type="text" name="name" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["name"]?>" value="<?=$user->name?>" />
+                            <input class="smallTextBox" type="text" name="email" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["email"]?>" value="<?=$user->email?>"/>
                             <?if($user->id == ""){?>
-                                <a class="grayButton roundButton innerButton jCheckEmail">이메일 중복체크</a>
+                                <a class="grayButton roundButton innerButton jCheckEmail"><?=$SUBSCRIBE_ELEMENTS["detail"]["emailCheck"]?></a>
                                 <br/><br/>
                             <?}?>
                             <div class="jPhoneTarget">
                                 <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
-                                <input class="smallTextBox" name="phone" type="text" placeholder="휴대폰 번호 (-없이 입력)" value="<?=$user->phone?>"/>
+                                <input class="smallTextBox" name="phone" type="text" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["phone"]?>" value="<?=$user->phone?>"/>
                             </div>
 
                             <div>
-                                <input class="smallTextBox" type="text" name="zipcode" placeholder="우편번호" value="<?=$user->zipcode?>" readonly/>
+                                <input class="smallTextBox" type="text" name="zipcode" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["zipcode"]?>" value="<?=$user->zipcode?>" readonly/>
                                 <?if($user->id == ""){?>
                                     <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
                                 <?}?>
-                                <input class="smallTextBox" type="text" name="addr" placeholder="주소" value="<?=$user->addr?>" readonly/>
-                                <input class="smallTextBox" type="text" name="addrDetail" placeholder="상세주소" value="<?=$user->addrDetail?>" />
+                                <input class="smallTextBox" type="text" name="addr" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["addr"]?>" value="<?=$user->addr?>" readonly/>
+                                <input class="smallTextBox" type="text" name="addrDetail" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["addrDetail"]?>" value="<?=$user->addrDetail?>" />
                             </div>
                         </div>
 
                         <div class="6u 12u$(small)">
-                            <h2 class="nanumGothic">배송정보</h2>
+                            <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["shippingInfo"]?></h2>
                         </div>
                         <div class="6u$ 12u$(small) align-left">
                             <input type="checkbox" id="con_2" class="jDup">
-                            <label class="nanumGothic" for="con_2">구매정보와 동일</label>
+                            <label class="nanumGothic" for="con_2"><?=$SUBSCRIBE_ELEMENTS["detail"]["same"]?></label>
 
-                            <input class="smallTextBox" type="text" name="rName" placeholder="받는 분 성함" />
+                            <input class="smallTextBox" type="text" name="rName" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["rName"]?>" />
                             <div class="jPhoneTarget">
                                 <div style="font-size:0.8em; color:black!important;" class="nanumGothic 9u 12u$(small)">* 해외에 계신 경우 국가번호를 함께 아래와 같이 입력해주세요.<br/>예)+11234567890</div>
-                                <input class="smallTextBox" name="rPhone" type="text" placeholder="받는분 휴대폰 번호 (-없이 입력)" />
+                                <input class="smallTextBox" name="rPhone" type="text" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["rPhone"]?>" />
                             </div>
 
                             <div>
-                                <input class="smallTextBox" type="text" name="rZipcode" placeholder="우편번호" readonly/>
+                                <input class="smallTextBox" type="text" name="rZipcode" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["rZipcode"]?>" readonly/>
                                 <a href="#" class="grayButton roundButton innerButton jRAddress">주소찾기</a>
-                                <input class="smallTextBox" type="text" name="rAddr" placeholder="주소" readonly/>
-                                <input class="smallTextBox" type="text" name="rAddrDetail" placeholder="상세주소" />
+                                <input class="smallTextBox" type="text" name="rAddr" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["rAddr"]?>" readonly/>
+                                <input class="smallTextBox" type="text" name="rAddrDetail" placeholder="<?=$SUBSCRIBE_ELEMENTS["detail"]["rAddrDetail"]?>" />
                             </div>
                         </div>
                     <?}else if($_REQUEST["type"] == "2"){?>
@@ -502,7 +511,7 @@ $bankTypeList = $management->bankTypeList();
                     <?}?>
 
                     <div class="6u 12u$(small)" style="margin-top : 1em;">
-                        <h2 class="nanumGothic">결제정보</h2>
+                        <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["paymentInfo"]?></h2>
                     </div>
                     <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
                         <?if($_COOKIE["btLocale"] == "kr"){?>
@@ -514,13 +523,13 @@ $bankTypeList = $management->bankTypeList();
                     </div>
 
                     <div class="6u 12u$(small)" style="margin-top : 1em;">
-                        <h2 class="nanumGothic">카드/계좌주</h2>
+                        <h2 class="nanumGothic"><?=$SUBSCRIBE_ELEMENTS["detail"]["owner"]?></h2>
                     </div>
                     <div class="6u$ 12u$(small) align-left" style="margin-top : 1em;">
                         <input type="radio" id="cardOwner-me" name="isOwner" value="1" checked>
-                        <label for="cardOwner-me">본인</label>
+                        <label for="cardOwner-me"><?=$SUBSCRIBE_ELEMENTS["detail"]["mine"]?></label>
                         <input type="radio" id="cardOwner-other" name="isOwner" value="0">
-                        <label for="cardOwner-other">타인</label>
+                        <label for="cardOwner-other"><?=$SUBSCRIBE_ELEMENTS["detail"]["notMine"]?></label>
 
                         <input class="smallTextBox" type="text" name="ownerName" placeholder="카드/계좌주 성함"/>
                     </div>

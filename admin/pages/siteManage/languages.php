@@ -191,6 +191,7 @@
                 $("#show05").hide();
                 $("#show06").hide();
                 $("#show07").hide();
+                $("#show08").hide();
             }
 
             $("#show02").hide();
@@ -199,6 +200,7 @@
             $("#show05").hide();
             $("#show06").hide();
             $("#show07").hide();
+            $("#show08").hide();
 
             $(".jSave").click(function(){
                 var jsonArr = getLangPair();
@@ -292,6 +294,7 @@
                 <button type="button" class="btn btn-secondary jS01" divId="show02">웹사이트 HOME</button>
                 <button type="button" class="btn btn-secondary jS01" divId="show03">웹사이트 소개</button>
                 <button type="button" class="btn btn-secondary jS01" divId="show04">웹사이트 구독</button>
+                <button type="button" class="btn btn-secondary jS01" divId="show08">웹사이트 후원</button>
             </div>
             <div class="btn-group float-left mb-3" role="group">
             <button type="button" class="btn btn-secondary jS01" divId="show05">웹사이트 나눔</button>
@@ -522,41 +525,121 @@
                         <td class="bg-secondary text-light langKey" key="subscribe_title">구독[타이틀]</td>
                         <td><input type="text" class="form-control langValue" key="subscribe_title" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_title">구독 상세[타이틀]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_title" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_subTitle">구독 상세[하위 타이틀]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_subTitle" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_type">구독 상세[결제 유형]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_type" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_buyerInfo">구독 상세[구매정보]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_buyerInfo" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_name">구독 상세[성함]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_name" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_email">구독 상세[이메일]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_email" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_emailCheck">구독 상세[이메일 중복 체크]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_emailCheck" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_phone">구독 상세[휴대폰 번호]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_phone" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_zipcode">구독 상세[우편번호]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_zipcode" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_addr">구독 상세[주소]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_addr" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_addrDetail">구독 상세[상세주소]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_addrDetail" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_shippingInfo">구독 상세[배송정보]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_shippingInfo" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_same">구독 상세[구매정보와 동일]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_same" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_rName">구독 상세[받는분 성함]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_rName" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_rPhone">구독 상세[받는분 휴대전화번호]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_rPhone" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_rZipcode">구독 상세[받는분 우편번호]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_rZipcode" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_rAddr">구독 상세[받는분 주소]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_rAddr" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_rAddrDetail">구독 상세[받는분 상세주소]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_rAddrDetail" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_paymentInfo">구독 상세[결제 정보]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_paymentInfo" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_owner">구독 상세[카드/계좌주]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_owner" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_mine">구독 상세[본인]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_mine" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="subscribe_detail_notMine">구독 상세[타인]</td>
+                        <td><input type="text" class="form-control langValue" key="subscribe_detail_notMine" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
                 </table>
             </div>
-
             </div>
             <br/>
 
-<!--            <h4>웹사이트 후원하기 영역</h4>-->
-<!--            <div class="table-responsive">-->
-<!--                <table class="table table-bordered" width="100%" cellspacing="0">-->
-<!--                    <colgroup>-->
-<!--                        <col width="30%"/>-->
-<!--                        <col width="70%"/>-->
-<!--                    </colgroup>-->
-<!--                    <tr class="h-auto">-->
-<!--                        <td colspan="2">-->
-<!--                            <img src="./attr/support_elem.png" width="100%" />-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                    <tr class="h-auto">-->
-<!--                        <td class="bg-secondary text-light langKey" key="support_articleTitle">후원[아티클 타이틀]</td>-->
-<!--                        <td><input type="text" class="form-control langValue" key="support_articleTitle" value="" placeholder="내용을 입력하세요" /></td>-->
-<!--                    </tr>-->
-<!--                    <tr class="h-auto">-->
-<!--                        <td class="bg-secondary text-light langKey" key="support_articleText">후원[아티클 텍스트]</td>-->
-<!--                        <td><input type="text" class="form-control langValue" key="support_articleText" value="" placeholder="내용을 입력하세요" /></td>-->
-<!--                    </tr>-->
-<!---->
-<!--                    <tr class="h-auto">-->
-<!--                        <td class="bg-secondary text-light langKey" key="support_pbrase">후원[문구]</td>-->
-<!--                        <td><input type="text" class="form-control langValue" key="support_pbrase" value="" placeholder="내용을 입력하세요" /></td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-<!--            </div>-->
-<!---->
-<!--            <br/>-->
+            <div id="show08">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <colgroup>
+                            <col width="30%"/>
+                            <col width="70%"/>
+                        </colgroup>
+                        <tr class="h-auto">
+                            <td colspan="2">
+                                <img src="./attr/support_elem.png" width="100%" />
+                            </td>
+                        </tr>
+                        <p>* 구독 페이지와 중복되는 항목은 구독 탭의 설정을 따릅니다.</p>
+                        <tr class="h-auto">
+                            <td class="bg-secondary text-light langKey" key="support_detail_title">후원 상세[타이틀]</td>
+                            <td><input type="text" class="form-control langValue" key="support_detail_title" value="" placeholder="내용을 입력하세요" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <br/>
 
             <div id="show05">
             <!-- SHARE ELEMENTS -->
