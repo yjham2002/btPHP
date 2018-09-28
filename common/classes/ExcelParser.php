@@ -149,15 +149,14 @@ if(!class_exists("ExcelParser")){
         }
 
         function parseDeliveryHistory(){
-            $id = $_REQUEST["id"];
-            $check = file_exists($_FILES['docFile']['tmp_name']);
+            $check = file_exists($_FILES['docFileDelivery']['tmp_name']);
             $targetDir = "";
 
             if($check !== false){
-                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION);
-                if(pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION) == "xls" || pathinfo(basename($_FILES["docFile"]["name"]),PATHINFO_EXTENSION) == "xlsx"){
+                $fName = $this->makeFileName() . "." . pathinfo(basename($_FILES["docFileDelivery"]["name"]),PATHINFO_EXTENSION);
+                if(pathinfo(basename($_FILES["docFileDelivery"]["name"]),PATHINFO_EXTENSION) == "xls" || pathinfo(basename($_FILES["docFileDelivery"]["name"]),PATHINFO_EXTENSION) == "xlsx"){
                     $targetDir = $_SERVER["DOCUMENT_ROOT"] . "/uploadFiles/" . $fName;
-                    if(!move_uploaded_file($_FILES["docFile"]["tmp_name"], $targetDir)) return $this->makeResultJson(-1, "Failed to read the file.");
+                    if(!move_uploaded_file($_FILES["docFileDelivery"]["tmp_name"], $targetDir)) return $this->makeResultJson(-1, "Failed to read the file.");
                 }else{
                     return $this->makeResultJson(-1, "Unexpected Extension of the file.");
                 }
@@ -189,28 +188,35 @@ if(!class_exists("ExcelParser")){
                 $data = array();
 
                 for ($i = 2 ; $i <= $maxRow ; $i++) {
-                    $name = $objWorksheet->getCell('A' . $i)->getValue(); // A열
-                    $shippingDate = $objWorksheet->getCell('B' . $i)->getValue(); // B열
-                    $info = $objWorksheet->getCell('C' . $i)->getValue(); // C열
-                    $cnt = $objWorksheet->getCell('D' . $i)->getValue(); // D열
-                    $addr = $objWorksheet->getCell('E' . $i)->getValue(); // D열
-
-//                    echo $name . "//" . $shippingDate . "//" .$info ."//" . $cnt ."//" . $addr;
-//                    if(gettype($cnt) != "integer") continue;
+                    $email = $objWorksheet->getCell('A' . $i)->getValue(); // A열
+                    $name = $objWorksheet->getCell('B' . $i)->getValue(); // A열
+                    $shippingDate = $objWorksheet->getCell('C' . $i)->getValue(); // B열
+                    $info = $objWorksheet->getCell('D' . $i)->getValue(); // C열
+                    $cnt = $objWorksheet->getCell('E' . $i)->getValue(); // D열
+                    $addr = $objWorksheet->getCell('F' . $i)->getValue(); // D열
+                    $content = $objWorksheet->getCell('G' . $i)->getValue();
 
                     $sql = "
-                        INSERT INTO tblCustomerDeliveryHistory(customerId, name, shippingDate, info, cnt, addr, regDate)
-                        VALUES(
-                          '{$id}',
-                          '{$name}',
-                          '{$shippingDate}',
-                          '{$info}',
-                          '{$cnt}',
-                          '{$addr}',
-                          NOW()
-                        )
+                        SELECT id FROM tblCustomer WHERE `email` = '{$email}'
                     ";
-                    $this->update($sql);
+                    $customerId = $this->getValue($sql, "id");
+
+                    if($customerId != ""){
+                        $sql = "
+                            INSERT INTO tblCustomerDeliveryHistory(customerId, name, shippingDate, info, cnt, addr, content, regDate)
+                            VALUES(
+                              '{$customerId}',
+                              '{$name}',
+                              '{$shippingDate}',
+                              '{$info}',
+                              '{$cnt}',
+                              '{$addr}',
+                              '{$content}',
+                              NOW()
+                            )
+                        ";
+                        $this->update($sql);
+                    }
                 }
 
             }

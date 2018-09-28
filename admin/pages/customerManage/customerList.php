@@ -105,6 +105,27 @@
             }
         });
 
+
+        $(".jUploadDeliveryExcel").click(function(){
+            $("[name=docFileDelivery]").click();
+        });
+
+        $("[name=docFileDelivery]").change(function(){
+            if($(this).val() != ""){
+                var ajax = new AjaxSubmit("/route.php?cmd=ExcelParser.parseDeliveryHistory", "post", true, "json", "#form");
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                        location.reload();
+                    }else if(data.returnCode == -1){
+                        var err = data.entity;
+                        if(err == null || err == "") err = "#";
+                        alert("파일을 읽는 중 오류가 발생하였습니다. (" + err + ")");
+                    }
+                });
+            }
+        });
+
     });
 </script>
 
@@ -125,6 +146,7 @@
         <form id="form">
             <input type="hidden" name="page"/>
             <input type="file" name="docFile" style="display: none;"/>
+            <input type="file" name="docFileDelivery" style="display: none;"/>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-secondary mr-lg-5 jDetailSearch"><i class="fas fa-search fa-fw"></i>상세검색</button>
@@ -140,16 +162,27 @@
                 <input type="text" class="form-control mr-2" name="searchText" value="<?=$_REQUEST["searchText"]?>">
                 <div class="btn-group float-right" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary mr-2 jSearch">검색</button>
-<!--                    <button type="button" class="btn btn-secondary mr-2 jDownExcel"><i class="fas fa-download fa-fw"></i>Excel</button>-->
-                    <button type="button" class="btn btn-secondary mr-2 jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-download fa-fw"></i>Excel
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item jDownExcel" id="">전체</a>
-                        <?foreach($pubList as $pubItem){?>
-                            <a class="dropdown-item jDownExcel" id="<?=$pubItem["id"]?>"><?=$pubItem["desc"]?></a>
-                        <?}?>
+
+                    <div>
+                        <button type="button" class="btn btn-secondary mr-2 dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-upload fa-fw"></i>Excel
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item jUploadExcel" id="">회원</a>
+                            <a class="dropdown-item jUploadDeliveryExcel" id="">배송조회</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-download fa-fw"></i>Excel
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item jDownExcel" id="">전체</a>
+                            <?foreach($pubList as $pubItem){?>
+                                <a class="dropdown-item jDownExcel" id="<?=$pubItem["id"]?>"><?=$pubItem["desc"]?></a>
+                            <?}?>
+                        </div>
                     </div>
                 </div>
             </div>

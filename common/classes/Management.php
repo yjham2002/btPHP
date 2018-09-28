@@ -109,13 +109,16 @@ if(!class_exists("Management")){
 
             //TODO 결제 정보
             $sql = "
-                SELECT *
+                SELECT 
+                  *,
+                  (SELECT `desc` FROM tblCardType WHERE id = cardTypeId) as cardTypeDesc,
+                  (SELECT `desc` FROM tblBankType WHERE code = bankCode) as bankTypeDesc
                 FROM(
-                    SELECT PM1.id, cardTypeId, bankCode, ownerName, monthlyDate, PM1.type AS pmType, info, totalPrice, PM1.regDate, P1.regDate AS paymentDate, 'SUB' AS productType
+                    SELECT PM1.id, cardTypeId, bankCode, validThruYear, validThruMonth, ownerName, monthlyDate, PM1.type AS pmType, info, totalPrice, PM1.regDate, P1.regDate AS paymentDate, 'SUB' AS productType, primeJumin
                     FROM 
                     tblPayMethod PM1 JOIN tblPayment P1 ON PM1.`id` = P1.`payMethodId` JOIN tblSubscription SUB ON SUB.paymentId = P1.id
                     UNION ALL
-                    SELECT PM2.id, cardTypeId, bankCode, ownerName, monthlyDate, PM2.type AS pmType, info, totalPrice, PM2.regDate, P2.regDate AS paymentDate, 'SUP' AS productType 
+                    SELECT PM2.id, cardTypeId, bankCode, validThruYear, validThruMonth, ownerName, monthlyDate, PM2.type AS pmType, info, totalPrice, PM2.regDate, P2.regDate AS paymentDate, 'SUP' AS productType, primeJumin 
                     FROM tblPayMethod PM2 JOIN tblPayment P2 ON PM2.`id` = P2.`payMethodId` JOIN tblSupport SUP ON SUP.paymentId = P2.id
                 ) tmp
                 ORDER BY regDate DESC

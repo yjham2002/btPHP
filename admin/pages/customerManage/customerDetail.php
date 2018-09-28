@@ -17,6 +17,7 @@
     $item = $obj->customerInfo();
     $userInfo = $item["userInfo"];
     $paymentInfo = $item["paymentInfo"];
+//    echo json_encode($paymentInfo);
     $subscriptionInfo = $item["subscriptionInfo"];
     $supportInfo = $item["supportInfo"];
     
@@ -701,6 +702,9 @@
                     <tr>
                         <th>타입</th>
                         <th>결제수단</th>
+                        <th>카드사/은행</th>
+                        <th>유효월/년</th>
+                        <th>생년월일</th>
                         <th>금액</th>
                         <th>결제 시작일</th>
                         <th>정기 결제일</th>
@@ -723,6 +727,9 @@
                                     echo "/ " . $paymentItem["info"];
                                 ?>
                             </td>
+                            <td><?=$paymentItem["bankTypeDesc"] . $paymentItem["cardTypeDesc"]?></td>
+                            <td><?=$paymentItem["validThruMonth"] != "" ? $paymentItem["validThruMonth"] . "/" . $paymentItem["validThruYear"] : ""?></td>
+                            <td><?=$paymentItem["primeJumin"]?></td>
                             <td><?=$paymentItem["totalPrice"]?></td>
                             <td><?=$paymentItem["paymentDate"]?></td>
                             <td><?=$paymentItem["monthlyDate"]?></td>

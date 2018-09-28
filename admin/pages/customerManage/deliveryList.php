@@ -48,13 +48,13 @@
             <li class="breadcrumb-item active">배송조회</li>
         </ol>
 
-        <form id="form">
-            <input type="hidden" name="id" value="<?=$_REQUEST["id"]?>"/>
-            <input type="file" name="docFile" style="display: none;"/>
-        </form>
-        <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary mr-2 jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>
-        </div>
+<!--        <form id="form">-->
+<!--            <input type="hidden" name="id" value="--><?//=$_REQUEST["id"]?><!--"/>-->
+<!--            <input type="file" name="docFile" style="display: none;"/>-->
+<!--        </form>-->
+<!--        <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">-->
+<!--            <button type="button" class="btn btn-secondary mr-2 jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>-->
+<!--        </div>-->
 
         <table class="table table-hover table-bordered">
             <thead>
@@ -64,6 +64,7 @@
                 <th>버전/월호</th>
                 <th>수량</th>
                 <th>주소</th>
+                <th>비고</th>
                 <th>등록일시</th>
             </tr>
             </thead>
@@ -75,6 +76,7 @@
                     <td><?=$item["info"]?></td>
                     <td><?=$item["cnt"]?></td>
                     <td><?=$item["addr"]?></td>
+                    <td><?=$item["content"]?></td>
                     <td><?=$item["regDate"]?></td>
                 </tr>
             <?}?>
