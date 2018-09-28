@@ -488,7 +488,10 @@ if(!class_exists("Uncallable")){
 
         function getTransList(){
             $this->initPage();
-            $where = "WHERE DATE_FORMAT(`regDate`,'%Y-%m') = '{$_REQUEST["year"]}-{$_REQUEST["month"]}'";
+//            $where = "WHERE DATE_FORMAT(`regDate`,'%Y-%m') = '{$_REQUEST["year"]}-{$_REQUEST["month"]}'";
+            $where = "WHERE DATE('{$_REQUEST["year"]}-{$_REQUEST["month"]}-01') 
+                        BETWEEN DATE(CONCAT(`pYear`,'-',`pMonth`,'-01')) 
+                        AND DATE(IFNULL(LAST_DAY(DATE(CONCAT(`eYear`,'-',`eMonth`,'-01'))), DATE('2999-12-31')))";
 
 //            if($_REQUEST["type"] != "-1"){
 //                $where .= " AND `subType`='{$_REQUEST["type"]}'";

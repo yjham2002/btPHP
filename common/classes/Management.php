@@ -688,7 +688,8 @@ if(!class_exists("Management")){
                 SELECT 
                   *, 
                   (SELECT `desc` FROM tblPublication WHERE `id` = publicationId) publicationName,
-                  (SELECT `name` FROM tblAdmin WHERE tblAdmin.id = adminId) adminName
+                  (SELECT `name` FROM tblAdmin WHERE tblAdmin.id = adminId) adminName,
+                  (SELECT `desc` FROM tblTypeManage WHERE `type`='0' AND `id` = shippingCo) shippingCoDesc
                 FROM tblWarehousing
                 WHERE {$where}
                 ORDER BY regDate DESC
@@ -1060,6 +1061,21 @@ if(!class_exists("Management")){
                 GROUP BY publicationId;
             ";
             return $this->getArray($sql);
+        }
+
+        function deleteCustomer(){
+            $id = $_REQUEST["id"];
+            $sql = "
+                DELETE FROM tblCustomer WHERE id = '{$id}'
+            ";
+            $this->update($sql);
+            $sql = "DELETE FROM tblSubscription WHERE customerId = '{$id}'";
+            $this->update($sql);
+            $sql = "DELETE FROM tblSupport WHERE customerId = '{$id}'";
+            $this->update($sql);
+            $sql = "DELETE FROM tblPayMethod WHERE customerId = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
         }
     }
 }

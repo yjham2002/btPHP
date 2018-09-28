@@ -58,14 +58,18 @@
             var ctx = {
                 worksheet : 'Worksheet',
                 table : htmls
-            }
+            };
 
+            var isIE = false;
+            if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0 || window.navigator.userAgent.indexOf("Edge") > -1) {
+                isIE = true;
+            }
             var link = document.createElement("a");
             link.download = "export.xls";
             link.href = uri + base64(format(template, ctx));
             link.click();
 
-            window.close();
+            // window.close();
         }
 
         $(".jDownExcel").click(function(){
@@ -100,6 +104,7 @@
                 });
             }
         });
+
     });
 </script>
 

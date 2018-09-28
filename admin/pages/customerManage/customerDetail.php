@@ -214,6 +214,19 @@
                 }
             });
         });
+
+        $(".jDel").click(function(){
+            var map = new sehoMap().put("id", $(this).attr("id"));
+            var ajax = new AjaxSender("/route.php?cmd=Management.deleteCustomer", false, "json", map);
+            if(confirm("삭제하시겠습니까?")){
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("삭제되었습니다");
+                        location.href = "/admin/pages/customerManage/customerList.php"
+                    }
+                })
+            }
+        });
     });
 </script>
 
@@ -276,7 +289,7 @@
             <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
 <!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
             <button type="button" class="btn btn-secondary mr-2 jLost">LOST</button>
-<!--            <button type="button" class="btn btn-secondary jSave">적용</button>-->
+            <button type="button" class="btn btn-danger mr-2 jDel" id="<?=$_REQUEST["id"]?>">삭제</button>
         </div>
 
         <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
@@ -500,9 +513,7 @@
                             <td>
                                 <?=$subItem["lostCnt"]?>
                                 /
-                                <?=$subItem["eYear"] != "" && $subItem["eMonth"] != "" ?
-                                    (intval($subItem["eYear"]) - intval($subItem["pYear"])) * 12 + (intval($subItem["eMonth"]) - intval($subItem["pMonth"])) : "-"
-                                ?>
+                                <?=intval(date("Y") - intval($subItem["pYear"])) * 12 + intval(date("m") - intval($subItem["pMonth"]))?>
                             </td>
                             <td>
                                 <select class="form-control" name="deliveryStatus[]">

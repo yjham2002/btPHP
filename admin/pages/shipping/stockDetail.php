@@ -111,6 +111,7 @@
             <thead>
             <tr>
                 <th>등록일시</th>
+                <th>배송 거래처</th>
                 <th>입고/출고</th>
                 <th>버전</th>
                 <th>담당자</th>
@@ -125,6 +126,7 @@
             <?foreach($list as $item){?>
                 <tr>
                     <td><?=$item["regDate"]?></td>
+                    <td><?=$item["shippingCoDesc"]?></td>
                     <td><?=$item["cnt"] > 0 ? "입고" : "출고"?></td>
                     <td><?=$item["publicationName"]?></td>
                     <td><?=$item["adminName"]?></td>

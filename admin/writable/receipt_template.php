@@ -257,7 +257,7 @@ if($totalLiteral == "") $totalLiteral = "영";
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>일련번호</span></P>
     </td>
     <td width="95" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P><span STYLE='font-size:8.0pt;line-height:140%;'><?="미정"?></span></P>
+        <P><span STYLE='font-size:8.0pt;line-height:140%;'><?=date("Ymd")."-1"?></span></P>
     </td>
     <td width="57" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>TEL</span></P>
@@ -429,7 +429,7 @@ if($totalLiteral == "") $totalLiteral = "영";
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>일련번호</span></P>
     </td>
     <td width="95" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-        <P><span STYLE='font-size:8.0pt;line-height:140%;'><?="미정"?></span></P>
+        <P><span STYLE='font-size:8.0pt;line-height:140%;'><?=date("Ymd")."-1"?></span></P>
     </td>
     <td width="57" height="16" valign="middle" style='border-left:solid #000000 1px;border-right:solid #000000 1px;border-top:solid #000000 1px;border-bottom:solid #000000 1px;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
         <P STYLE='text-align:center;'><span STYLE='font-size:9.0pt;line-height:140%;'>TEL</span></P>

@@ -102,6 +102,11 @@
             })
         });
 
+        $(".jView").click(function(){
+            var id = $(this).attr("id")
+           location.href = "/admin/pages/customerManage/customerDetail.php?id=" + id;
+        });
+
     });
 </script>
 
@@ -132,7 +137,7 @@
 
         <div style="width: 100%; height: 600px; overflow-y: scroll">
             <?if($type == "BA"){?>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>이름</th>
@@ -150,7 +155,7 @@
                     </thead>
                     <tbody>
                     <?foreach($list as $item){?>
-                        <tr>
+                        <tr class="jView" id="<?=$item["customerId"]?>">
                             <td><?=$item["ownerName"]?></td>
                             <td><?=$item["primeRes"]["memberStatus"] == "1" ? "정상" : "해지"?></td>
                             <td>
@@ -248,7 +253,7 @@
                     </thead>
                     <tbody>
                     <?foreach($list as $item){?>
-                        <tr>
+                        <tr class="jView" id="<?=$item["customerId"]?>">
                             <td><?=$item["ownerName"]?></td>
                             <td><?=$item["cardDesc"]?></td>
                             <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
@@ -337,7 +342,7 @@
                     </thead>
                     <tbody>
                     <?foreach($list as $item){?>
-                        <tr>
+                        <tr class="jView" id="<?=$item["customerId"]?>">
                             <td><?=$item["aFirstname"] . " " . $item["aLastname"]?></td>
                             <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
                             <td><?=$item["validThruMonth"] . " / " . $item["validThruYear"]?></td>
