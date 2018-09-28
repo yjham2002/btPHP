@@ -28,10 +28,10 @@
 
     if($flag){
         $F_VALUE[0]["date"] = $subscribe["ftd"];
-        $F_VALUE[0]["name"] = $subscribe["puName"];
+        $F_VALUE[0]["name"] = $subscribe["puName"]."(배송료포함)";
         $F_VALUE[0]["quantity"] = $subscribe["cnt"];
-        $F_VALUE[0]["price"] = $subscribe["price"];
-        $F_VALUE[0]["supply"] = intval($subscribe["cnt"]) * intval($subscribe["price"]);
+        $F_VALUE[0]["price"] = $subscribe["unitPrice"];
+        $F_VALUE[0]["supply"] = intval($subscribe["totalPrice"]);
         $F_VALUE[0]["vat"] = $subscribe["pMonth"]."월호";
     }
 
@@ -45,6 +45,9 @@
         var currentId = "<?=$_REQUEST["id"]?>";
 
         function updateFormJson(jsonObj, id, vat, check){
+            if(vat == ""){
+                vat = 0;
+            }
             $.ajax({
                 type : "POST",
                 url: "/route.php?cmd=Uncallable.updateReceiptJson",

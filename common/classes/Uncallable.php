@@ -95,6 +95,7 @@ if(!class_exists("Uncallable")){
             $sql = "SELECT *,
                     DATE_FORMAT(`regDate`,'%m/%d') AS ftd,
                     (SELECT `desc` FROM tblPublication WHERE `id`=publicationId) AS puName,
+                    (SELECT price FROM tblPublicationLang WHERE tblPublicationLang.publicationId=tblSubscription.publicationId AND langCode='kr') AS unitPrice,
                     (SELECT `name` FROM tblCustomer WHERE `id`=customerId) AS cuName,
                     (SELECT `phone` FROM tblCustomer WHERE `id`=customerId) AS cuPhone,
                     (SELECT CONCAT(addr, ' ', addrDetail) FROM tblCustomer WHERE `id`=customerId) AS fAddr  

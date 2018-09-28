@@ -126,7 +126,8 @@ if(!class_exists("Management")){
                 SELECT 
                   S.*, PM.info, PM.type as pmType, 
                   (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = publicationId AND langCode = '{$userInfo["langCode"]}' LIMIT 1) publicationName,
-                  (SELECT COUNT(*) FROM tblShipping S WHERE S.subsciptionId = id) lostCnt
+                  (SELECT COUNT(*) FROM tblShipping S WHERE S.subsciptionId = id) lostCnt,
+                  P.paymentResult
                 FROM tblSubscription S LEFT JOIN tblPayment P ON S.paymentId = P.id  LEFT JOIN tblPayMethod PM ON PM.id = P.payMethodId
                 WHERE S.customerId = '{$id}' 
                 ORDER BY S.regDate DESC
@@ -134,7 +135,7 @@ if(!class_exists("Management")){
             $subscriptionInfo = $this->getArray($sql);
 
             $sql = "
-                SELECT S.*, PM.info, PM.type as pmType, (SELECT `desc` FROM tblNationGroup WHERE `id` = (SELECT nationId FROM tblSupportParent WHERE `id` = S.parentId)) nation
+                SELECT S.*, PM.info, PM.type as pmType, (SELECT `desc` FROM tblNationGroup WHERE `id` = (SELECT nationId FROM tblSupportParent WHERE `id` = S.parentId)) nation, P.paymentResult
                 FROM tblSupport S LEFT JOIN tblPayment P ON S.paymentId = P.id LEFT JOIN tblPayMethod PM ON PM.id = P.payMethodId
                 WHERE S.customerId = '{$id}'
                 ORDER BY S.regDate DESC
@@ -1074,6 +1075,12 @@ if(!class_exists("Management")){
             $sql = "DELETE FROM tblSupport WHERE customerId = '{$id}'";
             $this->update($sql);
             $sql = "DELETE FROM tblPayMethod WHERE customerId = '{$id}'";
+            $this->update($sql);
+            return $this->makeResultJson(1, "succ");
+        }
+
+        function deleteHistory(){
+            $sql = "DELETE FROM tblCustomerHistory WHERE `id` = '{$_REQUEST["id"]}'";
             $this->update($sql);
             return $this->makeResultJson(1, "succ");
         }

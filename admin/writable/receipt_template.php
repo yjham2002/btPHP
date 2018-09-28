@@ -22,6 +22,23 @@ $formData = $uc->getReceipt();
 $formJson = $formData["formJson"];
 $F_VALUE = json_decode(preg_replace('/[\x00-\x1F\x7F]/', '', $formJson), true);
 
+if($formJson == ""){
+    $F_VALUE[0]["date"] = $subscribe["ftd"];
+    $F_VALUE[0]["name"] = $subscribe["puName"]."(배송료포함)";
+    $F_VALUE[0]["quantity"] = $subscribe["cnt"];
+    $F_VALUE[0]["price"] = $subscribe["unitPrice"];
+    $F_VALUE[0]["supply"] = intval($subscribe["totalPrice"]);
+    $F_VALUE[0]["vat"] = $subscribe["pMonth"]."월호";
+    for($www = 1; $www < 12; $www++){
+        $F_VALUE[$www]["date"] = "";
+        $F_VALUE[$www]["name"] = "";
+        $F_VALUE[$www]["quantity"] = "";
+        $F_VALUE[$www]["price"] = "";
+        $F_VALUE[$www]["supply"] = "";
+        $F_VALUE[$www]["vat"] = "";
+    }
+}
+
 $totalPrice = 0;
 $totalQuan = 0;
 

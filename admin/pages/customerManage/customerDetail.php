@@ -26,6 +26,7 @@
         if($localeItem["code"] == $userInfo["langCode"]) $localeTxt = $localeItem["desc"];
 
     $publicationList = $main->publicationList();
+
 ?>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -122,6 +123,21 @@
             initHistoryTable(typeArr);
         });
 
+        $(document).on("click", ".historyDel", function(){
+            var index = $(".historyDel").index($(this));
+            $(".historyInx").eq(index).empty();
+            var id = $(this).attr("id");
+            if(id != undefined){
+                var ajax = new AjaxSender("/route.php?cmd=Management.deleteHistory", false, "json", new sehoMap().put("id", id));
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("삭제되었습니다");
+                        location.reload();
+                    }
+                });
+            }
+        });
+
         $("[name=historyType][value=all]").trigger("click");
 
         function initHistoryTable(typeArr){
@@ -138,6 +154,7 @@
                         // template = template.replace("#{type}", row.type);
                         template = template.replace("#{modifier}", row.modifier == null ? "" : row.modifier);
                         template = template.replace("#{content}", row.content);
+                        template = template.replace("#{id}", row.id);
                         $("#historyArea").append(template);
                         $("#historyArea").find("[name='hType[]']").eq(i).val(row.type);
                     }
@@ -232,7 +249,7 @@
 
 <table  style="display: none;">
     <tbody class="historyTemplate">
-    <tr>
+    <tr class="historyInx">
         <td><input type="text" class="form-control" value="#{regDate}"/></td>
         <td>
             <input type="hidden" class="form-control" name="historyId[]" value="#{id}"/>
@@ -248,13 +265,14 @@
             </select>
         </td>
         <td><input type="text" class="form-control" name="historyContent[]" value="#{content}"/></td>
+        <td><input type="button" class="btn btn-secondary historyDel" id="#{id}" name="historyDel[]" value="X"/></td>
     </tr>
     </tbody>
 </table>
 
 <table style="display: none;">
     <tbody class="newHistoryTemplate">
-    <tr>
+    <tr class="historyInx">
         <td><input type="text" class="form-control" readonly/></td>
         <td>
             <input type="hidden" class="form-control" name="historyId[]" readonly/>
@@ -270,6 +288,7 @@
             </select>
         </td>
         <td><input type="text" class="form-control" name="historyContent[]"></td>
+        <td><input type="button" class="btn btn-secondary historyDel" name="historyDel[]" value="X"/></td>
     </tr>
     </tbody>
 </table>
@@ -415,6 +434,7 @@
                         <th width="2%">결제정보</th>
                         <th width="5%">발송현황</th>
                         <th width="6%">상태</th>
+                        <th width="6%">결제</th>
                         <th width="6%">-</th>
                     </tr>
                     </thead>
@@ -524,6 +544,33 @@
                                 </select>
                             </td>
                             <td>
+                                <button type="button" class="btn btn-sm <?
+                                    switch($subItem["paymentResult"]){
+                                        case "0":
+                                            echo "btn-danger";
+                                            break;
+                                        case "1":
+                                            echo "btn-primary";
+                                            break;
+                                        case "2":
+                                            echo "btn-success";
+                                            break;
+                                    }
+                                ?>"><?
+                                        switch($subItem["paymentResult"]){
+                                            case "0":
+                                                echo "실패";
+                                                break;
+                                            case "1":
+                                                echo "성공";
+                                                break;
+                                            case "2":
+                                                echo "처리중";
+                                                break;
+                                        }
+                                    ?></button>
+                            </td>
+                            <td>
                                 <button type="button" class="btn btn-sm btn-secondary jSaveSub" id="<?=$subItem["id"]?>">저장</button>
                             </td>
                         </tr>
@@ -544,6 +591,7 @@
                         <th>후원집회명</th>
                         <th>가격</th>
                         <th>결제정보</th>
+                        <th>결제</th>
                         <th>-</th>
                     </tr>
                     </thead>
@@ -612,6 +660,33 @@
                                 else if($supItem["pmType"] == "FC") echo "해외신용";
                                 echo "/ " . $supItem["info"];
                                 ?>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm <?
+                                switch($subItem["paymentResult"]){
+                                    case "0":
+                                        echo "btn-danger";
+                                        break;
+                                    case "1":
+                                        echo "btn-primary";
+                                        break;
+                                    case "2":
+                                        echo "btn-success";
+                                        break;
+                                }
+                                ?>"><?
+                                    switch($subItem["paymentResult"]){
+                                        case "0":
+                                            echo "실패";
+                                            break;
+                                        case "1":
+                                            echo "성공";
+                                            break;
+                                        case "2":
+                                            echo "처리중";
+                                            break;
+                                    }
+                                    ?></button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-secondary jSaveSup" id="<?=$supItem["id"]?>">저장</button>
@@ -686,7 +761,8 @@
                         <th style="width: 25%">등록일시</th>
                         <th style="width: 10%">상담ID</th>
                         <th style="width: 10%">상담유형</th>
-                        <th style="width: 55%">내용</th>
+                        <th style="width: 50%">내용</th>
+                        <th style="width: 5%">-</th>
                     </tr>
                     </thead>
                     <tbody id="historyArea">
