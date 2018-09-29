@@ -12,11 +12,11 @@
 <?
     $obj = new WebUser($_REQUEST);
     $info = $obj->customerInfo();
-//    echo json_encode($info);
 
     $userInfo = $info["userInfo"];
     $subscriptionInfo = $info["subscriptionInfo"];
     $supportInfo = $info["supportInfo"];
+    $paymentInfo = $info["paymentInfo"];
 
     if($_COOKIE["btLocale"] == "kr") {
         $currency = "₩";
@@ -40,6 +40,7 @@
     $(document).ready(function(){
         var id = "<?=$userInfo["id"]?>";
         var type = "<?=$userInfo["type"]?>";
+        var locale = "<?=$_COOKIE["btLocale"]?>";
         $(".datepicker").datepicker({
             yearRange: "-100:",
             showMonthAfterYear:true,
@@ -125,6 +126,12 @@
         $(".jView").click(function(){
             location.href = "/web/pages/mySubscription.php";
         });
+
+        if(locale !== "kr"){
+            $(".jAddress").hide();
+            $("[name=addr]").attr("readonly", false);
+            $("[name=zipcode]").attr("readonly", false);
+        }
     });
 </script>
 
@@ -148,10 +155,10 @@
             </div>
             <div class="8u$ 12u$(small) align-left">
                 <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["email"]?></h3>
-                <input class="smallTextBox" type="password" name="userPW" id="userPW" placeholder="현재 비밀번호" />
-                <input class="smallTextBox" type="password" name="newPW" id="newPW" placeholder="신규 비밀번호" />
-                <input class="smallTextBox" type="password" name="newPWC" id="newPWC" placeholder="신규 비밀번호 확인" />
-                <h5>*  띄어쓰기 없이 영문, 숫자, 특수문자 3가지 조합으로 5~15자 이내(대소문자 구별)로 입력해주세요.</h5>
+                <input class="smallTextBox" type="password" name="userPW" id="userPW" placeholder="<?=$MYPAGE_ELEMENTS["input"]["cPass"]?>" />
+                <input class="smallTextBox" type="password" name="newPW" id="newPW" placeholder="<?=$MYPAGE_ELEMENTS["input"]["nPass"]?>" />
+                <input class="smallTextBox" type="password" name="newPWC" id="newPWC" placeholder="<?=$MYPAGE_ELEMENTS["input"]["nPassConfirm"]?>" />
+                <h5><?=$MYPAGE_ELEMENTS["input"]["text"]?></h5>
             </div>
 
             <?if($userInfo["type"] == "1"){?>
@@ -160,13 +167,13 @@
                 </div>
                 <div class="8u$ 12u$(small) align-left">
                     <h3 style="color:black;" class="nanumGothic" ><?=$userInfo["name"]?></h3>
-                    <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="휴대폰 번호" value="<?=$userInfo["phone"]?>"/>
+                    <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="<?=$MYPAGE_ELEMENTS["input"]["phone"]?>" value="<?=$userInfo["phone"]?>"/>
 
-                    <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="우편번호" value="<?=$userInfo["zipcode"]?>" readonly/>
+                    <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="<?=$MYPAGE_ELEMENTS["input"]["zip"]?>" value="<?=$userInfo["zipcode"]?>" readonly/>
                     <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
-                    <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="주소" value="<?=$userInfo["addr"]?>" readonly/>
-                    <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" value="<?=$userInfo["addrDetail"]?>" />
-                    <input class="smallTextBox datepicker" type="text" name="birth" id="birth" placeholder="생년월일" value="<?=$userInfo["birth"]?>" />
+                    <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="<?=$MYPAGE_ELEMENTS["input"]["addr"]?>" value="<?=$userInfo["addr"]?>" readonly/>
+                    <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="<?=$MYPAGE_ELEMENTS["input"]["addrDetail"]?>" value="<?=$userInfo["addrDetail"]?>" />
+                    <input class="smallTextBox datepicker" type="text" name="birth" id="birth" placeholder="<?=$MYPAGE_ELEMENTS["input"]["birth"]?>" value="<?=$userInfo["birth"]?>" />
                 </div>
             <?}else if($userInfo["type"] == "2"){?>
                 <div class="4u 12u$(small)">
@@ -192,7 +199,7 @@
             <?}?>
 
             <div class="4u 12u$(small)">
-                <h2 class="nanumGothic">이메일 / SMS 수신</h2>
+                <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["noti"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left" style="margin-top : 1em;">
                 <input type="radio" id="noti_on" name="notiFlag" value="1" <?=$userInfo["notiFlag"] == "1" ? "checked" : ""?>>
@@ -205,7 +212,41 @@
                 <h2 class="nanumGothic"><?=$MYPAGE_ELEMENTS["menu"]["payMethod"]?></h2>
             </div>
             <div class="8u$ 12u$(small) align-left">
-                <h3 class="nanumGothic">카드사/계좌이체/직접입금 &nbsp;&nbsp; 카드번호 앞 네자리</h3>
+<!--                <h3 class="nanumGothic">카드사/계좌이체/직접입금 &nbsp;&nbsp; 카드번호 앞 네자리</h3>-->
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>결제유형</th>
+                        <th>카드번호/계좌번호</th>
+                        <th>카드사/은행</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?for($i=0; $i<sizeof($paymentInfo); $i++){?>
+                        <tr>
+                            <td><?=$i+1?></td>
+                            <td>
+                                <?
+                                    switch($paymentInfo[$i]["pmType"]){
+                                        case "CC":
+                                            echo "신용카드";
+                                            break;
+                                        case "BA":
+                                            echo "계좌이체";
+                                            break;
+                                        case "FC":
+                                            echo "해외신용카드";
+                                            break;
+                                    }
+                                ?>
+                            </td>
+                            <td><?=$paymentInfo[$i]["info"]?></td>
+                            <td><?=$paymentInfo[$i]["cardTypeDesc"] . $paymentInfo[$i]["bankTypeDesc"]?></td>
+                        </tr>
+                    <?}?>
+                    </tbody>
+                </table>
             </div>
 
             <div class="4u 12u$(small)">
@@ -262,6 +303,7 @@
                     <tr>
                         <th>No.</th>
                         <th>후원자명</th>
+                        <th>후원국가</th>
                         <th>시작한 날짜</th>
                         <th>금액</th>
                     </tr>
@@ -271,6 +313,7 @@
                         <tr>
                             <td><?=$i+1?></td>
                             <td><?=$supportInfo[$i]["rName"]?></td>
+                            <td><?=$supportInfo[$i]["nation"]?></td>
                             <td><?=$supportInfo[$i]["regDate"]?></td>
                             <td><?=number_format($supportInfo[$i]["totalPrice"], $decimal)?></td>
                         </tr>

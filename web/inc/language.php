@@ -64,12 +64,21 @@
             "ordinary" => $langJson->mypage_ordinaryMenu,
             "church" => $langJson->mypage_churchMenu,
             "charge" => $langJson->mypage_chargeMenu,
+            "noti" => $langJson->mypage_notiMenu,
             "payMethod" => $langJson->mypage_payMethodMenu,
             "subscription" => $langJson->mypage_subscriptionMenu,
             "support" => $langJson->mypage_supportMenu
         ),
         "input" => Array(
-
+            "cPass" => $langJson->mypage_cPass,
+            "nPass" => $langJson->mypage_nPass,
+            "nPassConfirm" => $langJson->mypage_nPassConfirm,
+            "phone" => $langJson->mypage_phone,
+            "zip" => $langJson->mypage_zip,
+            "addr" => $langJson->mypage_addr,
+            "addrDetail" => $langJson->mypage_addrDetail,
+            "birth" => $langJson->mypage_birth,
+            "text" => $langJson->mypage_passText
         ),
         "tableMenu" => Array(
 

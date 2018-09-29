@@ -738,6 +738,10 @@
                         <td><input type="text" class="form-control langValue" key="mypage_chargeMenu" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
                     <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_notiMenu">메뉴[이메일/SMS수신]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_notiMenu" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
                         <td class="bg-secondary text-light langKey" key="mypage_payMethodMenu">메뉴[결제 정보]</td>
                         <td><input type="text" class="form-control langValue" key="mypage_payMethodMenu" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
@@ -749,6 +753,50 @@
                         <td class="bg-secondary text-light langKey" key="mypage_supportMenu">메뉴[후원내역]</td>
                         <td><input type="text" class="form-control langValue" key="mypage_supportMenu" value="" placeholder="내용을 입력하세요" /></td>
                     </tr>
+
+
+
+
+
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_cPass">placeholder[현재 비밀번호]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_cPass" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_nPass">placeholder[신규 비밀번호]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_nPass" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_nPassConfirm">placeholder[신규 비밀번호 확인]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_nPassConfirm" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_passText">문구[비밀번호]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_passText" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_phone">placeholder[휴대폰 번호]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_phone" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_zip">placeholder[우편 번호]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_zip" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_addr">placeholder[주소]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_addr" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_addrDetail">placeholder[주소 상세]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_addrDetail" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+                    <tr class="h-auto">
+                        <td class="bg-secondary text-light langKey" key="mypage_birth">placeholder[생년월일]</td>
+                        <td><input type="text" class="form-control langValue" key="mypage_birth" value="" placeholder="내용을 입력하세요" /></td>
+                    </tr>
+
                 </table>
             </div>
             </div>

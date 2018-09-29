@@ -211,7 +211,23 @@ if(! class_exists("WebUser") ){
             $userInfo = $this->getRow($sql);
 
             //TODO 결제 정보
-            $paymentInfo = null;
+            $sql = "
+                SELECT 
+                  *,
+                  (SELECT `desc` FROM tblCardType WHERE id = cardTypeId) as cardTypeDesc,
+                  (SELECT `desc` FROM tblBankType WHERE code = bankCode) as bankTypeDesc
+                FROM(
+                    SELECT PM1.id, cardTypeId, bankCode, validThruYear, validThruMonth, ownerName, monthlyDate, PM1.type AS pmType, info, totalPrice, PM1.regDate, P1.regDate AS paymentDate, 'SUB' AS productType, primeJumin
+                    FROM tblPayMethod PM1 JOIN tblPayment P1 ON PM1.`id` = P1.`payMethodId` JOIN tblSubscription SUB ON SUB.paymentId = P1.id
+                    WHERE SUB.customerId = '{$id}'
+                    UNION ALL
+                    SELECT PM2.id, cardTypeId, bankCode, validThruYear, validThruMonth, ownerName, monthlyDate, PM2.type AS pmType, info, totalPrice, PM2.regDate, P2.regDate AS paymentDate, 'SUP' AS productType, primeJumin 
+                    FROM tblPayMethod PM2 JOIN tblPayment P2 ON PM2.`id` = P2.`payMethodId` JOIN tblSupport SUP ON SUP.paymentId = P2.id
+                    WHERE SUP.customerId = '{$id}'
+                ) tmp
+                ORDER BY regDate DESC
+            ";
+            $paymentInfo = $this->getArray($sql);
 
             $sql = "
                 SELECT *, (SELECT `name` FROM tblPublicationLang PL WHERE PL.publicationId = S.publicationId AND langCode = '{$locale}' LIMIT 1) publicationName 
@@ -222,10 +238,10 @@ if(! class_exists("WebUser") ){
             $subscriptionInfo = $this->getArray($sql);
 
             $sql = "
-                SELECT *
-                FROM tblSupport
-                WHERE `customerId` = '{$id}'
-                ORDER BY regDate DESC
+                SELECT S.*, PM.info, PM.type as pmType, (SELECT `name` FROM tblNationLang WHERE nationId = (SELECT nationId FROM tblSupportParent WHERE `id` = S.parentId) AND lang = '{$_COOKIE["btLocale"]}') nation, P.paymentResult
+                FROM tblSupport S LEFT JOIN tblPayment P ON S.paymentId = P.id LEFT JOIN tblPayMethod PM ON PM.id = P.payMethodId
+                WHERE S.customerId = '{$id}'
+                ORDER BY S.regDate DESC
             ";
             $supportInfo = $this->getArray($sql);
             $retVal = Array(

@@ -107,8 +107,21 @@
                     alert("휴대전화번호는 필수 입력 항목입니다.");
                     return;
                 }
-                if($("[name=name]").val() == ""){
-                    alert("성함은 필수 입력 항목입니다.");
+
+                if($("[name=ownerName]").val() == ""){
+                    alert("카드/계좌주를 입력해 주시길 바랍니다.");
+                    return;
+                }
+                if($("[name=birth]").val() == ""){
+                    alert("생년월일을 입력해 주시길 바랍니다.");
+                    return;
+                }
+                if($("[name=info]").val() == ""){
+                    alert("계좌번호를 입력해 주시길 바랍니다.");
+                    return;
+                }
+                if($("[name=bankType]").val() == ""){
+                    alert("은행을 입력해 주시길 바랍니다.");
                     return;
                 }
 
@@ -247,6 +260,32 @@
                 if($("[name=name]").val() == ""){
                     alert("성함은 필수 입력 항목입니다.");
                     return;
+                }
+
+                if(locale == "kr"){
+                    if($("[name=ownerName]").val() == ""){
+                        alert("카드/계좌주를 입력해 주시길 바랍니다.");
+                        return;
+                    }
+                    if($("[name=cardType]").val() == ""){
+                        alert("카드사를 입력해 주시길 바랍니다.");
+                        return;
+                    }
+                    if($("[name=card1]").val() == "" || $("[name=card2]").val() == "" || $("[name=card3]").val() == "" || $("[name=card4]").val() == ""){
+                        alert("카드번호를 입력해 주시길 바랍니다.");
+                        return;
+                    }
+                    if($("[name=validThruYear]").val() == "" || $("[name=validThruMonth]").val() == ""){
+                        alert("유효년월을 입력해 주시길 바랍니다.");
+                        return;
+                    }
+                } else{
+                  if($("[name=firstName]").val() == "" || $("[name=lastName]").val() == "" || $("[name=aAddr]").val() == "" || $("[name=aCity]").val() == "" ||
+                      $("[name=sState]").val() == "" || $("[name=aZip]").val() == "" || $("[name=cardForeign]").val() == "" || $("[name=validThruYearF]").val() == "" ||
+                      $("[name=validThruYearF]").val() == ""){
+                      alert("please fill in required information");
+                      return;
+                  }
                 }
 
                 var ajax = new AjaxSubmit("/route.php?cmd=WebSupport.setSupportInfo", "post", true, "json", "#form");
@@ -465,7 +504,7 @@
                     <input class="smallTextBox" type="text" name="aAddr" placeholder="address"/>
                     <input class="smallTextBox" type="text" name="aCity" placeholder="city"/>
                     <input class="smallTextBox" type="text" name="aState" placeholder="state"/>
-                    <input class="smallTextBox" type="text" name="aState" placeholder="zip"/>
+                    <input class="smallTextBox" type="text" name="aZip" placeholder="zip"/>
                     <input class="smallTextBox" type="text" name="cardForeign" placeholder="card number"/>
                     <div class="row">
                         <div class="select-wrapper" style="width:40%;">
