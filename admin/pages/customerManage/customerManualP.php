@@ -244,10 +244,12 @@ $bankTypeList = $management->bankTypeList();
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">파일</span>
                     </div>
-                    <select class="form-control" name="fileType">
-                        <option value="jpg">이미지</option>
-                        <option value="jpg">음성</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <select class="form-control" name="fileType">
+                            <option value="jpg">이미지</option>
+                            <option value="jpg">음성</option>
+                        </select>
+                    </div>
                     <input type="file" name="signatureFile"/>
                 </div>
             </div>
