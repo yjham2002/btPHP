@@ -15,15 +15,6 @@ $obj = new WebSupport($_REQUEST);
 $management = new Management($_REQUEST);
 $item = $obj->supportDetail();
 
-if($_COOKIE["btLocale"] == "kr") {
-    $currency = "₩";
-    $decimal = 0;
-}
-else{
-    $currency = "$";
-    $decimal = 2;
-}
-
 $cardTypeList = $management->cardTypeList();
 $bankTypeList = $management->bankTypeList();
 ?>
@@ -49,76 +40,8 @@ $bankTypeList = $management->bankTypeList();
             monthNames:['1월','2월','3월','4월','5월','6월','7 월','8월','9월','10월','11월','12월'],
             monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
         });
-        var user = "<?=$user->id?>";
-
-        var currency = "<?=$currency?>";
-        var decimal = "<?=$decimal?>";
-        var emailCheck = "<?=$user->id == "" ? -1 : 1?>";
-        var locale = "<?=$_COOKIE["btLocale"]?>";
-
-        /**
-         * Canvas Start
-         */
-        var canvas = document.getElementById("canvas");
-        if(typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas);}
-        context = canvas.getContext("2d");
-        var canvasWidth = $("#canvas").parent().parent().width() - ($("#canvas").parent().parent().innerWidth() - $("#canvas").parent().parent().width());
-        canvas.setAttribute('width', canvasWidth);
-
-        $('#canvas').mousedown(function(e){
-            var mouseX = e.pageX - this.offsetLeft;
-            var mouseY = e.pageY - this.offsetTop;
-            paint = true;
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-            redraw();
-        });
-        $('#canvas').mousemove(function(e){
-            if(paint){
-                addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-                redraw();
-            }
-        });
-        $('#canvas').mouseup(function(e){
-            paint = false;
-        });
-        $('#canvas').mouseleave(function(e){
-            paint = false;
-        });
-
-        $(".jRedraw").click(function(){
-            clickX = [];
-            clickY = [];
-            clickDrag = [];
-            redraw();
-        });
 
         $(".jOrderAlter").click(function(){
-            if(emailCheck != 1){
-                alert("이메일 중복 체크를 해주시길 바랍니다.");
-                return;
-            }
-            if($("[name=phone]").val() == ""){
-                alert("휴대전화번호는 필수 입력 항목입니다.");
-                return;
-            }
-
-            if($("[name=ownerName]").val() == ""){
-                alert("카드/계좌주를 입력해 주시길 바랍니다.");
-                return;
-            }
-            if($("[name=birth]").val() == ""){
-                alert("생년월일을 입력해 주시길 바랍니다.");
-                return;
-            }
-            if($("[name=info]").val() == ""){
-                alert("계좌번호를 입력해 주시길 바랍니다.");
-                return;
-            }
-            if($("[name=bankType]").val() == ""){
-                alert("은행을 입력해 주시길 바랍니다.");
-                return;
-            }
-
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
             ctx.font = "30px arial";
@@ -164,137 +87,20 @@ $bankTypeList = $management->bankTypeList();
 
         });
 
-        var clickX = new Array();
-        var clickY = new Array();
-        var clickDrag = new Array();
-        var paint;
-
-        function addClick(x, y, dragging) {
-            clickX.push(x);
-            clickY.push(y);
-            clickDrag.push(dragging);
-        }
-
-        function redraw(){
-            context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-
-            context.fillStyle = "white";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-
-            context.strokeStyle = "#222222";
-            context.lineJoin = "round";
-            context.lineWidth = 5;
-
-            for(var i=0; i < clickX.length; i++) {
-                context.beginPath();
-                if(clickDrag[i] && i){
-                    context.moveTo(clickX[i-1], clickY[i-1]);
-                }else{
-                    context.moveTo(clickX[i]-1, clickY[i]);
-                }
-                context.lineTo(clickX[i], clickY[i]);
-                context.closePath();
-                context.stroke();
-            }
-        }
-        /**
-         * Canvas End
-         */
-
-        setPrice(5);
-        if(user > 1){
-            setReadonly("[name=name]");
-            setReadonly("[name=phone]");
-            setReadonly("[name=email]");
-        }
-
-        $("#jCnt").change(function(){
-            setPrice($(this).val());
-        });
-
-        function setPrice(cnt){
-            var price = 2000;
-            var value = cnt * price;
-
-            $(".jPriceTarget").text(currency + value.format());
-            $("[name=totalPrice]").val(value);
-        }
-
-        function setReadonly(selector){
-            $(selector).attr("readonly", true);
-        }
-
-        $(".jCheckEmail").click(function(){
-            var email = $("[name=email]").val();
-            if(verifyEmail(email) === false){
-                alert("이메일 형식에 맞춰서 작성해 주시기 바랍니다.");
-                return;
-            }
-
-            var ajax = new AjaxSender("/route.php?cmd=WebUser.checkEmail", false, "json", new sehoMap().put("email", email));
-            ajax.send(function(data){
-                if(data.returnCode !== 1){
-                    alert("이미 사용중인 이메일입니다. 로그인 후 구독신청해주세요\n" +
-                        "문의 1644-9159");
-                    location.href = "/web/pages/login.php";
-                }
-                else emailCheck = 1;
-            })
-        });
-
         $(".jOrder").click(function(){
-            if(emailCheck != 1){
-                alert("이메일 중복 체크를 해주시길 바랍니다.");
-                return;
-            }
-            if($("[name=phone]").val() == ""){
-                alert("휴대전화번호는 필수 입력 항목입니다.");
-                return;
-            }
-            if($("[name=name]").val() == ""){
-                alert("성함은 필수 입력 항목입니다.");
-                return;
-            }
-
-            if(locale == "kr"){
-                if($("[name=ownerName]").val() == ""){
-                    alert("카드/계좌주를 입력해 주시길 바랍니다.");
-                    return;
-                }
-                if($("[name=cardType]").val() == ""){
-                    alert("카드사를 입력해 주시길 바랍니다.");
-                    return;
-                }
-                if($("[name=card1]").val() == "" || $("[name=card2]").val() == "" || $("[name=card3]").val() == "" || $("[name=card4]").val() == ""){
-                    alert("카드번호를 입력해 주시길 바랍니다.");
-                    return;
-                }
-                if($("[name=validThruYear]").val() == "" || $("[name=validThruMonth]").val() == ""){
-                    alert("유효년월을 입력해 주시길 바랍니다.");
-                    return;
-                }
-            } else{
-                if($("[name=firstName]").val() == "" || $("[name=lastName]").val() == "" || $("[name=aAddr]").val() == "" || $("[name=aCity]").val() == "" ||
-                    $("[name=sState]").val() == "" || $("[name=aZip]").val() == "" || $("[name=cardForeign]").val() == "" || $("[name=validThruYearF]").val() == "" ||
-                    $("[name=validThruYearF]").val() == ""){
-                    alert("please fill in required information");
-                    return;
-                }
-            }
-
             var ajax = new AjaxSubmit("/route.php?cmd=WebSupport.setSupportInfo", "post", true, "json", "#form");
             ajax.send(function(data){
                 if(data.returnCode === 1){
                     console.log(data);
                     alert("후원신청이 완료되었습니다.");
-                    location.href = "/web";
+                    location.href = "/admin/pages/customerManage/customerDetail.php?id=<?=$_REQUEST["customerId"]?>";
                 }
                 else alert("저장 실패");
             });
         });
 
         $(".jPayType").click(function(){
-            $("[name=paymentType]").val($(this).attr("type"));
+            $("[name=paymentType]").val($(this).attr("typeP"));
 
             $(".jPayType").removeClass("selected");
             $(this).addClass("selected");
@@ -340,17 +146,12 @@ $bankTypeList = $management->bankTypeList();
 
         <form method="post" id="form" action="#" enctype="multipart/form-data">
             <input type="hidden" name="parentId" value="<?=$item["parentId"]?>" />
-            <input type="hidden" name="customerId" value="<?=$user->id?>"/>
+            <input type="hidden" name="customerId" value="<?=$_REQUEST["customerId"]?>"/>
             <input type="hidden" name="type" value="<?=$_REQUEST["type"]?>" />
             <input type="hidden" name="totalPrice" value="" />
             <input type="hidden" name="nationId" value="<?=$item["nationId"]?>"/>
             <input type="hidden" name="paymentType" value=""/>
             <div class="row uniform" style="margin : 0 1em;">
-                <div class="6u 12u$(small)">
-                    <div class="image fit">
-                        <img src="<?=$obj->fileShowPath.$item["titleImg"]?>" style="margin : 0 auto; max-width:10em;" />
-                    </div>
-                </div>
                 <div class="6u 12u$(small) align-left">
                     <text class="roundButton captionBtn">후원</text><br/><br/>
                     <div class="row">

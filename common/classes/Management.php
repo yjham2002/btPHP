@@ -1161,9 +1161,11 @@ if(!class_exists("Management")){
             if($paymentType == "BA"){
                 $fileType = $_REQUEST["fileType"];
 
+                $af_kind = $fileType == "jpg" ? 1 : 4;
+
                 $check = file_exists($_FILES['signatureFile']['tmp_name']);
                 if($check !== false){
-                    $fName = "bt" . $this->makeFileName() . "." . $fileType;
+                    $fName = "bt" . $this->makeFileName() . "." . pathinfo(basename($_FILES["signatureFile"]["name"]),PATHINFO_EXTENSION);
                     $targetDir = $_SERVER["DOCUMENT_ROOT"]."/uploadFiles/" . $fName;
                     $fileName = $fName;
                     if(move_uploaded_file($_FILES["signatureFile"]["tmp_name"], $targetDir)){
@@ -1193,7 +1195,7 @@ if(!class_exists("Management")){
                             $_REQUEST["bankType"],
                             $_REQUEST["info"],
                             $tmpSdate,
-                            1,
+                            $af_kind,
                             $fName,
                             2
                         );

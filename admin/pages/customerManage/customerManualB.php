@@ -391,7 +391,7 @@
             </div>
 
         </form>
-        <button class="btn btn-secondary mt-5 jOrder">저장</button>
+        <button class="btn btn-secondary mt-5 mb-2 jOrder">저장</button>
     </div>
 </div>
 
