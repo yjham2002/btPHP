@@ -42,55 +42,6 @@
             monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
         });
 
-        $(".jOrderAlter").click(function(){
-            var canvas = document.getElementById("canvas");
-            var ctx = canvas.getContext("2d");
-            ctx.font = "30px arial";
-            context.fillStyle = "black";
-            var name = $("[name=ownerName]").val();
-            var birth = $("[name=birth]").val();
-            var account = $("[name=info]").val();
-            var bankType = $(".jBtype:selected").attr("desc");
-            ctx.fillText(name, 20, 50);
-            ctx.fillText(birth, 20, 80);
-            ctx.fillText(account, 20, 110);
-            ctx.fillText(bankType, 20, 140);
-
-            canvas.toBlob(function(blob) {
-                var fd = new FormData($("#form")[0]);
-                fd.append("signatureFile", blob);
-                if(confirm("저장하시겠습니까?")){
-                    $.ajax({
-                        url: "/route.php?cmd=WebSubscription.setSubscriptionInfo",
-                        type : "post",
-                        method : "post",
-                        cache : false,
-                        data : fd,
-                        contentType : false,
-                        processData : false,
-                        dataType : "json",
-                        success : function(data){
-                            console.log(data);
-                            if(data.returnCode === 1){
-                                redraw();
-                                alert("구독신청이 완료되었습니다.");
-                                location.href = "/web";
-                            }
-                            else alert("구독 신청에 실패하였습니다.");
-                        },
-                        error : function(req, res, error){
-                            alert(req+res+error);
-                        }
-                    });
-                }
-            });
-
-        });
-
-        function setReadonly(selector){
-            $(selector).attr("readonly", true);
-        }
-
         $(".jRAddress").click(function(){
             new daum.Postcode({
                 oncomplete: function(data){
@@ -126,7 +77,6 @@
 
             if($(this).attr("typeP") == "FC") $("[name=ownerName]").hide();
             else $("[name=ownerName]").show();
-
         });
 
         $(".jPayType").eq(0).trigger("click");
@@ -152,7 +102,6 @@
 
             <div class="row uniform mb-3 ml-3">
                 <div class="6u 12u$(small) align-left">
-                    <text class="roundButton captionBtn">구독신청</text><br/><br/>
                     <div class="row">
                         <div class="select-wrapper">
                             <select name="publicationId">

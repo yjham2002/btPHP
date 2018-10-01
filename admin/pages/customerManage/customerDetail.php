@@ -215,7 +215,7 @@
         });
 
         $(".jPaySUP").click(function(){
-            location.href = "/admin/pages/customerManage/customerManualP.php?customerId=" + "<?=$_REQUEST["id"]?>";
+            location.href = "/admin/pages/customerManage/customerManualP.php?customerId=" + "<?=$_REQUEST["id"]?>&type=<?=$userInfo["type"]?>";
         });
 
         $(".jSaveSup").click(function(){
