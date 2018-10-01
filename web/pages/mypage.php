@@ -170,7 +170,7 @@
                     <input class="smallTextBox" type="text" name="phone" id="phone" placeholder="<?=$MYPAGE_ELEMENTS["input"]["phone"]?>" value="<?=$userInfo["phone"]?>"/>
 
                     <input class="smallTextBox" type="text" name="zipcode" id="zipcode" placeholder="<?=$MYPAGE_ELEMENTS["input"]["zip"]?>" value="<?=$userInfo["zipcode"]?>" readonly/>
-                    <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>
+                    <a href="#" class="grayButton roundButton innerButton jAddress">주소찾기</a>g
                     <input class="smallTextBox" type="text" name="addr" id="addr" placeholder="<?=$MYPAGE_ELEMENTS["input"]["addr"]?>" value="<?=$userInfo["addr"]?>" readonly/>
                     <input class="smallTextBox" type="text" name="addrDetail" id="addrDetail" placeholder="<?=$MYPAGE_ELEMENTS["input"]["addrDetail"]?>" value="<?=$userInfo["addrDetail"]?>" />
                     <input class="smallTextBox datepicker" type="text" name="birth" id="birth" placeholder="<?=$MYPAGE_ELEMENTS["input"]["birth"]?>" value="<?=$userInfo["birth"]?>" />

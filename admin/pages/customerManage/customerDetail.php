@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Management.php";?>
 <? include_once $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
@@ -210,6 +210,14 @@
             });
         });
 
+        $(".jPaySUB").click(function(){
+            location.href = "/admin/pages/customerManage/customerManualB.php?id=" + "<?=$_REQUEST["id"]?>";
+        });
+
+        $(".jPaySUP").click(function(){
+            location.href = "/admin/pages/customerManage/customerManualP.php?id=" + "<?=$_REQUEST["id"]?>";
+        });
+
         $(".jSaveSup").click(function(){
             var id = $(this).attr("id");
             var index = $(".jSaveSup").index($(this));
@@ -305,11 +313,16 @@
         </ol>
 
         <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
-            <button type="button" class="float-right btn btn-danger mr-5 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
-            <button type="button" class="float-right btn btn-primary mr-5 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
+            <button type="button" class="float-right btn btn-danger mr-1 jNoti" value="0" style="display: none;">문자/이메일 수신여부</button>
+            <button type="button" class="float-right btn btn-primary mr-1 jNoti" value="1" style="display: none;">문자/이메일 수신여부</button>
 <!--            <button type="button" class="btn btn-secondary mr-2">결제 처리중</button>-->
-            <button type="button" class="btn btn-secondary mr-2 jLost">LOST</button>
-            <button type="button" class="btn btn-danger mr-2 jDel" id="<?=$_REQUEST["id"]?>">삭제</button>
+            <button type="button" class="btn btn-secondary mr-1 jLost">LOST</button>
+            <button type="button" class="btn btn-danger jDel" id="<?=$_REQUEST["id"]?>">삭제</button>
+        </div>
+
+        <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
+            <button type="button" class="btn-sm btn-outline-secondary mr-1 jPaySUB">구독입력</button>
+            <button type="button" class="btn-sm btn-outline-secondary mr-2 jPaySUP">후원입력</button>
         </div>
 
         <h2><?=$userInfo["cName"] == "" ? $userInfo["name"] : $userInfo["cName"]?></h2>
@@ -783,4 +796,4 @@
     </div>
 </div>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>
