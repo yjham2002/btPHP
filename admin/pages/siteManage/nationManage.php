@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/Uncallable.php";?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
@@ -178,6 +178,7 @@ $list = $obj->getSupportParents($nid);
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
+                <th width="20%">고유관리번호</th>
                 <th width="40%">후원 게시글 제목(관리용)</th>
                 <th width="30%">등록일시</th>
                 <th>-</th>
@@ -186,6 +187,7 @@ $list = $obj->getSupportParents($nid);
             <tbody>
             <?foreach($list as $item){?>
                 <tr class="" id="<?=$item["id"]?>">
+                    <td><?=$item["id"]?></td>
                     <td><?=$item["title"]?></td>
                     <td><?=$item["regDate"]?></td>
                     <td>
@@ -201,4 +203,4 @@ $list = $obj->getSupportParents($nid);
 </div>
 
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>

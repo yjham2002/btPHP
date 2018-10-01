@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/header.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/header.php"; ?>
 <? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminMain.php";?>
 <?
     $obj = new AdminMain($_REQUEST);
@@ -111,6 +111,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
+                    <th>고유관리번호</th>
                     <th>간행물명(관리용)</th>
                     <th>등록일시</th>
                     <th>-</th>
@@ -119,6 +120,7 @@
                 <tbody>
                 <?foreach($list as $item){?>
                     <tr id="<?=$item["id"]?>">
+                        <td><?=$item["id"]?></td>
                         <td><?=$item["desc"]?></td>
                         <td><?=$item["regDate"]?></td>
                         <td>
@@ -134,4 +136,4 @@
     </div>
 
 
-<? include_once $_SERVER['DOCUMENT_ROOT']."/admin/inc/footer.php"; ?>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . "/admin/inc/footer.php"; ?>

@@ -211,11 +211,11 @@
         });
 
         $(".jPaySUB").click(function(){
-            location.href = "/admin/pages/customerManage/customerManualB.php?id=" + "<?=$_REQUEST["id"]?>";
+            location.href = "/admin/pages/customerManage/customerManualB.php?customerId=" + "<?=$_REQUEST["id"]?>&type=<?=$userInfo["type"]?>";
         });
 
         $(".jPaySUP").click(function(){
-            location.href = "/admin/pages/customerManage/customerManualP.php?id=" + "<?=$_REQUEST["id"]?>";
+            location.href = "/admin/pages/customerManage/customerManualP.php?customerId=" + "<?=$_REQUEST["id"]?>";
         });
 
         $(".jSaveSup").click(function(){

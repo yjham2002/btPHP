@@ -21,7 +21,7 @@ if(!class_exists("WebSupport")){
         function getSupportMessage($id){
             $sql = "
                 SELECT * FROM tblSupport
-                WHERE `parentId` = '{$id}'
+                WHERE `parentId` = '{$id}' AND message != ''
             ";
             return $this->getArray($sql);
         }
