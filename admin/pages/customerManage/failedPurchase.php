@@ -107,6 +107,27 @@
            location.href = "/admin/pages/customerManage/customerDetail.php?id=" + id;
         });
 
+        $(".jUploadExcel").click(function(){
+            $("[name=docFile]").click();
+        });
+
+        $("[name=docFile]").change(function(){
+            if($(this).val() != ""){
+                $("#spinner").fadeIn();
+                var ajax = new AjaxSubmit("/route.php?cmd=ExcelParser.parsePaymentList", "post", true, "json", "#form");
+                ajax.send(function(data){
+                    if(data.returnCode === 1){
+                        alert("저장되었습니다.");
+                    }else if(data.returnCode == -1){
+                        var err = data.entity;
+                        if(err == null || err == "") err = "#";
+                        alert("파일을 읽는 중 오류가 발생하였습니다. (" + err + ")");
+                    }
+                    $("#spinner").fadeOut();
+                });
+            }
+        });
+
     });
 </script>
 
@@ -123,6 +144,7 @@
 
         <form id="form">
             <input type="hidden" name="page" />
+            <input type="file" name="docFile" style="display: none;"/>
             <div class="btn-group float-left" role="group">
                 <button type="button" class="btn jType <?=$type == "BA" ? "btn-secondary" : ""?>" value="BA">자동이체</button>
                 <button type="button" class="btn jType <?=$type == "CC" ? "btn-secondary" : ""?>" value="CC">카드</button>
@@ -131,7 +153,8 @@
 
             <div class="btn-group float-right mb-2" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary jRefresh">자동이체/해외카드 새로고침</button>
-                <button type="button" class="btn btn-secondary jAlterExcel">Excel</button>
+                <button type="button" class="btn btn-secondary jUploadExcel"><i class="fas fa-upload fa-fw"></i>Excel</button>
+                <button type="button" class="btn btn-secondary jAlterExcel"><i class="fas fa-download fa-fw"></i>Excel</button>
             </div>
         </form>
 
@@ -240,7 +263,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>이름</th>
+                        <th>계좌/카드 소유주</th>
                         <th>카드사</th>
                         <th>카드번호</th>
                         <th>유효월 / 유효년</th>
@@ -254,10 +277,10 @@
                     <tbody>
                     <?foreach($list as $item){?>
                         <tr class="jView" id="<?=$item["customerId"]?>">
-                            <td><?=$item["ownerName"]?></td>
-                            <td><?=$item["cardDesc"]?></td>
-                            <td style='mso-number-format:"\@"'><?=$item["info"]?></td>
-                            <td><?=$item["validThruMonth"] . " / " . $item["validThruYear"]?></td>
+                            <td><?=$item["ownerName"]=="" ? "(미입력)" : $item["ownerName"]?></td>
+                            <td><?=$item["cardDesc"]?><?if($item["cardTypeId"]==-1) echo "(직접입금)";?></td>
+                            <td style='mso-number-format:"\@"'><?=$item["cardTypeId"]==-1 ? "" : $item["info"]?></td>
+                            <td><?=$item["cardTypeId"]==-1 ? "" : $item["validThruMonth"] . " / " . $item["validThruYear"]?></td>
                             <td><?=$item["monthlyDate"]?></td>
                             <td><?=$item["totalPrice"]?></td>
                             <td><?=$item["regDate"]?></td>
