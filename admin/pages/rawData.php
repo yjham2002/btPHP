@@ -59,6 +59,20 @@
            var table = $(this).val();
            location.href = "/admin/pages/rawData.php?table=" + table + "&page=" + page;
        });
+
+       function exists(tbName){
+           var jTables = $(".jTable");
+           for(var e = 0; e < jTables.length; e++){
+               if(tbName == jTables.eq(e).attr("value")) return true;
+           }
+           return false;
+       }
+
+       var optArr = $(".jOpt");
+       for(var e = 0; e < optArr.length; e++){
+           var temp = optArr.eq(e);
+           if(!exists(temp.val())) temp.hide();
+       }
     });
 </script>
 
@@ -78,7 +92,7 @@
             <select class="custom-select jLang" id="inputGroupSelect01">
                 <option value="">선택</option>
                 <?foreach($tables as $item){?>
-                    <option value="<?=$item["TABLE_NAME"]?>" <?=$item["TABLE_NAME"] == $_REQUEST["table"] ? "SELECTED" : ""?>><?=$item["TABLE_NAME"]?></option>
+                    <option class="jOpt" value="<?=$item["TABLE_NAME"]?>" <?=$item["TABLE_NAME"] == $_REQUEST["table"] ? "SELECTED" : ""?>><?=$item["TABLE_NAME"]?></option>
                 <?}?>
             </select>
         </div>
