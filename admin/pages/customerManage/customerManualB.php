@@ -13,6 +13,9 @@
 <?
     $obj = new WebSubscription($_REQUEST);
     $management = new Management($_REQUEST);
+
+    $userMap = $management->customerInfo();
+    $user = $userMap["userInfo"];
     $item = $management->publicationDetail();
     $list = $management->publicationList();
 
@@ -50,6 +53,23 @@
                     $("[name=rAddr]").val(data.address);
                 }
             }).open();
+        });
+
+        $("#jSame").change(function(){
+            var isC = $(this).prop("checked");
+            if(isC){
+                $("[name=rName]").val("<?=$user["name"]?>");
+                $("[name=rPhone]").val("<?=$user["phone"]?>");
+                $("[name=rZipcode]").val("<?=$user["zipcode"]?>");
+                $("[name=rAddr]").val("<?=$user["addr"]?>");
+                $("[name=rAddrDetail]").val("<?=$user["addrDetail"]?>");
+            }else{
+                $("[name=rName]").val("");
+                $("[name=rPhone]").val("");
+                $("[name=rZipcode]").val("");
+                $("[name=rAddr]").val("");
+                $("[name=rAddrDetail]").val("");
+            }
         });
 
         $(".jOrder").click(function(){
@@ -119,6 +139,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="float-right">
+                </label><input type="checkbox" id="jSame" class="form-control" />
+                <label for="jSame"><p>고객정보와 동일</p>
             </div>
 
             <div class="input-group mb-2">

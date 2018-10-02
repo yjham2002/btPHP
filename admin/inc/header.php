@@ -298,4 +298,16 @@ if($userInfo->id < 0 || $userInfo->id == ""){
                 </div>
             </li>
         <?}?>
+        <?if($userInfo->auth >= 2){?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-question"></i>
+                    <span>업무 도우미</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <h6 class="dropdown-header">데이터베이스</h6>
+                    <a class="dropdown-item" href="/admin/pages/rawData.php">조회</a>
+                </div>
+            </li>
+        <?}?>
     </ul>

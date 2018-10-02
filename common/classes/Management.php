@@ -7,7 +7,7 @@
  */
 ?>
 
-<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminBase.php" ;?>
+<? include $_SERVER["DOCUMENT_ROOT"] . "/common/classes/AdminBase.php";?>
 <?
 /*
  * Web process
@@ -103,6 +103,7 @@ if(!class_exists("Management")){
 
         function customerInfo(){
             $id = $_REQUEST["id"];
+            if($id == "") $id = $_REQUEST["customerId"];
 
             $sql = "SELECT * FROM tblCustomer WHERE `id` = '{$id}' LIMIT 1";
             $userInfo = $this->getRow($sql);
